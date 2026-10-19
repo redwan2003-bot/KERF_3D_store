@@ -100,3 +100,7 @@ Current material rates:
 - Confirm images can legally be reused or recreate approved product renders.
 - Confirm price, weight, and production time.
 - Keep uncertain products as `review` or `draft`.
+
+## MakerWorld inspiration queue
+
+`makerworld-inspiration-queue.csv` contains 419 public model references from the supplied MakerWorld collection. It is strictly an inspiration/review queue, not a product import. Every row is tagged `catalog_type=inspiration` and `status=review`. Model IDs and public URLs are preserved; title, creator, license, and commercial-print rights must be enriched and manually reviewed before any catalog decision. Do not download, sell, or redistribute third-party model files unless the individual model license explicitly permits the intended use.
