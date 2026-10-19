@@ -10,8 +10,9 @@ Kerf 3D is a Dhaka, Bangladesh-based 3D-printing studio and ecommerce store.
 - Primary engines:
   1. Ready-made catalog artifacts with material and filament-color variations.
   2. Custom on-demand printing from customer-uploaded `.STL`, `.OBJ`, and `.3MF` files.
-- CMS target: WordPress 6.x + WooCommerce.
-- Theme: Blocksy, Gutenberg-native.
+- Application target: CodeIgniter 4 custom ecommerce application.
+- Frontend: Tailwind CSS with server-rendered views and progressive enhancement.
+- Database: MySQL 8.x.
 - Primary printer: Bambu Lab A1.
 - Business location: Dhaka, Bangladesh.
 
@@ -20,25 +21,22 @@ Kerf 3D is a Dhaka, Bangladesh-based 3D-printing studio and ecommerce store.
 - Hosting/web server: OpenLiteSpeed in Docker.
 - OLS container: `3dprint_ols`.
 - Ports: HTTP `8080`, HTTPS/QUIC `8443`, WebAdmin `7080`.
-- Database: MariaDB `10.11` on Docker bridge network `ols_network`.
-- PHP target: LSPHP `8.3` with 128 MB upload/post limits.
-- CMS: WordPress `6.x`.
-- Ecommerce: WooCommerce.
-- Theme: Blocksy + Blocksy child theme.
-- Editor: Gutenberg.
-- 3D quote engine: Birlo 3D Print Lite for WooCommerce.
-- 3D viewer: Three.js through the quote engine.
-- Product variations: WooCommerce Variation Swatches.
-- Payments: Deshi Pay/bKash-compatible manual TrxID flow, with Nagad/Rocket support if enabled, plus COD.
-- Cache: LiteSpeed Cache.
-- Email: FluentSMTP.
-- Backups: UpdraftPlus.
+- Database: MySQL 8.x on Docker bridge network `ols_network`.
+- PHP target: PHP `8.3` with 128 MB upload/post limits.
+- Framework: CodeIgniter `4.x`.
+- Frontend: Tailwind CSS, custom component layer, and server-rendered CodeIgniter views.
+- 3D viewer/quote UI: Three.js with a custom server-side quote service.
+- Product variations: native application tables for material, shade, and stock combinations.
+- Payments: manual bKash/Nagad/Rocket TrxID flow plus COD; merchant APIs can be added later.
+- Cache: OpenLiteSpeed cache plus application-level response/query caching where useful.
+- Email: SMTP through a CodeIgniter mail adapter.
+- Backups: MySQL dumps plus filesystem/object-storage backup rotation.
 - Courier target: Steadfast/Pathao workflow; API integration is pending.
 - Fonts: Syne, Plus Jakarta Sans, Space Mono.
 
 Cost constraint: prefer free/core plugins and manual workflows at launch. Do not introduce a paid plugin or SaaS service without documenting its recurring cost, limits, privacy implications, and the business bottleneck it solves. See `docs/cost-optimized-stack.md`.
 
-This project is a WordPress/WooCommerce implementation. Do not replace the target with Shopify, a page builder, or a generic ecommerce theme.
+This project is a custom CodeIgniter ecommerce implementation. Do not reintroduce WordPress, WooCommerce, a page builder, or a generic ecommerce theme unless the owner explicitly changes the architecture again.
 
 ## Source-of-truth hierarchy
 
@@ -59,7 +57,7 @@ Preserve the original logo artwork and native color `#4A321F` unless the owner e
 
 ## Current implementation status
 
-The `kerf3d-build/` directory contains portable Gutenberg markup and CSS artifacts. They are not yet connected to a live WordPress installation.
+The `gutenberg/` directory contains portable reference markup from the earlier WordPress exploration. It is not the application runtime. The production implementation should translate the approved layouts into CodeIgniter views and Tailwind components.
 
 Completed artifacts:
 
@@ -74,9 +72,9 @@ Completed artifacts:
 - `blocksy-settings.md`
 - `woocommerce-config.md`
 
-These files are visual/structural foundations. Dynamic WooCommerce, Birlo, payments, uploads, and courier integration remain to be wired into a real staging installation.
+These files are visual/structural foundations. Dynamic catalog, quoting, payments, uploads, and courier integration remain to be wired into the CodeIgniter application and MySQL schema.
 
-Do not claim that the live store has been configured unless a real WordPress/WooCommerce environment has been provided and verified.
+Do not claim that the live store has been configured unless a real CodeIgniter/MySQL staging or production environment has been provided and verified.
 
 ## Confirmed business rules
 
@@ -282,7 +280,9 @@ This page still needs live implementation around the Birlo shortcode/integration
 
 Do not invent Birlo option names. Inspect the installed plugin documentation/UI before writing integration code.
 
-## WordPress implementation plan
+## Legacy WordPress implementation plan — do not execute
+
+The following historical section is retained only to explain the origin of the visual artifacts. It is superseded by `docs/codeigniter-stack.md` and must not be used as the active implementation plan.
 
 1. Create a staging backup.
 2. Install/activate Blocksy, Blocksy Companion if required, WooCommerce, Birlo, variation swatches, payment, SMTP, cache, and backup plugins.

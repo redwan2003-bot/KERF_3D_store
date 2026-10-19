@@ -1,4 +1,6 @@
-# Kerf 3D WooCommerce Configuration Blueprint
+# Kerf 3D Legacy WooCommerce Configuration Blueprint
+
+> Legacy reference only. WooCommerce is no longer part of the active architecture. Translate the business rules here into CodeIgniter services, MySQL migrations, controllers, and admin workflows.
 
 This file translates the approved Kerf 3D business rules into WooCommerce settings. It is a deployment checklist, not a claim that a live WordPress installation has already been changed.
 

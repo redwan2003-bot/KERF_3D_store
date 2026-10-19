@@ -1,5 +1,7 @@
 # Kerf 3D — Full Project Documentation
 
+> Architecture update: the active stack is CodeIgniter 4 + PHP 8.3 + Tailwind CSS + MySQL 8.x. WordPress, WooCommerce, Blocksy, Gutenberg, and Birlo references below are historical design/planning material only. Use `docs/codeigniter-stack.md` for current implementation guidance.
+
 ## 1. Purpose
 
 Kerf 3D is a premium, editorial 3D-printing ecommerce store for Dhaka, Bangladesh. It has two commercial modes:
@@ -26,18 +28,18 @@ Suggested tagline:
 
 ## 3. Technical target
 
-### WordPress stack
+### CodeIgniter stack
 
-- WordPress 6.x.
-- WooCommerce.
-- Blocksy theme with child theme.
-- Gutenberg blocks, custom HTML blocks, and CSS.
-- Birlo 3D Print Lite for WooCommerce or the installed equivalent for 3D upload/quote functionality.
-- Variation Swatches for WooCommerce.
-- Deshi Pay/bKash-compatible gateway with manual TrxID capture.
-- LiteSpeed Cache.
-- FluentSMTP.
-- UpdraftPlus.
+- CodeIgniter 4.x application.
+- PHP 8.3 with Composer dependency management.
+- Server-rendered CodeIgniter views with Tailwind CSS.
+- Alpine.js or small vanilla modules only where interaction requires it.
+- Three.js viewer with a custom server-side quote calculation service.
+- MySQL 8.x with migrations, seeders, foreign keys, and indexed order/catalog queries.
+- Manual bKash/Nagad/Rocket TrxID capture plus COD; merchant APIs remain optional future adapters.
+- OpenLiteSpeed caching plus application/query caching where justified.
+- SMTP mail adapter for transactional email.
+- Automated MySQL dumps and filesystem/object-storage backup rotation.
 
 ### Server target from the reference brief
 
@@ -46,8 +48,10 @@ Suggested tagline:
 - HTTP: port `8080`.
 - HTTPS/QUIC: port `8443`.
 - WebAdmin: port `7080`.
-- MariaDB 10.11 on `ols_network`.
+- MySQL 8.x on `ols_network`.
 - PHP upload/post limits: 128 MB.
+
+The earlier WordPress/Gutenberg artifacts remain visual references only. They are not runtime dependencies in the CodeIgniter build.
 
 These infrastructure values are project targets. Verify the actual host, Docker Compose files, PHP runtime, database credentials, and network before changing anything.
 

@@ -1,4 +1,6 @@
-# Kerf 3D Blocksy Configuration
+# Kerf 3D Legacy Blocksy Reference
+
+> Legacy reference only. The active stack is CodeIgniter 4 + Tailwind CSS + MySQL. Do not install Blocksy or use these instructions for the production runtime. Reuse only the visual token and layout decisions when building CodeIgniter views.
 
 Apply these settings before pasting `global-tokens.css` into Appearance → Customize → Additional CSS.
 

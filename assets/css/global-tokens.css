@@ -1,6 +1,7 @@
-/* Kerf 3D / Global Blocksy Custom CSS
-   Load Syne, Plus Jakarta Sans, and Space Mono through Blocksy Typography or
-   a properly enqueued local font stack before applying this stylesheet. */
+/* Kerf 3D / Global design tokens
+   Active runtime: CodeIgniter 4 + Tailwind CSS. This stylesheet is a portable
+   token/reference layer; legacy WooCommerce selectors below are not runtime
+   dependencies and should be replaced by Tailwind component classes. */
 :root {
   --k3d-canvas: #f8f6f0;
   --k3d-surface: #ffffff;
