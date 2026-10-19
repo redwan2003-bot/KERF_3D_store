@@ -7,6 +7,7 @@ WordPress/WooCommerce source foundation for Kerf 3D, a Dhaka-based 3D-printing s
 ```text
 CLAUDE.md                         Agent and project instructions
 docs/                             Project, Blocksy, and WooCommerce documentation
+                                  Cost-optimized deployment guidance
 gutenberg/                        Gutenberg page and component markup
 assets/css/                       Global and page-specific CSS
 ```
@@ -39,3 +40,5 @@ Before production integration, connect the markup and styles to a WordPress Bloc
 4. Integrate Birlo uploads and quote calculation.
 5. Wire cart, courier rates, payment TrxID, deposit, and order metadata.
 6. Add staging QA and deployment documentation.
+
+See `docs/cost-optimized-stack.md` for the recommended free-first launch profile.

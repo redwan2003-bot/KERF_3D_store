@@ -36,6 +36,8 @@ Kerf 3D is a Dhaka, Bangladesh-based 3D-printing studio and ecommerce store.
 - Courier target: Steadfast/Pathao workflow; API integration is pending.
 - Fonts: Syne, Plus Jakarta Sans, Space Mono.
 
+Cost constraint: prefer free/core plugins and manual workflows at launch. Do not introduce a paid plugin or SaaS service without documenting its recurring cost, limits, privacy implications, and the business bottleneck it solves. See `docs/cost-optimized-stack.md`.
+
 This project is a WordPress/WooCommerce implementation. Do not replace the target with Shopify, a page builder, or a generic ecommerce theme.
 
 ## Source-of-truth hierarchy
