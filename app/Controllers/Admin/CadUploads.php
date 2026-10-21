@@ -23,4 +23,20 @@ class CadUploads extends BaseController
 
         return view('admin/cad_uploads', $data);
     }
+
+    /**
+     * Download stored customer CAD file directly for Bambu Studio slicing
+     */
+    public function download($session, $filename)
+    {
+        $safeSession  = preg_replace('/[^a-zA-Z0-9_\-]/', '_', (string) $session);
+        $safeFilename = basename((string) $filename);
+        $filePath     = WRITEPATH . 'uploads/custom_cad/' . $safeSession . '/' . $safeFilename;
+
+        if (!file_exists($filePath)) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound("CAD file not found: {$safeFilename}");
+        }
+
+        return $this->response->download($filePath, null)->setFileName($safeFilename);
+    }
 }

@@ -529,19 +529,41 @@ class DriveSyncService
 
         $mimeType = mime_content_type($localFilePath) ?: 'application/octet-stream';
 
-        $uploaded = $this->drive->files->create($fileMeta, [
-            'data'       => file_get_contents($localFilePath),
-            'mimeType'   => $mimeType,
-            'uploadType' => 'multipart',
-            'fields'     => 'id, size, webViewLink',
-        ]);
+        try {
+            $uploaded = $this->drive->files->create($fileMeta, [
+                'data'              => file_get_contents($localFilePath),
+                'mimeType'          => $mimeType,
+                'uploadType'        => 'multipart',
+                'fields'            => 'id, size, webViewLink',
+                'supportsAllDrives' => true,
+            ]);
 
-        return [
-            'drive_file_id'   => $uploaded->getId(),
-            'drive_url'       => self::downloadUrl($uploaded->getId()),
-            'drive_folder_id' => $subFolderId,
-            'file_size_bytes' => (int) $uploaded->getSize(),
-        ];
+            return [
+                'drive_file_id'   => $uploaded->getId(),
+                'drive_url'       => self::downloadUrl($uploaded->getId()),
+                'drive_folder_id' => $subFolderId,
+                'file_size_bytes' => (int) $uploaded->getSize(),
+                'storage_type'    => 'google_drive',
+            ];
+        } catch (\Throwable $e) {
+            // If Service Account has no direct upload quota on Google personal drive,
+            // persist securely to workshop server disk storage under writable/uploads/
+            $safeSession = preg_replace('/[^a-zA-Z0-9_\-]/', '_', $sessionOrOrder);
+            $uploadDir   = WRITEPATH . 'uploads/custom_cad/' . $safeSession . '/';
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0755, true);
+            }
+            $targetPath = $uploadDir . $filename;
+            copy($localFilePath, $targetPath);
+
+            return [
+                'drive_file_id'   => 'local_' . substr(md5($targetPath), 0, 16),
+                'drive_url'       => '/admin/cad-uploads/download/' . urlencode($safeSession) . '/' . urlencode($filename),
+                'drive_folder_id' => $subFolderId,
+                'file_size_bytes' => (int) (filesize($targetPath) ?: filesize($localFilePath)),
+                'storage_type'    => 'local_server',
+            ];
+        }
     }
 
     /**

@@ -46,6 +46,7 @@ $routes->group('admin', static function ($routes) {
     $routes->post('orders/(:segment)/verify-payment', 'Admin\Orders::verifyPayment/$1');
     $routes->post('orders/(:segment)/status', 'Admin\Orders::updateStatus/$1');
     $routes->get('cad-uploads', 'Admin\CadUploads::index');
+    $routes->get('cad-uploads/download/(:segment)/(:segment)', 'Admin\CadUploads::download/$1/$2');
     $routes->get('drive-sync', 'Admin\Drive::index');
     $routes->post('drive-sync/run', 'Admin\Drive::runSync');
 });
