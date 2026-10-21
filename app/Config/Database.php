@@ -26,7 +26,7 @@ class Database extends Config
         'password'     => 'kerf3d_secret',
         'database'     => 'kerf3d_store',
         'DBDriver'     => 'MySQLi',
-        'DBPrefix'     => 'k3d_',
+        'DBPrefix'     => '',
         'pConnect'     => false,
         'DBDebug'      => true,
         'charset'      => 'utf8mb4',

@@ -33,8 +33,13 @@
             "@composer dump-autoload"
         ]
     },
+    "extra": {
+        "google/apiclient-services": [
+            "Drive"
+        ]
+    },
     "config": {
-        "optimize-autoloader": true,
+        "process-timeout": 1200,
         "preferred-install": "dist",
         "sort-packages": true,
         "allow-plugins": {

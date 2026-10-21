@@ -28,7 +28,10 @@ class DriveConfigModel extends Model
     public function getVal(string $key, ?string $default = null): ?string
     {
         $row = $this->find($key);
-        return $row ? $row['config_value'] : $default;
+        if ($row && !empty(trim($row['config_value']))) {
+            return $row['config_value'];
+        }
+        return $default;
     }
 
     /**

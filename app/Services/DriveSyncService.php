@@ -55,7 +55,25 @@ class DriveSyncService
             return;
         }
 
-        $keyPath = env('GOOGLE_DRIVE_KEY_FILE', ROOTPATH . 'config/credentials/drive-service-account.json');
+        $rawPath = env('GOOGLE_DRIVE_KEY_FILE');
+        if (!empty($rawPath) && !str_starts_with($rawPath, '/') && !str_contains($rawPath, ':')) {
+            $keyPath = ROOTPATH . $rawPath;
+        } else {
+            $keyPath = $rawPath ?: (ROOTPATH . 'config/credentials/drive-service-account.json');
+        }
+
+        if (!file_exists($keyPath)) {
+            // Check fallback in config/credentials
+            $altFiles = glob(ROOTPATH . 'config/credentials/*.json');
+            if (!empty($altFiles)) {
+                foreach ($altFiles as $f) {
+                    if (!str_ends_with($f, '.example')) {
+                        $keyPath = $f;
+                        break;
+                    }
+                }
+            }
+        }
 
         if (!file_exists($keyPath)) {
             // Service can still be instantiated for URL building, but API calls will require the credentials
