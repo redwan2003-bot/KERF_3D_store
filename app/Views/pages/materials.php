@@ -1,0 +1,118 @@
+<?= $this->extend('layouts/main') ?>
+
+<?= $this->section('content') ?>
+<div class="k3d-materials-page">
+  <section class="k3d-materials-hero">
+    <div>
+      <p class="k3d-kicker">WORKSHOP / MATERIALS GUIDE</p>
+      <h1>Know the<br><em>material.</em></h1>
+      <p>Every Kerf 3D object is sliced, printed, and finished on a Bambu Lab A1 in our Dhaka workshop. Choose the polymer for the job—not just the color.</p>
+    </div>
+    <div class="k3d-machine-tag">
+      <span>PRIMARY MACHINE</span>
+      <strong>BAMBU LAB<br>A1</strong>
+      <small>FDM / OPEN FRAME<br>WORKSHOP UNIT 01</small>
+    </div>
+  </section>
+
+  <div class="k3d-spec-banner">
+    <div><span>BUILD VOLUME</span><strong>256 × 256 × 256</strong><small>MM / W × D × H</small></div>
+    <div><span>NOZZLE</span><strong>0.4</strong><small>MM / STAINLESS STEEL</small></div>
+    <div><span>HOT END</span><strong>300°C</strong><small>MAXIMUM</small></div>
+    <div><span>BED</span><strong>100°C</strong><small>MAXIMUM</small></div>
+  </div>
+
+  <section class="k3d-machine-section">
+    <p class="k3d-kicker">MACHINE ROSTER / A1-01</p>
+    <h2>A compact<br><em>production unit.</em></h2>
+    <div class="k3d-machine-grid">
+      <div>
+        <span>CHASSIS</span>
+        <strong>STEEL + EXTRUDED ALUMINUM</strong>
+        <p>Open-frame workshop printer with a 256 mm cube build envelope.</p>
+      </div>
+      <div>
+        <span>TOOLHEAD</span>
+        <strong>ALL-METAL / 0.4 MM</strong>
+        <p>Stainless-steel included nozzle. Optional 0.2, 0.6, and 0.8 mm nozzles.</p>
+      </div>
+      <div>
+        <span>MOTION</span>
+        <strong>500 MM/S MAX</strong>
+        <p>Maximum toolhead speed with automatic calibration and active vibration compensation.</p>
+      </div>
+      <div>
+        <span>MONITORING</span>
+        <strong>CAMERA + SENSORS</strong>
+        <p>Low-rate camera, filament runout, odometry, tangle detection, and power-loss recovery.</p>
+      </div>
+      <div>
+        <span>CONNECTIVITY</span>
+        <strong>WI-FI / APP / PC</strong>
+        <p>Jobs are prepared in Bambu Studio and monitored through available control interfaces.</p>
+      </div>
+      <div>
+        <span>FOOTPRINT</span>
+        <strong>385 × 410 × 430 MM</strong>
+        <p>Net machine weight: 8.3 kg. Allow additional clearance around the open frame.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="k3d-material-table-section">
+    <p class="k3d-kicker">POLYMER COMPARISON / 03</p>
+    <h2>Pick the right<br><em>behavior.</em></h2>
+    <div class="k3d-material-table">
+      <div class="k3d-material-row k3d-material-head">
+        <span>MATERIAL</span>
+        <span>RATE</span>
+        <span>BEHAVIOR</span>
+        <span>BEST FOR</span>
+        <span>A1 STATUS</span>
+      </div>
+      <div class="k3d-material-row">
+        <strong>PLA</strong>
+        <b>৳6.50/g</b>
+        <span>High stiffness<br>Moderate impact</span>
+        <span>Desk objects, vessels,<br>architectural forms</span>
+        <em>IDEAL</em>
+      </div>
+      <div class="k3d-material-row">
+        <strong>TPU 95A</strong>
+        <b>৳9.75/g</b>
+        <span>Rubber-like flex<br>Impact absorption</span>
+        <span>Cases, dampers,<br>gaskets, grips</span>
+        <em>IDEAL</em>
+      </div>
+      <div class="k3d-material-row">
+        <strong>PETG</strong>
+        <b>৳7.50/g*</b>
+        <span>Tougher utility<br>Higher heat resistance</span>
+        <span>Brackets, fittings,<br>functional parts</span>
+        <em>IDEAL</em>
+      </div>
+    </div>
+    <p class="k3d-rate-footnote">*PETG rate is retained from the reference configuration and requires store owner activation before publishing live pricing.</p>
+  </section>
+
+  <section class="k3d-tolerance-section">
+    <div>
+      <p class="k3d-kicker">DESIGN FOR PRINT / A1 GUIDANCE</p>
+      <h2>Build for<br><em>the layer.</em></h2>
+      <p>Our quoted tolerances are practical production targets, not promises of CNC machining. We review overhangs, wall thickness, bridges, and part orientation before printing.</p>
+    </div>
+    <div class="k3d-guidance-list">
+      <div><b>01</b><strong>DIMENSIONS</strong><span>Keep each part inside the 256 mm cube. Larger models may require a split-and-join plan.</span></div>
+      <div><b>02</b><strong>WALLS</strong><span>We recommend at least 1.2 mm for general PLA forms and thicker walls for functional loads.</span></div>
+      <div><b>03</b><strong>TOLERANCES</strong><span>Allow approximately 0.2–0.4 mm clearance for fitted parts; final results depend on geometry and orientation.</span></div>
+      <div><b>04</b><strong>HEAT</strong><span>PLA and TPU are not intended for sustained high-heat environments. Consult us before choosing PETG for demanding heat use.</span></div>
+    </div>
+  </section>
+
+  <section class="k3d-material-cta">
+    <p class="k3d-kicker">READY TO SPECIFY A PART?</p>
+    <h2>Send the mesh.<br><em>We’ll advise the polymer.</em></h2>
+    <a class="k3d-button is-style-fill" href="/quote">START A CUSTOM QUOTE →</a>
+  </section>
+</div>
+<?= $this->endSection() ?>
