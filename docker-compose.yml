@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  # OpenLiteSpeed + PHP 8.2 Application Server
+  web:
+    image: litespeedtech/openlitespeed:latest
+    container_name: kerf3d_ols
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+      - "8443:443"
+      - "7080:7080"
+    volumes:
+      - ./:/var/www/vhosts/localhost/html
+    environment:
+      - CI_ENVIRONMENT=development
+      - database.default.hostname=db
+      - database.default.database=kerf3d_store
+      - database.default.username=kerf3d_user
+      - database.default.password=kerf3d_secret
+    depends_on:
+      - db
+    networks:
+      - kerf3d_network
+
+  # MariaDB 10.11 Lightweight Relational Storage
+  db:
+    image: mariadb:10.11
+    container_name: kerf3d_mariadb
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: kerf3d_root_password
+      MYSQL_DATABASE: kerf3d_store
+      MYSQL_USER: kerf3d_user
+      MYSQL_PASSWORD: kerf3d_secret
+    volumes:
+      - kerf3d_db_data:/var/lib/mysql
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+    networks:
+      - kerf3d_network
+
+volumes:
+  kerf3d_db_data:
+    driver: local
+
+networks:
+  kerf3d_network:
+    driver: bridge

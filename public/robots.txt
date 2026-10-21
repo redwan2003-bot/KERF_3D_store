@@ -1,0 +1,14 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /cart
+Disallow: /checkout
+Disallow: /order/
+
+Allow: /
+Allow: /shop
+Allow: /product/
+Allow: /quote
+Allow: /materials
+Allow: /assets/
+
+Sitemap: https://kerf3d.store/sitemap.xml
