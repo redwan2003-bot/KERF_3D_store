@@ -53,7 +53,7 @@ Use when license, commercial permission, dimensions, printability, or attributio
 
 ## Pricing fields
 
-The catalog can store a fixed retail price for ready-made artifacts. Custom models should use Birlo/manual quote fields:
+The catalog can store a fixed retail price for ready-made artifacts. Custom models use quote calculation fields:
 
 ```text
 estimated_grams × material_rate + ৳50 setup fee
@@ -84,7 +84,7 @@ Current material rates:
 | `dimensions_mm` | Product dimensions metadata |
 | `layer_height_mm` | Product metadata |
 | `infill_percent` | Product metadata |
-| `stock_status` | WooCommerce stock status |
+| `stock_status` | Product stock status |
 | `makerworld_url` | Source URL metadata |
 | `creator` | Attribution metadata |
 | `license` | License metadata |

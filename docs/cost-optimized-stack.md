@@ -13,7 +13,7 @@ Manual bKash/Nagad/Rocket TrxID verification + COD
 Manual Steadfast/Pathao booking at launch
 ```
 
-This removes WordPress, WooCommerce, Blocksy, and paid ecommerce plugins. The trade-off is that Kerf 3D owns the catalog, cart, checkout, quote, payment, and admin code.
+This custom architecture avoids heavyweight third-party CMS platforms and recurring plugin fees. The trade-off is that Kerf 3D owns the catalog, cart, checkout, quote, payment, and admin code.
 
 ## Keep costs low
 

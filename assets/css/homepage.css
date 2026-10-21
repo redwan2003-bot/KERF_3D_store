@@ -16,16 +16,16 @@
 .k3d-home h1, .k3d-home h2 { font-family: var(--k3d-display); font-weight: 700; letter-spacing: -.055em; line-height: .92; }
 .k3d-home em { color: var(--k3d-rust); font-style: normal; }
 .k3d-ticker { background: var(--k3d-ink); color: var(--k3d-canvas); font: 700 11px/1.2 var(--k3d-mono); letter-spacing: .08em; padding: 13px 20px; text-align: center; }
-.k3d-hero { gap: clamp(35px, 8vw, 120px); min-height: 680px; padding: 90px 24px 80px; }
+.k3d-hero { gap: clamp(35px, 8vw, 120px); min-height: 680px; padding: 90px 24px 80px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; }
 .k3d-hero-copy { flex: 1 1 430px; max-width: 610px; }
 .k3d-kicker, .k3d-index, .k3d-rate-strip, .k3d-specimen-top, .k3d-specimen-bottom, .k3d-process-grid { font-family: var(--k3d-mono); text-transform: uppercase; }
 .k3d-kicker { color: var(--k3d-meta); font-size: 11px; letter-spacing: .12em; }
 .k3d-hero h1 { font-size: clamp(60px, 8vw, 126px); margin: 26px 0 35px; max-width: 720px; }
 .k3d-hero-copy > p:not(.k3d-kicker) { color: var(--k3d-secondary); font-size: 17px; line-height: 1.65; max-width: 470px; }
-.k3d-hero-actions { gap: 0!important; margin-top: 38px; }
-.k3d-home .wp-block-button__link { border-radius: 0; font: 700 11px/1 var(--k3d-mono); letter-spacing: .08em; padding: 18px 21px; }
-.k3d-home .wp-block-button:not(.is-style-outline) .wp-block-button__link { background: var(--k3d-ink); color: var(--k3d-canvas); }
-.k3d-home .is-style-outline .wp-block-button__link { border: 1px solid var(--k3d-ink); color: var(--k3d-ink); }
+.k3d-hero-actions { display: flex; gap: 0; margin-top: 38px; }
+.k3d-home .k3d-button { border-radius: 0; font: 700 11px/1 var(--k3d-mono); letter-spacing: .08em; padding: 18px 21px; }
+.k3d-home .k3d-button:not(.is-style-outline) { background: var(--k3d-ink); color: var(--k3d-canvas); }
+.k3d-home .k3d-button.is-style-outline { border: 1px solid var(--k3d-ink); color: var(--k3d-ink); }
 .k3d-hero-specimen { background: var(--k3d-logo-brown); border: 1px solid var(--k3d-ink); color: var(--k3d-canvas); flex: 0 1 500px; min-height: 520px; padding: 16px; }
 .k3d-specimen-top, .k3d-specimen-bottom { display: flex; font-size: 10px; justify-content: space-between; letter-spacing: .08em; }
 .k3d-specimen-art { align-items: center; display: flex; height: 450px; justify-content: center; overflow: hidden; position: relative; }
@@ -35,8 +35,11 @@
 .k3d-rate-strip { border-bottom: 1px solid var(--k3d-border); border-top: 1px solid var(--k3d-border); display: grid; grid-template-columns: repeat(3, 1fr); margin: 0 auto; }
 .k3d-rate-strip > div { border-right: 1px solid var(--k3d-border); display: grid; gap: 7px; padding: 21px 24px; }.k3d-rate-strip > div:last-child { border-right: 0; }
 .k3d-rate-label, .k3d-rate-strip span:last-child { color: var(--k3d-meta); font-size: 10px; }.k3d-rate-strip strong { font-size: 21px; }
-.k3d-engines { gap: 0!important; padding: 100px 24px; }.k3d-engine-card { background: var(--k3d-surface); border: 1px solid var(--k3d-border); color: var(--k3d-ink); display: block; min-height: 345px; padding: 30px; text-decoration: none; }.k3d-engine-card--dark { background: var(--k3d-ink); color: var(--k3d-canvas); }
+.k3d-engines { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; padding: 100px 24px; }
+.k3d-engine-card { background: var(--k3d-surface); border: 1px solid var(--k3d-border); color: var(--k3d-ink); display: block; min-height: 345px; padding: 30px; text-decoration: none; }
+.k3d-engine-card--dark { background: var(--k3d-ink); color: var(--k3d-canvas); }
 .k3d-engine-card h2 { font-size: clamp(38px, 5vw, 72px); margin: 58px 0 25px; }.k3d-engine-card p { max-width: 360px; }.k3d-card-link { display: block; font: 700 11px var(--k3d-mono); margin-top: 35px; }
 .k3d-process { padding: 25px 24px 110px; }.k3d-process h2 { font-size: clamp(54px, 8vw, 110px); margin: 25px 0 70px; }.k3d-process-grid { border-top: 1px solid var(--k3d-ink); display: grid; grid-template-columns: repeat(4, 1fr); }.k3d-process-grid > div { border-right: 1px solid var(--k3d-ink); display: grid; gap: 13px; padding: 22px 17px 0 0; }.k3d-process-grid > div:not(:first-child) { padding-left: 17px; }.k3d-process-grid > div:last-child { border-right: 0; }.k3d-process-grid b { color: var(--k3d-rust); }.k3d-process-grid strong { font-size: 17px; }.k3d-process-grid span { color: var(--k3d-meta); font-size: 10px; }
-.k3d-final-cta { background: var(--k3d-rust); color: var(--k3d-canvas); padding: 100px 24px; }.k3d-final-cta h2 { font-size: clamp(60px, 9vw, 140px); margin: 0 0 25px; }.k3d-final-cta em { color: var(--k3d-ink); }.k3d-final-cta p { font-size: 18px; max-width: 420px; }.k3d-final-cta .wp-block-button__link { background: var(--k3d-ink); color: var(--k3d-canvas); }
-@media (max-width: 780px) { .k3d-hero { min-height: 0; padding-top: 55px; }.k3d-hero h1 { font-size: clamp(52px, 15vw, 82px); }.k3d-hero-specimen { min-height: 390px; }.k3d-specimen-art { height: 320px; }.k3d-rate-strip, .k3d-process-grid { grid-template-columns: 1fr; }.k3d-rate-strip > div { border-bottom: 1px solid var(--k3d-border); border-right: 0; }.k3d-rate-strip > div:last-child { border-bottom: 0; }.k3d-process-grid > div, .k3d-process-grid > div:not(:first-child) { border-bottom: 1px solid var(--k3d-ink); border-right: 0; padding: 18px 0; } }
+.k3d-final-cta { background: var(--k3d-rust); color: var(--k3d-canvas); padding: 100px 24px; }.k3d-final-cta h2 { font-size: clamp(60px, 9vw, 140px); margin: 0 0 25px; }.k3d-final-cta em { color: var(--k3d-ink); }.k3d-final-cta p { font-size: 18px; max-width: 420px; }
+.k3d-final-cta .k3d-button { background: var(--k3d-ink); color: var(--k3d-canvas); }
+@media (max-width: 780px) { .k3d-hero { min-height: 0; padding-top: 55px; }.k3d-hero h1 { font-size: clamp(52px, 15vw, 82px); }.k3d-hero-specimen { min-height: 390px; }.k3d-specimen-art { height: 320px; }.k3d-rate-strip, .k3d-process-grid, .k3d-engines { grid-template-columns: 1fr; }.k3d-rate-strip > div { border-bottom: 1px solid var(--k3d-border); border-right: 0; }.k3d-rate-strip > div:last-child { border-bottom: 0; }.k3d-process-grid > div, .k3d-process-grid > div:not(:first-child) { border-bottom: 1px solid var(--k3d-ink); border-right: 0; padding: 18px 0; } }

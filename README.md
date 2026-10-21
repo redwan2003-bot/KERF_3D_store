@@ -6,9 +6,10 @@ CodeIgniter/Tailwind CSS application foundation for Kerf 3D, a Dhaka-based 3D-pr
 
 ```text
 CLAUDE.md                         Agent and project instructions
+database/                         CSV catalog imports and database specifications
 docs/                             Project, CodeIgniter, MySQL, and deployment documentation
                                   Cost-optimized deployment guidance
-gutenberg/                        Gutenberg page and component markup
+mockups/                          Semantic HTML page and component mockups
 assets/css/                       Global and page-specific CSS
 ```
 

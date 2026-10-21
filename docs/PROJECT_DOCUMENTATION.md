@@ -1,7 +1,5 @@
 # Kerf 3D — Full Project Documentation
 
-> Architecture update: the active stack is CodeIgniter 4 + PHP 8.3 + Tailwind CSS + MySQL 8.x. WordPress, WooCommerce, Blocksy, Gutenberg, and Birlo references below are historical design/planning material only. Use `docs/codeigniter-stack.md` for current implementation guidance.
-
 ## 1. Purpose
 
 Kerf 3D is a premium, editorial 3D-printing ecommerce store for Dhaka, Bangladesh. It has two commercial modes:
@@ -9,7 +7,7 @@ Kerf 3D is a premium, editorial 3D-printing ecommerce store for Dhaka, Banglades
 1. A curated catalog of ready-made printed artifacts.
 2. A custom printing service where customers upload a 3D model and receive a live BDT quote.
 
-The site must combine strong ecommerce usability with a distinctive industrial-archival identity.
+The site combines strong ecommerce usability with a distinctive industrial-archival identity.
 
 ## 2. Brand and identity
 
@@ -41,7 +39,7 @@ Suggested tagline:
 - SMTP mail adapter for transactional email.
 - Automated MySQL dumps and filesystem/object-storage backup rotation.
 
-### Server target from the reference brief
+### Server target
 
 - OpenLiteSpeed in Docker.
 - Container name: `3dprint_ols`.
@@ -51,17 +49,15 @@ Suggested tagline:
 - MySQL 8.x on `ols_network`.
 - PHP upload/post limits: 128 MB.
 
-The earlier WordPress/Gutenberg artifacts remain visual references only. They are not runtime dependencies in the CodeIgniter build.
-
 These infrastructure values are project targets. Verify the actual host, Docker Compose files, PHP runtime, database credentials, and network before changing anything.
 
 ## 4. Pricing and order logic
 
 ### Ready-made catalog
 
-Ready-made artifacts use normal WooCommerce fixed prices and variable attributes:
+Ready-made artifacts use fixed BDT prices and variable attributes:
 
-- Material.
+- Material (PLA, TPU 95A, PETG if activated).
 - Filament shade.
 - Stock status.
 - Weight.
@@ -73,25 +69,26 @@ Ready-made artifacts use normal WooCommerce fixed prices and variable attributes
 Custom quote values should be visible to the customer:
 
 - Mesh filename.
-- Mesh type.
+- Mesh type (.stl, .obj, .3mf).
 - Mesh volume.
 - Selected material.
 - Effective density.
 - Estimated weight.
 - Infill.
-- Setup fee.
+- Setup fee (৳50).
 - Print subtotal.
 - Courier rate.
-- Deposit due now.
+- Deposit due now (৳100 advance deposit via bKash).
 - Remaining balance.
 
 Formula:
 
 ```text
-estimated grams × selected rate + ৳50 setup fee = custom production amount
+print subtotal = estimated grams × material rate
+custom model total = print subtotal + ৳50 setup fee
+deposit due now = ৳100 mandatory advance deposit
+remaining balance = custom model total + shipping - deposit already paid
 ```
-
-The exact final price is dependent on Birlo’s mesh estimator and must be verified against test models. Do not hardcode a quote result without confirming Birlo’s units and calculation behavior.
 
 ## 5. Printer profile
 
@@ -139,60 +136,49 @@ If a page is rendered without `global-tokens.css`, its colors and fonts will fal
 |---|---|
 | `CLAUDE.md` | Agent rules and authoritative project context |
 | `PROJECT_DOCUMENTATION.md` | Human/developer project documentation |
-| `global-tokens.css` | Shared design tokens and Blocksy/WooCommerce baseline styles |
-| `blocksy-settings.md` | Manual Blocksy setup instructions |
-| `woocommerce-config.md` | WooCommerce business-rule configuration blueprint |
-| `homepage-gutenberg.html` | Homepage Gutenberg block markup |
+| `global-tokens.css` | Shared design tokens and baseline typography/layout styles |
+| `mockups/homepage.html` | Homepage semantic HTML mockup |
 | `homepage.css` | Homepage-specific styles |
-| `shop-gutenberg.html` | Shop/catalog Gutenberg markup |
+| `mockups/shop.html` | Shop/catalog semantic HTML mockup |
 | `shop.css` | Shop/catalog styles |
-| `product-gutenberg.html` | Product specimen template markup |
+| `mockups/product.html` | Product specimen template markup |
 | `product.css` | Product detail styles |
-| `cart-drawer.html` | Receipt cart drawer markup |
+| `mockups/cart-drawer.html` | Receipt cart drawer markup |
 | `cart-drawer.css` | Cart drawer styles |
-| `checkout-gutenberg.html` | Checkout/invoice markup |
+| `mockups/checkout.html` | Checkout/invoice markup |
 | `checkout.css` | Checkout styles |
-| `order-confirmation-gutenberg.html` | Workshop ticket markup |
+| `mockups/order-confirmation.html` | Workshop ticket markup |
 | `order-confirmation.css` | Order ticket styles |
-| `materials-gutenberg.html` | Bambu Lab A1 materials page markup |
+| `mockups/materials.html` | Bambu Lab A1 materials page markup |
 | `materials.css` | Materials page styles |
 
-## 8. How to install the artifacts
+## 8. View implementation in CodeIgniter
 
-1. Create a staging WordPress site.
-2. Install Blocksy and WooCommerce.
-3. Create/activate a Blocksy child theme.
-4. Copy CSS files into the child theme `assets/` directory.
-5. Enqueue CSS in `functions.php`.
-6. Upload the SVG logo and configure the Blocksy header.
-7. Create the Home, Shop, Materials, Checkout, and Quote pages.
-8. Paste the corresponding Gutenberg markup through the editor’s Code Editor.
-9. Use the product markup as the basis for the single-product template.
-10. Place the receipt drawer markup into the Blocksy off-canvas/header cart implementation.
-11. Configure WooCommerce currency and shipping.
-12. Connect real product data and variation IDs.
-13. Connect Birlo and payment behavior.
-14. Test the complete purchase paths.
+1. Create CodeIgniter 4 view templates translating the semantic HTML mockups from `mockups/`.
+2. Connect shared layout header, navigation, and footer components.
+3. Enqueue `global-tokens.css` followed by page-specific CSS or compile into unified Tailwind styles.
+4. Render the SVG logo cleanly in the header.
+5. Create controllers and routes for Home, Shop, Product, Materials, Cart, Checkout, and Quote.
+6. Connect product data and variation IDs from MySQL.
+7. Connect quoting calculator and payment intake.
+8. Test the complete purchase paths across responsive breakpoints.
 
-Blocksy’s current typography controls are under `Appearance → Customize → Typography`; its header builder is under `Appearance → Customize → Header`. Blocksy also supports custom header content blocks when the standard header builder is insufficient.
+## 9. Dynamic integration required
 
-## 9. Dynamic integration still required
-
-The static artifacts intentionally use sample product names, prices, order numbers, and customer details. Replace them with dynamic data before production.
+The static mockups use sample product names, prices, order numbers, and customer details. Replace them with dynamic data from the application layer.
 
 Required dynamic work:
 
-- WooCommerce product loop and query.
+- Catalog product query and pagination.
 - Product variation selection and price updates.
-- Real cart item quantity and remove actions.
-- Real courier selection and totals.
-- Birlo uploader and quote calculation.
-- Order item metadata.
-- bKash TrxID validation state.
-- Custom deposit and balance display.
-- Real confirmation order number and queue state.
-- Email templates through FluentSMTP.
-- Courier dispatch integration if API credentials are supplied.
+- Cart item quantity management and session persistence.
+- Courier rate calculation (৳70 inside Dhaka / ৳130 outside Dhaka).
+- 3D file uploader (STL/OBJ/3MF up to 128 MB) and quote calculation service.
+- bKash/Nagad/Rocket TrxID recording and manual verification workflow.
+- Custom order deposit (৳100) and remaining balance handling.
+- Confirmation ticket rendering with unique order number and queue state.
+- Transactional email templates via SMTP adapter.
+- Courier dispatch booking via Steadfast / Pathao workflow.
 
 ## 10. Testing matrix
 
@@ -213,8 +199,8 @@ Required dynamic work:
 2. Upload valid STL under 128 MB.
 3. Confirm preview and estimated weight.
 4. Choose PLA or TPU.
-5. Confirm setup fee.
-6. Confirm ৳100 deposit.
+5. Confirm setup fee (৳50).
+6. Confirm ৳100 advance deposit.
 7. Confirm shipping.
 8. Submit TrxID.
 9. Verify order metadata and confirmation ticket.
@@ -233,11 +219,10 @@ Required dynamic work:
 
 ## 11. Security and operations
 
-- Keep payment and courier credentials out of source files.
-- Use WordPress secrets/environment configuration where possible.
-- Treat customer uploads as untrusted files.
+- Keep payment and courier credentials out of source files (use `.env`).
+- Treat customer uploads as untrusted files; validate on client and server.
 - Do not expose private upload paths.
-- Enable backups before plugin/theme changes.
+- Enable MySQL daily backups.
 - Use staging for CSS, checkout, and payment changes.
 - Clear LiteSpeed cache after deployment.
 - Verify order emails and SMTP delivery.
@@ -254,6 +239,5 @@ Before production launch, confirm:
 - bKash/Nagad/Rocket payment number.
 - Custom-order payment schedule.
 - Courier provider/API.
-- Birlo version and exact configuration UI.
 - Hosting/staging access.
 - Final logo favicon crop.

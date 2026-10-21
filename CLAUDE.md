@@ -34,9 +34,9 @@ Kerf 3D is a Dhaka, Bangladesh-based 3D-printing studio and ecommerce store.
 - Courier target: Steadfast/Pathao workflow; API integration is pending.
 - Fonts: Syne, Plus Jakarta Sans, Space Mono.
 
-Cost constraint: prefer free/core plugins and manual workflows at launch. Do not introduce a paid plugin or SaaS service without documenting its recurring cost, limits, privacy implications, and the business bottleneck it solves. See `docs/cost-optimized-stack.md`.
+Cost constraint: prefer free/core components and manual workflows at launch. Do not introduce a paid service without documenting its recurring cost, limits, privacy implications, and the business bottleneck it solves. See `docs/cost-optimized-stack.md`.
 
-This project is a custom CodeIgniter ecommerce implementation. Do not reintroduce WordPress, WooCommerce, a page builder, or a generic ecommerce theme unless the owner explicitly changes the architecture again.
+This project is a custom CodeIgniter ecommerce implementation. Do not introduce WordPress, WooCommerce, a page builder, or a generic ecommerce theme.
 
 ## Source-of-truth hierarchy
 
@@ -57,20 +57,18 @@ Preserve the original logo artwork and native color `#4A321F` unless the owner e
 
 ## Current implementation status
 
-The `gutenberg/` directory contains portable reference markup from the earlier WordPress exploration. It is not the application runtime. The production implementation should translate the approved layouts into CodeIgniter views and Tailwind components.
+The `mockups/` directory contains clean, semantic HTML mockups representing the visual foundations. The production implementation will translate these layouts into CodeIgniter views and Tailwind components.
 
 Completed artifacts:
 
-- `homepage-gutenberg.html` / `homepage.css`
-- `shop-gutenberg.html` / `shop.css`
-- `product-gutenberg.html` / `product.css`
+- `homepage.html` / `homepage.css`
+- `shop.html` / `shop.css`
+- `product.html` / `product.css`
 - `cart-drawer.html` / `cart-drawer.css`
-- `checkout-gutenberg.html` / `checkout.css`
-- `order-confirmation-gutenberg.html` / `order-confirmation.css`
-- `materials-gutenberg.html` / `materials.css`
+- `checkout.html` / `checkout.css`
+- `order-confirmation.html` / `order-confirmation.css`
+- `materials.html` / `materials.css`
 - `global-tokens.css`
-- `blocksy-settings.md`
-- `woocommerce-config.md`
 
 These files are visual/structural foundations. Dynamic catalog, quoting, payments, uploads, and courier integration remain to be wired into the CodeIgniter application and MySQL schema.
 
@@ -103,13 +101,13 @@ Never silently treat the deposit as the full order total. Display the deposit an
 - Inside Dhaka: `৳70`, expected delivery `24–48 hours`.
 - Outside Dhaka: `৳130`, expected delivery `2–4 days` via Steadfast/Pathao.
 
-WooCommerce zones must be ordered from most specific to broadest because WooCommerce matches the first applicable zone.
+Shipping zones must be evaluated from most specific to broadest.
 
 ### Custom uploads
 
 - Accepted formats: `.STL`, `.OBJ`, `.3MF`.
 - Maximum upload size: `128 MB`.
-- Validate file type and size in the browser, server, web server, and Birlo/plugin layer.
+- Validate file type and size in the browser, server, and web server layer.
 - Never trust client-side validation alone.
 
 ## Bambu Lab A1 source of truth
@@ -163,7 +161,7 @@ Logo brown   #4A321F  native SVG logo color
 - Body: Plus Jakarta Sans, 400, 16px baseline.
 - Technical metadata, rates, buttons, receipts: Space Mono, 400/700, uppercase where appropriate.
 - Always provide fallbacks.
-- Prefer locally hosted fonts or Blocksy font controls over arbitrary CSS imports.
+- Prefer locally hosted fonts over arbitrary CSS imports.
 
 ### Geometry
 
@@ -266,55 +264,32 @@ Required sections:
 
 ### Quote `/quote`
 
-This page still needs live implementation around the Birlo shortcode/integration:
+This page handles the custom 3D file quoting workflow:
 
-- `[birlo_3d_print]` or the actual plugin-provided shortcode.
 - 128 MB dropzone.
 - STL/OBJ/3MF validation.
 - Three.js viewer.
 - Material rate selector.
 - Infill selector.
-- Weight and price calculation.
+- Weight and price calculation service.
 - Setup fee and deposit state.
-- WooCommerce cart handoff.
+- CodeIgniter cart handoff.
 
-Do not invent Birlo option names. Inspect the installed plugin documentation/UI before writing integration code.
-
-## Legacy WordPress implementation plan — do not execute
-
-The following historical section is retained only to explain the origin of the visual artifacts. It is superseded by `docs/codeigniter-stack.md` and must not be used as the active implementation plan.
-
-1. Create a staging backup.
-2. Install/activate Blocksy, Blocksy Companion if required, WooCommerce, Birlo, variation swatches, payment, SMTP, cache, and backup plugins.
-3. Create a Blocksy child theme.
-4. Copy the approved CSS into the child theme `assets/` directory.
-5. Enqueue CSS through `functions.php` with `filemtime()` cache busting.
-6. Upload the logo and configure Blocksy Header → Logo.
-7. Configure Blocksy colors, typography, header, footer, and layout.
-8. Create pages and paste Gutenberg markup through Code Editor.
-9. Configure WooCommerce currency, units, products, attributes, stock, and shipping zones.
-10. Configure Birlo and verify the quote formula with real test files.
-11. Configure payment and TrxID verification.
-12. Connect dynamic cart, checkout, confirmation, and order metadata.
-13. Test on staging at desktop, tablet, and mobile breakpoints.
-14. Test ready-made and custom-print order paths.
-15. Only then deploy to production.
-
-## WooCommerce product contracts
+## Product contracts
 
 ### Ready-made products
 
-- Variable product.
+- Product record with category and base specs.
 - Attributes: Material, Filament Shade.
 - Variations contain fixed artifact price, weight, layer height, infill, inventory number, and stock state.
 - Variation swatches must retain accessible text labels.
 
 ### Custom products
 
-- Birlo-managed quote or hidden service product.
+- Custom quote workflow.
 - Store uploaded file metadata securely: filename, extension, size, mesh volume, estimated grams, material, infill, setup fee, quote amount.
 - Do not expose private upload URLs publicly.
-- Attach custom metadata to the WooCommerce order and order item.
+- Attach custom metadata to the order and order item.
 
 ## QA checklist
 
@@ -344,7 +319,7 @@ The following historical section is retained only to explain the origin of the v
 - Reject files over 128 MB at every layer.
 - Sanitize filenames and metadata.
 - Never execute or serve uploaded files as code.
-- Verify Birlo’s server-side handling.
+- Verify server-side handling.
 
 ### Accessibility
 
@@ -358,7 +333,7 @@ The following historical section is retained only to explain the origin of the v
 ### Performance
 
 - Use optimized product images.
-- Avoid loading every page CSS file globally when page-specific enqueueing is available.
+- Avoid loading every page CSS file globally when page-specific loading is available.
 - Use LiteSpeed Cache after functional testing.
 - Load fonts locally where possible.
 - Do not preload every font weight.
@@ -373,17 +348,15 @@ These must be confirmed before production:
 4. bKash/Nagad/Rocket merchant or personal payment numbers.
 5. Whether custom order balance is collected before production, at dispatch, or through COD.
 6. Actual courier API provider and credentials.
-7. Exact Birlo plugin version, settings names, shortcode behavior, and upload storage path.
-8. Final production WordPress/staging URL.
-9. Approved logo crop for favicon/site icon.
-10. Product photography or rendered 3D assets for the archive.
+7. Hosting/staging access.
+8. Approved logo crop for favicon/site icon.
+9. Product photography or rendered 3D assets for the archive.
 
 ## Agent behavior
 
 - Preserve user-owned files and unrelated project work.
 - Never edit `sources/`.
 - Do not overwrite existing files without reading them first.
-- Prefer `apply_patch` for edits.
-- Do not claim a live deployment or plugin configuration without verification.
+- Do not claim a live deployment or configuration without verification.
 - Ask before destructive changes, production deployment, payment changes, or credential handling.
 - When a technical specification may have changed, verify against an official primary source.
