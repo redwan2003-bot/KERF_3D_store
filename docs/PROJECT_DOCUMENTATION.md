@@ -151,6 +151,8 @@ If a page is rendered without `global-tokens.css`, its colors and fonts will fal
 | `order-confirmation.css` | Order ticket styles |
 | `mockups/materials.html` | Bambu Lab A1 materials page markup |
 | `materials.css` | Materials page styles |
+| `mockups/quote.html` | Custom 3D mesh quote calculator markup |
+| `quote.css` | Custom quote and mesh intake styles |
 
 ## 8. View implementation in CodeIgniter
 

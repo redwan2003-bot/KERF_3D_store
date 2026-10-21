@@ -68,6 +68,7 @@ Completed artifacts:
 - `checkout.html` / `checkout.css`
 - `order-confirmation.html` / `order-confirmation.css`
 - `materials.html` / `materials.css`
+- `quote.html` / `quote.css`
 - `global-tokens.css`
 
 These files are visual/structural foundations. Dynamic catalog, quoting, payments, uploads, and courier integration remain to be wired into the CodeIgniter application and MySQL schema.

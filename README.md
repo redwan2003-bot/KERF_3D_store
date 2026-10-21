@@ -26,6 +26,7 @@ Completed page foundations:
 - Checkout/invoice page
 - Order confirmation/workshop ticket
 - Bambu Lab A1 materials guide
+- Custom 3D mesh quote calculator
 
 ## Development rules
 
