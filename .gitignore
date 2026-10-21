@@ -1,0 +1,46 @@
+# Environment Configuration
+.env
+.env.backup
+.env.*.local
+
+# Secrets and API Keys
+config/credentials/
+config/drive-service-account.json
+*.pem
+*.key
+
+# Composer and Dependencies
+/vendor/
+composer.phar
+
+# Node and Assets
+/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# CodeIgniter Dynamic Files
+writable/cache/*
+!writable/cache/index.html
+!writable/cache/.gitkeep
+writable/logs/*
+!writable/logs/index.html
+!writable/logs/.gitkeep
+writable/session/*
+!writable/session/index.html
+!writable/session/.gitkeep
+writable/debugbar/*
+!writable/debugbar/index.html
+!writable/debugbar/.gitkeep
+writable/uploads/*
+!writable/uploads/index.html
+!writable/uploads/.gitkeep
+
+# IDE and OS
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+Desktop.ini
