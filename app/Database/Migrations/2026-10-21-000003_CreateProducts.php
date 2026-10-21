@@ -57,6 +57,16 @@ class CreateProducts extends Migration
                 'constraint' => 500,
                 'null'       => true,
             ],
+            'price_bdt' => [
+                'type'       => 'DECIMAL',
+                'constraint' => '10,2',
+                'default'    => 0.00,
+            ],
+            'sale_price_bdt' => [
+                'type'       => 'DECIMAL',
+                'constraint' => '10,2',
+                'null'       => true,
+            ],
             'weight_g' => [
                 'type'       => 'DECIMAL',
                 'constraint' => '8,2',

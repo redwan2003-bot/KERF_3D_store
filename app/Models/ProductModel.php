@@ -22,6 +22,8 @@ class ProductModel extends Model
         'catalog_type',
         'status',
         'tags',
+        'price_bdt',
+        'sale_price_bdt',
         'weight_g',
         'dimensions_mm',
         'layer_height_mm',

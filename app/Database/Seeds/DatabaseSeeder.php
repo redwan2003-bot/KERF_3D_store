@@ -10,6 +10,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call('CategorySeeder');
         $this->call('MaterialSeeder');
+        $this->call('ProductSeeder');
         $this->call('DriveConfigSeeder');
     }
 }

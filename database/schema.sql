@@ -104,6 +104,8 @@ CREATE TABLE `products` (
     `status`                ENUM('draft','active','archived','review')
                                             NOT NULL DEFAULT 'draft',
     `tags`                  VARCHAR(500)    NULL,
+    `price_bdt`             DECIMAL(10,2)   NOT NULL DEFAULT 0.00,
+    `sale_price_bdt`        DECIMAL(10,2)   NULL,
     `weight_g`              DECIMAL(8,2)    NULL,
     `dimensions_mm`         VARCHAR(80)     NULL,
     `layer_height_mm`       DECIMAL(4,2)    NULL,
