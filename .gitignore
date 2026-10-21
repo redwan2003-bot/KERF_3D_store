@@ -4,7 +4,8 @@
 .env.*.local
 
 # Secrets and API Keys
-config/credentials/
+config/credentials/*
+!config/credentials/drive-service-account.json.example
 config/drive-service-account.json
 *.pem
 *.key
