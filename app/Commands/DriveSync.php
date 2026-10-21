@@ -15,7 +15,8 @@ class DriveSync extends BaseCommand
     protected $usage = 'drive:sync [options]';
     protected $arguments = [];
     protected $options = [
-        '--product' => 'Specify a single product slug to sync (e.g. --product=arc-vessel)',
+        '--product'      => 'Specify a single product slug to sync (e.g. --product=arc-vessel)',
+        '--init-folders' => 'Auto-create Google Drive product folders matching all catalog slugs',
     ];
 
     public function run(array $params)
@@ -24,9 +25,26 @@ class DriveSync extends BaseCommand
         CLI::newLine();
 
         $productSlug = CLI::getOption('product');
+        $initFolders = CLI::getOption('init-folders');
 
         try {
             $service = new DriveSyncService();
+
+            if ($initFolders) {
+                CLI::write('Initializing Google Drive folders for catalog products...', 'cyan');
+                $initStats = $service->initProductFolders();
+
+                CLI::table([
+                    ['Metric', 'Count'],
+                    ['Folders Created on Drive', $initStats['created']],
+                    ['Existing Folders Matched', $initStats['matched']],
+                    ['Total Catalog Products',   $initStats['total']],
+                ], ['Metric', 'Count']);
+
+                CLI::newLine();
+                CLI::write('✓ Google Drive folder structure initialized and linked to MySQL.', 'green');
+                return EXIT_SUCCESS;
+            }
 
             if (!empty($productSlug)) {
                 CLI::write("Synchronizing single product: {$productSlug}...", 'cyan');

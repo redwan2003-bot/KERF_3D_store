@@ -238,6 +238,70 @@ class DriveSyncService
     }
 
     /**
+     * Create product slug subfolders on Google Drive for all active products
+     * if they do not exist already, and record their Drive folder IDs in MySQL.
+     */
+    public function initProductFolders(): array
+    {
+        $this->requireDriveClient();
+
+        if (empty($this->productsFolderId)) {
+            throw new \InvalidArgumentException('Products root folder ID is not configured.');
+        }
+
+        // Query existing folders in /Products/
+        $existing = [];
+        $query = "'{$this->productsFolderId}' in parents and mimeType = 'application/vnd.google-apps.folder' and trashed = false";
+        $response = $this->drive->files->listFiles([
+            'q'        => $query,
+            'fields'   => 'files(id, name, webViewLink)',
+            'pageSize' => 200,
+        ]);
+
+        foreach ($response->getFiles() as $f) {
+            $existing[trim($f->getName())] = [
+                'id'  => $f->getId(),
+                'url' => $f->getWebViewLink(),
+            ];
+        }
+
+        $created = 0;
+        $matched = 0;
+        $products = $this->productModel->findAll();
+
+        foreach ($products as $product) {
+            $slug = $product['slug'];
+            if (isset($existing[$slug])) {
+                $folderId  = $existing[$slug]['id'];
+                $folderUrl = $existing[$slug]['url'];
+                $matched++;
+            } else {
+                $folderMeta = new \Google\Service\Drive\DriveFile([
+                    'name'     => $slug,
+                    'mimeType' => 'application/vnd.google-apps.folder',
+                    'parents'  => [$this->productsFolderId],
+                ]);
+                $createdFolder = $this->drive->files->create($folderMeta, ['fields' => 'id, webViewLink']);
+                $folderId  = $createdFolder->getId();
+                $folderUrl = $createdFolder->getWebViewLink();
+                $created++;
+            }
+
+            // Update product in MySQL
+            $this->productModel->update($product['id'], [
+                'drive_folder_id'  => $folderId,
+                'drive_folder_url' => $folderUrl ?: self::folderUrl($folderId),
+            ]);
+        }
+
+        return [
+            'created' => $created,
+            'matched' => $matched,
+            'total'   => count($products),
+        ];
+    }
+
+    /**
      * Synchronize a single product by its slug.
      */
     public function syncProductBySlug(string $slug): array
