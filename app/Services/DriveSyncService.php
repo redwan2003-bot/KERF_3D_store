@@ -194,8 +194,14 @@ class DriveSyncService
                 $folderName = trim($folder->getName());
                 $folderId   = $folder->getId();
 
-                // Match folder name to product slug
-                $product = $this->productModel->where('slug', $folderName)->first();
+                // Match folder by: 1. Drive folder ID, 2. Regex slug extraction, 3. Raw slug
+                $product = $this->productModel->where('drive_folder_id', $folderId)->first();
+                if (!$product && preg_match('/\(([a-z0-9\-]+)\)$/', $folderName, $m)) {
+                    $product = $this->productModel->where('slug', $m[1])->first();
+                }
+                if (!$product) {
+                    $product = $this->productModel->where('slug', $folderName)->first();
+                }
                 if (!$product) {
                     continue; // Skip folders that do not match an existing product slug
                 }
@@ -299,6 +305,57 @@ class DriveSyncService
             'matched' => $matched,
             'total'   => count($products),
         ];
+    }
+
+    /**
+     * Remodify product subfolder names on Google Drive to prepend category taxonomy
+     * and human-readable product names: [Category] Product Name (slug)
+     */
+    public function remodifyFoldersWithCategories(): array
+    {
+        $this->requireDriveClient();
+
+        $db = \Config\Database::connect();
+        $products = $db->table('products')
+            ->select('products.id, products.name, products.slug, products.drive_folder_id, categories.name as category_name')
+            ->join('categories', 'categories.id = products.category_id', 'left')
+            ->where('products.status', 'active')
+            ->get()->getResultArray();
+
+        $stats = ['renamed' => 0, 'skipped' => 0, 'details' => [], 'errors' => []];
+
+        foreach ($products as $p) {
+            $folderId = $p['drive_folder_id'];
+            if (empty($folderId)) {
+                $stats['skipped']++;
+                continue;
+            }
+
+            $categoryName = !empty($p['category_name']) ? trim($p['category_name']) : 'General';
+            $newName = "[{$categoryName}] {$p['name']} ({$p['slug']})";
+
+            try {
+                $fileMeta = new DriveFile(['name' => $newName]);
+                $this->drive->files->update($folderId, $fileMeta);
+
+                // Update MySQL drive_folder_url
+                $this->productModel->update($p['id'], [
+                    'drive_folder_url' => self::folderUrl($folderId),
+                ]);
+
+                $stats['renamed']++;
+                $stats['details'][] = [
+                    'slug'     => $p['slug'],
+                    'new_name' => $newName,
+                    'id'       => $folderId,
+                ];
+            } catch (\Throwable $e) {
+                $stats['skipped']++;
+                $stats['errors'][] = "Failed to rename {$p['slug']}: " . $e->getMessage();
+            }
+        }
+
+        return $stats;
     }
 
     /**

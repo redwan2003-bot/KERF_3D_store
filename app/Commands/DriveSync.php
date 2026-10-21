@@ -15,8 +15,9 @@ class DriveSync extends BaseCommand
     protected $usage = 'drive:sync [options]';
     protected $arguments = [];
     protected $options = [
-        '--product'      => 'Specify a single product slug to sync (e.g. --product=arc-vessel)',
-        '--init-folders' => 'Auto-create Google Drive product folders matching all catalog slugs',
+        '--product'          => 'Specify a single product slug to sync (e.g. --product=arc-vessel)',
+        '--init-folders'     => 'Auto-create Google Drive product folders matching all catalog slugs',
+        '--remodify-folders' => 'Remodify Google Drive product folder names to prepend categories [Category] Name (slug)',
     ];
 
     public function run(array $params)
@@ -24,11 +25,30 @@ class DriveSync extends BaseCommand
         CLI::write('✦ Kerf 3D Studio — Google Drive Media Synchronizer ✦', 'yellow');
         CLI::newLine();
 
-        $productSlug = CLI::getOption('product');
-        $initFolders = CLI::getOption('init-folders');
+        $productSlug     = CLI::getOption('product');
+        $initFolders     = CLI::getOption('init-folders');
+        $remodifyFolders = CLI::getOption('remodify-folders');
 
         try {
             $service = new DriveSyncService();
+
+            if ($remodifyFolders) {
+                CLI::write('Remodifying Google Drive folder names with category taxonomy...', 'cyan');
+                $stats = $service->remodifyFoldersWithCategories();
+
+                $tableRows = [];
+                foreach ($stats['details'] as $item) {
+                    $tableRows[] = [$item['slug'], $item['new_name'], $item['id']];
+                }
+
+                if (!empty($tableRows)) {
+                    CLI::table(array_merge([['Slug', 'New Folder Name on Google Drive', 'Drive Folder ID']], $tableRows), ['Slug', 'New Folder Name on Google Drive', 'Drive Folder ID']);
+                }
+
+                CLI::newLine();
+                CLI::write("✓ Successfully remodified {$stats['renamed']} product folders in Google Drive.", 'green');
+                return EXIT_SUCCESS;
+            }
 
             if ($initFolders) {
                 CLI::write('Initializing Google Drive folders for catalog products...', 'cyan');
