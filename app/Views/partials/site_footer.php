@@ -19,10 +19,14 @@
                 </ul>
             </div>
             <div class="k3d-footer-col">
-                <span class="k3d-kicker">DISPATCH & COURIER</span>
+                <span class="k3d-kicker">DISPATCH & DIRECT INQUIRIES</span>
                 <p><strong>Inside Dhaka:</strong> ৳70 (24—48 hours)</p>
                 <p><strong>Outside Dhaka:</strong> ৳130 (2—4 days nationwide via Steadfast / Pathao)</p>
-                <p><small>Payments verified via bKash, Nagad, Rocket, or COD.</small></p>
+                <p style="margin-top: 10px;">
+                    <strong>WhatsApp / Hotline:</strong><br>
+                    <a href="https://wa.me/8801754550297" target="_blank" rel="noopener" style="color:var(--k3d-rust); font-weight:700; text-decoration:underline;">+880 1754-550297</a>
+                </p>
+                <p><small>Manual MFS verification via bKash / Nagad / Rocket.</small></p>
             </div>
         </div>
         <div class="k3d-footer-bottom">

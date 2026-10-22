@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#ddd7cc" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="800" fill="#e8e4dc"/>
+  <rect width="800" height="800" fill="url(#grid)" opacity="0.6"/>
+  
+  <rect x="24" y="24" width="752" height="752" fill="none" stroke="#181818" stroke-width="2"/>
+  <rect x="28" y="28" width="744" height="744" fill="none" stroke="#181818" stroke-width="1" stroke-dasharray="4 4"/>
+  
+  <text x="44" y="60" font-family="'Space Mono', monospace" font-size="12" font-weight="700" fill="#766e65" letter-spacing="2">SPECIMEN // K3D-011</text>
+  <text x="44" y="80" font-family="'Syne', sans-serif" font-size="18" font-weight="800" fill="#181818">Flex Loop</text>
+  
+  <text x="736" y="60" text-anchor="end" font-family="'Space Mono', monospace" font-size="10" font-weight="700" fill="#C86446">BAMBU LAB A1 · 0.16MM</text>
+  <text x="736" y="78" text-anchor="end" font-family="'Space Mono', monospace" font-size="10" font-weight="700" fill="#766e65">DHAKA WORKSHOP // READY</text>
+  
+  <g id="specimen-geometry">
+    <path d="M 280 300 C 280 180, 520 180, 520 300 C 520 450, 420 490, 420 580 C 420 620, 380 620, 380 580 C 380 490, 280 450, 280 300 Z" fill="#C86446" stroke="#181818" stroke-width="4"/>
+                   <path d="M 330 300 C 330 230, 470 230, 470 300 C 470 400, 390 440, 390 520 L 410 520 C 410 440, 330 400, 330 300 Z" fill="#eeeae2" stroke="#181818" stroke-width="3"/>
+                   <line x1="290" y1="260" x2="330" y2="280" stroke="#181818" stroke-width="4"/>
+                   <line x1="470" y1="280" x2="510" y2="260" stroke="#181818" stroke-width="4"/>
+                   <line x1="285" y1="330" x2="330" y2="330" stroke="#181818" stroke-width="4"/>
+                   <line x1="470" y1="330" x2="515" y2="330" stroke="#181818" stroke-width="4"/>
+  </g>
+  
+  <line x1="380" y1="400" x2="420" y2="400" stroke="#766e65" stroke-width="1"/>
+  <line x1="400" y1="380" x2="400" y2="420" stroke="#766e65" stroke-width="1"/>
+  
+  <line x1="24" y1="720" x2="776" y2="720" stroke="#181818" stroke-width="1"/>
+  <text x="44" y="748" font-family="'Space Mono', monospace" font-size="10" font-weight="700" fill="#181818">ORIGINAL FORM · KERF 3D STUDIO</text>
+  <text x="736" y="748" text-anchor="end" font-family="'Space Mono', monospace" font-size="10" font-weight="700" fill="#766e65">256x256x256 MM VOLUME FIT</text>
+</svg>

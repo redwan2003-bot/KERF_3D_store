@@ -135,6 +135,18 @@ class Checkout extends BaseController
 
         $db->transComplete();
 
+        // 5. Send automated order confirmation & alert workshop admin
+        try {
+            $orderRecord    = $db->table('orders')->where('id', $orderId)->get()->getRowArray();
+            $customerRecord = $db->table('customers')->where('id', $customerId)->get()->getRowArray();
+            $itemsRecords   = $db->table('order_items')->where('order_id', $orderId)->get()->getResultArray();
+
+            $notifier = new \App\Services\OrderNotificationService();
+            $notifier->sendOrderConfirmation($orderRecord, $customerRecord, $itemsRecords);
+        } catch (\Throwable $e) {
+            log_message('error', 'Checkout order notification failed: ' . $e->getMessage());
+        }
+
         // Clear Cart session
         $this->session->remove('k3d_cart');
 

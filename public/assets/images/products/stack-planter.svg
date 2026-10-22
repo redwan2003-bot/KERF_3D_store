@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#ddd7cc" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="800" fill="#e8e4dc"/>
+  <rect width="800" height="800" fill="url(#grid)" opacity="0.6"/>
+  
+  <rect x="24" y="24" width="752" height="752" fill="none" stroke="#181818" stroke-width="2"/>
+  <rect x="28" y="28" width="744" height="744" fill="none" stroke="#181818" stroke-width="1" stroke-dasharray="4 4"/>
+  
+  <text x="44" y="60" font-family="'Space Mono', monospace" font-size="12" font-weight="700" fill="#766e65" letter-spacing="2">SPECIMEN // K3D-014</text>
+  <text x="44" y="80" font-family="'Syne', sans-serif" font-size="18" font-weight="800" fill="#181818">Stack Planter</text>
+  
+  <text x="736" y="60" text-anchor="end" font-family="'Space Mono', monospace" font-size="10" font-weight="700" fill="#C86446">BAMBU LAB A1 · 0.16MM</text>
+  <text x="736" y="78" text-anchor="end" font-family="'Space Mono', monospace" font-size="10" font-weight="700" fill="#766e65">DHAKA WORKSHOP // READY</text>
+  
+  <g id="specimen-geometry">
+    <path d="M 240 220 C 240 180, 560 180, 560 220 L 530 430 C 530 460, 270 460, 270 430 Z" fill="#d9d3c5" stroke="#181818" stroke-width="4"/>
+                   <ellipse cx="400" cy="220" rx="160" ry="35" fill="#c4bcab" stroke="#181818" stroke-width="4"/>
+                   <path d="M 280 470 L 520 470 L 500 590 C 500 620, 300 620, 300 590 Z" fill="#C86446" stroke="#181818" stroke-width="4"/>
+                   <ellipse cx="400" cy="470" rx="120" ry="25" fill="#a04428" stroke="#181818" stroke-width="3"/>
+  </g>
+  
+  <line x1="380" y1="400" x2="420" y2="400" stroke="#766e65" stroke-width="1"/>
+  <line x1="400" y1="380" x2="400" y2="420" stroke="#766e65" stroke-width="1"/>
+  
+  <line x1="24" y1="720" x2="776" y2="720" stroke="#181818" stroke-width="1"/>
+  <text x="44" y="748" font-family="'Space Mono', monospace" font-size="10" font-weight="700" fill="#181818">ORIGINAL FORM · KERF 3D STUDIO</text>
+  <text x="736" y="748" text-anchor="end" font-family="'Space Mono', monospace" font-size="10" font-weight="700" fill="#766e65">256x256x256 MM VOLUME FIT</text>
+</svg>

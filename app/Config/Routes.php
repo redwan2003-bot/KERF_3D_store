@@ -39,8 +39,13 @@ $routes->get('checkout', 'Checkout::index');
 $routes->post('checkout/place-order', 'Checkout::placeOrder');
 $routes->get('order/confirmed/(:segment)', 'Order::confirmed/$1');
 
+// ── Studio Admin Authentication ──────────────────────────────
+$routes->get('admin/login', 'Admin\Auth::login');
+$routes->post('admin/login', 'Admin\Auth::attemptLogin');
+$routes->get('admin/logout', 'Admin\Auth::logout');
+
 // ── Studio Admin Routes (Protected) ─────────────────────────
-$routes->group('admin', static function ($routes) {
+$routes->group('admin', ['filter' => 'adminauth'], static function ($routes) {
     $routes->get('/', 'Admin\Dashboard::index');
     $routes->get('api/telemetry', 'Admin\Dashboard::telemetry');
     $routes->get('orders', 'Admin\Orders::index');
