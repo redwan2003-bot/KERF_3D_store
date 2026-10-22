@@ -24,7 +24,9 @@
                 <p><strong>Outside Dhaka:</strong> ৳130 (2—4 days nationwide via Steadfast / Pathao)</p>
                 <p style="margin-top: 10px;">
                     <strong>WhatsApp / Hotline:</strong><br>
-                    <a href="https://wa.me/8801754550297" target="_blank" rel="noopener" style="color:var(--k3d-rust); font-weight:700; text-decoration:underline;">+880 1754-550297</a>
+                    <a href="https://wa.me/8801754550297" target="_blank" rel="noopener" style="color:var(--k3d-rust); font-weight:700; text-decoration:underline;">+880 1754-550297</a><br>
+                    <strong style="margin-top: 6px; display: inline-block;">Workshop Email:</strong><br>
+                    <a href="mailto:kerf.3d@gmail.com" style="color:var(--k3d-ink); text-decoration:underline;">kerf.3d@gmail.com</a>
                 </p>
                 <p><small>Manual MFS verification via bKash / Nagad / Rocket.</small></p>
             </div>

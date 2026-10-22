@@ -10,7 +10,7 @@ class OrderNotificationService
     public function sendOrderConfirmation(array $order, array $customer, array $items): bool
     {
         $toEmail = $customer['email'] ?? null;
-        $adminEmail = env('ADMIN_NOTIFICATION_EMAIL', 'kerf3dstudio@gmail.com');
+        $adminEmail = env('ADMIN_NOTIFICATION_EMAIL', 'kerf.3d@gmail.com');
 
         $subject = "Workshop Ticket #{$order['order_number']} — Kerf 3D Studio Order Intake";
         $body = $this->buildEmailTemplate($order, $customer, $items);
