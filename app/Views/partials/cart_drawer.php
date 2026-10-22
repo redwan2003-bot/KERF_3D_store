@@ -2,9 +2,12 @@
   <div class="k3d-cart-backdrop" id="k3d-cart-backdrop"></div>
   <aside class="k3d-receipt-panel">
     <header class="k3d-receipt-header">
-      <div>
-        <strong>KERF 3D STUDIO</strong>
-        <span>DHAKA WORKSHOP // INTAKE LEDGER</span>
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <img src="/assets/images/logo.svg" alt="Kerf 3D" style="height: 28px; width: auto; display: block;">
+        <div>
+          <strong>KERF 3D STUDIO</strong>
+          <span>DHAKA WORKSHOP // INTAKE LEDGER</span>
+        </div>
       </div>
       <button class="k3d-cart-close" id="k3d-cart-close-btn" type="button" aria-label="Close shopping bag">&times;</button>
     </header>

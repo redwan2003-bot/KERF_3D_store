@@ -8,6 +8,7 @@
   z-index: 9999;
   visibility: hidden;
   pointer-events: none;
+  overflow: hidden;
   transition: visibility 0.25s ease;
 }
 
@@ -342,4 +343,14 @@
   color: var(--k3d-meta);
   text-transform: uppercase;
   letter-spacing: 0.06em;
+}
+
+@media (max-width: 480px) {
+  .k3d-receipt-panel {
+    padding: 20px 16px;
+    width: 100%;
+  }
+  .k3d-shipping-option {
+    padding: 10px 12px;
+  }
 }

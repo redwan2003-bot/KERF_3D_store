@@ -59,7 +59,7 @@
       <div class="k3d-results-toolbar">
         <span><strong><?= count($products ?? []) ?></strong> ARTIFACTS IN ARCHIVE</span>
         <label for="k3d-sort">SORT 
-          <select id="k3d-sort" onchange="window.location.href = '/shop?' + (new URLSearchParams(window.location.search).set('sort', this.value) || '') + window.location.search.replace(/([?&])sort=[^&]+(&|$)/, '$1') + (window.location.search.includes('?') ? '&' : '?') + 'sort=' + this.value">
+          <select id="k3d-sort" onchange="const p = new URLSearchParams(window.location.search); p.set('sort', this.value); window.location.search = p.toString();">
             <option value="featured" <?= ($currentSort ?? '') === 'featured' ? 'selected' : '' ?>>Featured</option>
             <option value="price_asc" <?= ($currentSort ?? '') === 'price_asc' ? 'selected' : '' ?>>Price: Low to High</option>
             <option value="price_desc" <?= ($currentSort ?? '') === 'price_desc' ? 'selected' : '' ?>>Price: High to Low</option>

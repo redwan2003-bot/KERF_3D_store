@@ -101,9 +101,12 @@
 
     <!-- Sticky Invoice Sidebar -->
     <aside class="k3d-invoice-card">
-      <div class="k3d-invoice-brand">
-        <strong>KERF 3D STUDIO</strong>
-        <span>ORDER INVOICE / DRAFT</span>
+      <div class="k3d-invoice-brand" style="display: flex; align-items: center; gap: 12px;">
+        <img src="/assets/images/logo.svg" alt="Kerf 3D" style="height: 28px; width: auto; filter: invert(1); opacity: 0.9;">
+        <div>
+          <strong style="color: #fff; font-family: var(--k3d-display); font-size: 16px;">KERF 3D STUDIO</strong>
+          <span style="display: block; font-size: 9px; color: #bdb6ad; font-family: var(--k3d-mono);">ORDER INVOICE / DRAFT</span>
+        </div>
       </div>
 
       <div class="k3d-invoice-items">

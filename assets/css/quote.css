@@ -62,6 +62,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
   padding: 12px 18px;
   font: 11px/1.3 var(--k3d-mono);
 }
@@ -491,13 +493,17 @@
 
 @media (max-width: 600px) {
   .k3d-quote-header {
-    padding: 50px 20px 35px;
+    padding: 35px 16px 25px;
   }
   .k3d-quote-header h1 {
-    font-size: clamp(42px, 12vw, 68px);
+    font-size: clamp(30px, 9vw, 44px);
+    margin: 14px 0 18px;
+  }
+  .k3d-quote-layout {
+    padding: 20px 16px 60px;
   }
   .k3d-viewer-canvas-mock {
-    height: 340px;
+    height: 300px;
   }
   .k3d-spec-notes {
     grid-template-columns: 1fr;

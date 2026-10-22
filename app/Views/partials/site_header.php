@@ -1,8 +1,8 @@
 <header class="k3d-header" role="banner">
     <div class="k3d-header-inner k3d-container">
-        <!-- Brand Wordmark & Native Color Mark -->
+        <!-- Brand Wordmark & Official Vector Logo -->
         <a href="/" class="k3d-brand" aria-label="Kerf 3D Studio Homepage">
-            <span class="k3d-brand-mark" style="color: var(--k3d-logo-brown);">◒</span>
+            <img src="/assets/images/logo.svg" alt="Kerf 3D Studio Logo" class="k3d-brand-logo">
             <span class="k3d-brand-text">
                 <strong>KERF 3D</strong>
                 <small>STUDIO / DHAKA</small>
@@ -12,7 +12,7 @@
         <!-- Primary Navigation -->
         <nav class="k3d-nav" role="navigation" aria-label="Main Navigation">
             <a href="/shop" class="<?= (uri_string() === 'shop' || str_starts_with(uri_string(), 'product')) ? 'is-active' : '' ?>">SHOP</a>
-            <a href="/quote" class="<?= (uri_string() === 'quote') ? 'is-active' : '' ?>">CUSTOM QUOTE</a>
+            <a href="/quote" class="<?= (uri_string() === 'quote') ? 'is-active' : '' ?>"><span class="k3d-hide-mobile">CUSTOM </span>QUOTE</a>
             <a href="/materials" class="<?= (uri_string() === 'materials') ? 'is-active' : '' ?>">MATERIALS</a>
         </nav>
 

@@ -57,15 +57,15 @@
 
   <!-- Featured Artifacts Grid -->
   <?php if (!empty($featuredProducts)): ?>
-  <section class="k3d-featured-archive k3d-container" style="padding: 60px 24px;">
-    <div style="border-bottom: 1px solid var(--k3d-ink); padding-bottom: 15px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: baseline;">
+  <section class="k3d-featured-archive k3d-container" style="padding: clamp(30px, 6vw, 60px) 20px;">
+    <div style="border-bottom: 2px solid var(--k3d-ink); padding-bottom: 15px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 10px;">
       <div>
         <p class="k3d-kicker">CURATED ARCHIVE</p>
-        <h2 style="font-size: clamp(32px, 5vw, 54px); margin: 0;">Featured <em>specimens.</em></h2>
+        <h2 style="font-size: clamp(28px, 5vw, 54px); margin: 0;">Featured <em>specimens.</em></h2>
       </div>
-      <a href="/shop" style="font-family: var(--k3d-mono); font-size: 11px; text-decoration: underline;">VIEW ALL ARTIFACTS →</a>
+      <a href="/shop" style="font-family: var(--k3d-mono); font-size: 11px; text-decoration: underline; font-weight: 700;">VIEW ALL ARTIFACTS →</a>
     </div>
-    <div class="k3d-product-grid" style="display: grid; gap: 30px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));">
+    <div class="k3d-product-grid" style="display: grid; gap: 24px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));">
       <?php foreach ($featuredProducts as $item): ?>
       <article class="k3d-product-card">
         <a href="/product/<?= esc($item['slug']) ?>">
