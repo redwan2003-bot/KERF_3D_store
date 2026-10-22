@@ -98,6 +98,14 @@
         </button>
       </form>
 
+      <!-- CAD Blueprint Title Block -->
+      <div class="k3d-blueprint-title-block" style="border: 1px solid var(--k3d-border); padding: 12px 14px; margin-top: 24px; font-family: var(--k3d-mono); font-size: 10px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px 12px; background: rgba(24, 24, 24, 0.02);">
+        <div><span style="color:var(--k3d-meta);">SPECIMEN:</span> <strong><?= esc($product['sku']) ?></strong></div>
+        <div><span style="color:var(--k3d-meta);">HARDWARE:</span> <strong>BAMBU LAB A1</strong></div>
+        <div><span style="color:var(--k3d-meta);">TOLERANCE:</span> <strong>&plusmn;0.2 MM</strong></div>
+        <div><span style="color:var(--k3d-meta);">STATUS:</span> <strong style="color:var(--k3d-rust);">ACTIVE CATALOG</strong></div>
+      </div>
+
       <p class="k3d-dispatch-note">DISPATCHED FROM DHAKA · INSIDE DHAKA 24—48H (৳70) · NATIONWIDE 2—4 DAYS (৳130)</p>
     </div>
   </div>
@@ -117,4 +125,8 @@
     </div>
   </section>
 </div>
+<?= $this->endSection() ?>
+
+<?= $this->section('scripts') ?>
+<script src="/assets/js/product.js"></script>
 <?= $this->endSection() ?>

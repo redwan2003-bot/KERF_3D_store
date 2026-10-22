@@ -28,8 +28,10 @@ $routes->post('quote/upload', 'Quote::upload');
 // ── Cart & Session API ──────────────────────────────────────
 $routes->get('cart', 'Cart::index');
 $routes->post('cart/add', 'Cart::add');
+$routes->post('cart/add-custom', 'Cart::addCustom');
 $routes->post('cart/update', 'Cart::update');
 $routes->post('cart/remove', 'Cart::remove');
+$routes->post('cart/clear', 'Cart::clear');
 $routes->get('cart/data', 'Cart::getCartData');
 
 // ── Checkout & Order Intake ─────────────────────────────────

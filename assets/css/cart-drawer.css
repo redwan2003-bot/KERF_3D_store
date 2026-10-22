@@ -1,2 +1,345 @@
-.k3d-cart-drawer { font-family: var(--k3d-mono); }.k3d-cart-backdrop { background: rgba(24,24,24,.44); inset: 0; position: fixed; z-index: 99; }.k3d-receipt-panel { background: var(--k3d-canvas); box-shadow: -12px 0 35px rgba(24,24,24,.15); color: var(--k3d-ink); display: flex; flex-direction: column; height: 100vh; max-width: 490px; overflow-y: auto; padding: 24px; position: fixed; right: 0; top: 0; width: min(100%, 490px); z-index: 100; }.k3d-receipt-header { align-items: flex-start; border-bottom: 1px solid var(--k3d-ink); display: flex; justify-content: space-between; padding-bottom: 22px; }.k3d-receipt-header div { display: grid; gap: 5px; }.k3d-receipt-header strong { font-size: 15px; letter-spacing: .04em; }.k3d-receipt-header span, .k3d-receipt-intro, .k3d-receipt-note, .k3d-receipt-footer { color: var(--k3d-meta); font-size: 9px; letter-spacing: .04em; }.k3d-cart-close { background: transparent; border: 0; cursor: pointer; font: 26px/1 var(--k3d-mono); padding: 0; }.k3d-receipt-intro { display: flex; justify-content: space-between; padding: 17px 0; }.k3d-receipt-items { display: grid; gap: 22px; }.k3d-receipt-item { align-items: start; display: grid; gap: 12px; grid-template-columns: 68px 1fr auto; }.k3d-receipt-thumb { background: #e7e1d7; height: 75px; position: relative; width: 68px; }.k3d-receipt-thumb:before { border: 1px solid var(--k3d-meta); content: ""; height: 40px; left: 18px; position: absolute; top: 18px; transform: rotate(-12deg); width: 32px; }.k3d-thumb-arc:before { border-radius: 50%; }.k3d-thumb-grid { background: #dcd8d0; }.k3d-thumb-grid:before { transform: none; }.k3d-receipt-item-info { display: grid; gap: 7px; }.k3d-receipt-item-info strong, .k3d-line-price { font-size: 11px; }.k3d-receipt-item-info > span { color: var(--k3d-meta); font-size: 9px; }.k3d-line-price { white-space: nowrap; }.k3d-qty { align-items: center; border: 1px solid var(--k3d-border); display: flex; justify-content: space-between; width: 88px; }.k3d-qty button { background: transparent; border: 0; cursor: pointer; font: 14px var(--k3d-mono); padding: 4px 8px; }.k3d-qty b { font-size: 10px; }.k3d-receipt-rule { border-top: 1px dashed var(--k3d-meta); margin: 25px 0; }.k3d-shipping-select { display: grid; gap: 10px; }.k3d-shipping-select > span { color: var(--k3d-meta); font-size: 9px; }.k3d-shipping-select label { align-items: center; border: 1px solid var(--k3d-border); display: grid; font-size: 9px; gap: 4px 8px; grid-template-columns: auto 1fr auto; padding: 11px; }.k3d-shipping-select label:has(input:checked) { border-color: var(--k3d-ink); }.k3d-shipping-select input { accent-color: var(--k3d-rust); }.k3d-shipping-select strong { font-size: 10px; }.k3d-shipping-select small { color: var(--k3d-meta); grid-column: 2 / 4; }.k3d-receipt-totals { border-top: 1px dashed var(--k3d-meta); display: grid; gap: 12px; margin-top: 25px; padding-top: 20px; }.k3d-receipt-totals div { display: flex; font-size: 10px; justify-content: space-between; }.k3d-receipt-totals .k3d-total { border-top: 1px solid var(--k3d-ink); font-size: 14px; margin-top: 5px; padding-top: 17px; }.k3d-receipt-note { line-height: 1.5; margin: 24px 0; }.k3d-checkout-button { background: var(--k3d-ink); color: var(--k3d-canvas); display: flex; font-size: 11px; font-weight: 700; justify-content: space-between; padding: 19px; text-decoration: none; }.k3d-checkout-button span { color: var(--k3d-rust); font-size: 18px; line-height: 10px; }.k3d-receipt-footer { border-top: 1px solid var(--k3d-border); display: flex; justify-content: space-between; margin-top: auto; padding-top: 20px; }
-@media (max-width: 420px) { .k3d-receipt-panel { padding: 18px; }.k3d-receipt-intro { font-size: 8px; }.k3d-receipt-item { grid-template-columns: 58px 1fr auto; }.k3d-receipt-thumb { height: 65px; width: 58px; } }
+/* Kerf 3D Studio — Brutalist Thermal Receipt Cart Drawer
+   Zero-radius, monospaced layout, dashed perforations & physical button depressions */
+
+.k3d-cart-drawer {
+  font-family: var(--k3d-mono);
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  visibility: hidden;
+  pointer-events: none;
+  transition: visibility 0.25s ease;
+}
+
+.k3d-cart-drawer.is-open {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.k3d-cart-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(24, 24, 24, 0.55);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.k3d-cart-drawer.is-open .k3d-cart-backdrop {
+  opacity: 1;
+}
+
+.k3d-receipt-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(100%, 480px);
+  height: 100vh;
+  background: var(--k3d-canvas);
+  color: var(--k3d-ink);
+  box-shadow: -8px 0 30px rgba(0, 0, 0, 0.2);
+  border-left: 2px solid var(--k3d-ink);
+  display: flex;
+  flex-direction: column;
+  padding: 28px 24px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 10000;
+}
+
+.k3d-cart-drawer.is-open .k3d-receipt-panel {
+  transform: translateX(0);
+}
+
+/* Thermal Receipt Header */
+.k3d-receipt-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 18px;
+  border-bottom: 2px solid var(--k3d-ink);
+}
+
+.k3d-receipt-header strong {
+  font-family: var(--k3d-display);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  display: block;
+}
+
+.k3d-receipt-header span {
+  font-size: 10px;
+  color: var(--k3d-meta);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  display: block;
+  margin-top: 2px;
+}
+
+.k3d-cart-close {
+  background: transparent;
+  border: 1px solid var(--k3d-ink);
+  color: var(--k3d-ink);
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--k3d-mono);
+  font-size: 16px;
+  font-weight: 700;
+  transition: all 0.15s ease;
+}
+
+.k3d-cart-close:hover {
+  background: var(--k3d-ink);
+  color: var(--k3d-canvas);
+}
+
+/* Receipt Intro Stamp */
+.k3d-receipt-intro {
+  display: flex;
+  justify-content: space-between;
+  padding: 14px 0;
+  border-bottom: 1px dashed var(--k3d-border);
+  font-size: 10px;
+  color: var(--k3d-meta);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Items List */
+.k3d-receipt-items {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px 0;
+  flex: 1 0 auto;
+}
+
+.k3d-receipt-item {
+  display: grid;
+  grid-template-columns: 60px 1fr auto;
+  gap: 14px;
+  align-items: start;
+  padding-bottom: 16px;
+  border-bottom: 1px dashed var(--k3d-border);
+}
+
+.k3d-receipt-thumb {
+  width: 60px;
+  height: 60px;
+  background: #ebe6dc;
+  border: 1px solid var(--k3d-border);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.k3d-receipt-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.k3d-receipt-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.k3d-receipt-item-info strong {
+  font-size: 12px;
+  line-height: 1.3;
+}
+
+.k3d-receipt-item-info .k3d-item-spec {
+  font-size: 10px;
+  color: var(--k3d-meta);
+  text-transform: uppercase;
+}
+
+/* Brutalist Quantity Stepper */
+.k3d-qty-stepper {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--k3d-ink);
+  margin-top: 6px;
+  width: fit-content;
+}
+
+.k3d-qty-btn {
+  background: transparent;
+  border: 0;
+  color: var(--k3d-ink);
+  cursor: pointer;
+  font-family: var(--k3d-mono);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 3px 8px;
+  line-height: 1;
+}
+
+.k3d-qty-btn:hover {
+  background: var(--k3d-ink);
+  color: var(--k3d-canvas);
+}
+
+.k3d-qty-val {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 0 6px;
+  min-width: 16px;
+  text-align: center;
+}
+
+.k3d-item-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.k3d-line-price {
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.k3d-item-remove {
+  background: transparent;
+  border: 0;
+  color: var(--k3d-meta);
+  cursor: pointer;
+  font-family: var(--k3d-mono);
+  font-size: 10px;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.k3d-item-remove:hover {
+  color: var(--k3d-rust);
+}
+
+/* Shipping Zone Selection */
+.k3d-shipping-select {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.k3d-shipping-label-top {
+  font-size: 10px;
+  color: var(--k3d-meta);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.k3d-shipping-option {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 8px 12px;
+  align-items: center;
+  padding: 10px 12px;
+  border: 1px solid var(--k3d-border);
+  cursor: pointer;
+  font-size: 11px;
+  transition: border-color 0.15s ease;
+}
+
+.k3d-shipping-option:has(input:checked) {
+  border-color: var(--k3d-ink);
+  background: rgba(24, 24, 24, 0.03);
+}
+
+.k3d-shipping-option input {
+  accent-color: var(--k3d-rust);
+}
+
+.k3d-shipping-option small {
+  grid-column: 2 / 4;
+  font-size: 9px;
+  color: var(--k3d-meta);
+}
+
+/* Thermal Totals Box */
+.k3d-receipt-totals {
+  border-top: 1.5px dashed var(--k3d-ink);
+  margin-top: 20px;
+  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 11px;
+}
+
+.k3d-totals-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.k3d-total-grand {
+  border-top: 2px solid var(--k3d-ink);
+  margin-top: 6px;
+  padding-top: 12px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.k3d-total-grand span {
+  font-family: var(--k3d-display);
+}
+
+.k3d-total-grand b {
+  color: var(--k3d-rust);
+}
+
+/* Physical Depress Checkout Button */
+.k3d-checkout-button {
+  background: var(--k3d-ink);
+  color: #fff;
+  border: 2px solid var(--k3d-ink);
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+  font-family: var(--k3d-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-top: 20px;
+  box-shadow: 4px 4px 0px var(--k3d-rust);
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.k3d-checkout-button:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px var(--k3d-rust);
+  color: #fff;
+}
+
+.k3d-checkout-button:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0px 0px 0px var(--k3d-rust);
+}
+
+.k3d-receipt-footer {
+  border-top: 1px solid var(--k3d-border);
+  padding-top: 16px;
+  margin-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+  color: var(--k3d-meta);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}

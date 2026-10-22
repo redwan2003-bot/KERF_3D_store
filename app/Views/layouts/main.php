@@ -38,42 +38,10 @@
     <!-- Global Cart Drawer (Receipt Panel) -->
     <?= $this->include('partials/cart_drawer') ?>
 
-    <!-- Vanilla Cart Drawer Interactions -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const drawer = document.getElementById('k3d-cart-drawer');
-            const triggers = document.querySelectorAll('.k3d-open-cart');
-            const closeBtn = document.querySelector('.k3d-cart-close');
-            const backdrop = document.querySelector('.k3d-cart-backdrop');
+    <!-- Global Brutalist Cart Drawer Controller -->
+    <script src="/assets/js/cart-drawer.js"></script>
 
-            function openCart() {
-                if (drawer) {
-                    drawer.classList.add('is-open');
-                    document.body.style.overflow = 'hidden';
-                }
-            }
-
-            function closeCart() {
-                if (drawer) {
-                    drawer.classList.remove('is-open');
-                    document.body.style.overflow = '';
-                }
-            }
-
-            triggers.forEach(t => t.addEventListener('click', function(e) {
-                e.preventDefault();
-                openCart();
-            }));
-
-            if (closeBtn) closeBtn.addEventListener('click', closeCart);
-            if (backdrop) backdrop.addEventListener('click', closeCart);
-
-            document.addEventListener('keydown', function (e) {
-                if (e.key === 'Escape' && drawer && drawer.classList.contains('is-open')) {
-                    closeCart();
-                }
-            });
-        });
-    </script>
+    <!-- Page Specific Injected Scripts -->
+    <?= $this->renderSection('scripts') ?>
 </body>
 </html>

@@ -13,13 +13,18 @@ class Shop extends BaseController
         $productModel = new ProductModel();
         $imageModel   = new ProductImageModel();
 
-        // Filter: Selected materials from GET query
+        // Filter: Selected materials and category from GET query
         $selectedMaterials = $this->request->getGet('material') ?? [];
-        $sort = $this->request->getGet('sort') ?? 'featured';
+        $selectedCategory  = (string) $this->request->getGet('category');
+        $sort              = $this->request->getGet('sort') ?? 'featured';
 
-        $builder = $productModel->select('products.*, categories.name as category_name')
+        $builder = $productModel->select('products.*, categories.name as category_name, categories.slug as category_slug')
             ->join('categories', 'categories.id = products.category_id', 'left')
             ->where('products.status', 'active');
+
+        if (!empty($selectedCategory)) {
+            $builder->where('categories.slug', $selectedCategory);
+        }
 
         // Sorting
         switch ($sort) {
@@ -41,14 +46,17 @@ class Shop extends BaseController
             $prod['primary_image'] = $imageModel->getPrimaryImage((int) $prod['id']);
         }
 
-        // Available Materials & Shades for sidebar
-        $materials = $db->table('materials')->where('is_active', 1)->get()->getResultArray();
-        $shades    = $db->table('filament_shades')->where('is_active', 1)->orderBy('sort_order', 'ASC')->get()->getResultArray();
+        // Available Categories, Materials & Shades for sidebar
+        $categories = $db->table('categories')->whereIn('slug', ['vessels-forms', 'desk-studio', 'architectural'])->get()->getResultArray();
+        $materials  = $db->table('materials')->where('is_active', 1)->get()->getResultArray();
+        $shades     = $db->table('filament_shades')->where('is_active', 1)->orderBy('sort_order', 'ASC')->get()->getResultArray();
 
         $data = [
             'title'             => 'Shop & Archive — Kerf 3D Curated Artifacts',
             'pageCss'           => ['shop.css'],
             'products'          => $products,
+            'categories'        => $categories,
+            'selectedCategory'  => $selectedCategory,
             'materials'         => $materials,
             'shades'            => $shades,
             'selectedMaterials' => (array) $selectedMaterials,

@@ -46,10 +46,20 @@
 
     <!-- Product Grid Results -->
     <main class="k3d-shop-results">
+      <!-- Category Filter Tabs -->
+      <div class="k3d-category-pills" style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;">
+        <a href="/shop<?= !empty($currentSort) ? '?sort=' . esc($currentSort) : '' ?>" class="k3d-button sm <?= empty($selectedCategory) ? 'is-style-fill' : 'is-style-outline' ?>" style="padding: 9px 14px; font-size: 10px;">ALL SPECIMENS</a>
+        <?php foreach (($categories ?? []) as $cat): ?>
+          <a href="/shop?category=<?= esc($cat['slug']) ?><?= !empty($currentSort) ? '&sort=' . esc($currentSort) : '' ?>" class="k3d-button sm <?= ($selectedCategory ?? '') === $cat['slug'] ? 'is-style-fill' : 'is-style-outline' ?>" style="padding: 9px 14px; font-size: 10px;">
+            <?= esc(strtoupper($cat['name'])) ?>
+          </a>
+        <?php endforeach; ?>
+      </div>
+
       <div class="k3d-results-toolbar">
         <span><strong><?= count($products ?? []) ?></strong> ARTIFACTS IN ARCHIVE</span>
         <label for="k3d-sort">SORT 
-          <select id="k3d-sort" onchange="window.location.href = '/shop?sort=' + this.value">
+          <select id="k3d-sort" onchange="window.location.href = '/shop?' + (new URLSearchParams(window.location.search).set('sort', this.value) || '') + window.location.search.replace(/([?&])sort=[^&]+(&|$)/, '$1') + (window.location.search.includes('?') ? '&' : '?') + 'sort=' + this.value">
             <option value="featured" <?= ($currentSort ?? '') === 'featured' ? 'selected' : '' ?>>Featured</option>
             <option value="price_asc" <?= ($currentSort ?? '') === 'price_asc' ? 'selected' : '' ?>>Price: Low to High</option>
             <option value="price_desc" <?= ($currentSort ?? '') === 'price_desc' ? 'selected' : '' ?>>Price: High to Low</option>

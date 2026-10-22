@@ -65,15 +65,23 @@
             <b>SECURE INTAKE</b>
           </div>
           <div class="k3d-payment-options">
-            <label class="k3d-payment-option is-selected">
-              <input type="radio" name="payment_method" value="bkash" checked>
-              <strong>bKASH / NAGAD / ROCKET</strong>
-              <span>Send money to <strong><?= esc($mfsNumber ?? '01XXXXXXXXX') ?></strong> (Personal/Merchant) and enter TrxID below.</span>
+            <label class="k3d-payment-option is-selected" id="k3d-pay-mfs-label">
+              <input type="radio" name="payment_method" value="bkash" checked onchange="togglePayMethod('bkash')">
+              <div>
+                <strong>bKASH / NAGAD / ROCKET (MFS SEND MONEY)</strong>
+                <div style="margin-top: 6px; font-size: 11px;">
+                  Send money to: <strong id="k3d-mfs-num-display" style="color:var(--k3d-rust); font-size:13px; font-family:var(--k3d-mono);"><?= esc($mfsNumber ?? '01XXXXXXXXX') ?></strong>
+                  <button type="button" onclick="navigator.clipboard.writeText('<?= esc($mfsNumber ?? '01XXXXXXXXX') ?>'); this.innerText='COPIED ✓'; setTimeout(() => this.innerText='COPY', 2000);" style="background:var(--k3d-ink); color:#fff; border:0; padding:3px 8px; font-size:9px; font-family:var(--k3d-mono); cursor:pointer; margin-left:8px;">COPY</button>
+                </div>
+                <small style="display:block; margin-top:4px; color:var(--k3d-meta);">Enter the 8-10 digit Transaction ID (TrxID) received via SMS.</small>
+              </div>
             </label>
-            <label class="k3d-payment-option">
-              <input type="radio" name="payment_method" value="cod">
-              <strong>CASH ON DELIVERY</strong>
-              <span>Available for ready-made catalog items. Custom STL orders still require ৳100 advance deposit.</span>
+            <label class="k3d-payment-option" id="k3d-pay-cod-label">
+              <input type="radio" name="payment_method" value="cod" onchange="togglePayMethod('cod')">
+              <div>
+                <strong>CASH ON DELIVERY (DHAKA & NATIONWIDE)</strong>
+                <small style="display:block; margin-top:4px; color:var(--k3d-meta);">Pay courier at your doorstep upon inspecting artifact packaging.</small>
+              </div>
             </label>
           </div>
           <label class="k3d-trxid-field">
