@@ -80,11 +80,13 @@ for p in products:
 
     input_file = file_map[sku]
     slug = p['slug']
-    cat_name = p['category_name'] or 'General'
+    cat_name = (p['category_name'] or 'General').replace('/', '-').strip()
     p_name = p['name']
+    safe_p_name = re.sub(r'[/\\:?*"<>|]', '-', p_name).strip()
+    safe_p_name = re.sub(r'-+', '-', safe_p_name).strip('- ')
 
     out_file = os.path.join(OUT_PRODUCTS_DIR, f"{slug}.webp")
-    cat_staging_dir = os.path.join(OUT_STAGING_DIR, cat_name, f"{p_name} ({slug})")
+    cat_staging_dir = os.path.join(OUT_STAGING_DIR, cat_name, f"{safe_p_name} ({slug})")
     os.makedirs(cat_staging_dir, exist_ok=True)
     staging_file = os.path.join(cat_staging_dir, "cover.webp")
 
