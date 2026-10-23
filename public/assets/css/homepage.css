@@ -54,11 +54,12 @@
 
 .k3d-hero-title {
   font-family: var(--k3d-display);
-  font-size: clamp(38px, 5.5vw, 76px);
+  font-size: clamp(34px, 4.8vw, 68px);
   font-weight: 800;
-  line-height: 0.95;
-  letter-spacing: -0.05em;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
   margin: 16px 0 24px;
+  word-break: break-word;
 }
 
 .k3d-accent-text {
@@ -250,9 +251,10 @@
 
 .k3d-section-title {
   font-family: var(--k3d-display);
-  font-size: clamp(28px, 4.5vw, 48px);
+  font-size: clamp(26px, 3.8vw, 42px);
   margin: 10px 0 0;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.02em;
+  line-height: 1.18;
 }
 
 .k3d-text-link {
@@ -331,7 +333,9 @@
 
 .k3d-card-footer h3 {
   font-family: var(--k3d-display);
-  font-size: 22px;
+  font-size: 20px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
   margin: 0 0 6px;
 }
 
@@ -385,9 +389,10 @@
 
 .k3d-intake-heading {
   font-family: var(--k3d-display);
-  font-size: clamp(32px, 4vw, 52px);
+  font-size: clamp(28px, 3.5vw, 46px);
   margin: 12px 0 16px;
-  line-height: 1;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
 }
 
 .k3d-rate-chips {

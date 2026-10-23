@@ -18,10 +18,10 @@
 
 .k3d-shop h1 {
   font-family: var(--k3d-display);
-  font-size: clamp(44px, 8vw, 120px);
-  letter-spacing: -.07em;
-  line-height: .88;
-  margin: 20px 0 25px;
+  font-size: clamp(36px, 6vw, 76px);
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+  margin: 16px 0 20px;
   word-break: break-word;
 }
 
@@ -230,8 +230,16 @@
   transform: scale(1.03);
 }
 
+.k3d-category-pills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
 .k3d-product-meta {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 4px;
   padding-top: 12px;
   position: relative;
@@ -244,17 +252,23 @@
 }
 
 .k3d-product-meta strong {
-  font: 700 17px var(--k3d-display);
-  letter-spacing: -.03em;
-  padding-right: 75px;
+  font-family: var(--k3d-display);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  padding-right: 0;
+  color: var(--k3d-ink);
+  word-break: break-word;
 }
 
 .k3d-product-meta b {
-  font: 700 14px var(--k3d-mono);
-  position: absolute;
-  right: 0;
-  top: 26px;
+  font-family: var(--k3d-mono);
+  font-size: 13px;
+  font-weight: 700;
+  position: static;
   color: var(--k3d-rust);
+  margin-top: 2px;
 }
 
 /* Mobile Filter Trigger */
@@ -285,6 +299,19 @@
 }
 
 @media (max-width: 780px) {
+  .k3d-category-pills {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+    scrollbar-width: thin;
+  }
+  .k3d-category-pills .k3d-button {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
   .k3d-shop-intro {
     padding: 40px 16px 25px;
   }

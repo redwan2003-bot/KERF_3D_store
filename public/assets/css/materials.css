@@ -22,8 +22,8 @@
 }
 
 .k3d-materials-hero h1 {
-  font: 700 clamp(44px, 8vw, 120px)/.86 var(--k3d-display);
-  letter-spacing: -.08em;
+  font: 700 clamp(36px, 6vw, 76px)/1.12 var(--k3d-display);
+  letter-spacing: -0.02em;
   margin: 20px 0 25px;
   word-break: break-word;
 }
@@ -62,8 +62,8 @@
 }
 
 .k3d-machine-tag strong {
-  font: 700 36px/.9 var(--k3d-display);
-  letter-spacing: -.04em;
+  font: 700 32px/1.15 var(--k3d-display);
+  letter-spacing: -0.01em;
 }
 
 /* 4-Stat Banner */
@@ -120,8 +120,8 @@
 
 .k3d-machine-section h2,
 .k3d-material-table-section h2 {
-  font: 700 clamp(38px, 6vw, 84px)/.9 var(--k3d-display);
-  letter-spacing: -.06em;
+  font: 700 clamp(28px, 4.5vw, 54px)/1.15 var(--k3d-display);
+  letter-spacing: -0.02em;
   margin: 20px 0 45px;
 }
 
@@ -230,8 +230,8 @@
 }
 
 .k3d-tolerance-section h2 {
-  font: 700 clamp(38px, 6vw, 84px)/.9 var(--k3d-display);
-  letter-spacing: -.06em;
+  font: 700 clamp(28px, 4.5vw, 54px)/1.15 var(--k3d-display);
+  letter-spacing: -0.02em;
   margin: 18px 0 24px;
 }
 
@@ -277,8 +277,8 @@
 }
 
 .k3d-material-cta h2 {
-  font: 700 clamp(42px, 7vw, 96px)/.9 var(--k3d-display);
-  letter-spacing: -.06em;
+  font: 700 clamp(30px, 4.8vw, 62px)/1.15 var(--k3d-display);
+  letter-spacing: -0.02em;
   margin: 0 0 30px;
   color: #fff;
 }

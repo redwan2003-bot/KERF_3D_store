@@ -2,16 +2,18 @@
    Active runtime: CodeIgniter 4 + OpenLiteSpeed. */
 
 :root {
-  --k3d-canvas: #f8f6f0;
+  --k3d-canvas: #f6f3eb;
   --k3d-surface: #ffffff;
-  --k3d-ink: #181818;
-  --k3d-secondary: #2e2a27;
-  --k3d-meta: #766e65;
-  --k3d-border: #e5e0d8;
-  --k3d-rust: #c86446;
-  --k3d-rust-dark: #a84e34;
+  --k3d-surface-muted: #ede7dc;
+  --k3d-ink: #261d16;
+  --k3d-secondary: #52453a;
+  --k3d-meta: #847769;
+  --k3d-border: #ded7ca;
+  --k3d-rust: #b85d38;
+  --k3d-rust-dark: #944525;
   --k3d-logo-brown: #4a321f;
-  --k3d-display: "Syne", "Arial Black", sans-serif;
+  --k3d-brand: #4a321f;
+  --k3d-display: "Outfit", "Plus Jakarta Sans", sans-serif;
   --k3d-sans: "Plus Jakarta Sans", Arial, sans-serif;
   --k3d-mono: "Space Mono", "Courier New", monospace;
   --k3d-content-width: 1440px;
@@ -40,15 +42,15 @@ h1, h2, h3, h4, h5, h6, .entry-title {
   color: var(--k3d-ink);
   font-family: var(--k3d-display);
   font-weight: 700;
-  letter-spacing: -.045em;
-  line-height: .95;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
   margin: 0 0 16px;
   word-break: break-word;
 }
 
-h1 { font-size: clamp(2.5rem, 7vw, 7rem); }
-h2 { font-size: clamp(2rem, 5vw, 5rem); }
-h3 { font-size: clamp(1.5rem, 3.5vw, 3rem); }
+h1 { font-size: clamp(2.2rem, 5.5vw, 5rem); line-height: 1.12; }
+h2 { font-size: clamp(1.8rem, 4vw, 3.5rem); line-height: 1.15; }
+h3 { font-size: clamp(1.3rem, 2.8vw, 2.2rem); line-height: 1.2; }
 
 code, pre, .k3d-technical, .k3d-kicker, .k3d-product-meta, .k3d-rate-strip, .k3d-invoice-card, .k3d-receipt-panel {
   font-family: var(--k3d-mono);

@@ -18,9 +18,9 @@
 
 .k3d-checkout-heading h1 {
   font-family: var(--k3d-display);
-  font-size: clamp(42px, 7vw, 110px);
-  letter-spacing: -.07em;
-  line-height: .88;
+  font-size: clamp(34px, 5.5vw, 68px);
+  letter-spacing: -0.02em;
+  line-height: 1.12;
   margin: 18px 0 0;
   word-break: break-word;
 }
