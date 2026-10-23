@@ -60,18 +60,18 @@
             <div class="k3d-frame-datum top-left">+ 00.00 [X/Y/Z]</div>
             <div class="k3d-frame-datum top-right">BAMBU A1 // SPECIMEN 01</div>
             
-            <a href="/product/arc-vessel" class="k3d-spotlight-link" aria-label="View Arc Vessel Specimen">
-              <img src="/assets/images/products/arc-vessel.svg" alt="Arc Vessel Architectural Specimen" class="k3d-spotlight-img">
+            <a href="/product/charlie-brown-airpods-pro-2nd-gen-case" class="k3d-spotlight-link" aria-label="View Charlie Brown AirPods Pro Case">
+              <img src="/assets/images/products/arc-vessel.svg" alt="Charlie Brown AirPods Pro 2nd Gen Case" class="k3d-spotlight-img">
             </a>
 
             <div class="k3d-frame-footer">
               <div>
-                <span class="k3d-spec-sku">K3D-001 // ARC VESSEL</span>
-                <strong>FLUTED ARCHITECTURAL FORM</strong>
+                <span class="k3d-spec-sku">K3D-MW-001 // CARRY GEAR</span>
+                <strong>CHARLIE BROWN AIRPODS PRO CASE</strong>
               </div>
               <div class="k3d-spec-price">
-                <span>READY-MADE</span>
-                <strong>&#2547;780.00</strong>
+                <span>INTAKE</span>
+                <strong>PRICE ON REQUEST</strong>
               </div>
             </div>
           </div>
@@ -109,90 +109,90 @@
           <span class="k3d-kicker">02 // CURATED SPECIMEN DOSSIER</span>
           <h2 class="k3d-section-title">Architectural objects for daily use.</h2>
         </div>
-        <a href="/shop" class="k3d-text-link">VIEW COMPLETE ARCHIVE (08) &rarr;</a>
+        <a href="/shop" class="k3d-text-link">VIEW COMPLETE ARCHIVE (417+) &rarr;</a>
       </div>
 
       <div class="k3d-bento-grid">
-        <!-- Bento Card 1: Featured Arc Vessel -->
+        <!-- Bento Card 1: Featured AirPods Case -->
         <article class="k3d-bento-card k3d-bento-feature">
           <div class="k3d-card-meta">
-            <span>K3D-001 &middot; BIO-PLA</span>
-            <b>140 GRAMS</b>
+            <span>K3D-MW-001 &middot; CARRY GEAR</span>
+            <b>BAMBU A1</b>
           </div>
-          <a href="/product/arc-vessel" class="k3d-bento-visual">
-            <img src="/assets/images/products/arc-vessel.svg" alt="Arc Vessel" loading="lazy">
+          <a href="/product/charlie-brown-airpods-pro-2nd-gen-case" class="k3d-bento-visual">
+            <img src="/assets/images/products/arc-vessel.svg" alt="Charlie Brown AirPods Pro 2nd Gen Case" loading="lazy">
           </a>
           <div class="k3d-card-footer">
             <div>
-              <h3>Arc Vessel</h3>
-              <p>Mathematical fluting engineered for ambient light diffusion &amp; structural rigidity.</p>
+              <h3>Charlie Brown AirPods Pro 2nd Gen Case</h3>
+              <p>Iconic graphic aesthetic 3D printed case engineered for precise snap-retention on AirPods Pro 2nd Gen.</p>
             </div>
             <div class="k3d-card-action">
-              <span class="k3d-card-price">&#2547;780.00</span>
-              <a href="/product/arc-vessel" class="k3d-button k3d-btn-sm">VIEW DOSSIER &rarr;</a>
+              <span class="k3d-card-price" style="font-size: 11px;">PRICE ON REQUEST</span>
+              <a href="/product/charlie-brown-airpods-pro-2nd-gen-case" class="k3d-button k3d-btn-sm">VIEW DOSSIER &rarr;</a>
             </div>
           </div>
         </article>
 
-        <!-- Bento Card 2: Grid Dock -->
+        <!-- Bento Card 2: Nebula Lamp -->
         <article class="k3d-bento-card">
           <div class="k3d-card-meta">
-            <span>K3D-006 &middot; CHARCOAL</span>
-            <b>85 GRAMS</b>
+            <span>K3D-MW-008 &middot; LAMPS</span>
+            <b>LIGHT KIT MH001</b>
           </div>
-          <a href="/product/grid-dock" class="k3d-bento-visual">
-            <img src="/assets/images/products/grid-dock.svg" alt="Grid Dock" loading="lazy">
+          <a href="/product/nebula-lamp" class="k3d-bento-visual">
+            <img src="/assets/images/products/grid-dock.svg" alt="Nebula Lamp" loading="lazy">
           </a>
           <div class="k3d-card-footer">
             <div>
-              <h3>Grid Dock</h3>
-              <p>Weighted parametric desk organizer with phone &amp; card channel.</p>
+              <h3>Nebula Lamp</h3>
+              <p>Soft ambient diffusers engineered for Bambu Lab LED hardware kits.</p>
             </div>
             <div class="k3d-card-action">
-              <span class="k3d-card-price">&#2547;520.00</span>
-              <a href="/product/grid-dock" class="k3d-button k3d-btn-sm">VIEW DOSSIER &rarr;</a>
+              <span class="k3d-card-price" style="font-size: 11px;">PRICE ON REQUEST</span>
+              <a href="/product/nebula-lamp" class="k3d-button k3d-btn-sm">VIEW DOSSIER &rarr;</a>
             </div>
           </div>
         </article>
 
-        <!-- Bento Card 3: Flex Loop -->
+        <!-- Bento Card 3: Mini Paracord Pulley -->
         <article class="k3d-bento-card">
           <div class="k3d-card-meta">
-            <span>K3D-011 &middot; TPU 95A</span>
-            <b>42 GRAMS</b>
+            <span>K3D-MW-002 &middot; CARRY GEAR</span>
+            <b>608 BEARING</b>
           </div>
-          <a href="/product/flex-loop" class="k3d-bento-visual">
-            <img src="/assets/images/products/flex-loop.svg" alt="Flex Loop" loading="lazy">
+          <a href="/product/mini-paracord-pulley-608-bearing---skeleton-zero" class="k3d-bento-visual">
+            <img src="/assets/images/products/flex-loop.svg" alt="Mini Paracord Pulley" loading="lazy">
           </a>
           <div class="k3d-card-footer">
             <div>
-              <h3>Flex Loop</h3>
-              <p>Compliant flexible EDC tether with mechanical strain relief.</p>
+              <h3>Mini Paracord Pulley</h3>
+              <p>Functional Skeleton Zero mechanical pulley for 608 skate bearings.</p>
             </div>
             <div class="k3d-card-action">
-              <span class="k3d-card-price">&#2547;410.00</span>
-              <a href="/product/flex-loop" class="k3d-button k3d-btn-sm">VIEW DOSSIER &rarr;</a>
+              <span class="k3d-card-price" style="font-size: 11px;">PRICE ON REQUEST</span>
+              <a href="/product/mini-paracord-pulley-608-bearing---skeleton-zero" class="k3d-button k3d-btn-sm">VIEW DOSSIER &rarr;</a>
             </div>
           </div>
         </article>
 
-        <!-- Bento Card 4: Stack Planter -->
+        <!-- Bento Card 4: DUO Pen Holder -->
         <article class="k3d-bento-card">
           <div class="k3d-card-meta">
-            <span>K3D-014 &middot; BONE &amp; RUST</span>
-            <b>210 GRAMS</b>
+            <span>K3D-MW-006 &middot; ORGANIZERS</span>
+            <b>MODULAR TRAY</b>
           </div>
-          <a href="/product/stack-planter" class="k3d-bento-visual">
-            <img src="/assets/images/products/stack-planter.svg" alt="Stack Planter" loading="lazy">
+          <a href="/product/duo-pen-holder-with-removable-tray" class="k3d-bento-visual">
+            <img src="/assets/images/products/stack-planter.svg" alt="DUO Pen Holder" loading="lazy">
           </a>
           <div class="k3d-card-footer">
             <div>
-              <h3>Stack Planter</h3>
-              <p>Dual-tier architectural planter with integrated self-watering reservoir.</p>
+              <h3>DUO Pen Holder</h3>
+              <p>Dual-compartment desk caddy with removable tool tray.</p>
             </div>
             <div class="k3d-card-action">
-              <span class="k3d-card-price">&#2547;1,120.00</span>
-              <a href="/product/stack-planter" class="k3d-button k3d-btn-sm">VIEW DOSSIER &rarr;</a>
+              <span class="k3d-card-price" style="font-size: 11px;">PRICE ON REQUEST</span>
+              <a href="/product/duo-pen-holder-with-removable-tray" class="k3d-button k3d-btn-sm">VIEW DOSSIER &rarr;</a>
             </div>
           </div>
         </article>

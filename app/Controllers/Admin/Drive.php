@@ -37,8 +37,10 @@ class Drive extends BaseController
             $stats = $service->sync();
 
             $msg = sprintf(
-                'Drive Sync completed successfully! Synced %d products. Added: %d, Updated: %d, Removed: %d.',
+                'Drive Sync completed successfully! Synced %d products (Created: %d, Info Updated: %d). Images - Added: %d, Updated: %d, Removed: %d.',
                 $stats['products_synced'],
+                $stats['products_created'] ?? 0,
+                $stats['products_updated'] ?? 0,
                 $stats['images_added'],
                 $stats['images_updated'],
                 $stats['images_removed']

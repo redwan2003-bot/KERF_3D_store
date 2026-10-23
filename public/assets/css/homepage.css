@@ -281,6 +281,11 @@
   align-items: center;
 }
 
+.k3d-bento-feature .k3d-card-meta {
+  grid-column: 1 / -1;
+  width: 100%;
+}
+
 .k3d-bento-card {
   background: #ffffff;
   border: 1px solid var(--k3d-ink);

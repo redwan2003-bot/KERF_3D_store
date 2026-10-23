@@ -147,11 +147,24 @@ class DriveSyncService
     }
 
     // ────────────────────────────────────────────────────────────
-    // SYNC CATALOG IMAGES FROM DRIVE -> MYSQL
+    // SYNC CATALOG IMAGES & PRODUCT INFOS FROM DRIVE -> MYSQL
     // ────────────────────────────────────────────────────────────
 
     /**
-     * Synchronize all product image folders on Google Drive with MySQL.
+     * Alias for syncAll() for backwards compatibility with controller calls.
+     */
+    public function sync(): array
+    {
+        return $this->syncAll();
+    }
+
+    /**
+     * Synchronize all product image folders and metadata on Google Drive with MySQL.
+     * Supports:
+     * - Image syncing to product_images with Google CDN URLs
+     * - Auto-creation of products when new folders appear in Google Drive
+     * - Reading info.json / product.json inside folders to update product metadata
+     * - Auto-syncing master CSV files placed in the Google Drive Products folder
      *
      * @return array Sync summary stats
      */
@@ -170,11 +183,13 @@ class DriveSyncService
         ]);
 
         $stats = [
-            'products_synced' => 0,
-            'images_added'    => 0,
-            'images_updated'  => 0,
-            'images_removed'  => 0,
-            'errors'          => [],
+            'products_synced'  => 0,
+            'products_created' => 0,
+            'products_updated' => 0,
+            'images_added'     => 0,
+            'images_updated'   => 0,
+            'images_removed'   => 0,
+            'errors'           => [],
         ];
 
         try {
@@ -182,15 +197,32 @@ class DriveSyncService
                 throw new \InvalidArgumentException('Products root folder ID is not configured.');
             }
 
-            // List product subfolders in /Products/
-            $query = "'{$this->productsFolderId}' in parents and mimeType = 'application/vnd.google-apps.folder' and trashed = false";
-            $response = $this->drive->files->listFiles([
-                'q'        => $query,
-                'fields'   => 'files(id, name, webViewLink)',
-                'pageSize' => 100,
-            ]);
+            // 1. Sync any master CSV files in Products root folder
+            $this->syncMasterCsvFromDrive($stats);
 
-            foreach ($response->getFiles() as $folder) {
+            // 2. Fetch all product subfolders in /Products/ using pagination
+            $allFolders = [];
+            $pageToken  = null;
+
+            do {
+                $params = [
+                    'q'        => "'{$this->productsFolderId}' in parents and mimeType = 'application/vnd.google-apps.folder' and trashed = false",
+                    'fields'   => 'nextPageToken, files(id, name, webViewLink)',
+                    'pageSize' => 100,
+                ];
+                if ($pageToken) {
+                    $params['pageToken'] = $pageToken;
+                }
+
+                $res = $this->drive->files->listFiles($params);
+                foreach ($res->getFiles() as $folder) {
+                    $allFolders[] = $folder;
+                }
+                $pageToken = $res->getNextPageToken();
+            } while ($pageToken);
+
+            // 3. Process each Google Drive product folder
+            foreach ($allFolders as $folder) {
                 $folderName = trim($folder->getName());
                 $folderId   = $folder->getId();
 
@@ -202,23 +234,35 @@ class DriveSyncService
                 if (!$product) {
                     $product = $this->productModel->where('slug', $folderName)->first();
                 }
+
+                // If folder is not recognized, auto-create the product from the folder taxonomy!
                 if (!$product) {
-                    continue; // Skip folders that do not match an existing product slug
+                    $product = $this->createProductFromDriveFolder($folderName, $folderId, $folder->getWebViewLink());
+                    if ($product) {
+                        $stats['products_created']++;
+                    }
                 }
 
-                // Update product folder link
+                if (!$product) {
+                    continue; // Skip if product creation could not resolve
+                }
+
+                // Update product folder link in MySQL
                 $this->productModel->update($product['id'], [
                     'drive_folder_id'  => $folderId,
                     'drive_folder_url' => self::folderUrl($folderId),
                 ]);
 
-                // Sync images for this product
+                // Sync images and metadata for this product
                 $subStats = $this->syncProductFolder($product, $folderId);
 
                 $stats['products_synced']++;
                 $stats['images_added']   += $subStats['added'];
                 $stats['images_updated'] += $subStats['updated'];
                 $stats['images_removed'] += $subStats['removed'];
+                if (!empty($subStats['meta_updated'])) {
+                    $stats['products_updated']++;
+                }
             }
 
             $this->logModel->update($logId, [
@@ -244,6 +288,167 @@ class DriveSyncService
     }
 
     /**
+     * Scan Google Drive Products folder for any master CSV and import products.
+     */
+    protected function syncMasterCsvFromDrive(array &$stats): void
+    {
+        try {
+            $csvQuery = "'{$this->productsFolderId}' in parents and (mimeType = 'text/csv' or name contains '.csv') and trashed = false";
+            $res = $this->drive->files->listFiles(['q' => $csvQuery, 'fields' => 'files(id, name)']);
+            $csvFiles = $res->getFiles();
+
+            if (empty($csvFiles)) {
+                return;
+            }
+
+            $db = \Config\Database::connect();
+            foreach ($csvFiles as $csvFile) {
+                $content = $this->drive->files->get($csvFile->getId(), ['alt' => 'media'])->getBody()->getContents();
+                $tempPath = WRITEPATH . 'temp_drive_' . $csvFile->getId() . '.csv';
+                file_put_contents($tempPath, $content);
+
+                $handle = fopen($tempPath, 'r');
+                if (!$handle) continue;
+
+                $header = fgetcsv($handle);
+                $index = 0;
+                while (($row = fgetcsv($handle)) !== false) {
+                    if (count($row) < 3) continue;
+                    $prodName = trim($row[0]);
+                    $catName  = trim($row[1]);
+                    $seoDesc  = trim($row[2]);
+                    if (empty($prodName)) continue;
+
+                    $index++;
+                    $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $prodName), '-'));
+
+                    // Ensure category
+                    $catSlug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $catName), '-'));
+                    $cat = $db->table('categories')->where('slug', $catSlug)->get()->getRowArray();
+                    if (!$cat) {
+                        $db->table('categories')->insert([
+                            'name'        => $catName,
+                            'slug'        => $catSlug,
+                            'description' => "Curated {$catName} artifacts manufactured by Kerf 3D Studio.",
+                            'sort_order'  => 50,
+                            'created_at'  => date('Y-m-d H:i:s'),
+                            'updated_at'  => date('Y-m-d H:i:s'),
+                        ]);
+                        $catId = (int) $db->insertID();
+                    } else {
+                        $catId = (int) $cat['id'];
+                    }
+
+                    $existing = $this->productModel->where('slug', $slug)->first();
+                    $fullDesc = $seoDesc . "\n\nManufactured to order on high-precision Bambu Lab A1 hardware in Dhaka, Bangladesh. Direct order and custom material inquiry available via WhatsApp (+8801754550297).";
+
+                    $payload = [
+                        'name'              => $prodName,
+                        'slug'              => $slug,
+                        'short_description' => $seoDesc,
+                        'description'       => $fullDesc,
+                        'category_id'       => $catId,
+                        'catalog_type'      => 'ready_made',
+                        'status'            => 'active',
+                        'price_bdt'         => 0.00,
+                        'creator'           => 'Kerf 3D Studio',
+                        'license'           => 'Standard Commercial',
+                        'updated_at'        => date('Y-m-d H:i:s'),
+                    ];
+
+                    if ($existing) {
+                        $this->productModel->update($existing['id'], $payload);
+                        $stats['products_updated']++;
+                    } else {
+                        $payload['sku'] = sprintf('K3D-MW-%03d', rand(500, 999));
+                        $payload['created_at'] = date('Y-m-d H:i:s');
+                        $this->productModel->insert($payload);
+                        $stats['products_created']++;
+                    }
+                }
+                fclose($handle);
+                @unlink($tempPath);
+            }
+        } catch (\Throwable $e) {
+            // Log notice and continue with folder sync
+        }
+    }
+
+    /**
+     * Auto-create a product when a new folder is created in Google Drive.
+     * Taxonomy pattern: "[Category] Product Name (slug)" or "slug"
+     */
+    protected function createProductFromDriveFolder(string $folderName, string $folderId, string $webViewLink): ?array
+    {
+        $db = \Config\Database::connect();
+        $catName  = 'General';
+        $prodName = $folderName;
+        $slug     = '';
+
+        // Check if folder has category format: [Category] Name (slug)
+        if (preg_match('/^\[(.*?)\]\s*(.*?)\s*\((.*?)\)$/', $folderName, $m)) {
+            $catName  = trim($m[1]);
+            $prodName = trim($m[2]);
+            $slug     = trim($m[3]);
+        } elseif (preg_match('/^(.*?)\s*\((.*?)\)$/', $folderName, $m)) {
+            $prodName = trim($m[1]);
+            $slug     = trim($m[2]);
+        } else {
+            $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $folderName), '-'));
+            $prodName = ucwords(str_replace('-', ' ', $slug));
+        }
+
+        if (empty($slug)) {
+            $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $prodName), '-'));
+        }
+
+        // Ensure category
+        $catSlug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $catName), '-'));
+        $cat = $db->table('categories')->where('slug', $catSlug)->get()->getRowArray();
+        if (!$cat) {
+            $db->table('categories')->insert([
+                'name'        => $catName,
+                'slug'        => $catSlug,
+                'description' => "Curated {$catName} artifacts.",
+                'sort_order'  => 50,
+                'created_at'  => date('Y-m-d H:i:s'),
+                'updated_at'  => date('Y-m-d H:i:s'),
+            ]);
+            $catId = (int) $db->insertID();
+        } else {
+            $catId = (int) $cat['id'];
+        }
+
+        $sku = 'K3D-DRV-' . strtoupper(substr(md5($slug), 0, 4));
+
+        $id = $this->productModel->insert([
+            'sku'                => $sku,
+            'name'               => $prodName,
+            'slug'               => $slug,
+            'short_description'  => "{$prodName} 3D printed to order in Dhaka, Bangladesh. Message us on WhatsApp for pricing.",
+            'description'        => "{$prodName} manufactured to order on high-precision Bambu Lab A1 hardware in Dhaka, Bangladesh. Direct order and custom material inquiry available via WhatsApp (+8801754550297).",
+            'category_id'        => $catId,
+            'catalog_type'       => 'ready_made',
+            'status'             => 'active',
+            'tags'               => 'googledrive,makerworld,3dprinted,dhaka',
+            'price_bdt'          => 0.00,
+            'layer_height_mm'    => 0.20,
+            'infill_percent'     => 20,
+            'build_volume_fit'   => 1,
+            'creator'            => 'Kerf 3D Studio',
+            'license'            => 'Standard Commercial',
+            'attribution_text'   => 'Curated specimen synced via Google Drive',
+            'drive_folder_id'    => $folderId,
+            'drive_folder_url'   => $webViewLink ?: self::folderUrl($folderId),
+            'sort_order'         => 999,
+            'created_at'         => date('Y-m-d H:i:s'),
+            'updated_at'         => date('Y-m-d H:i:s'),
+        ]);
+
+        return $this->productModel->find($id);
+    }
+
+    /**
      * Create product slug subfolders on Google Drive for all active products
      * if they do not exist already, and record their Drive folder IDs in MySQL.
      */
@@ -255,25 +460,41 @@ class DriveSyncService
             throw new \InvalidArgumentException('Products root folder ID is not configured.');
         }
 
-        // Query existing folders in /Products/
+        // Query existing folders in /Products/ with pagination
         $existing = [];
-        $query = "'{$this->productsFolderId}' in parents and mimeType = 'application/vnd.google-apps.folder' and trashed = false";
-        $response = $this->drive->files->listFiles([
-            'q'        => $query,
-            'fields'   => 'files(id, name, webViewLink)',
-            'pageSize' => 200,
-        ]);
+        $pageToken = null;
 
-        foreach ($response->getFiles() as $f) {
-            $existing[trim($f->getName())] = [
-                'id'  => $f->getId(),
-                'url' => $f->getWebViewLink(),
+        do {
+            $params = [
+                'q'        => "'{$this->productsFolderId}' in parents and mimeType = 'application/vnd.google-apps.folder' and trashed = false",
+                'fields'   => 'nextPageToken, files(id, name, webViewLink)',
+                'pageSize' => 100,
             ];
-        }
+            if ($pageToken) {
+                $params['pageToken'] = $pageToken;
+            }
+
+            $response = $this->drive->files->listFiles($params);
+            foreach ($response->getFiles() as $f) {
+                $name = trim($f->getName());
+                $existing[$name] = [
+                    'id'  => $f->getId(),
+                    'url' => $f->getWebViewLink(),
+                ];
+                // Also index by slug extracted from [Category] Name (slug)
+                if (preg_match('/\(([a-z0-9\-]+)\)$/', $name, $m)) {
+                    $existing[$m[1]] = [
+                        'id'  => $f->getId(),
+                        'url' => $f->getWebViewLink(),
+                    ];
+                }
+            }
+            $pageToken = $response->getNextPageToken();
+        } while ($pageToken);
 
         $created = 0;
         $matched = 0;
-        $products = $this->productModel->findAll();
+        $products = $this->productModel->where('status', 'active')->findAll();
 
         foreach ($products as $product) {
             $slug = $product['slug'];
@@ -291,6 +512,7 @@ class DriveSyncService
                 $folderId  = $createdFolder->getId();
                 $folderUrl = $createdFolder->getWebViewLink();
                 $created++;
+                usleep(50000); // 50ms throttle to prevent API rate spikes
             }
 
             // Update product in MySQL
@@ -477,6 +699,39 @@ class DriveSyncService
             if ($firstImage) {
                 $this->imageModel->update($firstImage['id'], ['is_primary' => 1]);
             }
+        }
+
+        // 6. Check for info.json / product.json in the folder to update product details
+        try {
+            $infoRes = $this->drive->files->listFiles([
+                'q'      => "'{$folderId}' in parents and (name = 'info.json' or name = 'product.json') and trashed = false",
+                'fields' => 'files(id, name)',
+            ]);
+            $infoFiles = $infoRes->getFiles();
+            if (!empty($infoFiles)) {
+                $content = $this->drive->files->get($infoFiles[0]->getId(), ['alt' => 'media'])->getBody()->getContents();
+                $meta = json_decode($content, true);
+                if (is_array($meta)) {
+                    $updateFields = [];
+                    if (!empty($meta['name'])) $updateFields['name'] = trim($meta['name']);
+                    if (!empty($meta['short_description'])) $updateFields['short_description'] = trim($meta['short_description']);
+                    if (!empty($meta['description'])) $updateFields['description'] = trim($meta['description']);
+                    if (isset($meta['price_bdt'])) $updateFields['price_bdt'] = (float) $meta['price_bdt'];
+                    if (!empty($meta['tags'])) $updateFields['tags'] = is_array($meta['tags']) ? implode(',', $meta['tags']) : trim($meta['tags']);
+                    if (isset($meta['weight_g'])) $updateFields['weight_g'] = (float) $meta['weight_g'];
+                    if (!empty($meta['dimensions_mm'])) $updateFields['dimensions_mm'] = trim($meta['dimensions_mm']);
+                    if (isset($meta['layer_height_mm'])) $updateFields['layer_height_mm'] = (float) $meta['layer_height_mm'];
+                    if (isset($meta['infill_percent'])) $updateFields['infill_percent'] = (int) $meta['infill_percent'];
+
+                    if (!empty($updateFields)) {
+                        $updateFields['updated_at'] = date('Y-m-d H:i:s');
+                        $this->productModel->update($product['id'], $updateFields);
+                        $stats['meta_updated'] = 1;
+                    }
+                }
+            }
+        } catch (\Throwable $e) {
+            // Ignore info file read errors and continue safely
         }
 
         return $stats;
