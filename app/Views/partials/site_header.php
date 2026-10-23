@@ -1,12 +1,8 @@
 <header class="k3d-header" role="banner">
     <div class="k3d-header-inner k3d-container">
-        <!-- Brand Wordmark & Official Vector Logo -->
-        <a href="/" class="k3d-brand" aria-label="Kerf 3D Studio Homepage">
-            <img src="/assets/images/logo.svg" alt="Kerf 3D Studio Logo" class="k3d-brand-logo">
-            <span class="k3d-brand-text">
-                <strong>KERF 3D</strong>
-                <small>STUDIO / DHAKA</small>
-            </span>
+        <!-- Official Vector Logo linked to Homepage -->
+        <a href="/" class="k3d-brand" aria-label="Kerf Homepage">
+            <img src="/assets/images/logo.svg" alt="Kerf Logo" class="k3d-brand-logo">
         </a>
 
         <!-- Primary Navigation -->

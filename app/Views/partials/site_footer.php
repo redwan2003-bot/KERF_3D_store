@@ -3,9 +3,8 @@
         <div class="k3d-footer-top">
             <div class="k3d-footer-col">
                 <span class="k3d-kicker">STUDIO WORKSHOP</span>
-                <a href="/" class="k3d-footer-brand-wrap">
-                    <img src="/assets/images/logo.svg" alt="Kerf 3D Studio Logo" class="k3d-footer-brand-logo">
-                    <strong class="k3d-footer-brand">KERF 3D STUDIO</strong>
+                <a href="/" class="k3d-footer-brand-wrap" aria-label="Kerf Homepage">
+                    <img src="/assets/images/logo.svg" alt="Kerf Logo" class="k3d-footer-brand-logo">
                 </a>
                 <p>Precision additive manufacturing and curated physical artifacts. Operated in Dhaka, Bangladesh on Bambu Lab A1 hardware.</p>
             </div>
@@ -32,7 +31,7 @@
             </div>
         </div>
         <div class="k3d-footer-bottom">
-            <span>© <?= date('Y') ?> KERF 3D STUDIO · DHAKA, BANGLADESH · ALL RIGHTS RESERVED</span>
+            <span>© <?= date('Y') ?> KERF · DHAKA, BANGLADESH · ALL RIGHTS RESERVED</span>
             <span class="k3d-footer-tagline">PRECISION ADDITIVE MANUFACTURING & CURATED ARTIFACTS</span>
         </div>
     </div>

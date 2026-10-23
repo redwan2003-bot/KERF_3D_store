@@ -10,11 +10,13 @@
   <div class="k3d-ticket">
     <header class="k3d-ticket-header">
       <div>
-        <span>KERF 3D STUDIO</span>
+        <a href="/" aria-label="Kerf Homepage">
+          <img src="/assets/images/logo.svg" alt="Kerf Logo" style="height: 38px; width: auto; display: block; margin-bottom: 12px;">
+        </a>
         <strong>ORDER RECEIVED.</strong>
         <p>Your artifact order has entered our workshop queue.</p>
       </div>
-      <div class="k3d-ticket-mark">K3D<br>◒</div>
+      <div class="k3d-ticket-mark"><a href="/"><img src="/assets/images/favicon.svg" alt="Kerf Mark" style="height: 36px; width: auto;"></a></div>
     </header>
 
     <div class="k3d-ticket-rule"></div>

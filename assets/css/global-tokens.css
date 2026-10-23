@@ -106,41 +106,23 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 }
 
 .k3d-brand {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 14px;
   text-decoration: none;
   color: var(--k3d-ink);
   flex-shrink: 0;
 }
 
 .k3d-brand-logo {
-  height: 40px;
+  height: 48px;
   width: auto;
-  max-width: 75px;
+  max-width: 90px;
   display: block;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.k3d-brand-text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.1;
-}
-
-.k3d-brand-text strong {
-  font-family: var(--k3d-display);
-  font-size: 19px;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-}
-
-.k3d-brand-text small {
-  font-family: var(--k3d-mono);
-  font-size: 9px;
-  color: var(--k3d-meta);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  margin-top: 2px;
+.k3d-brand-logo:hover {
+  transform: scale(1.04);
 }
 
 /* Primary Navigation */
@@ -318,8 +300,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 }
 
 .k3d-footer-brand-logo {
-  height: 34px;
+  height: 44px;
   width: auto;
+  max-width: 95px;
   display: block;
 }
 
@@ -396,18 +379,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     box-sizing: border-box;
   }
   .k3d-brand {
-    gap: 8px;
-    flex: 1 1 auto;
+    flex: 0 1 auto;
   }
   .k3d-brand-logo {
-    height: 28px;
-    max-width: 50px;
-  }
-  .k3d-brand-text strong {
-    font-size: 15px;
-  }
-  .k3d-brand-text small {
-    font-size: 8px;
+    height: 36px;
+    max-width: 70px;
   }
   .k3d-header-actions {
     flex: 0 0 auto;

@@ -20,12 +20,8 @@
 
     <!-- Top Workshop Navbar -->
     <header class="admin-navbar">
-        <a href="/admin" class="admin-brand">
-            <span class="admin-brand-icon">K3D</span>
-            <div>
-                <div class="admin-brand-title">KERF 3D STUDIO</div>
-                <div class="admin-brand-sub">Workshop Command Center</div>
-            </div>
+        <a href="/admin" class="admin-brand" aria-label="Kerf Admin">
+            <img src="/assets/images/logo.svg" alt="Kerf Logo" style="height: 32px; width: auto; filter: invert(1); opacity: 0.95; display: block;">
         </a>
 
         <ul class="admin-nav-links">

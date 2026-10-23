@@ -4,12 +4,11 @@
 <div style="min-height: 75vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px;">
   <div style="width: 100%; max-width: 440px; background: var(--k3d-surface); border: 2px solid var(--k3d-ink); padding: 36px 32px; box-shadow: 6px 6px 0 var(--k3d-ink);">
     
-    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px dashed var(--k3d-border);">
-      <img src="/assets/images/logo.svg" alt="Kerf 3D" style="height: 32px; width: auto;">
-      <div>
-        <strong style="font-family: var(--k3d-display); font-size: 16px; display: block; letter-spacing: -0.02em;">KERF 3D STUDIO</strong>
-        <span style="font-family: var(--k3d-mono); font-size: 9px; color: var(--k3d-meta); letter-spacing: 0.1em;">ADMINISTRATIVE CONTROL INTAKE</span>
-      </div>
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px dashed var(--k3d-border);">
+      <a href="/" aria-label="Kerf Homepage">
+        <img src="/assets/images/logo.svg" alt="Kerf Logo" style="height: 38px; width: auto; display: block;">
+      </a>
+      <span style="font-family: var(--k3d-mono); font-size: 9px; color: var(--k3d-meta); letter-spacing: 0.1em;">ADMIN CONTROL INTAKE</span>
     </div>
 
     <h1 style="font-family: var(--k3d-display); font-size: 26px; line-height: 1.1; margin: 0 0 12px; letter-spacing: -0.04em;">Workshop Portal</h1>
