@@ -39,7 +39,11 @@
       </div>
 
       <h1><?= esc($product['name']) ?></h1>
-      <p class="k3d-product-price">৳<?= number_format($product['price_bdt'] ?? 0, 2) ?> <small>BDT / READY-MADE</small></p>
+      <?php if ((float)($product['price_bdt'] ?? 0) > 0): ?>
+        <p class="k3d-product-price">৳<?= number_format($product['price_bdt'] ?? 0, 2) ?> <small>BDT / READY-MADE</small></p>
+      <?php else: ?>
+        <p class="k3d-product-price"><span style="color: var(--k3d-rust); font-weight: 700;">PRICE ON REQUEST</span> <small>CUSTOM WORKSHOP INTAKE</small></p>
+      <?php endif; ?>
 
       <p class="k3d-product-description">
         <?= esc($product['description'] ?? $product['short_description'] ?? 'Curated artifact printed to order on Bambu Lab A1 hardware in Dhaka.') ?>
@@ -81,6 +85,7 @@
         </div>
       </div>
 
+      <?php if ((float)($product['price_bdt'] ?? 0) > 0): ?>
       <!-- Add to Bag Form -->
       <form action="/cart/add" method="POST" class="k3d-buy-row">
         <?= csrf_field() ?>
@@ -97,6 +102,20 @@
           <span id="k3d-cta-price">৳<?= number_format($product['price_bdt'] ?? 0, 2) ?> →</span>
         </button>
       </form>
+      <?php else: ?>
+      <!-- Direct WhatsApp Inquiry Form -->
+      <div class="k3d-inquire-block" style="margin-top: 20px;">
+        <?php 
+          $waMsg = urlencode("Hello Kerf 3D, I would like to inquire about the price and custom manufacturing for: " . $product['name'] . " (Specimen " . $product['sku'] . ")");
+        ?>
+        <a href="https://wa.me/8801754550297?text=<?= $waMsg ?>" target="_blank" rel="noopener" class="k3d-button is-style-fill" style="width: 100%; justify-content: center; padding: 16px; font-size: 11px; text-decoration: none;">
+          INQUIRE FOR PRICE ON WHATSAPP &rarr;
+        </a>
+        <p style="font-family: var(--k3d-mono); font-size: 10px; color: var(--k3d-meta); margin-top: 8px; text-align: center;">
+          ✦ DIRECT WORKSHOP HOTLINE: 01754550297 · DISPATCHED ACROSS BANGLADESH
+        </p>
+      </div>
+      <?php endif; ?>
 
       <!-- CAD Blueprint Title Block -->
       <div class="k3d-blueprint-title-block" style="border: 1px solid var(--k3d-border); padding: 12px 14px; margin-top: 24px; font-family: var(--k3d-mono); font-size: 10px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px 12px; background: rgba(24, 24, 24, 0.02);">

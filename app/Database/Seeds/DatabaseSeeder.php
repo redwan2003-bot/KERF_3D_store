@@ -12,5 +12,6 @@ class DatabaseSeeder extends Seeder
         $this->call('MaterialSeeder');
         $this->call('ProductSeeder');
         $this->call('DriveConfigSeeder');
+        $this->call('MakerWorldProductSeeder');
     }
 }

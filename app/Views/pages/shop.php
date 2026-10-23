@@ -82,7 +82,11 @@
                 <div class="k3d-product-meta">
                   <span><?= esc($product['category_name'] ?? 'CATALOG') ?> · <?= esc($product['weight_g'] ? $product['weight_g'] . 'G' : 'FDM') ?></span>
                   <strong><?= esc($product['name']) ?></strong>
-                  <b>৳<?= number_format($product['price_bdt'] ?? 0, 2) ?></b>
+                  <?php if ((float)($product['price_bdt'] ?? 0) > 0): ?>
+                    <b>৳<?= number_format($product['price_bdt'], 2) ?></b>
+                  <?php else: ?>
+                    <b style="color: var(--k3d-rust); font-size: 10px; letter-spacing: 0.05em;">PRICE ON REQUEST</b>
+                  <?php endif; ?>
                 </div>
               </a>
             </article>
