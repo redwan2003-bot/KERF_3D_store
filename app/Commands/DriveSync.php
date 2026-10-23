@@ -15,9 +15,10 @@ class DriveSync extends BaseCommand
     protected $usage = 'drive:sync [options]';
     protected $arguments = [];
     protected $options = [
-        '--product'          => 'Specify a single product slug to sync (e.g. --product=arc-vessel)',
-        '--init-folders'     => 'Auto-create Google Drive product folders matching all catalog slugs',
-        '--remodify-folders' => 'Remodify Google Drive product folder names to prepend categories [Category] Name (slug)',
+        '--product'           => 'Specify a single product slug to sync (e.g. --product=arc-vessel)',
+        '--init-folders'      => 'Auto-create category-nested Google Drive folders (Products/{Category}/{Name} ({slug}))',
+        '--nested-categories' => 'Alias for --init-folders: organize into category-nested Google Drive hierarchy',
+        '--remodify-folders'  => 'Remodify Google Drive product folder names to prepend categories [Category] Name (slug)',
     ];
 
     public function run(array $params)
@@ -25,44 +26,37 @@ class DriveSync extends BaseCommand
         CLI::write('✦ Kerf 3D Studio — Google Drive Media Synchronizer ✦', 'yellow');
         CLI::newLine();
 
-        $productSlug     = CLI::getOption('product');
-        $initFolders     = CLI::getOption('init-folders');
-        $remodifyFolders = CLI::getOption('remodify-folders');
+        $productSlug      = CLI::getOption('product');
+        $initFolders      = CLI::getOption('init-folders');
+        $nestedCategories = CLI::getOption('nested-categories');
+        $remodifyFolders  = CLI::getOption('remodify-folders');
 
         try {
             $service = new DriveSyncService();
 
-            if ($remodifyFolders) {
-                CLI::write('Remodifying Google Drive folder names with category taxonomy...', 'cyan');
-                $stats = $service->remodifyFoldersWithCategories();
+            if ($nestedCategories || $initFolders) {
+                CLI::write('Initializing category-nested Google Drive folder taxonomy...', 'cyan');
+                CLI::write('Structure: Products / {Category Name} / {Product Name} ({slug})', 'light_gray');
+                CLI::newLine();
 
-                $tableRows = [];
-                foreach ($stats['details'] as $item) {
-                    $tableRows[] = [$item['slug'], $item['new_name'], $item['id']];
-                }
-
-                if (!empty($tableRows)) {
-                    CLI::table(array_merge([['Slug', 'New Folder Name on Google Drive', 'Drive Folder ID']], $tableRows), ['Slug', 'New Folder Name on Google Drive', 'Drive Folder ID']);
-                }
+                $stats = $service->initCategoryNestedFolders(function ($current, $total, $name, $category) {
+                    if ($current % 25 === 0 || $current === $total) {
+                        CLI::write("[{$current}/{$total}] {$category} → {$name}", 'light_gray');
+                    }
+                });
 
                 CLI::newLine();
-                CLI::write("✓ Successfully remodified {$stats['renamed']} product folders in Google Drive.", 'green');
-                return EXIT_SUCCESS;
-            }
-
-            if ($initFolders) {
-                CLI::write('Initializing Google Drive folders for catalog products...', 'cyan');
-                $initStats = $service->initProductFolders();
-
                 CLI::table([
                     ['Metric', 'Count'],
-                    ['Folders Created on Drive', $initStats['created']],
-                    ['Existing Folders Matched', $initStats['matched']],
-                    ['Total Catalog Products',   $initStats['total']],
+                    ['Category Folders Created', $stats['categories_created']],
+                    ['Product Folders Created',  $stats['products_created']],
+                    ['Existing Folders Matched', $stats['products_matched']],
+                    ['Legacy Folders Moved',     $stats['products_moved']],
+                    ['Total Products Processed', $stats['total_products']],
                 ], ['Metric', 'Count']);
 
                 CLI::newLine();
-                CLI::write('✓ Google Drive folder structure initialized and linked to MySQL.', 'green');
+                CLI::write('✓ Google Drive category-nested hierarchy initialized and synced to MySQL.', 'green');
                 return EXIT_SUCCESS;
             }
 

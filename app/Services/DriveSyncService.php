@@ -530,6 +530,182 @@ class DriveSyncService
     }
 
     /**
+     * Initialize category-nested Google Drive folders:
+     * Products /
+     *   ├── Carry Gear /
+     *   │     ├── Charlie Brown AirPods Pro 2nd Gen Case (charlie-brown-airpods-pro-2nd-gen-case)
+     *   │     └── ...
+     *   ├── Organizers /
+     *   └── ...
+     */
+    public function initCategoryNestedFolders(?callable $onProgress = null): array
+    {
+        $this->requireDriveClient();
+
+        if (empty($this->productsFolderId)) {
+            throw new \InvalidArgumentException('Products root folder ID is not configured.');
+        }
+
+        $db = \Config\Database::connect();
+        $categories = $db->table('categories')->get()->getResultArray();
+
+        // 1. Scan existing items in Products root
+        $rootFolders = [];
+        $pageToken = null;
+        do {
+            $params = [
+                'q'        => "'{$this->productsFolderId}' in parents and mimeType = 'application/vnd.google-apps.folder' and trashed = false",
+                'fields'   => 'nextPageToken, files(id, name, webViewLink)',
+                'pageSize' => 100,
+            ];
+            if ($pageToken) {
+                $params['pageToken'] = $pageToken;
+            }
+            $res = $this->drive->files->listFiles($params);
+            foreach ($res->getFiles() as $f) {
+                $rootFolders[trim($f->getName())] = [
+                    'id'  => $f->getId(),
+                    'url' => $f->getWebViewLink(),
+                ];
+            }
+            $pageToken = $res->getNextPageToken();
+        } while ($pageToken);
+
+        // 2. Ensure each Category folder exists under Products root
+        $categoryFolderMap = [];
+        $categoriesCreated = 0;
+        foreach ($categories as $cat) {
+            $catName = trim($cat['name']);
+            if (isset($rootFolders[$catName])) {
+                $categoryFolderMap[$cat['id']] = $rootFolders[$catName]['id'];
+            } else {
+                $folderMeta = new \Google\Service\Drive\DriveFile([
+                    'name'     => $catName,
+                    'mimeType' => 'application/vnd.google-apps.folder',
+                    'parents'  => [$this->productsFolderId],
+                ]);
+                $created = $this->drive->files->create($folderMeta, ['fields' => 'id']);
+                $categoryFolderMap[$cat['id']] = $created->getId();
+                $categoriesCreated++;
+                usleep(60000);
+            }
+        }
+
+        // 3. For each category folder, scan existing subfolders to avoid duplicates
+        $existingProductFolders = [];
+        foreach ($categoryFolderMap as $catId => $catFolderId) {
+            $existingProductFolders[$catId] = [];
+            $subPageToken = null;
+            do {
+                $subParams = [
+                    'q'        => "'{$catFolderId}' in parents and mimeType = 'application/vnd.google-apps.folder' and trashed = false",
+                    'fields'   => 'nextPageToken, files(id, name, webViewLink)',
+                    'pageSize' => 100,
+                ];
+                if ($subPageToken) {
+                    $subParams['pageToken'] = $subPageToken;
+                }
+                $subRes = $this->drive->files->listFiles($subParams);
+                foreach ($subRes->getFiles() as $sf) {
+                    $sName = trim($sf->getName());
+                    if (preg_match('/\(([a-z0-9\-]+)\)$/i', $sName, $m)) {
+                        $existingProductFolders[$catId][$m[1]] = [
+                            'id'  => $sf->getId(),
+                            'url' => $sf->getWebViewLink(),
+                        ];
+                    }
+                    $existingProductFolders[$catId][$sName] = [
+                        'id'  => $sf->getId(),
+                        'url' => $sf->getWebViewLink(),
+                    ];
+                }
+                $subPageToken = $subRes->getNextPageToken();
+            } while ($subPageToken);
+        }
+
+        // 4. Products iteration
+        $products = $db->table('products')
+            ->select('products.id, products.name, products.slug, products.category_id, products.drive_folder_id, categories.name as category_name')
+            ->join('categories', 'categories.id = products.category_id', 'left')
+            ->where('products.status', 'active')
+            ->get()->getResultArray();
+
+        $productsCreated = 0;
+        $productsMatched = 0;
+        $productsMoved   = 0;
+        $totalProducts   = count($products);
+
+        foreach ($products as $idx => $p) {
+            $catId = $p['category_id'];
+            $targetCatFolderId = $categoryFolderMap[$catId] ?? null;
+
+            if (!$targetCatFolderId) {
+                if (!isset($categoryFolderMap['general'])) {
+                    $fMeta = new \Google\Service\Drive\DriveFile([
+                        'name'     => 'General',
+                        'mimeType' => 'application/vnd.google-apps.folder',
+                        'parents'  => [$this->productsFolderId],
+                    ]);
+                    $cr = $this->drive->files->create($fMeta, ['fields' => 'id']);
+                    $categoryFolderMap['general'] = $cr->getId();
+                }
+                $targetCatFolderId = $categoryFolderMap['general'];
+            }
+
+            $slug = $p['slug'];
+            $folderName = "{$p['name']} ({$slug})";
+
+            if (isset($existingProductFolders[$catId][$slug])) {
+                $folderId  = $existingProductFolders[$catId][$slug]['id'];
+                $folderUrl = $existingProductFolders[$catId][$slug]['url'];
+                $productsMatched++;
+            } elseif (!empty($p['drive_folder_id'])) {
+                $folderId = $p['drive_folder_id'];
+                try {
+                    $this->drive->files->update($folderId, new \Google\Service\Drive\DriveFile(['name' => $folderName]), [
+                        'addParents'    => $targetCatFolderId,
+                        'removeParents' => $this->productsFolderId,
+                        'fields'        => 'id, webViewLink'
+                    ]);
+                    $folderUrl = self::folderUrl($folderId);
+                    $productsMoved++;
+                } catch (\Throwable $e) {
+                    $folderUrl = self::folderUrl($folderId);
+                    $productsMatched++;
+                }
+            } else {
+                $fMeta = new \Google\Service\Drive\DriveFile([
+                    'name'     => $folderName,
+                    'mimeType' => 'application/vnd.google-apps.folder',
+                    'parents'  => [$targetCatFolderId],
+                ]);
+                $created = $this->drive->files->create($fMeta, ['fields' => 'id, webViewLink']);
+                $folderId  = $created->getId();
+                $folderUrl = $created->getWebViewLink();
+                $productsCreated++;
+                usleep(60000); // 60ms throttle
+            }
+
+            $this->productModel->update($p['id'], [
+                'drive_folder_id'  => $folderId,
+                'drive_folder_url' => $folderUrl ?: self::folderUrl($folderId),
+            ]);
+
+            if ($onProgress) {
+                $onProgress($idx + 1, $totalProducts, $p['name'], $p['category_name'] ?? 'General');
+            }
+        }
+
+        return [
+            'categories_created' => $categoriesCreated,
+            'products_created'   => $productsCreated,
+            'products_matched'   => $productsMatched,
+            'products_moved'     => $productsMoved,
+            'total_products'     => $totalProducts,
+        ];
+    }
+
+    /**
      * Remodify product subfolder names on Google Drive to prepend category taxonomy
      * and human-readable product names: [Category] Product Name (slug)
      */
