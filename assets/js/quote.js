@@ -226,7 +226,8 @@
       document.querySelectorAll('.k3d-radio-option').forEach(l => l.classList.remove('is-selected'));
       this.closest('.k3d-radio-option').classList.add('is-selected');
 
-      activeRate = parseFloat(this.getAttribute('data-rate')) || 6.50;
+      const internalRates = { 'pla': 6.50, 'tpu-95a': 9.75 };
+      activeRate = internalRates[this.value] || 6.50;
       activeDensity = parseFloat(this.getAttribute('data-density')) || 0.500;
 
       // Update material color of 3D mesh

@@ -65,34 +65,34 @@
     <div class="k3d-material-table">
       <div class="k3d-material-row k3d-material-head">
         <span>MATERIAL</span>
-        <span>RATE</span>
+        <span>GRADE / PROFILE</span>
         <span>BEHAVIOR</span>
         <span>BEST FOR</span>
         <span>A1 STATUS</span>
       </div>
       <div class="k3d-material-row">
         <strong>PLA</strong>
-        <b>৳6.50/g</b>
+        <b>BIO-RIGID</b>
         <span>High stiffness<br>Moderate impact</span>
         <span>Desk objects, vessels,<br>architectural forms</span>
         <em>IDEAL</em>
       </div>
       <div class="k3d-material-row">
         <strong>TPU 95A</strong>
-        <b>৳9.75/g</b>
+        <b>SHORE 95A</b>
         <span>Rubber-like flex<br>Impact absorption</span>
         <span>Cases, dampers,<br>gaskets, grips</span>
         <em>IDEAL</em>
       </div>
       <div class="k3d-material-row">
         <strong>PETG</strong>
-        <b>৳7.50/g*</b>
+        <b>COPOLYMER</b>
         <span>Tougher utility<br>Higher heat resistance</span>
         <span>Brackets, fittings,<br>functional parts</span>
         <em>IDEAL</em>
       </div>
     </div>
-    <p class="k3d-rate-footnote">*PETG rate is retained from the reference configuration and requires store owner activation before publishing live pricing.</p>
+    <p class="k3d-rate-footnote">*Custom polymers and engineering formulations are quoted automatically during custom CAD intake.</p>
   </section>
 
   <section class="k3d-tolerance-section">

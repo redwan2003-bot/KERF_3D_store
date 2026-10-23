@@ -73,8 +73,8 @@
     <aside class="k3d-quote-sidebar">
       <div class="k3d-quote-card">
         <div class="k3d-quote-head">
-          <span class="k3d-kicker">QUOTE SPECIFICATION</span>
-          <b>INSTANT ESTIMATE</b>
+          <span class="k3d-kicker">CAD SPECIFICATION</span>
+          <b style="background: var(--k3d-ink); color: #fff;">CAD INTAKE SPEC</b>
         </div>
 
         <!-- 01 / Material Selection -->
@@ -82,20 +82,20 @@
           <legend>01 / SELECT POLYMER</legend>
           <div class="k3d-radio-stack">
             <label class="k3d-radio-option is-selected">
-              <input type="radio" name="quote_material" value="pla" data-rate="6.50" data-density="0.500" checked>
+              <input type="radio" name="quote_material" value="pla" data-density="0.500" checked>
               <div>
                 <strong>PLA / RIGID BIOPOLYMER</strong>
                 <small>High stiffness, clean dimensional detail · 0.50 g/cm³</small>
               </div>
-              <b>৳6.50 / g</b>
+              <b class="k3d-poly-tag">RIGID SPEC</b>
             </label>
             <label class="k3d-radio-option">
-              <input type="radio" name="quote_material" value="tpu-95a" data-rate="9.75" data-density="0.480">
+              <input type="radio" name="quote_material" value="tpu-95a" data-density="0.480">
               <div>
                 <strong>TPU 95A / ELASTOMER</strong>
                 <small>Semi-flexible, impact absorbing · 0.48 g/cm³</small>
               </div>
-              <b>৳9.75 / g</b>
+              <b class="k3d-poly-tag">FLEX SPEC</b>
             </label>
           </div>
         </fieldset>
@@ -133,17 +133,8 @@
 
         <!-- Price Calculation Breakdown -->
         <div class="k3d-quote-summary">
-          <div class="k3d-summary-row">
-            <span>PRINT MATERIAL (<span id="k3d-calc-grams">140</span>G × ৳<span id="k3d-calc-rate">6.50</span>)</span>
-            <b id="k3d-calc-subtotal">৳910</b>
-          </div>
-          <div class="k3d-summary-row">
-            <span>MODEL SETUP & MACHINE PREP</span>
-            <b>৳50</b>
-          </div>
-          <div class="k3d-summary-divider"></div>
           <div class="k3d-summary-row k3d-total-row">
-            <span>CUSTOM MODEL TOTAL</span>
+            <span>CUSTOM SPECIMEN ESTIMATE</span>
             <strong id="k3d-calc-total">৳960</strong>
           </div>
           <div class="k3d-summary-row k3d-deposit-row">
@@ -161,7 +152,7 @@
         </p>
 
         <button class="k3d-button k3d-quote-cta" type="button" id="k3d-add-quote-btn">
-          ADD CUSTOM PRINT TO BAG <span>৳100 DEPOSIT →</span>
+          SUBMIT CAD SPECIMEN TO BAG <span>৳100 DEPOSIT →</span>
         </button>
       </div>
     </aside>

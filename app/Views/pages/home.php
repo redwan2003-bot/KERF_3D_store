@@ -212,10 +212,10 @@
               Direct FDM additive manufacturing for architects, industrial designers, and makers. Send your 3D CAD geometry for automated volume estimation, slicer verification, and instant workshop intake.
             </p>
             <div class="k3d-rate-chips">
-              <span>BIO-PLA: &#2547;6.50 / G</span>
-              <span>TPU 95A: &#2547;9.75 / G</span>
-              <span>SETUP FEE: &#2547;50</span>
-              <span>ADVANCE DEPOSIT: &#2547;100</span>
+              <span>POLYMERS: BIO-PLA &amp; TPU 95A</span>
+              <span>LAYER RESOLUTION: 0.16—0.20 MM</span>
+              <span>WORKSHOP FIT: 256³ MM CUBE</span>
+              <span>AUTOMATED GEOMETRY SLICING</span>
             </div>
           </div>
 
@@ -257,7 +257,7 @@
             <div><span>SHORE HARDNESS:</span> <strong>85D RIGID</strong></div>
             <div><span>HEAT DEFLECTION:</span> <strong>55&deg;C</strong></div>
             <div><span>LAYER RESOLUTION:</span> <strong>0.16—0.20 MM</strong></div>
-            <div><span>PRINT RATE:</span> <strong>&#2547;6.50 / GRAM</strong></div>
+            <div><span>TENSILE STRENGTH:</span> <strong>65 MPa RIGID</strong></div>
           </div>
         </div>
 
@@ -271,7 +271,7 @@
             <div><span>SHORE HARDNESS:</span> <strong>95A ELASTIC</strong></div>
             <div><span>MAX ELONGATION:</span> <strong>450%</strong></div>
             <div><span>LAYER RESOLUTION:</span> <strong>0.20 MM</strong></div>
-            <div><span>PRINT RATE:</span> <strong>&#2547;9.75 / GRAM</strong></div>
+            <div><span>TENSILE STRENGTH:</span> <strong>40 MPa IMPACT</strong></div>
           </div>
         </div>
       </div>
