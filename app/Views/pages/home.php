@@ -2,109 +2,310 @@
 
 <?= $this->section('content') ?>
 <div class="k3d-home">
-  <div class="k3d-ticker" role="note">✦ ADDITIVE MANUFACTURING STUDIO · DHAKA, BANGLADESH · NATIONWIDE COURIER DISPATCH ✦</div>
 
+  <!-- ── 01 / Monumental Architectural Hero (GRAU Aesthetic) ── -->
   <section class="k3d-hero">
-    <div class="k3d-hero-copy">
-      <p class="k3d-kicker">KERF 3D / STUDIO INDEX 01</p>
-      <h1>Precision objects,<br><em>built layer by layer.</em></h1>
-      <p>Curated artifacts and on-demand 3D printing from Dhaka. Choose a ready-made object or send us a mesh to manufacture.</p>
-      <div class="k3d-hero-actions">
-        <a class="k3d-button is-style-fill" href="/quote">UPLOAD A MESH →</a>
-        <a class="k3d-button is-style-outline" href="/shop">EXPLORE THE ARCHIVE</a>
+    <div class="k3d-hero-inner k3d-container">
+      
+      <!-- Studio Telemetry Status Ribbon -->
+      <div class="k3d-telemetry-strip">
+        <span class="k3d-status-badge"><span class="k3d-dot-live"></span> BAMBU LAB A1 FLEET · ACTIVE</span>
+        <span class="k3d-telemetry-datum">WORKSPACE: DHAKA HUB</span>
+        <span class="k3d-telemetry-datum">TOLERANCE: &plusmn;0.2 MM</span>
+        <span class="k3d-telemetry-datum">COURIER SLA: 24—48H</span>
       </div>
-    </div>
 
-    <div class="k3d-hero-specimen" aria-label="Kerf 3D specimen panel">
-      <div class="k3d-specimen-top"><span>SPECIMEN / K3D-001</span><span>PLA · 0.16 MM</span></div>
-      <div class="k3d-specimen-art"><span class="k3d-contour contour-a"></span><span class="k3d-contour contour-b"></span><span class="k3d-contour contour-c"></span><span class="k3d-axis">Z</span></div>
-      <div class="k3d-specimen-bottom"><span>FORM / FUNCTION / FINISH</span><span>READY FOR DISPATCH</span></div>
+      <div class="k3d-hero-grid">
+        <!-- Left: Monumental Editorial Typography -->
+        <div class="k3d-hero-content">
+          <p class="k3d-kicker">01 // STUDIO INDEX · ADDITIVE MANUFACTURING</p>
+          <h1 class="k3d-hero-title">
+            Objects designed for <span class="k3d-accent-text">weight &amp; presence.</span>
+          </h1>
+          <p class="k3d-hero-description">
+            Curated tactile artifacts and on-demand FDM additive manufacturing. Printed in Dhaka on calibrated Bambu Lab A1 hardware using architectural Bio-PLA and compliant TPU 95A.
+          </p>
+
+          <div class="k3d-hero-actions">
+            <a href="/shop" class="k3d-button k3d-btn-solid">
+              <span>EXPLORE ARCHIVE</span>
+              <span>&rarr;</span>
+            </a>
+            <a href="/quote" class="k3d-button k3d-btn-outline">
+              <span>UPLOAD CAD MESH</span>
+              <span>&nearr;</span>
+            </a>
+          </div>
+
+          <!-- Micro Specimen Telemetry -->
+          <div class="k3d-hero-stats">
+            <div>
+              <strong>256&sup3; MM</strong>
+              <span>BUILD VOLUME</span>
+            </div>
+            <div>
+              <strong>0.16 MM</strong>
+              <span>LAYER RESOLUTION</span>
+            </div>
+            <div>
+              <strong>24—48H</strong>
+              <span>DHAKA DISPATCH</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Monumental Specimen Spotlight Frame (GRAU Lighting Style) -->
+        <div class="k3d-hero-spotlight">
+          <div class="k3d-spotlight-frame">
+            <div class="k3d-frame-datum top-left">+ 00.00 [X/Y/Z]</div>
+            <div class="k3d-frame-datum top-right">BAMBU A1 // SPECIMEN 01</div>
+            
+            <a href="/product/arc-vessel" class="k3d-spotlight-link" aria-label="View Arc Vessel Specimen">
+              <img src="/assets/images/products/arc-vessel.svg" alt="Arc Vessel Architectural Specimen" class="k3d-spotlight-img">
+            </a>
+
+            <div class="k3d-frame-footer">
+              <div>
+                <span class="k3d-spec-sku">K3D-001 // ARC VESSEL</span>
+                <strong>FLUTED ARCHITECTURAL FORM</strong>
+              </div>
+              <div class="k3d-spec-price">
+                <span>READY-MADE</span>
+                <strong>&#2547;780.00</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
-  <div class="k3d-rate-strip" aria-label="Live material rates">
-    <div>
-      <span class="k3d-rate-label">MATERIAL RATE / 01</span>
-      <strong><?= esc($materials['pla']['name'] ?? 'PLA') ?></strong>
-      <span>৳<?= number_format($materials['pla']['rate_per_gram_bdt'] ?? 6.50, 2) ?> / gram · rigid</span>
-    </div>
-    <div>
-      <span class="k3d-rate-label">MATERIAL RATE / 02</span>
-      <strong><?= esc($materials['tpu']['name'] ?? 'TPU 95A') ?></strong>
-      <span>৳<?= number_format($materials['tpu']['rate_per_gram_bdt'] ?? 9.75, 2) ?> / gram · flexible</span>
-    </div>
-    <div>
-      <span class="k3d-rate-label">SETUP FEE</span>
-      <strong>৳50</strong>
-      <span>per model upload</span>
+  <!-- ── 02 / Continuous Studio Marquee (High-Speed Manufacturing Ribbon) ── -->
+  <div class="k3d-marquee-bar" aria-hidden="true">
+    <div class="k3d-marquee-track">
+      <span>&#10022; ADDITIVE MANUFACTURING STUDIO</span>
+      <span>&#10022; BAMBU LAB A1 CALIBRATED HARDWARE</span>
+      <span>&#10022; 0.16MM ULTRA-FINE RESOLUTION</span>
+      <span>&#10022; BIO-PLA &amp; HIGH-GRADE TPU 95A</span>
+      <span>&#10022; INSIDE DHAKA 24—48H (&#2547;70)</span>
+      <span>&#10022; NATIONWIDE COURIER DISPATCH (&#2547;130)</span>
+      <span>&#10022; BKASH &amp; NAGAD VERIFIED INTAKE</span>
+      <span>&#10022; ADDITIVE MANUFACTURING STUDIO</span>
+      <span>&#10022; BAMBU LAB A1 CALIBRATED HARDWARE</span>
+      <span>&#10022; 0.16MM ULTRA-FINE RESOLUTION</span>
+      <span>&#10022; BIO-PLA &amp; HIGH-GRADE TPU 95A</span>
+      <span>&#10022; INSIDE DHAKA 24—48H (&#2547;70)</span>
+      <span>&#10022; NATIONWIDE COURIER DISPATCH (&#2547;130)</span>
+      <span>&#10022; BKASH &amp; NAGAD VERIFIED INTAKE</span>
     </div>
   </div>
 
-  <section class="k3d-engines">
-    <a class="k3d-engine-card" href="/shop">
-      <span class="k3d-index">ENGINE 01</span>
-      <h2>SELECT AN<br><em>ARTIFACT</em></h2>
-      <p>Curated desk objects, vessels, docks, and functional forms with filament color variations.</p>
-      <span class="k3d-card-link">ENTER CATALOG →</span>
-    </a>
-    <a class="k3d-engine-card k3d-engine-card--dark" href="/quote">
-      <span class="k3d-index">ENGINE 02</span>
-      <h2>UPLOAD A<br><em>MESH</em></h2>
-      <p>Send an STL, OBJ, or 3MF file. We calculate weight, material, and a live BDT quote.</p>
-      <span class="k3d-card-link">START A QUOTE →</span>
-    </a>
-  </section>
-
-  <!-- Featured Artifacts Grid -->
-  <?php if (!empty($featuredProducts)): ?>
-  <section class="k3d-featured-archive k3d-container" style="padding: clamp(30px, 6vw, 60px) 20px;">
-    <div style="border-bottom: 2px solid var(--k3d-ink); padding-bottom: 15px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 10px;">
-      <div>
-        <p class="k3d-kicker">CURATED ARCHIVE</p>
-        <h2 style="font-size: clamp(28px, 5vw, 54px); margin: 0;">Featured <em>specimens.</em></h2>
+  <!-- ── 03 / Curated Specimen Bento Grid (Editorial Artifact Exhibition) ── -->
+  <section class="k3d-section k3d-bento-section">
+    <div class="k3d-container">
+      <div class="k3d-section-header">
+        <div>
+          <span class="k3d-kicker">02 // CURATED SPECIMEN DOSSIER</span>
+          <h2 class="k3d-section-title">Architectural objects for daily use.</h2>
+        </div>
+        <a href="/shop" class="k3d-text-link">VIEW COMPLETE ARCHIVE (08) &rarr;</a>
       </div>
-      <a href="/shop" style="font-family: var(--k3d-mono); font-size: 11px; text-decoration: underline; font-weight: 700;">VIEW ALL ARTIFACTS →</a>
-    </div>
-    <div class="k3d-product-grid" style="display: grid; gap: 24px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));">
-      <?php foreach ($featuredProducts as $item): ?>
-      <article class="k3d-product-card">
-        <a href="/product/<?= esc($item['slug']) ?>">
-          <div class="k3d-product-image" style="background: #e9e4da; height: 260px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;">
-            <?php if (!empty($item['images'][0]['drive_thumbnail_url'])): ?>
-              <img src="<?= esc($item['images'][0]['drive_thumbnail_url']) ?>" alt="<?= esc($item['name']) ?>" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
-            <?php else: ?>
-              <span style="font-family: var(--k3d-mono); font-size: 11px; color: var(--k3d-meta);">SPECIMEN<br><?= esc($item['sku']) ?></span>
-            <?php endif; ?>
-          </div>
-          <div class="k3d-product-meta" style="padding-top: 10px;">
-            <span style="font-size: 10px; color: var(--k3d-meta);"><?= esc($item['dimensions_mm'] ?? 'FDM SPECIMEN') ?></span>
-            <strong style="display: block; font-size: 16px; margin: 4px 0;"><?= esc($item['name']) ?></strong>
-            <b style="color: var(--k3d-rust);">৳<?= number_format($item['price_bdt'] ?? 0, 2) ?></b>
-          </div>
-        </a>
-      </article>
-      <?php endforeach; ?>
-    </div>
-  </section>
-  <?php endif; ?>
 
-  <section class="k3d-process">
-    <p class="k3d-kicker">WORKFLOW / 04 STAGES</p>
-    <h2>From mesh to <em>object.</em></h2>
-    <div class="k3d-process-grid">
-      <div><b>01</b><strong>UPLOAD</strong><span>STL · OBJ · 3MF</span></div>
-      <div><b>02</b><strong>SLICE</strong><span>WEIGHT + INFILL</span></div>
-      <div><b>03</b><strong>PRINT</strong><span>256 MM BAMBU A1 VOLUME</span></div>
-      <div><b>04</b><strong>DISPATCH</strong><span>DHAKA · NATIONWIDE</span></div>
+      <div class="k3d-bento-grid">
+        <!-- Bento Card 1: Featured Arc Vessel -->
+        <article class="k3d-bento-card k3d-bento-feature">
+          <div class="k3d-card-meta">
+            <span>K3D-001 &middot; BIO-PLA</span>
+            <b>140 GRAMS</b>
+          </div>
+          <a href="/product/arc-vessel" class="k3d-bento-visual">
+            <img src="/assets/images/products/arc-vessel.svg" alt="Arc Vessel" loading="lazy">
+          </a>
+          <div class="k3d-card-footer">
+            <div>
+              <h3>Arc Vessel</h3>
+              <p>Mathematical fluting engineered for ambient light diffusion &amp; structural rigidity.</p>
+            </div>
+            <div class="k3d-card-action">
+              <span class="k3d-card-price">&#2547;780.00</span>
+              <a href="/product/arc-vessel" class="k3d-button k3d-btn-sm">VIEW DOSSIER &rarr;</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Bento Card 2: Grid Dock -->
+        <article class="k3d-bento-card">
+          <div class="k3d-card-meta">
+            <span>K3D-006 &middot; CHARCOAL</span>
+            <b>85 GRAMS</b>
+          </div>
+          <a href="/product/grid-dock" class="k3d-bento-visual">
+            <img src="/assets/images/products/grid-dock.svg" alt="Grid Dock" loading="lazy">
+          </a>
+          <div class="k3d-card-footer">
+            <div>
+              <h3>Grid Dock</h3>
+              <p>Weighted parametric desk organizer with phone &amp; card channel.</p>
+            </div>
+            <div class="k3d-card-action">
+              <span class="k3d-card-price">&#2547;520.00</span>
+              <a href="/product/grid-dock" class="k3d-button k3d-btn-sm">VIEW DOSSIER &rarr;</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Bento Card 3: Flex Loop -->
+        <article class="k3d-bento-card">
+          <div class="k3d-card-meta">
+            <span>K3D-011 &middot; TPU 95A</span>
+            <b>42 GRAMS</b>
+          </div>
+          <a href="/product/flex-loop" class="k3d-bento-visual">
+            <img src="/assets/images/products/flex-loop.svg" alt="Flex Loop" loading="lazy">
+          </a>
+          <div class="k3d-card-footer">
+            <div>
+              <h3>Flex Loop</h3>
+              <p>Compliant flexible EDC tether with mechanical strain relief.</p>
+            </div>
+            <div class="k3d-card-action">
+              <span class="k3d-card-price">&#2547;410.00</span>
+              <a href="/product/flex-loop" class="k3d-button k3d-btn-sm">VIEW DOSSIER &rarr;</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Bento Card 4: Stack Planter -->
+        <article class="k3d-bento-card">
+          <div class="k3d-card-meta">
+            <span>K3D-014 &middot; BONE &amp; RUST</span>
+            <b>210 GRAMS</b>
+          </div>
+          <a href="/product/stack-planter" class="k3d-bento-visual">
+            <img src="/assets/images/products/stack-planter.svg" alt="Stack Planter" loading="lazy">
+          </a>
+          <div class="k3d-card-footer">
+            <div>
+              <h3>Stack Planter</h3>
+              <p>Dual-tier architectural planter with integrated self-watering reservoir.</p>
+            </div>
+            <div class="k3d-card-action">
+              <span class="k3d-card-price">&#2547;1,120.00</span>
+              <a href="/product/stack-planter" class="k3d-button k3d-btn-sm">VIEW DOSSIER &rarr;</a>
+            </div>
+          </div>
+        </article>
+      </div>
     </div>
   </section>
 
-  <section class="k3d-final-cta">
-    <h2>Have a form<br>in mind?</h2>
-    <p>Bring the geometry. We’ll handle the material, machine, and dispatch.</p>
-    <div>
-      <a class="k3d-button is-style-fill" href="/quote">GET YOUR BDT QUOTE →</a>
+  <!-- ── 04 / On-Page Instant CAD Intake Dropzone ── -->
+  <section class="k3d-section k3d-intake-section" id="cad-intake">
+    <div class="k3d-container">
+      <div class="k3d-intake-card">
+        <div class="k3d-intake-grid">
+          <div class="k3d-intake-info">
+            <span class="k3d-kicker">03 // ON-DEMAND CAD INTAKE</span>
+            <h2 class="k3d-intake-heading">Upload your mesh.<br>Instant build quote.</h2>
+            <p>
+              Direct FDM additive manufacturing for architects, industrial designers, and makers. Send your 3D CAD geometry for automated volume estimation, slicer verification, and instant workshop intake.
+            </p>
+            <div class="k3d-rate-chips">
+              <span>BIO-PLA: &#2547;6.50 / G</span>
+              <span>TPU 95A: &#2547;9.75 / G</span>
+              <span>SETUP FEE: &#2547;50</span>
+              <span>ADVANCE DEPOSIT: &#2547;100</span>
+            </div>
+          </div>
+
+          <div class="k3d-intake-dropzone">
+            <div class="k3d-dropzone-box" onclick="window.location.href='/quote'">
+              <div class="k3d-dropzone-icon">◒</div>
+              <strong>LAUNCH 3D MESH QUOTER</strong>
+              <p>Drag &amp; drop .STL, .OBJ, or .3MF (Up to 128 MB)</p>
+              <span class="k3d-button k3d-btn-solid" style="margin-top: 18px; width: 100%;">
+                <span>OPEN INTERACTIVE 3D VIEWER</span>
+                <span>&rarr;</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
+
+  <!-- ── 05 / Polymer Science Matrix (Tactile Materials) ── -->
+  <section class="k3d-section k3d-materials-section">
+    <div class="k3d-container">
+      <div class="k3d-section-header">
+        <div>
+          <span class="k3d-kicker">04 // POLYMER SCIENCE</span>
+          <h2 class="k3d-section-title">Tested for mechanical integrity.</h2>
+        </div>
+        <a href="/materials" class="k3d-text-link">FULL HARDWARE &amp; TOLERANCE GUIDE &rarr;</a>
+      </div>
+
+      <div class="k3d-material-grid">
+        <div class="k3d-material-card">
+          <div class="k3d-mat-head">
+            <span class="k3d-mat-tag">RIGID &amp; ARCHITECTURAL</span>
+            <h3>Bio-PLA (Polylactic Acid)</h3>
+          </div>
+          <p>Sourced from renewable organic polymers. High tensile rigidity and extreme dimensional precision. Ideal for geometric vessels, desk architecture, and display artifacts.</p>
+          <div class="k3d-mat-specs">
+            <div><span>SHORE HARDNESS:</span> <strong>85D RIGID</strong></div>
+            <div><span>HEAT DEFLECTION:</span> <strong>55&deg;C</strong></div>
+            <div><span>LAYER RESOLUTION:</span> <strong>0.16—0.20 MM</strong></div>
+            <div><span>PRINT RATE:</span> <strong>&#2547;6.50 / GRAM</strong></div>
+          </div>
+        </div>
+
+        <div class="k3d-material-card">
+          <div class="k3d-mat-head">
+            <span class="k3d-mat-tag" style="background: var(--k3d-ink); color: #fff;">COMPLIANT &amp; IMPACT PROOF</span>
+            <h3>TPU 95A (Polyurethane)</h3>
+          </div>
+          <p>Industrial-grade semi-flexible elastomer with indestructible interlayer bonding. Chemical, abrasion, and tear resistant. Ideal for shock bumpers, gaskets, and wearable loops.</p>
+          <div class="k3d-mat-specs">
+            <div><span>SHORE HARDNESS:</span> <strong>95A ELASTIC</strong></div>
+            <div><span>MAX ELONGATION:</span> <strong>450%</strong></div>
+            <div><span>LAYER RESOLUTION:</span> <strong>0.20 MM</strong></div>
+            <div><span>PRINT RATE:</span> <strong>&#2547;9.75 / GRAM</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 06 / Dhaka Workshop Dispatch & Consultation Ledger ── -->
+  <section class="k3d-section k3d-dispatch-section">
+    <div class="k3d-container">
+      <div class="k3d-dispatch-grid">
+        <div class="k3d-dispatch-box">
+          <span class="k3d-kicker">LOGISTICS 01</span>
+          <h4>Inside Dhaka</h4>
+          <p class="k3d-dispatch-rate">&#2547;70.00 BDT</p>
+          <p>Delivered within 24—48 hours via dedicated Steadfast / Pathao courier hubs directly to your doorstep.</p>
+        </div>
+        <div class="k3d-dispatch-box">
+          <span class="k3d-kicker">LOGISTICS 02</span>
+          <h4>Outside Dhaka</h4>
+          <p class="k3d-dispatch-rate">&#2547;130.00 BDT</p>
+          <p>Nationwide courier service (2—4 days) across all 64 districts in Bangladesh with live tracking updates.</p>
+        </div>
+        <div class="k3d-dispatch-box k3d-dispatch-highlight">
+          <span class="k3d-kicker" style="color: var(--k3d-canvas);">DIRECT WORKSHOP HOTLINE</span>
+          <h4 style="color: #fff;">Need Custom Slicing?</h4>
+          <p style="color: rgba(255,255,255,0.8);">Talk directly with our Dhaka manufacturing operator for scale recommendations or rush orders.</p>
+          <a href="https://wa.me/8801754550297" target="_blank" rel="noopener" class="k3d-button" style="background:#fff; color:var(--k3d-ink); margin-top:14px; width:100%; justify-content:space-between;">
+            <span>WHATSAPP HOTLINE</span>
+            <span>+880 1754-550297 &nearr;</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </div>
 <?= $this->endSection() ?>

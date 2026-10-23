@@ -1,341 +1,586 @@
-/* Kerf 3D / Homepage Stylesheet
-   Precision Additive Manufacturing Studio & Curated Physical Artifacts */
+/* Kerf 3D Studio — Reimagined Homepage Stylesheet
+   GRAU Minimalist Architectural Exhibition × Industrial Brutalism */
 
 .k3d-home {
   background: var(--k3d-canvas);
   color: var(--k3d-ink);
-  font-family: var(--k3d-sans);
   overflow-x: hidden;
   width: 100%;
 }
 
-.k3d-home h1, .k3d-home h2 {
-  font-family: var(--k3d-display);
-  font-weight: 700;
-  letter-spacing: -.055em;
-  line-height: .92;
-  word-break: break-word;
-}
-
-.k3d-home em {
-  color: var(--k3d-rust);
-  font-style: normal;
-}
-
-.k3d-ticker {
-  background: var(--k3d-ink);
-  color: var(--k3d-canvas);
-  font: 700 11px/1.2 var(--k3d-mono);
-  letter-spacing: .08em;
-  padding: 13px 20px;
-  text-align: center;
-  width: 100%;
-  box-sizing: border-box;
-}
-
+/* ── Hero Section ─────────────────────────────────────────── */
 .k3d-hero {
-  gap: clamp(35px, 6vw, 100px);
-  min-height: 640px;
-  padding: 80px 24px 70px;
+  border-bottom: 2px solid var(--k3d-ink);
+  padding: 24px 0 60px;
+}
+
+.k3d-telemetry-strip {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
   align-items: center;
-  max-width: var(--k3d-content-width);
-  margin: 0 auto;
-  box-sizing: border-box;
-}
-
-.k3d-hero-copy {
-  flex: 1 1 420px;
-  max-width: 610px;
-  min-width: 0;
-}
-
-.k3d-kicker, .k3d-index, .k3d-rate-strip, .k3d-specimen-top, .k3d-specimen-bottom, .k3d-process-grid {
+  gap: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px dashed var(--k3d-border);
   font-family: var(--k3d-mono);
-  text-transform: uppercase;
-}
-
-.k3d-kicker {
+  font-size: 10px;
   color: var(--k3d-meta);
-  font-size: 11px;
-  letter-spacing: .14em;
+  letter-spacing: 0.08em;
+  flex-wrap: wrap;
 }
 
-.k3d-hero h1 {
-  font-size: clamp(48px, 7vw, 110px);
-  margin: 22px 0 30px;
-  max-width: 720px;
+.k3d-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--k3d-ink);
+  font-weight: 700;
 }
 
-.k3d-hero-copy > p:not(.k3d-kicker) {
+.k3d-dot-live {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #28a03c;
+  display: inline-block;
+  box-shadow: 0 0 0 3px rgba(40, 160, 60, 0.2);
+}
+
+.k3d-hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 60px;
+  align-items: center;
+  padding-top: 40px;
+}
+
+.k3d-hero-title {
+  font-family: var(--k3d-display);
+  font-size: clamp(38px, 5.5vw, 76px);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+  margin: 16px 0 24px;
+}
+
+.k3d-accent-text {
+  color: var(--k3d-rust);
+}
+
+.k3d-hero-description {
+  font-size: 16px;
+  line-height: 1.6;
   color: var(--k3d-secondary);
-  font-size: 17px;
-  line-height: 1.65;
-  max-width: 480px;
+  max-width: 540px;
+  margin-bottom: 36px;
 }
 
 .k3d-hero-actions {
   display: flex;
-  gap: 12px;
-  margin-top: 36px;
+  gap: 16px;
+  margin-bottom: 48px;
   flex-wrap: wrap;
 }
 
-.k3d-hero-actions .k3d-button {
-  padding: 18px 24px;
+.k3d-btn-solid {
+  background: var(--k3d-ink);
+  color: #fff;
+  border: 1px solid var(--k3d-ink);
+  gap: 12px;
 }
 
-.k3d-hero-specimen {
-  background: var(--k3d-logo-brown);
-  border: 2px solid var(--k3d-ink);
-  color: var(--k3d-canvas);
-  flex: 0 1 480px;
-  min-height: 480px;
-  padding: 18px;
-  box-sizing: border-box;
-  width: 100%;
+.k3d-btn-solid:hover {
+  background: var(--k3d-rust);
+  border-color: var(--k3d-rust);
+  color: #fff;
 }
 
-.k3d-specimen-top, .k3d-specimen-bottom {
-  display: flex;
-  font-size: 10px;
-  justify-content: space-between;
-  letter-spacing: .08em;
+.k3d-btn-outline {
+  background: transparent;
+  color: var(--k3d-ink);
+  border: 1px solid var(--k3d-ink);
+  gap: 12px;
 }
 
-.k3d-specimen-art {
-  align-items: center;
-  display: flex;
-  height: 410px;
-  justify-content: center;
-  overflow: hidden;
-  position: relative;
+.k3d-btn-outline:hover {
+  background: var(--k3d-ink);
+  color: #fff;
 }
 
-.k3d-contour {
-  border: 1px solid var(--k3d-canvas);
-  border-radius: 50%;
-  display: block;
-  height: 270px;
-  position: absolute;
-  transform: rotate(-22deg);
-  width: 180px;
-}
-
-.contour-b { height: 205px; transform: rotate(18deg); width: 310px; }
-.contour-c { height: 110px; transform: rotate(-4deg); width: 340px; }
-.k3d-axis { font: 700 18px var(--k3d-mono); position: absolute; right: 20px; top: 22px; }
-
-/* ── Live Material Rate Strip ─────────────────────────────── */
-.k3d-rate-strip {
-  border-bottom: 2px solid var(--k3d-ink);
-  border-top: 2px solid var(--k3d-ink);
+.k3d-hero-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  margin: 0 auto;
-  max-width: var(--k3d-content-width);
-  box-sizing: border-box;
+  gap: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--k3d-border);
 }
 
-.k3d-rate-strip > div {
-  border-right: 1px solid var(--k3d-border);
-  display: grid;
-  gap: 7px;
-  padding: 22px 24px;
-}
-
-.k3d-rate-strip > div:last-child {
-  border-right: 0;
-}
-
-.k3d-rate-label, .k3d-rate-strip span:last-child {
-  color: var(--k3d-meta);
-  font-size: 10px;
-}
-
-.k3d-rate-strip strong {
-  font-size: 21px;
-}
-
-/* ── Dual Engines ─────────────────────────────────────────── */
-.k3d-engines {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0;
-  padding: 80px 24px;
-  max-width: var(--k3d-content-width);
-  margin: 0 auto;
-  box-sizing: border-box;
-}
-
-.k3d-engine-card {
-  background: var(--k3d-surface);
-  border: 1px solid var(--k3d-border);
+.k3d-hero-stats div strong {
+  display: block;
+  font-family: var(--k3d-mono);
+  font-size: 16px;
   color: var(--k3d-ink);
-  display: block;
-  min-height: 340px;
-  padding: 36px;
-  text-decoration: none;
-  box-sizing: border-box;
-  transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
-.k3d-engine-card:hover {
-  border-color: var(--k3d-ink);
-  transform: translateY(-2px);
-}
-
-.k3d-engine-card--dark {
-  background: var(--k3d-ink);
-  color: var(--k3d-canvas);
-  border-color: var(--k3d-ink);
-}
-
-.k3d-engine-card h2 {
-  font-size: clamp(34px, 4.5vw, 64px);
-  margin: 48px 0 20px;
-}
-
-.k3d-engine-card p {
-  max-width: 360px;
-}
-
-.k3d-card-link {
-  display: block;
-  font: 700 11px var(--k3d-mono);
-  margin-top: 35px;
+.k3d-hero-stats div span {
+  font-family: var(--k3d-mono);
+  font-size: 9px;
+  color: var(--k3d-meta);
   letter-spacing: 0.08em;
 }
 
-/* ── 4 Stages Process ─────────────────────────────────────── */
-.k3d-process {
-  padding: 40px 24px 90px;
-  max-width: var(--k3d-content-width);
-  margin: 0 auto;
-  box-sizing: border-box;
+/* ── Hero Spotlight Frame (GRAU Lighting Style) ────────────── */
+.k3d-spotlight-frame {
+  background: #e8e4dc;
+  border: 2px solid var(--k3d-ink);
+  padding: 24px;
+  position: relative;
+  box-shadow: 8px 8px 0 var(--k3d-ink);
 }
 
-.k3d-process h2 {
-  font-size: clamp(42px, 7vw, 96px);
-  margin: 20px 0 50px;
+.k3d-frame-datum {
+  position: absolute;
+  top: 12px;
+  font-family: var(--k3d-mono);
+  font-size: 9px;
+  color: var(--k3d-meta);
+  letter-spacing: 0.1em;
 }
 
-.k3d-process-grid {
-  border-top: 2px solid var(--k3d-ink);
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+.k3d-frame-datum.top-left { left: 14px; }
+.k3d-frame-datum.top-right { right: 14px; }
+
+.k3d-spotlight-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 36px 20px 20px;
 }
 
-.k3d-process-grid > div {
-  border-right: 1px solid var(--k3d-ink);
-  display: grid;
-  gap: 12px;
-  padding: 22px 18px 0 0;
+.k3d-spotlight-img {
+  width: 100%;
+  max-height: 380px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
 }
 
-.k3d-process-grid > div:not(:first-child) {
-  padding-left: 18px;
+.k3d-spotlight-link:hover .k3d-spotlight-img {
+  transform: scale(1.03);
 }
 
-.k3d-process-grid > div:last-child {
-  border-right: 0;
+.k3d-frame-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-top: 1px dashed var(--k3d-ink);
+  padding-top: 16px;
+  margin-top: 12px;
 }
 
-.k3d-process-grid b {
+.k3d-spec-sku {
+  display: block;
+  font-family: var(--k3d-mono);
+  font-size: 9px;
+  color: var(--k3d-rust);
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.k3d-frame-footer strong {
+  font-family: var(--k3d-mono);
+  font-size: 11px;
+}
+
+.k3d-spec-price {
+  text-align: right;
+  font-family: var(--k3d-mono);
+}
+
+.k3d-spec-price span {
+  display: block;
+  font-size: 8px;
+  color: var(--k3d-meta);
+}
+
+.k3d-spec-price strong {
+  font-size: 16px;
   color: var(--k3d-rust);
 }
 
-.k3d-process-grid strong {
-  font-size: 16px;
+/* ── Continuous Marquee Bar ───────────────────────────────── */
+.k3d-marquee-bar {
+  background: var(--k3d-ink);
+  color: var(--k3d-canvas);
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 12px 0;
+  border-bottom: 2px solid var(--k3d-ink);
 }
 
-.k3d-process-grid span {
+.k3d-marquee-track {
+  display: inline-block;
+  animation: k3d-marquee 30s linear infinite;
+  font-family: var(--k3d-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.k3d-marquee-track span {
+  margin-right: 32px;
+}
+
+@keyframes k3d-marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── Section Structure ────────────────────────────────────── */
+.k3d-section {
+  padding: 80px 0;
+  border-bottom: 2px solid var(--k3d-ink);
+}
+
+.k3d-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.k3d-section-title {
+  font-family: var(--k3d-display);
+  font-size: clamp(28px, 4.5vw, 48px);
+  margin: 10px 0 0;
+  letter-spacing: -0.04em;
+}
+
+.k3d-text-link {
+  font-family: var(--k3d-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--k3d-ink);
+  text-decoration: underline;
+}
+
+.k3d-text-link:hover {
+  color: var(--k3d-rust);
+}
+
+/* ── Curated Specimen Bento Grid ──────────────────────────── */
+.k3d-bento-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.k3d-bento-feature {
+  grid-column: span 3;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+}
+
+.k3d-bento-card {
+  background: #ffffff;
+  border: 1px solid var(--k3d-ink);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.k3d-bento-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 0 var(--k3d-ink);
+}
+
+.k3d-card-meta {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--k3d-mono);
+  font-size: 9px;
   color: var(--k3d-meta);
-  font-size: 10px;
+  border-bottom: 1px dashed var(--k3d-border);
+  padding-bottom: 10px;
+  margin-bottom: 16px;
 }
 
-/* ── Responsive Refinements ───────────────────────────────── */
-@media (max-width: 900px) {
-  .k3d-hero {
-    padding: 60px 20px 40px;
+.k3d-bento-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.k3d-bento-visual img {
+  width: 100%;
+  max-height: 260px;
+  object-fit: contain;
+}
+
+.k3d-bento-feature .k3d-bento-visual img {
+  max-height: 340px;
+}
+
+.k3d-card-footer h3 {
+  font-family: var(--k3d-display);
+  font-size: 22px;
+  margin: 0 0 6px;
+}
+
+.k3d-card-footer p {
+  font-size: 13px;
+  color: var(--k3d-secondary);
+  line-height: 1.5;
+  margin: 0 0 16px;
+}
+
+.k3d-card-action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 14px;
+  border-top: 1px dashed var(--k3d-border);
+}
+
+.k3d-card-price {
+  font-family: var(--k3d-mono);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--k3d-ink);
+}
+
+.k3d-btn-sm {
+  padding: 8px 14px;
+  font-size: 10px;
+  background: var(--k3d-ink);
+  color: #fff;
+}
+
+.k3d-btn-sm:hover {
+  background: var(--k3d-rust);
+}
+
+/* ── On-Page CAD Intake Dropzone ──────────────────────────── */
+.k3d-intake-card {
+  background: #ffffff;
+  border: 2px solid var(--k3d-ink);
+  padding: 48px;
+  box-shadow: 8px 8px 0 var(--k3d-ink);
+}
+
+.k3d-intake-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.k3d-intake-heading {
+  font-family: var(--k3d-display);
+  font-size: clamp(32px, 4vw, 52px);
+  margin: 12px 0 16px;
+  line-height: 1;
+}
+
+.k3d-rate-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.k3d-rate-chips span {
+  background: var(--k3d-canvas);
+  border: 1px solid var(--k3d-ink);
+  padding: 6px 10px;
+  font-family: var(--k3d-mono);
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.k3d-dropzone-box {
+  border: 2px dashed var(--k3d-ink);
+  background: var(--k3d-canvas);
+  padding: 48px 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.k3d-dropzone-box:hover {
+  background: #ede8df;
+  border-color: var(--k3d-rust);
+}
+
+.k3d-dropzone-icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+  color: var(--k3d-rust);
+}
+
+.k3d-dropzone-box strong {
+  display: block;
+  font-family: var(--k3d-mono);
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.k3d-dropzone-box p {
+  font-family: var(--k3d-mono);
+  font-size: 10px;
+  color: var(--k3d-meta);
+  margin: 0;
+}
+
+/* ── Material Matrix ──────────────────────────────────────── */
+.k3d-material-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.k3d-material-card {
+  background: #ffffff;
+  border: 2px solid var(--k3d-ink);
+  padding: 32px;
+}
+
+.k3d-mat-head {
+  border-bottom: 1px dashed var(--k3d-border);
+  padding-bottom: 14px;
+  margin-bottom: 16px;
+}
+
+.k3d-mat-tag {
+  background: var(--k3d-rust);
+  color: #fff;
+  font-family: var(--k3d-mono);
+  font-size: 9px;
+  font-weight: 700;
+  padding: 3px 8px;
+  letter-spacing: 0.08em;
+}
+
+.k3d-mat-head h3 {
+  font-family: var(--k3d-display);
+  font-size: 24px;
+  margin: 10px 0 0;
+}
+
+.k3d-material-card p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--k3d-secondary);
+  margin-bottom: 24px;
+}
+
+.k3d-mat-specs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  border-top: 1px solid var(--k3d-border);
+  padding-top: 16px;
+  font-family: var(--k3d-mono);
+}
+
+.k3d-mat-specs div span {
+  font-size: 9px;
+  color: var(--k3d-meta);
+  display: block;
+}
+
+.k3d-mat-specs div strong {
+  font-size: 11px;
+}
+
+/* ── Dispatch & Logistics ─────────────────────────────────── */
+.k3d-dispatch-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.k3d-dispatch-box {
+  background: #ffffff;
+  border: 1px solid var(--k3d-ink);
+  padding: 32px 24px;
+}
+
+.k3d-dispatch-box h4 {
+  font-family: var(--k3d-display);
+  font-size: 22px;
+  margin: 8px 0;
+}
+
+.k3d-dispatch-rate {
+  font-family: var(--k3d-mono);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--k3d-rust);
+  margin: 0 0 12px;
+}
+
+.k3d-dispatch-box p {
+  font-size: 13px;
+  color: var(--k3d-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.k3d-dispatch-highlight {
+  background: var(--k3d-ink);
+  color: #ffffff;
+  border-color: var(--k3d-ink);
+}
+
+/* ── Responsive Breakpoints ───────────────────────────────── */
+@media (max-width: 990px) {
+  .k3d-hero-grid {
+    grid-template-columns: 1fr;
     gap: 40px;
   }
-  .k3d-engines {
+  .k3d-bento-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .k3d-bento-feature {
+    grid-column: span 2;
+  }
+  .k3d-intake-grid {
     grid-template-columns: 1fr;
-    padding: 50px 20px;
+    gap: 32px;
+  }
+  .k3d-material-grid,
+  .k3d-dispatch-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
 }
 
 @media (max-width: 650px) {
-  .k3d-ticker {
-    font-size: 9px;
-    letter-spacing: .04em;
-    padding: 10px 14px;
-    white-space: normal;
-  }
   .k3d-hero {
-    min-height: 0;
-    padding: 35px 16px 30px;
-  }
-  .k3d-hero h1 {
-    font-size: clamp(34px, 11vw, 54px);
-    margin: 16px 0 20px;
-    line-height: 0.95;
-  }
-  .k3d-hero-copy > p:not(.k3d-kicker) {
-    font-size: 15px;
-    max-width: 100%;
+    padding: 20px 0 40px;
   }
   .k3d-hero-actions {
     flex-direction: column;
-    width: 100%;
-    margin-top: 24px;
-    gap: 10px;
   }
   .k3d-hero-actions .k3d-button {
     width: 100%;
-    text-align: center;
-    justify-content: center;
-    padding: 15px 18px;
   }
-  .k3d-hero-specimen {
-    min-height: 340px;
-    padding: 14px;
+  .k3d-hero-stats {
+    grid-template-columns: 1fr;
+    gap: 14px;
   }
-  .k3d-specimen-art {
-    height: 270px;
-  }
-  .k3d-rate-strip, .k3d-process-grid, .k3d-engines {
+  .k3d-bento-grid {
     grid-template-columns: 1fr;
   }
-  .k3d-rate-strip > div {
-    border-bottom: 1px solid var(--k3d-border);
-    border-right: 0;
-    padding: 18px 20px;
+  .k3d-bento-feature {
+    grid-column: span 1;
+    grid-template-columns: 1fr;
   }
-  .k3d-rate-strip > div:last-child {
-    border-bottom: 0;
-  }
-  .k3d-engine-card {
-    padding: 24px;
-    min-height: 280px;
-  }
-  .k3d-engine-card h2 {
-    font-size: 32px;
-    margin: 28px 0 16px;
-  }
-  .k3d-process {
-    padding: 30px 16px 60px;
-  }
-  .k3d-process h2 {
-    font-size: 36px;
-    margin-bottom: 30px;
-  }
-  .k3d-process-grid > div, .k3d-process-grid > div:not(:first-child) {
-    border-bottom: 1px solid var(--k3d-ink);
-    border-right: 0;
-    padding: 16px 0;
+  .k3d-intake-card {
+    padding: 24px 16px;
   }
 }
