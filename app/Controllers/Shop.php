@@ -46,8 +46,13 @@ class Shop extends BaseController
             $prod['primary_image'] = $imageModel->getPrimaryImage((int) $prod['id']);
         }
 
-        // Available Categories, Materials & Shades for sidebar
-        $categories = $db->table('categories')->whereIn('slug', ['vessels-forms', 'desk-studio', 'architectural'])->get()->getResultArray();
+        // Available Categories with active products for filter pills
+        $categories = $db->table('categories')
+            ->select('categories.id, categories.name, categories.slug, count(products.id) as product_count')
+            ->join('products', 'products.category_id = categories.id AND products.status = "active"', 'inner')
+            ->groupBy('categories.id')
+            ->orderBy('categories.name', 'ASC')
+            ->get()->getResultArray();
         $materials  = $db->table('materials')->where('is_active', 1)->get()->getResultArray();
         $shades     = $db->table('filament_shades')->where('is_active', 1)->orderBy('sort_order', 'ASC')->get()->getResultArray();
 
