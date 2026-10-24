@@ -73,8 +73,16 @@
             <article class="k3d-product-card">
               <a href="/product/<?= esc($product['slug']) ?>">
                 <div class="k3d-product-image">
-                  <?php if (!empty($product['primary_image']['drive_thumbnail_url'])): ?>
-                    <img src="<?= esc($product['primary_image']['drive_thumbnail_url']) ?>" alt="<?= esc($product['name']) ?>" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
+                  <?php 
+                    $imgSrc = '';
+                    if (!empty($product['primary_image']['filename']) && file_exists(FCPATH . 'assets/images/products/' . $product['primary_image']['filename'])) {
+                        $imgSrc = '/assets/images/products/' . esc($product['primary_image']['filename']);
+                    } elseif (!empty($product['primary_image']['drive_thumbnail_url'])) {
+                        $imgSrc = esc($product['primary_image']['drive_thumbnail_url']);
+                    }
+                  ?>
+                  <?php if (!empty($imgSrc)): ?>
+                    <img src="<?= $imgSrc ?>" alt="<?= esc($product['name']) ?>" style="width: 100%; height: 100%; object-fit: contain;" loading="lazy">
                   <?php else: ?>
                     <span style="font-family: var(--k3d-mono); font-size: 10px; color: var(--k3d-meta); padding: 10px;">SPECIMEN<br><?= esc($product['sku']) ?></span>
                   <?php endif; ?>

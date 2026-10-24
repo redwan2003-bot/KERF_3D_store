@@ -59,7 +59,9 @@ class Cart extends BaseController
             ->where('product_id', $productId)
             ->orderBy('sort_order', 'ASC')
             ->get()->getRowArray();
-        $thumbnailUrl = $imageRow['drive_thumbnail_url'] ?? $imageRow['drive_url'] ?? '';
+        $thumbnailUrl = (!empty($imageRow['filename']) && file_exists(FCPATH . 'assets/images/products/' . $imageRow['filename']))
+            ? '/assets/images/products/' . $imageRow['filename']
+            : ($imageRow['drive_thumbnail_url'] ?? $imageRow['drive_url'] ?? '');
 
         $cartKey = "prod_{$productId}_var_" . ($variationId ?? '0');
 

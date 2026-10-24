@@ -11,8 +11,19 @@
     <!-- Image Gallery from Google Drive -->
     <div class="k3d-product-gallery">
       <div class="k3d-gallery-main" id="k3d-gallery-viewport">
-        <?php if (!empty($product['images'])): ?>
-          <img id="k3d-main-img" src="<?= esc($product['images'][0]['drive_url']) ?>" alt="<?= esc($product['name']) ?>" style="width: 100%; height: 100%; object-fit: contain;">
+        <?php 
+          $primaryImg = $product['images'][0] ?? null;
+          $mainSrc = '';
+          if (!empty($primaryImg['filename']) && file_exists(FCPATH . 'assets/images/products/' . $primaryImg['filename'])) {
+              $mainSrc = '/assets/images/products/' . esc($primaryImg['filename']);
+          } elseif (!empty($primaryImg['drive_thumbnail_url'])) {
+              $mainSrc = esc($primaryImg['drive_thumbnail_url']);
+          } elseif (!empty($primaryImg['drive_url'])) {
+              $mainSrc = esc($primaryImg['drive_url']);
+          }
+        ?>
+        <?php if (!empty($mainSrc)): ?>
+          <img id="k3d-main-img" src="<?= $mainSrc ?>" alt="<?= esc($product['name']) ?>" style="width: 100%; height: 100%; object-fit: contain;">
         <?php else: ?>
           <span class="k3d-gallery-stamp"><?= esc($product['sku']) ?><br>SPECIMEN</span>
           <span class="k3d-gallery-object"></span>
