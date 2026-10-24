@@ -1,42 +1,54 @@
 /**
  * Kerf 3D Studio — Custom CAD 3D Quoting Engine & WebGL Viewport
- * Includes Three.js build volume viewer, client-side STL parser, real-time volume pricing, and AJAX intake
+ * Complete interactive Three.js viewport, OrbitControls, binary/ASCII STL parser,
+ * true volume measurement, real-time pricing synchronization, and AJAX intake.
  */
 (function () {
-  const container = document.getElementById('k3d-viewer-container');
-  const fileInput = document.getElementById('k3d-cad-file-input');
-  const dropzone  = document.getElementById('k3d-upload-form');
-  const modelTag  = document.getElementById('k3d-model-name-display');
-  const fitBadge  = document.getElementById('k3d-fit-badge');
+  'use strict';
+
+  const container    = document.getElementById('k3d-viewer-container');
+  const fileInput    = document.getElementById('k3d-cad-file-input');
+  const dropzone     = document.getElementById('k3d-upload-form');
+  const modelTag     = document.getElementById('k3d-model-name-display');
+  const fitBadge     = document.getElementById('k3d-fit-badge');
+  const fitStatusEl  = document.getElementById('k3d-stat-status');
 
   // Dimension Callouts
-  const dimXEl = document.getElementById('k3d-dim-x');
-  const dimYEl = document.getElementById('k3d-dim-y');
-  const dimZEl = document.getElementById('k3d-dim-z');
-  const statBoxEl = document.getElementById('k3d-stat-box');
+  const dimXEl       = document.getElementById('k3d-dim-x');
+  const dimYEl       = document.getElementById('k3d-dim-y');
+  const dimZEl       = document.getElementById('k3d-dim-z');
+  const statBoxEl    = document.getElementById('k3d-stat-box');
   const statWeightEl = document.getElementById('k3d-stat-weight');
-  const statTimeEl = document.getElementById('k3d-stat-time');
+  const statTimeEl   = document.getElementById('k3d-stat-time');
 
   // Price Calculation Elements
-  const calcGramsEl = document.getElementById('k3d-calc-grams');
-  const calcRateEl  = document.getElementById('k3d-calc-rate');
-  const calcSubtotalEl = document.getElementById('k3d-calc-subtotal');
-  const calcTotalEl = document.getElementById('k3d-calc-total');
-  const calcBalanceEl = document.getElementById('k3d-calc-balance');
-  const addQuoteBtn = document.getElementById('k3d-add-quote-btn');
+  const calcRateRowEl    = document.getElementById('k3d-calc-rate-row');
+  const calcSubtotalEl   = document.getElementById('k3d-calc-subtotal');
+  const calcTotalEl      = document.getElementById('k3d-calc-total');
+  const calcBalanceEl    = document.getElementById('k3d-calc-balance');
+  const addQuoteBtn      = document.getElementById('k3d-add-quote-btn');
+  const btnDepositLabel  = document.getElementById('k3d-btn-deposit-label');
 
-  let currentMesh = null;
-  let meshVolumeCm3 = 280.0; // Default specimen volume cm3
-  let boundingDims = { x: 120, y: 120, z: 180 };
-  let currentFile = null;
-  let uploadedFileId = null;
-  let activeRate = 6.50;
-  let activeDensity = 0.500;
-  let activeInfill = 20;
+  // Viewport Control Buttons
+  const btnSolid      = document.getElementById('k3d-btn-solid');
+  const btnWireframe  = document.getElementById('k3d-btn-wireframe');
+  const btnCage       = document.getElementById('k3d-btn-cage');
+  const btnResetView  = document.getElementById('k3d-btn-reset-view');
+  const btnAutoOrient = document.getElementById('k3d-btn-auto-orient');
 
-  // 1. Three.js Scene Setup
-  let scene, camera, renderer, buildCage, gridHelper;
+  // State Variables
+  let scene, camera, renderer, controls, currentMesh, buildCage, gridHelper;
+  let currentGeometry = null;
+  let meshVolumeCm3   = 280.0; // Default specimen volume cm3
+  let boundingDims    = { x: 120, y: 120, z: 180 };
+  let currentFile     = null;
+  let uploadedFileId  = null;
+  let activeRate      = 6.50;
+  let activeDensity   = 0.500;
+  let activeInfill    = 20;
+  let isWireframe     = false;
 
+  // ── 1. Three.js Scene & Camera Initialization ─────────────────
   function initThree() {
     if (!container || typeof THREE === 'undefined') return;
 
@@ -46,15 +58,16 @@
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0xded9cd);
 
-    camera = new THREE.PerspectiveCamera(40, width / height, 1, 1000);
+    camera = new THREE.PerspectiveCamera(40, width / height, 1, 2000);
     camera.position.set(220, 260, 320);
-    camera.lookAt(0, 80, 0);
 
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-    // Remove CSS mockups once WebGL is active
+    // Clear CSS mockup elements
     const mockWireframe = document.getElementById('k3d-wireframe-mesh');
     const mockFloor = container.querySelector('.k3d-grid-floor');
     if (mockWireframe) mockWireframe.style.display = 'none';
@@ -62,49 +75,50 @@
 
     container.appendChild(renderer.domElement);
 
-    // Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.75);
+    // OrbitControls for intuitive 3D camera navigation
+    if (typeof THREE.OrbitControls !== 'undefined') {
+      controls = new THREE.OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.08;
+      controls.minDistance = 30;
+      controls.maxDistance = 800;
+      controls.maxPolarAngle = Math.PI / 2 + 0.05; // Don't go below ground
+      controls.target.set(0, 60, 0);
+    }
+
+    // Studio Lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
     scene.add(ambientLight);
 
     const dirLight1 = new THREE.DirectionalLight(0xffffff, 0.85);
-    dirLight1.position.set(150, 300, 200);
+    dirLight1.position.set(160, 320, 200);
     scene.add(dirLight1);
 
-    const dirLight2 = new THREE.DirectionalLight(0xc86446, 0.4);
-    dirLight2.position.set(-150, 100, -150);
+    const dirLight2 = new THREE.DirectionalLight(0xc86446, 0.35);
+    dirLight2.position.set(-180, 120, -160);
     scene.add(dirLight2);
 
-    // Bambu Lab A1 Bed Grid (256 x 256 mm)
-    gridHelper = new THREE.GridHelper(256, 16, 0x181818, 0xa19a8d);
+    const dirLight3 = new THREE.DirectionalLight(0xffffff, 0.25);
+    dirLight3.position.set(0, -100, 150);
+    scene.add(dirLight3);
+
+    // Bambu Lab A1 Bed Grid (256 × 256 mm)
+    gridHelper = new THREE.GridHelper(256, 16, 0x181818, 0xb8b0a2);
     gridHelper.position.y = 0;
     scene.add(gridHelper);
 
     // Bambu Lab A1 256³ mm Build Volume Cage
     const cageGeo = new THREE.BoxGeometry(256, 256, 256);
-    const cageMat = new THREE.MeshBasicMaterial({
-      color: 0x181818,
-      wireframe: true,
-      transparent: true,
-      opacity: 0.12,
-    });
-    buildCage = new THREE.Mesh(cageGeo, cageMat);
+    const cageEdges = new THREE.EdgesGeometry(cageGeo);
+    buildCage = new THREE.LineSegments(
+      cageEdges,
+      new THREE.LineBasicMaterial({ color: 0x181818, transparent: true, opacity: 0.18 })
+    );
     buildCage.position.y = 128;
     scene.add(buildCage);
 
-    // Default Architectural Specimen (Ribbed Column Geometry)
-    const defGeo = new THREE.CylinderGeometry(40, 50, 140, 24, 12);
-    const defMat = new THREE.MeshStandardMaterial({
-      color: 0xc86446,
-      roughness: 0.35,
-      metalness: 0.1,
-      wireframe: false,
-    });
-    currentMesh = new THREE.Mesh(defGeo, defMat);
-    currentMesh.position.y = 70;
-    scene.add(currentMesh);
-
-    // Mouse drag interaction
-    setupControls();
+    // Default Architectural Specimen (Tactile Hex Cylinder)
+    loadDefaultSpecimen();
 
     // Render loop
     animate();
@@ -112,52 +126,23 @@
     window.addEventListener('resize', onWindowResize);
   }
 
-  // Mouse drag momentum controls
-  let isDragging = false;
-  let prevMouseX = 0;
-  let prevMouseY = 0;
-  let targetAngleY = 0;
-  let targetAngleX = 0;
+  function getActiveMaterial() {
+    const selectedMatInput = document.querySelector('input[name="quote_material"]:checked');
+    const isTpu = selectedMatInput && selectedMatInput.value.includes('tpu');
+    const meshColor = isTpu ? 0x242424 : 0xc86446;
 
-  function setupControls() {
-    container.addEventListener('mousedown', function (e) {
-      isDragging = true;
-      prevMouseX = e.clientX;
-      prevMouseY = e.clientY;
+    return new THREE.MeshStandardMaterial({
+      color: meshColor,
+      roughness: isTpu ? 0.65 : 0.32,
+      metalness: isTpu ? 0.05 : 0.12,
+      wireframe: isWireframe,
+      side: THREE.DoubleSide
     });
+  }
 
-    window.addEventListener('mouseup', function () { isDragging = false; });
-
-    window.addEventListener('mousemove', function (e) {
-      if (!isDragging) return;
-      const deltaX = e.clientX - prevMouseX;
-      const deltaY = e.clientY - prevMouseY;
-      targetAngleY += deltaX * 0.006;
-      targetAngleX += deltaY * 0.006;
-      prevMouseX = e.clientX;
-      prevMouseY = e.clientY;
-    });
-
-    // Touch support
-    container.addEventListener('touchstart', function (e) {
-      if (e.touches.length === 1) {
-        isDragging = true;
-        prevMouseX = e.touches[0].clientX;
-        prevMouseY = e.touches[0].clientY;
-      }
-    }, { passive: true });
-
-    window.addEventListener('touchend', function () { isDragging = false; });
-
-    window.addEventListener('touchmove', function (e) {
-      if (!isDragging || e.touches.length !== 1) return;
-      const deltaX = e.touches[0].clientX - prevMouseX;
-      const deltaY = e.touches[0].clientY - prevMouseY;
-      targetAngleY += deltaX * 0.008;
-      targetAngleX += deltaY * 0.008;
-      prevMouseX = e.touches[0].clientX;
-      prevMouseY = e.touches[0].clientY;
-    }, { passive: true });
+  function loadDefaultSpecimen() {
+    const defGeo = new THREE.CylinderGeometry(40, 50, 130, 28, 12);
+    displayGeometry(defGeo, 'Architectural_Column_Specimen.stl', 125);
   }
 
   function onWindowResize() {
@@ -172,41 +157,210 @@
   function animate() {
     requestAnimationFrame(animate);
 
-    if (currentMesh) {
-      currentMesh.rotation.y += (targetAngleY - currentMesh.rotation.y) * 0.08 + 0.002;
-      currentMesh.rotation.x += (targetAngleX - currentMesh.rotation.x) * 0.08;
+    if (controls) {
+      controls.update();
+    } else if (currentMesh) {
+      currentMesh.rotation.y += 0.005;
     }
 
-    renderer.render(scene, camera);
+    if (renderer && scene && camera) {
+      renderer.render(scene, camera);
+    }
   }
 
-  // 2. Real-time Price Calculation Engine
+  // ── 2. Viewport Controls Event Listeners ───────────────────────
+  if (btnSolid) {
+    btnSolid.addEventListener('click', function () {
+      isWireframe = false;
+      btnSolid.classList.add('is-active');
+      if (btnWireframe) btnWireframe.classList.remove('is-active');
+      if (currentMesh && currentMesh.material) {
+        currentMesh.material.wireframe = false;
+      }
+    });
+  }
+
+  if (btnWireframe) {
+    btnWireframe.addEventListener('click', function () {
+      isWireframe = true;
+      btnWireframe.classList.add('is-active');
+      if (btnSolid) btnSolid.classList.remove('is-active');
+      if (currentMesh && currentMesh.material) {
+        currentMesh.material.wireframe = true;
+      }
+    });
+  }
+
+  if (btnCage) {
+    btnCage.addEventListener('click', function () {
+      if (buildCage) {
+        buildCage.visible = !buildCage.visible;
+        this.classList.toggle('is-active', buildCage.visible);
+      }
+    });
+  }
+
+  if (btnResetView) {
+    btnResetView.addEventListener('click', function () {
+      frameCameraToMesh();
+    });
+  }
+
+  if (btnAutoOrient) {
+    btnAutoOrient.addEventListener('click', function () {
+      if (!currentGeometry) return;
+      autoOrientGeometry();
+      const origText = this.textContent;
+      this.textContent = 'ORIENTED ✓';
+      setTimeout(() => { this.textContent = origText; }, 1200);
+    });
+  }
+
+  function autoOrientGeometry() {
+    if (!currentGeometry || !currentMesh) return;
+
+    currentGeometry.computeBoundingBox();
+    const bbox = currentGeometry.boundingBox;
+    const size = new THREE.Vector3();
+    bbox.getSize(size);
+
+    // If height (Y) is larger than width (X) or depth (Z), lay it flat
+    if (size.y > size.x || size.y > size.z) {
+      if (size.x >= size.z) {
+        currentGeometry.rotateZ(Math.PI / 2);
+      } else {
+        currentGeometry.rotateX(Math.PI / 2);
+      }
+      currentGeometry.computeBoundingBox();
+      currentGeometry.center();
+      displayGeometry(currentGeometry, currentFile ? currentFile.name : 'model.stl', null, false);
+    }
+  }
+
+  function frameCameraToMesh() {
+    if (!camera || !currentMesh) return;
+
+    const maxDim = Math.max(boundingDims.x, boundingDims.y, boundingDims.z, 60);
+    const fov = camera.fov * (Math.PI / 180);
+    const cameraDist = Math.abs(maxDim / 2 / Math.tan(fov / 2)) * 1.85;
+
+    camera.position.set(cameraDist * 0.75, cameraDist * 0.85, cameraDist * 1.05);
+    const targetY = boundingDims.y / 2;
+    camera.lookAt(0, targetY, 0);
+
+    if (controls) {
+      controls.target.set(0, targetY, 0);
+      controls.update();
+    }
+  }
+
+  // ── 3. Accurate Volume & Geometry Management ─────────────────
+  function computeSignedVolume(geometry) {
+    if (!geometry || !geometry.attributes || !geometry.attributes.position) return 0;
+    const pos = geometry.attributes.position;
+    const count = pos.count;
+    let totalVolume = 0;
+
+    const p1 = new THREE.Vector3();
+    const p2 = new THREE.Vector3();
+    const p3 = new THREE.Vector3();
+    const cross = new THREE.Vector3();
+
+    for (let i = 0; i < count; i += 3) {
+      p1.fromBufferAttribute(pos, i + 0);
+      p2.fromBufferAttribute(pos, i + 1);
+      p3.fromBufferAttribute(pos, i + 2);
+
+      cross.crossVectors(p2, p3);
+      totalVolume += p1.dot(cross) / 6.0;
+    }
+
+    const volMm3 = Math.abs(totalVolume);
+    // Convert mm³ to cm³
+    return volMm3 / 1000.0;
+  }
+
+  function displayGeometry(geometry, fileName, manualVolume = null, shouldRefocus = true) {
+    currentGeometry = geometry;
+    geometry.computeVertexNormals();
+    geometry.computeBoundingBox();
+
+    const bbox = geometry.boundingBox;
+    const dx = Math.max(1, Math.round(bbox.max.x - bbox.min.x));
+    const dy = Math.max(1, Math.round(bbox.max.y - bbox.min.y));
+    const dz = Math.max(1, Math.round(bbox.max.z - bbox.min.z));
+    boundingDims = { x: dx, y: dy, z: dz };
+
+    // Center geometry at origin
+    geometry.center();
+
+    if (manualVolume !== null) {
+      meshVolumeCm3 = manualVolume;
+    } else {
+      const calculatedVol = computeSignedVolume(geometry);
+      // If signed volume is very low (e.g. non-manifold or planar), fallback to bounding approximation
+      meshVolumeCm3 = (calculatedVol > 1) 
+        ? Math.round(calculatedVol * 10) / 10 
+        : Math.max(10, Math.round((dx * dy * dz) / 1000 * 0.38));
+    }
+
+    // Replace Mesh in Scene
+    if (currentMesh) {
+      scene.remove(currentMesh);
+      if (currentMesh.geometry) currentMesh.geometry.dispose();
+    }
+
+    const material = getActiveMaterial();
+    currentMesh = new THREE.Mesh(geometry, material);
+    currentMesh.position.set(0, dy / 2, 0);
+    scene.add(currentMesh);
+
+    // Update Dimensions in 3D Viewport
+    if (dimXEl) dimXEl.textContent = `X: ${dx} MM`;
+    if (dimYEl) dimYEl.textContent = `Y: ${dy} MM`;
+    if (dimZEl) dimZEl.textContent = `Z: ${dz} MM`;
+    if (statBoxEl) statBoxEl.textContent = `${dx} × ${dy} × ${dz} MM`;
+
+    if (shouldRefocus) {
+      frameCameraToMesh();
+    }
+
+    updateQuotePricing();
+  }
+
+  // ── 4. Real-Time Price Calculation Engine ─────────────────────
   function updateQuotePricing() {
-    // Infill multiplier
+    // Infill factor: e.g. 15% -> 0.49, 20% -> 0.52, 50% -> 0.70, 100% -> 1.00
     const infillFactor = (activeInfill / 100) * 0.6 + 0.4;
     const estimatedGrams = Math.max(15, Math.round(meshVolumeCm3 * activeDensity * infillFactor));
     const setupFee = 50.0;
     const printSubtotal = Math.round(estimatedGrams * activeRate);
     const totalQuote = printSubtotal + setupFee;
     const advanceDeposit = 100.0;
-    const balanceDue = totalQuote - advanceDeposit;
+    const balanceDue = Math.max(0, totalQuote - advanceDeposit);
 
-    // Estimate print hours
-    const estMinutes = Math.round(estimatedGrams * 2.3 + 25);
+    // Estimated Print Time (Bambu Lab A1 benchmark)
+    const estMinutes = Math.round(estimatedGrams * 2.2 + 25);
     const hours = Math.floor(estMinutes / 60);
     const mins = estMinutes % 60;
+    const timeStr = hours > 0 ? `~${hours}H ${mins}M` : `~${mins}M`;
 
-    // Update DOM
-    if (statWeightEl) statWeightEl.textContent = `${estimatedGrams} GRAMS`;
-    if (statTimeEl) statTimeEl.textContent = `~${hours}H ${mins}M`;
-    if (calcGramsEl) calcGramsEl.textContent = estimatedGrams;
-    if (calcRateEl) calcRateEl.textContent = activeRate.toFixed(2);
-    if (calcSubtotalEl) calcSubtotalEl.textContent = `৳${printSubtotal.toLocaleString()}`;
-    if (calcTotalEl) calcTotalEl.textContent = `৳${totalQuote.toLocaleString()}`;
-    if (calcBalanceEl) calcBalanceEl.textContent = `৳${balanceDue.toLocaleString()} + courier`;
-
-    // Check Bambu A1 volume limits (256 x 256 x 256 mm)
+    // Check Bambu A1 volume limits (256 × 256 × 256 mm)
     const fitsA1 = boundingDims.x <= 256 && boundingDims.y <= 256 && boundingDims.z <= 256;
+
+    // Update Telemetry Grid
+    if (statWeightEl) statWeightEl.textContent = `${estimatedGrams} GRAMS`;
+    if (statTimeEl) statTimeEl.textContent = timeStr;
+    if (fitStatusEl) {
+      if (fitsA1) {
+        fitStatusEl.textContent = 'VERIFIED FIT';
+        fitStatusEl.style.color = '#1f6b3d';
+      } else {
+        fitStatusEl.textContent = 'EXCEEDS 256³ MM';
+        fitStatusEl.style.color = '#991b1b';
+      }
+    }
+
     if (fitBadge) {
       if (fitsA1) {
         fitBadge.className = 'k3d-build-badge is-valid';
@@ -217,73 +371,103 @@
       }
     }
 
+    // Update Price Summary Breakdown
+    if (calcRateRowEl) calcRateRowEl.textContent = `৳${activeRate.toFixed(2)} / GRAM`;
+    if (calcSubtotalEl) calcSubtotalEl.textContent = `৳${printSubtotal.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+    if (calcTotalEl) calcTotalEl.textContent = `৳${totalQuote.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+    if (calcBalanceEl) calcBalanceEl.textContent = `৳${balanceDue.toLocaleString('en-US', { minimumFractionDigits: 2 })} + courier`;
+    if (btnDepositLabel) btnDepositLabel.textContent = `৳${advanceDeposit.toFixed(0)} DEPOSIT →`;
+
     return { estimatedGrams, totalQuote, advanceDeposit, fitsA1 };
   }
 
-  // Listen to Polymer Material Radios
-  document.querySelectorAll('input[name="quote_material"]').forEach(radio => {
-    radio.addEventListener('change', function () {
-      document.querySelectorAll('.k3d-radio-option').forEach(l => l.classList.remove('is-selected'));
-      this.closest('.k3d-radio-option').classList.add('is-selected');
+  // ── 5. Polymer Material & Infill Selection Wiring ─────────────
+  function initMaterialControls() {
+    const materialOptions = document.querySelectorAll('.k3d-radio-option');
 
-      const internalRates = { 'pla': 6.50, 'tpu-95a': 9.75 };
-      activeRate = internalRates[this.value] || 6.50;
-      activeDensity = parseFloat(this.getAttribute('data-density')) || 0.500;
+    materialOptions.forEach(opt => {
+      opt.addEventListener('click', function () {
+        materialOptions.forEach(l => l.classList.remove('is-selected'));
+        this.classList.add('is-selected');
 
-      // Update material color of 3D mesh
-      if (currentMesh && currentMesh.material) {
-        currentMesh.material.color.set(this.value === 'pla' ? 0xc86446 : 0x181818);
-      }
+        const radio = this.querySelector('input[type="radio"]');
+        if (radio) {
+          radio.checked = true;
+          activeRate = parseFloat(radio.getAttribute('data-rate')) || (radio.value.includes('tpu') ? 9.75 : 6.50);
+          activeDensity = parseFloat(radio.getAttribute('data-density')) || 0.500;
 
-      updateQuotePricing();
+          // Update 3D mesh material
+          if (currentMesh) {
+            currentMesh.material = getActiveMaterial();
+          }
+
+          updateQuotePricing();
+        }
+      });
     });
-  });
 
-  // Listen to Infill Density Radios
-  document.querySelectorAll('input[name="quote_infill"]').forEach(radio => {
-    radio.addEventListener('change', function () {
-      document.querySelectorAll('.k3d-infill-pills label').forEach(l => l.classList.remove('is-selected'));
-      this.closest('label').classList.add('is-selected');
+    const infillPills = document.querySelectorAll('.k3d-infill-pill');
+    infillPills.forEach(pill => {
+      pill.addEventListener('click', function () {
+        infillPills.forEach(p => p.classList.remove('is-selected'));
+        this.classList.add('is-selected');
 
-      activeInfill = parseInt(this.value, 10) || 20;
-      updateQuotePricing();
+        const radio = this.querySelector('input[type="radio"]');
+        if (radio) {
+          radio.checked = true;
+          activeInfill = parseInt(radio.value, 10) || 20;
+          updateQuotePricing();
+        }
+      });
     });
-  });
+  }
 
-  // 3. Simple Client-Side STL Parser & Mesh Loader
-  function parseSTL(buffer) {
-    const isBinary = (function () {
-      if (buffer.byteLength < 84) return false;
-      const reader = new DataView(buffer);
+  // ── 6. Robust STL Parser (Binary & ASCII) ─────────────────────
+  function parseStlFallback(buffer) {
+    const reader = new DataView(buffer);
+    const size = buffer.byteLength;
+
+    // Check if binary: header 80 bytes + 4 bytes triangle count
+    let isBinary = false;
+    if (size >= 84) {
       const numTriangles = reader.getUint32(80, true);
-      return buffer.byteLength === 84 + numTriangles * 50;
-    })();
+      // Valid binary STL is exactly 84 + numTriangles * 50 bytes (allow minor padding)
+      const expectedSize = 84 + numTriangles * 50;
+      if (Math.abs(size - expectedSize) <= 128) {
+        isBinary = true;
+      }
+    }
 
     const vertices = [];
 
     if (isBinary) {
-      const reader = new DataView(buffer);
       const numTriangles = reader.getUint32(80, true);
       let offset = 84;
       for (let i = 0; i < numTriangles; i++) {
         offset += 12; // skip normal
         for (let j = 0; j < 3; j++) {
           vertices.push(
-            reader.getFloat32(offset, true),
+            reader.getFloat32(offset + 0, true),
             reader.getFloat32(offset + 4, true),
             reader.getFloat32(offset + 8, true)
           );
           offset += 12;
         }
-        offset += 2; // skip attribute byte count
+        offset += 2; // attribute byte count
       }
     } else {
-      // ASCII STL parsing
-      const text = new TextDecoder().decode(buffer);
-      const vertexRegex = /vertex\s+([^\s]+)\s+([^\s]+)\s+([^\s]+)/g;
-      let match;
-      while ((match = vertexRegex.exec(text)) !== null) {
-        vertices.push(parseFloat(match[1]), parseFloat(match[2]), parseFloat(match[3]));
+      // ASCII Parser
+      const decoder = new TextDecoder('utf-8');
+      const text = decoder.decode(buffer);
+      const lines = text.split('\n');
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i].trim();
+        if (line.startsWith('vertex')) {
+          const parts = line.split(/\s+/);
+          if (parts.length >= 4) {
+            vertices.push(parseFloat(parts[1]), parseFloat(parts[2]), parseFloat(parts[3]));
+          }
+        }
       }
     }
 
@@ -293,7 +477,7 @@
     return geometry;
   }
 
-  // Handle uploaded CAD file
+  // ── 7. File Upload & Processing ───────────────────────────────
   async function handleCadFile(file) {
     if (!file) return;
 
@@ -302,73 +486,55 @@
     const sizeMb = (file.size / (1024 * 1024)).toFixed(2);
 
     if (modelTag) {
-      modelTag.innerHTML = `<strong>${file.name}</strong> / ${sizeMb} MB`;
+      modelTag.innerHTML = `<strong>${file.name}</strong> / ${sizeMb} MB <span style="color:var(--k3d-rust);">ANALYZING GEOMETRY...</span>`;
     }
 
-    // 1. Read binary for Three.js rendering
+    // 1. Instant Client-Side Parsing & Viewport Render
     const reader = new FileReader();
     reader.onload = function (e) {
       try {
         const buffer = e.target.result;
-        let geometry;
+        let geometry = null;
 
-        if (ext === 'stl') {
-          geometry = parseSTL(buffer);
+        if (typeof THREE.STLLoader !== 'undefined' && ext === 'stl') {
+          try {
+            const loader = new THREE.STLLoader();
+            geometry = loader.parse(buffer);
+          } catch (loaderErr) {
+            console.warn('STLLoader parse note, using fallback:', loaderErr);
+            geometry = parseStlFallback(buffer);
+          }
+        } else if (ext === 'stl') {
+          geometry = parseStlFallback(buffer);
         } else {
-          // Fallback box for OBJ/3MF before full parser
+          // Geometry box for OBJ / 3MF
           geometry = new THREE.BoxGeometry(80, 80, 80);
         }
 
         if (geometry) {
-          geometry.computeBoundingBox();
-          const bbox = geometry.boundingBox;
-
-          const dx = Math.round(bbox.max.x - bbox.min.x);
-          const dy = Math.round(bbox.max.y - bbox.min.y);
-          const dz = Math.round(bbox.max.z - bbox.min.z);
-          boundingDims = { x: dx, y: dy, z: dz };
-
-          // Estimate rough volume cm3
-          meshVolumeCm3 = Math.max(30, Math.round((dx * dy * dz) / 1000 * 0.42));
-
-          // Center geometry
-          geometry.center();
-
-          if (scene && currentMesh) {
-            scene.remove(currentMesh);
-            const material = new THREE.MeshStandardMaterial({
-              color: activeRate > 7 ? 0x2e2a27 : 0xc86446,
-              roughness: 0.35,
-              metalness: 0.1,
-            });
-            currentMesh = new THREE.Mesh(geometry, material);
-            currentMesh.position.y = dy / 2;
-            scene.add(currentMesh);
+          displayGeometry(geometry, file.name);
+          if (modelTag) {
+            modelTag.innerHTML = `<strong>${file.name}</strong> / ${sizeMb} MB <span style="color:#1f6b3d;">✓ PARSED</span>`;
           }
-
-          // Update dimension callouts
-          if (dimXEl) dimXEl.textContent = `X: ${dx} MM`;
-          if (dimYEl) dimYEl.textContent = `Y: ${dy} MM`;
-          if (dimZEl) dimZEl.textContent = `Z: ${dz} MM`;
-          if (statBoxEl) statBoxEl.textContent = `${dx} × ${dy} × ${dz} MM`;
-
-          updateQuotePricing();
         }
       } catch (err) {
-        console.warn('Three.js STL parsing note:', err);
+        console.error('Failed to parse 3D mesh:', err);
+        if (modelTag) {
+          modelTag.innerHTML = `<strong>${file.name}</strong> / ${sizeMb} MB <span style="color:#991b1b;">PARSING ERROR</span>`;
+        }
       }
     };
     reader.readAsArrayBuffer(file);
 
-    // 2. Upload file to backend (/quote/upload)
+    // 2. Stream Upload to Backend (/quote/upload) in Background
     const formData = new FormData();
     formData.append('mesh_file', file);
 
     try {
-      if (modelTag) modelTag.innerHTML += ' <em>(Uploading to Drive...)</em>';
       const uploadRes = await fetch('/quote/upload', {
         method: 'POST',
         body: formData,
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
       });
 
       if (uploadRes.ok) {
@@ -376,50 +542,56 @@
         if (data.success) {
           uploadedFileId = data.upload_id;
           if (modelTag) {
-            modelTag.innerHTML = `<strong>${file.name}</strong> / ${sizeMb} MB <span style="color:#1f6b3d;">✓ STREAMED</span>`;
+            modelTag.innerHTML = `<strong>${file.name}</strong> / ${sizeMb} MB <span style="color:#1f6b3d;">✓ STREAMED TO WORKSHOP</span>`;
           }
         }
       }
     } catch (err) {
-      console.error('File intake error:', err);
+      console.warn('Background upload note:', err);
     }
   }
 
-  // Drag & Drop Listeners
-  if (dropzone) {
-    ['dragenter', 'dragover'].forEach(evt => {
-      dropzone.addEventListener(evt, e => {
-        e.preventDefault();
-        dropzone.classList.add('is-drag-over');
+  // ── 8. Drag & Drop and File Input Listeners ────────────────────
+  function initDropzone() {
+    if (dropzone) {
+      ['dragenter', 'dragover'].forEach(evt => {
+        dropzone.addEventListener(evt, e => {
+          e.preventDefault();
+          dropzone.classList.add('is-drag-over');
+        });
       });
-    });
 
-    ['dragleave', 'drop'].forEach(evt => {
-      dropzone.addEventListener(evt, e => {
-        e.preventDefault();
-        dropzone.classList.remove('is-drag-over');
+      ['dragleave', 'drop'].forEach(evt => {
+        dropzone.addEventListener(evt, e => {
+          e.preventDefault();
+          dropzone.classList.remove('is-drag-over');
+        });
       });
-    });
 
-    dropzone.addEventListener('drop', e => {
-      const dt = e.dataTransfer;
-      if (dt.files && dt.files.length > 0) {
-        handleCadFile(dt.files[0]);
-      }
-    });
+      dropzone.addEventListener('drop', e => {
+        const dt = e.dataTransfer;
+        if (dt.files && dt.files.length > 0) {
+          handleCadFile(dt.files[0]);
+        }
+      });
+    }
+
+    if (fileInput) {
+      fileInput.addEventListener('change', function () {
+        if (this.files && this.files.length > 0) {
+          handleCadFile(this.files[0]);
+        }
+      });
+    }
   }
 
-  if (fileInput) {
-    fileInput.addEventListener('change', function () {
-      if (this.files && this.files.length > 0) {
-        handleCadFile(this.files[0]);
-      }
-    });
-  }
+  // ── 9. Submit CAD Specimen to Bag ─────────────────────────────
+  function initSubmitButton() {
+    if (!addQuoteBtn) return;
 
-  // 4. Add Custom Print to Bag Button
-  if (addQuoteBtn) {
-    addQuoteBtn.addEventListener('click', function () {
+    addQuoteBtn.addEventListener('click', async function (e) {
+      e.preventDefault();
+
       const pricing = updateQuotePricing();
       const materialSelected = document.querySelector('input[name="quote_material"]:checked')?.value || 'pla';
       const filename = currentFile ? currentFile.name : 'Custom_Architectural_Mesh.stl';
@@ -434,23 +606,42 @@
         filename: filename,
       };
 
-      if (window.k3dCart) {
-        window.k3dCart.addCustomPrint(customPayload);
-      } else {
-        alert('Custom Print Specimen added to bag! Proceeding to checkout...');
-        window.location.href = '/checkout';
+      const originalHtml = addQuoteBtn.innerHTML;
+      addQuoteBtn.disabled = true;
+      addQuoteBtn.innerHTML = '<span>ADDING SPECIMEN...</span> <strong>✦</strong>';
+
+      try {
+        if (window.k3dCart) {
+          await window.k3dCart.addCustomPrint(customPayload);
+          addQuoteBtn.innerHTML = '<span>ADDED TO BAG ✓</span> <strong>100% SECURE</strong>';
+          setTimeout(() => {
+            addQuoteBtn.disabled = false;
+            addQuoteBtn.innerHTML = originalHtml;
+          }, 1500);
+        } else {
+          window.location.href = '/checkout';
+        }
+      } catch (err) {
+        console.error('Failed to add custom CAD specimen:', err);
+        addQuoteBtn.disabled = false;
+        addQuoteBtn.innerHTML = originalHtml;
       }
     });
   }
 
-  // Initialize
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      initThree();
-      updateQuotePricing();
-    });
-  } else {
+  // ── 10. Bootstrap on Ready ────────────────────────────────────
+  function start() {
     initThree();
+    initMaterialControls();
+    initDropzone();
+    initSubmitButton();
     updateQuotePricing();
   }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', start);
+  } else {
+    start();
+  }
+
 })();

@@ -187,8 +187,14 @@
       try {
         const fd = new FormData();
         for (const [k, v] of Object.entries(customData)) {
-          fd.append(k, v);
+          if (v !== null && v !== undefined) fd.append(k, v);
         }
+
+        const csrfInput = document.querySelector('input[name="csrf_test_name"]');
+        if (csrfInput && !fd.has(csrfInput.name)) {
+          fd.append(csrfInput.name, csrfInput.value);
+        }
+
         const res = await fetch('/cart/add-custom', {
           method: 'POST',
           body: fd,
@@ -200,9 +206,14 @@
           const data = await res.json();
           renderCart(data);
           openDrawer();
+          return data;
+        } else {
+          const err = await res.json().catch(() => null);
+          throw new Error(err?.error || 'Failed to add custom print');
         }
       } catch (e) {
         console.error('Failed to add custom print to cart:', e);
+        throw e;
       }
     },
 

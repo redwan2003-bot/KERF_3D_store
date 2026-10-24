@@ -28,13 +28,13 @@
 
         <div class="k3d-viewer-controls">
           <div class="k3d-viewer-btn-group">
-            <button type="button" class="is-active">SOLID</button>
-            <button type="button">WIREFRAME</button>
-            <button type="button">BED BOUNDS</button>
+            <button type="button" class="is-active" id="k3d-btn-solid">SOLID</button>
+            <button type="button" id="k3d-btn-wireframe">WIREFRAME</button>
+            <button type="button" class="is-active" id="k3d-btn-cage">BED BOUNDS</button>
           </div>
           <div class="k3d-viewer-actions">
-            <button type="button">RESET VIEW</button>
-            <button type="button">AUTO-ORIENT</button>
+            <button type="button" id="k3d-btn-reset-view">RESET VIEW</button>
+            <button type="button" id="k3d-btn-auto-orient">AUTO-ORIENT</button>
           </div>
         </div>
       </div>
@@ -81,22 +81,21 @@
         <fieldset class="k3d-param-group">
           <legend>01 / SELECT POLYMER</legend>
           <div class="k3d-radio-stack">
-            <label class="k3d-radio-option is-selected">
-              <input type="radio" name="quote_material" value="pla" data-density="0.500" checked>
+            <?php foreach (($materials ?? []) as $idx => $mat): ?>
+            <label class="k3d-radio-option <?= $idx === 0 ? 'is-selected' : '' ?>">
+              <input type="radio" 
+                     name="quote_material" 
+                     value="<?= esc($mat['slug']) ?>" 
+                     data-rate="<?= esc($mat['rate_per_gram_bdt']) ?>" 
+                     data-density="<?= esc($mat['effective_density']) ?>" 
+                     <?= $idx === 0 ? 'checked' : '' ?>>
               <div>
-                <strong>PLA / RIGID BIOPOLYMER</strong>
-                <small>High stiffness, clean dimensional detail · 0.50 g/cm³</small>
+                <strong><?= esc(strtoupper($mat['name'])) ?> / <?= esc(strtoupper($mat['customer_label'] ?? '')) ?></strong>
+                <small>৳<?= number_format($mat['rate_per_gram_bdt'], 2) ?>/g · Density <?= esc($mat['effective_density']) ?> g/cm³</small>
               </div>
-              <b class="k3d-poly-tag">RIGID SPEC</b>
+              <b class="k3d-poly-tag"><?= strtoupper(esc($mat['slug'])) ?> SPEC</b>
             </label>
-            <label class="k3d-radio-option">
-              <input type="radio" name="quote_material" value="tpu-95a" data-density="0.480">
-              <div>
-                <strong>TPU 95A / ELASTOMER</strong>
-                <small>Semi-flexible, impact absorbing · 0.48 g/cm³</small>
-              </div>
-              <b class="k3d-poly-tag">FLEX SPEC</b>
-            </label>
+            <?php endforeach; ?>
           </div>
         </fieldset>
 
@@ -104,10 +103,10 @@
         <fieldset class="k3d-param-group">
           <legend>02 / INFILL DENSITY</legend>
           <div class="k3d-infill-pills">
-            <label><input type="radio" name="quote_infill" value="15"><span>15% Lightweight</span></label>
-            <label class="is-selected"><input type="radio" name="quote_infill" value="20" checked><span>20% Gyroid</span></label>
-            <label><input type="radio" name="quote_infill" value="50"><span>50% Structural</span></label>
-            <label><input type="radio" name="quote_infill" value="100"><span>100% Solid</span></label>
+            <label class="k3d-infill-pill"><input type="radio" name="quote_infill" value="15"><span>15% Lightweight</span></label>
+            <label class="k3d-infill-pill is-selected"><input type="radio" name="quote_infill" value="20" checked><span>20% Gyroid</span></label>
+            <label class="k3d-infill-pill"><input type="radio" name="quote_infill" value="50"><span>50% Structural</span></label>
+            <label class="k3d-infill-pill"><input type="radio" name="quote_infill" value="100"><span>100% Solid</span></label>
           </div>
         </fieldset>
 
@@ -119,23 +118,35 @@
           </div>
           <div>
             <span>ESTIMATED WEIGHT</span>
-            <strong id="k3d-stat-weight">140 GRAMS</strong>
+            <strong id="k3d-stat-weight">--- GRAMS</strong>
           </div>
           <div>
             <span>EST. PRINT TIME</span>
-            <strong id="k3d-stat-time">~6H 45M</strong>
+            <strong id="k3d-stat-time">---</strong>
           </div>
           <div>
             <span>BAMBU A1 STATUS</span>
-            <strong style="color: #1f6b3d;">VERIFIED FIT</strong>
+            <strong id="k3d-stat-status" style="color: #1f6b3d;">READY</strong>
           </div>
         </div>
 
         <!-- Price Calculation Breakdown -->
         <div class="k3d-quote-summary">
+          <div class="k3d-summary-row">
+            <span>MATERIAL RATE</span>
+            <span id="k3d-calc-rate-row">৳6.50 / GRAM</span>
+          </div>
+          <div class="k3d-summary-row">
+            <span>PRINT FABRICATION</span>
+            <span id="k3d-calc-subtotal">৳0.00</span>
+          </div>
+          <div class="k3d-summary-row">
+            <span>MACHINE SETUP FEE</span>
+            <span>৳50.00</span>
+          </div>
           <div class="k3d-summary-row k3d-total-row">
             <span>CUSTOM SPECIMEN ESTIMATE</span>
-            <strong id="k3d-calc-total">৳960</strong>
+            <strong id="k3d-calc-total">৳0.00</strong>
           </div>
           <div class="k3d-summary-row k3d-deposit-row">
             <span>MANDATORY ADVANCE DEPOSIT</span>
@@ -143,7 +154,7 @@
           </div>
           <div class="k3d-summary-row k3d-balance-row">
             <span>REMAINING BALANCE (AT DISPATCH)</span>
-            <span id="k3d-calc-balance">৳860 + courier</span>
+            <span id="k3d-calc-balance">৳0.00 + courier</span>
           </div>
         </div>
 
@@ -152,7 +163,7 @@
         </p>
 
         <button class="k3d-button k3d-quote-cta" type="button" id="k3d-add-quote-btn">
-          SUBMIT CAD SPECIMEN TO BAG <span>৳100 DEPOSIT →</span>
+          <span>SUBMIT CAD SPECIMEN TO BAG</span> <strong id="k3d-btn-deposit-label">৳100 DEPOSIT →</strong>
         </button>
       </div>
     </aside>
@@ -162,5 +173,7 @@
 
 <?= $this->section('scripts') ?>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="/assets/js/quote.js"></script>
+<script src="/assets/js/libs/OrbitControls.js"></script>
+<script src="/assets/js/libs/STLLoader.js"></script>
+<script src="/assets/js/quote.js?v=<?= time() ?>"></script>
 <?= $this->endSection() ?>

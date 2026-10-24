@@ -87,10 +87,33 @@ class Quote extends BaseController
 
         $sessionId = $this->session->session_id;
 
+        // 1. Ensure local storage exists and save locally first
+        $localDir = WRITEPATH . 'uploads/custom_cad/' . $sessionId . '/';
+        if (!is_dir($localDir)) {
+            mkdir($localDir, 0775, true);
+        }
+        $safeName = preg_replace('/[^a-zA-Z0-9_\.-]/', '_', $file->getClientName());
+        $localFilePath = $localDir . $safeName;
+        copy($file->getTempName(), $localFilePath);
+
+        $driveFileId   = 'local_' . substr(md5(uniqid($sessionId, true)), 0, 16);
+        $driveUrl      = '/uploads/custom_cad/' . $sessionId . '/' . $safeName;
+        $driveFolderId = '';
+
+        // 2. Attempt Google Drive sync with graceful fallback
         try {
             $driveService = new DriveSyncService();
-            $result = $driveService->uploadCustomerCAD($file->getTempName(), $file->getClientName(), $sessionId);
+            $result = $driveService->uploadCustomerCAD($localFilePath, $file->getClientName(), $sessionId);
+            if (!empty($result['drive_file_id'])) {
+                $driveFileId   = $result['drive_file_id'];
+                $driveUrl      = $result['drive_url'] ?? $driveUrl;
+                $driveFolderId = $result['drive_folder_id'] ?? '';
+            }
+        } catch (\Throwable $e) {
+            log_message('notice', 'Google Drive sync skipped/failed for CAD upload: ' . $e->getMessage());
+        }
 
+        try {
             // Record into custom_uploads table
             $db = \Config\Database::connect();
             $db->table('custom_uploads')->insert([
@@ -99,9 +122,9 @@ class Quote extends BaseController
                 'file_extension'    => $ext,
                 'mime_type'         => $file->getClientMimeType(),
                 'file_size_bytes'   => $file->getSize(),
-                'drive_file_id'     => $result['drive_file_id'],
-                'drive_url'         => $result['drive_url'],
-                'drive_folder_id'   => $result['drive_folder_id'],
+                'drive_file_id'     => $driveFileId,
+                'drive_url'         => $driveUrl,
+                'drive_folder_id'   => $driveFolderId,
                 'fits_build_volume' => 1,
                 'setup_fee_bdt'     => 50.00,
                 'quote_status'      => 'quoted',
@@ -116,13 +139,13 @@ class Quote extends BaseController
                 'upload_id'     => $uploadId,
                 'filename'      => $file->getClientName(),
                 'file_size_mb'  => round($file->getSizeByUnit('mb'), 2),
-                'drive_file_id' => $result['drive_file_id'],
+                'drive_file_id' => $driveFileId,
             ]);
 
         } catch (\Throwable $e) {
             return $this->response->setStatusCode(500)->setJSON([
                 'success' => false,
-                'error'   => 'Google Drive upload error: ' . $e->getMessage(),
+                'error'   => 'CAD intake storage error: ' . $e->getMessage(),
             ]);
         }
     }
