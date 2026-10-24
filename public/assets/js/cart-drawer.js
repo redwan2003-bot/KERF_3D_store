@@ -137,11 +137,32 @@
       }
     },
 
-    addItem: async function (formData) {
+    addItem: async function (payload) {
       try {
+        let fd;
+        if (payload instanceof FormData) {
+          fd = payload;
+        } else {
+          fd = new FormData();
+          if (typeof payload === 'object' && payload !== null) {
+            for (const [k, v] of Object.entries(payload)) {
+              if (v !== null && v !== undefined) fd.append(k, v);
+            }
+          } else {
+            fd.append('product_id', payload);
+            fd.append('quantity', 1);
+          }
+        }
+
+        // Include CSRF if present in DOM
+        const csrfInput = document.querySelector('input[name="csrf_test_name"]');
+        if (csrfInput && !fd.has(csrfInput.name)) {
+          fd.append(csrfInput.name, csrfInput.value);
+        }
+
         const res = await fetch('/cart/add', {
           method: 'POST',
-          body: formData,
+          body: fd,
           headers: {
             'X-Requested-With': 'XMLHttpRequest'
           }
@@ -150,9 +171,15 @@
           const data = await res.json();
           renderCart(data);
           openDrawer();
+          return data;
+        } else {
+          const errData = await res.json().catch(() => null);
+          console.error('Cart add error:', errData);
+          throw new Error(errData?.error || 'Failed to add item');
         }
       } catch (e) {
         console.error('Failed to add item to cart:', e);
+        throw e;
       }
     },
 

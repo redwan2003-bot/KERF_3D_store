@@ -77,11 +77,26 @@
       </div>
       <?php endif; ?>
 
-      <!-- 2×2 Bambu A1 Technical Specification Grid -->
+      <?php
+        $printMinutes = (int) ($product['print_time_minutes'] ?? 0);
+        $printTimeHours = floor($printMinutes / 60);
+        $printTimeRemMins = $printMinutes % 60;
+        if ($printMinutes > 0) {
+            $printTimeStr = ($printTimeHours > 0 ? $printTimeHours . 'H ' : '') . $printTimeRemMins . 'M';
+        } else {
+            $printTimeStr = '45M';
+        }
+      ?>
+
+      <!-- Bambu A1 Technical Specification & Machine Telemetry Grid -->
       <div class="k3d-spec-grid">
         <div>
           <span>MATERIAL COMPOSITION</span>
           <strong><?= esc($product['material_name'] ?? 'BIO-PLA') ?></strong>
+        </div>
+        <div>
+          <span>BAMBU A1 PRINT TIME</span>
+          <strong style="color: var(--k3d-rust);">~<?= esc($printTimeStr) ?> FAB</strong>
         </div>
         <div>
           <span>LAYER RESOLUTION</span>
@@ -95,11 +110,15 @@
           <span>INTERNAL INFILL</span>
           <strong><?= esc($product['infill_percent'] ? $product['infill_percent'] . '% GYROID' : '20% GYROID') ?></strong>
         </div>
+        <div>
+          <span>FABRICATION HARDWARE</span>
+          <strong>BAMBU LAB A1</strong>
+        </div>
       </div>
 
       <?php if ((float)($product['price_bdt'] ?? 0) > 0): ?>
       <!-- Add to Bag Form -->
-      <form action="/cart/add" method="POST" class="k3d-buy-row">
+      <form action="/cart/add" method="POST" class="k3d-buy-row" id="k3d-main-buy-form">
         <?= csrf_field() ?>
         <input type="hidden" name="product_id" value="<?= esc($product['id']) ?>">
         <input type="hidden" name="variation_id" id="k3d-selected-var-id" value="<?= esc($variations[0]['id'] ?? '') ?>">
@@ -109,11 +128,26 @@
           <input id="k3d-quantity" name="quantity" type="number" min="1" value="1">
         </label>
 
-        <button class="k3d-add-button" type="submit">
-          ADD ARTIFACT TO BAG 
+        <button class="k3d-add-button" type="submit" id="k3d-main-add-button">
+          <span>ADD ARTIFACT TO BAG</span>
           <span id="k3d-cta-price">৳<?= number_format($product['price_bdt'] ?? 0, 2) ?> →</span>
         </button>
       </form>
+
+      <!-- One-Click WhatsApp Quick Inquiry Button -->
+      <?php
+        $pageUrl = current_url();
+        $waInquiryMsg = "Hi Kerf 3D Studio, I would like to inquire about ordering:\n• Specimen: " . $product['name'] . " (" . $product['sku'] . ")\n• Price: ৳" . number_format($product['price_bdt'], 2) . "\n• Product Link: " . $pageUrl;
+        $waHref = "https://wa.me/8801754550297?text=" . rawurlencode($waInquiryMsg);
+      ?>
+      <div class="k3d-wa-inquiry-row">
+        <a href="<?= $waHref ?>" target="_blank" rel="noopener" class="k3d-wa-inquiry-btn" id="k3d-product-wa-btn" aria-label="Quick inquiry on WhatsApp">
+          <svg class="k3d-wa-icon" width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.969.585 1.961.933 2.796.933 3.183 0 5.769-2.587 5.769-5.769.001-3.18-2.584-5.717-5.769-5.717zm3.364 8.163c-.144.405-.837.774-1.17.825-.311.047-.704.074-2.18-.537-1.745-.722-2.87-2.484-2.957-2.6-.087-.116-.708-.941-.708-1.792s.448-1.27.607-1.442c.159-.172.348-.216.464-.216.116 0 .232.002.333.007.106.005.249-.04.39.299.144.35.493 1.2.536 1.288.043.088.072.19.014.305-.058.115-.087.188-.174.289-.087.102-.183.228-.261.306-.087.087-.178.182-.077.355.101.173.45 0.742.966 1.202.664.591 1.224.774 1.397.861.174.087.275.072.376-.044.102-.116.435-.506.55-.68.116-.174.232-.145.391-.087s1.013.478 1.187.565c.174.087.29.13.333.203.044.072.044.419-.1 0.824zM12 2C6.477 2 2 6.477 2 12c0 1.891.524 3.662 1.436 5.178L2 22l4.978-1.398A9.956 9.956 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/>
+          </svg>
+          <span>QUICK INQUIRY ON WHATSAPP (+880 1754-550297)</span>
+        </a>
+      </div>
       <?php else: ?>
       <!-- Direct WhatsApp Inquiry Form -->
       <div class="k3d-inquire-block" style="margin-top: 20px;">
@@ -133,13 +167,29 @@
       <div class="k3d-blueprint-title-block" style="border: 1px solid var(--k3d-border); padding: 12px 14px; margin-top: 24px; font-family: var(--k3d-mono); font-size: 10px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px 12px; background: rgba(24, 24, 24, 0.02);">
         <div><span style="color:var(--k3d-meta);">SPECIMEN:</span> <strong><?= esc($product['sku']) ?></strong></div>
         <div><span style="color:var(--k3d-meta);">HARDWARE:</span> <strong>BAMBU LAB A1</strong></div>
-        <div><span style="color:var(--k3d-meta);">TOLERANCE:</span> <strong>&plusmn;0.2 MM</strong></div>
+        <div><span style="color:var(--k3d-meta);">FAB TIME:</span> <strong style="color:var(--k3d-rust);">~<?= esc($printTimeStr) ?></strong></div>
         <div><span style="color:var(--k3d-meta);">STATUS:</span> <strong style="color:var(--k3d-rust);">ACTIVE CATALOG</strong></div>
       </div>
 
       <p class="k3d-dispatch-note">DISPATCHED FROM DHAKA · INSIDE DHAKA 24—48H (৳70) · NATIONWIDE 2—4 DAYS (৳130)</p>
     </div>
   </div>
+
+  <?php if ((float)($product['price_bdt'] ?? 0) > 0): ?>
+  <!-- Sticky Mobile Action Bar (Enhancement 5) -->
+  <aside id="k3d-sticky-mobile-bar" class="k3d-sticky-mobile-bar" aria-hidden="true">
+    <div class="k3d-sticky-inner">
+      <div class="k3d-sticky-info">
+        <span class="k3d-sticky-sku"><?= esc($product['sku']) ?></span>
+        <strong class="k3d-sticky-name"><?= esc($product['name']) ?></strong>
+        <span class="k3d-sticky-price" id="k3d-sticky-price-display">৳<?= number_format($product['price_bdt'] ?? 0, 2) ?></span>
+      </div>
+      <button type="button" class="k3d-sticky-buy-btn" id="k3d-sticky-add-btn">
+        <span>+ ADD TO BAG</span>
+      </button>
+    </div>
+  </aside>
+  <?php endif; ?>
 
   <section class="k3d-product-lower">
     <div>
@@ -159,5 +209,5 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('scripts') ?>
-<script src="/assets/js/product.js"></script>
+<script src="/assets/js/product.js?v=<?= time() ?>"></script>
 <?= $this->endSection() ?>

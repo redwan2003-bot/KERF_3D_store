@@ -171,9 +171,85 @@
   justify-content: space-between;
   margin-bottom: 28px;
   padding-bottom: 14px;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
-.k3d-results-toolbar strong {
+/* Instant Search Input */
+.k3d-search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--k3d-surface, #efebe3);
+  border: 1.5px solid var(--k3d-ink);
+  padding: 6px 12px;
+  min-width: 280px;
+  max-width: 380px;
+  flex: 1 1 auto;
+  box-shadow: 2px 2px 0 rgba(28, 25, 23, 0.08);
+  transition: all 0.15s ease;
+}
+
+.k3d-search-box:focus-within {
+  border-color: var(--k3d-rust);
+  box-shadow: 2px 2px 0 var(--k3d-ink);
+  background: #fff;
+}
+
+.k3d-search-icon {
+  color: var(--k3d-meta);
+  flex-shrink: 0;
+}
+
+.k3d-search-box input {
+  background: transparent;
+  border: none;
+  color: var(--k3d-ink);
+  font: 600 11px var(--k3d-mono);
+  letter-spacing: 0.02em;
+  outline: none;
+  width: 100%;
+}
+
+.k3d-search-box input::placeholder {
+  color: var(--k3d-meta);
+  font-weight: 400;
+  opacity: 0.75;
+}
+
+#k3d-search-clear {
+  background: transparent;
+  border: none;
+  color: var(--k3d-meta);
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  padding: 0 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s ease;
+}
+
+#k3d-search-clear:hover {
+  color: var(--k3d-rust);
+}
+
+.k3d-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: auto;
+}
+
+.k3d-archive-count {
+  font: 700 10px var(--k3d-mono);
+  letter-spacing: 0.06em;
+  color: var(--k3d-meta);
+  white-space: nowrap;
+}
+
+.k3d-archive-count strong {
   color: var(--k3d-rust);
 }
 
@@ -196,16 +272,24 @@
 
 .k3d-product-card {
   transition: transform 0.2s ease;
+  position: relative;
 }
 
 .k3d-product-card:hover {
   transform: translateY(-3px);
 }
 
-.k3d-product-card a {
+.k3d-product-card-wrap {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.k3d-product-link {
   color: var(--k3d-ink);
   text-decoration: none;
   display: block;
+  flex: 1 1 auto;
 }
 
 .k3d-product-image {
@@ -230,19 +314,107 @@
   transform: scale(1.03);
 }
 
-.k3d-category-pills {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 24px;
-}
-
 .k3d-product-meta {
   display: flex;
   flex-direction: column;
   gap: 4px;
   padding-top: 12px;
   position: relative;
+}
+
+.k3d-product-price-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 2px;
+}
+
+.k3d-price-val {
+  font-family: var(--k3d-mono);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--k3d-rust);
+}
+
+/* Quick Add Button */
+.k3d-quick-add-btn {
+  background: var(--k3d-surface, #efebe3);
+  border: 1px solid var(--k3d-ink);
+  color: var(--k3d-ink);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font: 700 9px var(--k3d-mono);
+  letter-spacing: 0.08em;
+  padding: 8px 12px;
+  margin-top: 8px;
+  width: 100%;
+  transition: all 0.15s ease;
+  box-sizing: border-box;
+}
+
+.k3d-quick-add-btn:hover {
+  background: var(--k3d-ink);
+  color: #fff;
+  border-color: var(--k3d-ink);
+}
+
+.k3d-quick-add-btn.is-adding {
+  background: var(--k3d-surface);
+  color: var(--k3d-meta);
+  border-style: dashed;
+  cursor: wait;
+}
+
+.k3d-quick-add-btn.is-added {
+  background: var(--k3d-rust);
+  border-color: var(--k3d-rust);
+  color: #fff;
+}
+
+.k3d-quick-add-btn.is-error {
+  background: #991b1b;
+  border-color: #991b1b;
+  color: #fff;
+}
+
+/* Empty Search Results Container */
+.k3d-search-empty-state {
+  grid-column: 1 / -1;
+  padding: 50px 20px;
+  text-align: center;
+  border: 1px dashed var(--k3d-border);
+  background: rgba(28, 25, 23, 0.015);
+  margin-top: 20px;
+}
+
+.k3d-empty-inner {
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.k3d-empty-code {
+  font: 700 9px var(--k3d-mono);
+  color: var(--k3d-rust);
+  letter-spacing: 0.12em;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.k3d-empty-inner h3 {
+  font-family: var(--k3d-display);
+  font-size: 20px;
+  margin: 0 0 10px;
+  color: var(--k3d-ink);
+}
+
+.k3d-empty-inner p {
+  color: var(--k3d-meta);
+  font-size: 13px;
+  line-height: 1.5;
+  margin-bottom: 18px;
 }
 
 .k3d-product-meta span {
