@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  web:
+    container_name: kerf3d_ols_prod
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - CI_ENVIRONMENT=production
+      - database.default.hostname=db
+      - database.default.database=${DB_NAME:-kerf3d}
+      - database.default.username=${DB_USER:-kerf3d_user}
+      - database.default.password=${DB_PASS:-kerf3d_secret}
+    volumes:
+      - ./:/var/www/vhosts/localhost/html
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+
+  db:
+    container_name: kerf3d_mariadb_prod
+    restart: always
+    ports: [] # Closed to public internet for security on production
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASS:-kerf3d_root_password}
+      MYSQL_DATABASE: ${DB_NAME:-kerf3d}
+      MYSQL_USER: ${DB_USER:-kerf3d_user}
+      MYSQL_PASSWORD: ${DB_PASS:-kerf3d_secret}
+    volumes:
+      - kerf3d_db_prod_data:/var/lib/mysql
+
+volumes:
+  kerf3d_db_prod_data:
+    driver: local

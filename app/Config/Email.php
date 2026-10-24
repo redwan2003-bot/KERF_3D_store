@@ -6,6 +6,23 @@ use CodeIgniter\Config\BaseConfig;
 
 class Email extends BaseConfig
 {
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->fromEmail  = env('email.fromEmail', env('EMAIL_FROM_ADDRESS', 'kerf.3d@gmail.com'));
+        $this->fromName   = env('email.fromName', 'Kerf 3D Studio');
+        $this->protocol   = env('email.protocol', 'smtp');
+        $this->SMTPHost   = env('email.SMTPHost', 'smtp.gmail.com');
+        $this->SMTPUser   = env('email.SMTPUser', 'kerf.3d@gmail.com');
+        $this->SMTPPass   = env('email.SMTPPass', '');
+        $this->SMTPPort   = (int) env('email.SMTPPort', 587);
+        $this->SMTPCrypto = env('email.SMTPCrypto', 'tls');
+        $this->mailType   = 'html';
+        $this->CRLF       = "\r\n";
+        $this->newline    = "\r\n";
+    }
+
     public string $fromEmail  = '';
     public string $fromName   = '';
     public string $recipients = '';
