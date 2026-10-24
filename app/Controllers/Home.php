@@ -42,4 +42,20 @@ class Home extends BaseController
 
         return view('pages/home', $data);
     }
+
+    public function privacy(): string
+    {
+        return view('pages/privacy', [
+            'title'   => 'Privacy Policy — Kerf 3D Studio',
+            'pageCss' => [],
+        ]);
+    }
+
+    public function terms(): string
+    {
+        return view('pages/terms', [
+            'title'   => 'Terms of Service — Kerf 3D Studio',
+            'pageCss' => [],
+        ]);
+    }
 }
