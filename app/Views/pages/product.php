@@ -89,7 +89,7 @@
         </div>
         <div>
           <span>PHYSICAL WEIGHT</span>
-          <strong><?= esc($product['weight_g'] ? $product['weight_g'] . ' GRAMS' : 'STANDARD') ?></strong>
+          <strong><?= esc($product['weight_g'] ? (int)$product['weight_g'] . ' GRAMS' : 'STANDARD') ?></strong>
         </div>
         <div>
           <span>INTERNAL INFILL</span>

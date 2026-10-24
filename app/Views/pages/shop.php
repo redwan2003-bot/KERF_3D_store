@@ -89,7 +89,7 @@
                   <?php endif; ?>
                 </div>
                 <div class="k3d-product-meta">
-                  <span><?= esc($product['category_name'] ?? 'CATALOG') ?> · <?= esc($product['weight_g'] ? $product['weight_g'] . 'G' : 'FDM') ?></span>
+                  <span><?= esc($product['category_name'] ?? 'CATALOG') ?> · <?= esc($product['weight_g'] ? (int)$product['weight_g'] . 'G' : 'FDM') ?></span>
                   <strong><?= esc($product['name']) ?></strong>
                   <?php if ((float)($product['price_bdt'] ?? 0) > 0): ?>
                     <b>৳<?= number_format($product['price_bdt'], 2) ?></b>

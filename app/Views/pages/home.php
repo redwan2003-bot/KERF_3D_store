@@ -71,7 +71,7 @@
               </div>
               <div class="k3d-spec-price">
                 <span>INTAKE</span>
-                <strong>PRICE ON REQUEST</strong>
+                <strong>৳140.00</strong>
               </div>
             </div>
           </div>
@@ -128,7 +128,7 @@
               <p>Iconic graphic aesthetic 3D printed case engineered for precise snap-retention on AirPods Pro 2nd Gen.</p>
             </div>
             <div class="k3d-card-action">
-              <span class="k3d-card-price" style="font-size: 11px;">PRICE ON REQUEST</span>
+              <span class="k3d-card-price">৳140.00</span>
               <a href="/product/charlie-brown-airpods-pro-2nd-gen-case" class="k3d-button k3d-btn-sm">VIEW DOSSIER &rarr;</a>
             </div>
           </div>
@@ -149,7 +149,7 @@
               <p>Soft ambient diffusers engineered for Bambu Lab LED hardware kits.</p>
             </div>
             <div class="k3d-card-action">
-              <span class="k3d-card-price" style="font-size: 11px;">PRICE ON REQUEST</span>
+              <span class="k3d-card-price">৳745.00</span>
               <a href="/product/nebula-lamp" class="k3d-button k3d-btn-sm">VIEW DOSSIER &rarr;</a>
             </div>
           </div>
@@ -170,7 +170,7 @@
               <p>Functional Skeleton Zero mechanical pulley for 608 skate bearings.</p>
             </div>
             <div class="k3d-card-action">
-              <span class="k3d-card-price" style="font-size: 11px;">PRICE ON REQUEST</span>
+              <span class="k3d-card-price">৳125.00</span>
               <a href="/product/mini-paracord-pulley-608-bearing---skeleton-zero" class="k3d-button k3d-btn-sm">VIEW DOSSIER &rarr;</a>
             </div>
           </div>
@@ -191,7 +191,7 @@
               <p>Dual-compartment desk caddy with removable tool tray.</p>
             </div>
             <div class="k3d-card-action">
-              <span class="k3d-card-price" style="font-size: 11px;">PRICE ON REQUEST</span>
+              <span class="k3d-card-price">৳505.00</span>
               <a href="/product/duo-pen-holder-with-removable-tray" class="k3d-button k3d-btn-sm">VIEW DOSSIER &rarr;</a>
             </div>
           </div>
