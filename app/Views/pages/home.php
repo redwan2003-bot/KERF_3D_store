@@ -61,7 +61,7 @@
             <div class="k3d-frame-datum top-right">BAMBU A1 // SPECIMEN 01</div>
             
             <a href="/product/charlie-brown-airpods-pro-2nd-gen-case" class="k3d-spotlight-link" aria-label="View Charlie Brown AirPods Pro Case">
-              <img src="/assets/images/products/charlie-brown-airpods-pro-2nd-gen-case.webp" alt="Charlie Brown AirPods Pro 2nd Gen Case" class="k3d-spotlight-img">
+              <img src="/assets/images/products/charlie-brown-airpods-pro-2nd-gen-case.webp?v=<?= filemtime(FCPATH . 'assets/images/products/charlie-brown-airpods-pro-2nd-gen-case.webp') ?>" alt="Charlie Brown AirPods Pro 2nd Gen Case" class="k3d-spotlight-img">
             </a>
 
             <div class="k3d-frame-footer">
@@ -120,7 +120,7 @@
             <b>BAMBU A1</b>
           </div>
           <a href="/product/charlie-brown-airpods-pro-2nd-gen-case" class="k3d-bento-visual">
-            <img src="/assets/images/products/charlie-brown-airpods-pro-2nd-gen-case.webp" alt="Charlie Brown AirPods Pro 2nd Gen Case" loading="lazy">
+            <img src="/assets/images/products/charlie-brown-airpods-pro-2nd-gen-case.webp?v=<?= filemtime(FCPATH . 'assets/images/products/charlie-brown-airpods-pro-2nd-gen-case.webp') ?>" alt="Charlie Brown AirPods Pro 2nd Gen Case" loading="lazy">
           </a>
           <div class="k3d-card-footer">
             <div>
@@ -141,7 +141,7 @@
             <b>LIGHT KIT MH001</b>
           </div>
           <a href="/product/nebula-lamp" class="k3d-bento-visual">
-            <img src="/assets/images/products/nebula-lamp.webp" alt="Nebula Lamp" loading="lazy">
+            <img src="/assets/images/products/nebula-lamp.webp?v=<?= filemtime(FCPATH . 'assets/images/products/nebula-lamp.webp') ?>" alt="Nebula Lamp" loading="lazy">
           </a>
           <div class="k3d-card-footer">
             <div>
@@ -162,7 +162,7 @@
             <b>608 BEARING</b>
           </div>
           <a href="/product/mini-paracord-pulley-608-bearing---skeleton-zero" class="k3d-bento-visual">
-            <img src="/assets/images/products/mini-paracord-pulley-608-bearing---skeleton-zero.webp" alt="Mini Paracord Pulley" loading="lazy">
+            <img src="/assets/images/products/mini-paracord-pulley-608-bearing---skeleton-zero.webp?v=<?= filemtime(FCPATH . 'assets/images/products/mini-paracord-pulley-608-bearing---skeleton-zero.webp') ?>" alt="Mini Paracord Pulley" loading="lazy">
           </a>
           <div class="k3d-card-footer">
             <div>
@@ -183,7 +183,7 @@
             <b>MODULAR TRAY</b>
           </div>
           <a href="/product/duo-pen-holder-with-removable-tray" class="k3d-bento-visual">
-            <img src="/assets/images/products/duo-pen-holder-with-removable-tray.webp" alt="DUO Pen Holder" loading="lazy">
+            <img src="/assets/images/products/duo-pen-holder-with-removable-tray.webp?v=<?= filemtime(FCPATH . 'assets/images/products/duo-pen-holder-with-removable-tray.webp') ?>" alt="DUO Pen Holder" loading="lazy">
           </a>
           <div class="k3d-card-footer">
             <div>

@@ -76,7 +76,8 @@
                   <?php 
                     $imgSrc = '';
                     if (!empty($product['primary_image']['filename']) && file_exists(FCPATH . 'assets/images/products/' . $product['primary_image']['filename'])) {
-                        $imgSrc = '/assets/images/products/' . esc($product['primary_image']['filename']);
+                        $fullFile = FCPATH . 'assets/images/products/' . $product['primary_image']['filename'];
+                        $imgSrc = '/assets/images/products/' . esc($product['primary_image']['filename']) . '?v=' . filemtime($fullFile);
                     } elseif (!empty($product['primary_image']['drive_thumbnail_url'])) {
                         $imgSrc = esc($product['primary_image']['drive_thumbnail_url']);
                     }

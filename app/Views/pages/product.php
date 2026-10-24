@@ -15,7 +15,8 @@
           $primaryImg = $product['images'][0] ?? null;
           $mainSrc = '';
           if (!empty($primaryImg['filename']) && file_exists(FCPATH . 'assets/images/products/' . $primaryImg['filename'])) {
-              $mainSrc = '/assets/images/products/' . esc($primaryImg['filename']);
+              $fullFile = FCPATH . 'assets/images/products/' . $primaryImg['filename'];
+              $mainSrc = '/assets/images/products/' . esc($primaryImg['filename']) . '?v=' . filemtime($fullFile);
           } elseif (!empty($primaryImg['drive_thumbnail_url'])) {
               $mainSrc = esc($primaryImg['drive_thumbnail_url']);
           } elseif (!empty($primaryImg['drive_url'])) {
