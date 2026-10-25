@@ -14,17 +14,24 @@
   const productCards = Array.from(document.querySelectorAll('.k3d-product-card'));
   const totalCount   = productCards.length;
 
-  // ── 1. Real-Time Keystroke Catalog Filter ─────────────────────
-  function filterCatalog() {
-    if (!searchInput) return;
+  const materialChecks = Array.from(document.querySelectorAll('input[name="material[]"]'));
+  const swatches       = Array.from(document.querySelectorAll('.k3d-swatches .swatch'));
 
-    const rawQuery = searchInput.value || '';
+  // ── 1. Real-Time Keystroke & Facet Catalog Filter ──────────────
+  function filterCatalog() {
+    const rawQuery = (searchInput ? searchInput.value : '') || '';
     const query = rawQuery.trim().toLowerCase();
     const tokens = query.split(/\s+/).filter(Boolean);
 
+    const selectedMats = materialChecks
+      .filter(cb => cb.checked)
+      .map(cb => cb.value.toLowerCase());
+
     let matchCount = 0;
 
-    if (tokens.length === 0) {
+    const noFilters = tokens.length === 0 && selectedMats.length === 0;
+
+    if (noFilters) {
       // Show all cards
       productCards.forEach(card => {
         card.style.display = '';
@@ -39,11 +46,14 @@
         const name     = card.getAttribute('data-name') || '';
         const sku      = card.getAttribute('data-sku') || '';
         const category = card.getAttribute('data-category') || '';
-        const haystack = `${name} ${sku} ${category}`;
+        const tags     = card.getAttribute('data-tags') || '';
+        const mat      = card.getAttribute('data-material') || 'pla';
+        const haystack = `${name} ${sku} ${category} ${tags} ${mat}`;
 
-        const isMatch = tokens.every(token => haystack.includes(token));
+        const matchesTokens = tokens.length === 0 || tokens.every(token => haystack.includes(token));
+        const matchesMaterial = selectedMats.length === 0 || selectedMats.some(m => haystack.includes(m) || mat === m);
 
-        if (isMatch) {
+        if (matchesTokens && matchesMaterial) {
           card.style.display = '';
           matchCount++;
         } else {
@@ -54,7 +64,7 @@
       if (emptyState) {
         if (matchCount === 0) {
           emptyState.style.display = 'block';
-          if (emptyQuery) emptyQuery.textContent = rawQuery.trim();
+          if (emptyQuery) emptyQuery.textContent = rawQuery.trim() || selectedMats.join(', ');
         } else {
           emptyState.style.display = 'none';
         }
@@ -65,6 +75,23 @@
       visibleCount.textContent = matchCount;
     }
   }
+
+  // Bind Material Checkboxes
+  materialChecks.forEach(cb => {
+    cb.addEventListener('change', filterCatalog);
+  });
+
+  // Bind Shade Swatches
+  swatches.forEach(sw => {
+    sw.addEventListener('click', function () {
+      const shadeName = (this.getAttribute('aria-label') || '').toLowerCase();
+      if (searchInput && shadeName) {
+        searchInput.value = shadeName;
+        filterCatalog();
+        searchInput.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    });
+  });
 
   if (searchInput) {
     searchInput.addEventListener('input', filterCatalog);
@@ -78,11 +105,10 @@
   }
 
   function resetSearch() {
-    if (searchInput) {
-      searchInput.value = '';
-      filterCatalog();
-      searchInput.focus();
-    }
+    if (searchInput) searchInput.value = '';
+    materialChecks.forEach(cb => { cb.checked = false; });
+    filterCatalog();
+    if (searchInput) searchInput.focus();
   }
 
   if (clearBtn) {

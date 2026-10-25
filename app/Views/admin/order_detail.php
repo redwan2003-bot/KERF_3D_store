@@ -8,6 +8,30 @@
         <p class="admin-page-desc">Received on <?= date('F d, Y \a\t H:i', strtotime($order['created_at'])) ?></p>
     </div>
     <div style="display: flex; gap: 10px;">
+        <?php
+            $waItems = [];
+            foreach (($items ?? []) as $idx => $it) {
+                $line = ($idx + 1) . ". " . ($it['product_name_snapshot'] ?? 'Specimen') . " (Qty: " . ($it['quantity'] ?? 1) . ", ৳" . number_format((float) ($it['line_total_bdt'] ?? 0), 2) . ")";
+                if (!empty($it['makerworld_url_snapshot'])) {
+                    $line .= "\n   MakerWorld: " . $it['makerworld_url_snapshot'];
+                }
+                $waItems[] = $line;
+            }
+            $cleanPhone = preg_replace('/[^0-9]/', '', $order['customer_phone'] ?? '');
+            if (str_starts_with($cleanPhone, '01')) $cleanPhone = '88' . $cleanPhone;
+            $adminWaText = "KERF 3D STUDIO — ORDER DISPATCH\n"
+                         . "Order #: #" . $order['order_number'] . "\n"
+                         . "Customer: " . ($order['customer_name'] ?? '') . "\n"
+                         . "Phone: " . ($order['customer_phone'] ?? '') . "\n"
+                         . "Delivery: " . ($order['address_line'] ?? '') . "\n\n"
+                         . "ITEMS:\n" . implode("\n", $waItems) . "\n\n"
+                         . "Total Payable: ৳" . number_format((float) ($order['total_bdt'] ?? 0), 2) . " BDT\n"
+                         . "Status: " . strtoupper($order['order_status'] ?? 'RECEIVED');
+            $adminWaHref = "https://wa.me/" . $cleanPhone . "?text=" . rawurlencode($adminWaText);
+        ?>
+        <a href="<?= $adminWaHref ?>" target="_blank" rel="noopener" class="admin-btn" style="background:#25D366; color:#fff; border:0;">
+            WHATSAPP CUSTOMER ↗
+        </a>
         <a href="/admin/orders" class="admin-btn secondary">&larr; Back to Order Queue</a>
     </div>
 </div>
@@ -43,7 +67,16 @@
                         <?php else: ?>
                             <?php foreach ($items as $item): ?>
                                 <tr>
-                                    <td><strong><?= esc($item['product_name_snapshot']) ?></strong></td>
+                                    <td>
+                                        <strong><?= esc($item['product_name_snapshot']) ?></strong>
+                                        <?php if (!empty($item['makerworld_url_snapshot'])): ?>
+                                            <div style="margin-top: 5px;">
+                                                <a href="<?= esc($item['makerworld_url_snapshot']) ?>" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:4px; font-size:10px; color:#10b981; background:rgba(16,185,129,0.12); border:1px solid rgba(16,185,129,0.35); padding:2px 7px; border-radius:3px; text-decoration:none; font-family:var(--font-mono); font-weight:700;">
+                                                    <span>MAKERWORLD SLICER LINK ↗</span>
+                                                </a>
+                                            </div>
+                                        <?php endif; ?>
+                                    </td>
                                     <td class="admin-mono-cell" style="font-size:11px; text-transform:uppercase;">
                                         <?= esc($item['item_type']) ?>
                                     </td>

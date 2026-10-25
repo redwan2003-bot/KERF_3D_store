@@ -55,8 +55,16 @@ class Orders extends BaseController
         }
 
         $items = $db->table('order_items')
-            ->where('order_id', $order['id'])
+            ->select('order_items.*, products.makerworld_url as prod_mw_url, products.sku as prod_sku')
+            ->join('products', 'products.id = order_items.product_id', 'left')
+            ->where('order_items.order_id', $order['id'])
             ->get()->getResultArray();
+
+        foreach ($items as &$it) {
+            if (empty($it['makerworld_url_snapshot']) && !empty($it['prod_mw_url'])) {
+                $it['makerworld_url_snapshot'] = $it['prod_mw_url'];
+            }
+        }
 
         $data = [
             'title' => "Order {$order['order_number']} — Workshop Fulfillment",

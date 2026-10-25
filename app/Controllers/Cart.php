@@ -84,6 +84,7 @@ class Cart extends BaseController
                 'quantity'     => $quantity,
                 'line_total'   => $quantity * $price,
                 'thumbnail'    => $thumbnailUrl,
+                'makerworld_url' => $product['makerworld_url'] ?? null,
             ];
         }
 

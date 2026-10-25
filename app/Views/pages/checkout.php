@@ -144,9 +144,29 @@
 
 <script>
     function updateShipping(rate) {
-        document.getElementById('k3d-inv-shipping').innerText = '৳' + rate;
+        document.getElementById('k3d-inv-shipping').innerText = '৳' + rate.toFixed(2);
         const subtotal = <?= (float) ($cartSubtotal ?? 780) ?>;
-        document.getElementById('k3d-inv-total').innerText = '৳' + (subtotal + rate).toFixed(2);
+        const total = subtotal + rate;
+        document.getElementById('k3d-inv-total').innerText = '৳' + total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function togglePayMethod(method) {
+        const mfsLabel = document.getElementById('k3d-pay-mfs-label');
+        const codLabel = document.getElementById('k3d-pay-cod-label');
+        const trxField = document.querySelector('.k3d-trxid-field');
+        const trxInput = document.querySelector('input[name="trx_id"]');
+
+        if (method === 'bkash') {
+            if (mfsLabel) mfsLabel.classList.add('is-selected');
+            if (codLabel) codLabel.classList.remove('is-selected');
+            if (trxField) trxField.style.opacity = '1';
+            if (trxInput) trxInput.placeholder = 'Enter 8-10 digit TrxID from SMS';
+        } else {
+            if (codLabel) codLabel.classList.add('is-selected');
+            if (mfsLabel) mfsLabel.classList.remove('is-selected');
+            if (trxField) trxField.style.opacity = '0.6';
+            if (trxInput) trxInput.placeholder = 'Optional for Cash on Delivery';
+        }
     }
 </script>
 <?= $this->endSection() ?>

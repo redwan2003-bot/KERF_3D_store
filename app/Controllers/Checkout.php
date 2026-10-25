@@ -71,8 +71,12 @@ class Checkout extends BaseController
         ]);
         $customerId = $db->insertID();
 
-        // 2. Order record
-        $orderNumber = 'K3D-' . strtoupper(substr(uniqid(), -5));
+        // 2. Order record with collision-proof unique order number: K3D-YYMMDD-XXXX
+        do {
+            $orderNumber = 'K3D-' . date('ymd') . '-' . strtoupper(bin2hex(random_bytes(2)));
+            $exists = $db->table('orders')->where('order_number', $orderNumber)->countAllResults();
+        } while ($exists > 0);
+
         $db->table('orders')->insert([
             'order_number'      => $orderNumber,
             'customer_id'       => $customerId,
@@ -90,33 +94,41 @@ class Checkout extends BaseController
         ]);
         $orderId = $db->insertID();
 
-        // 3. Order Items
+        // 3. Order Items with MakerWorld URL Snapshot
         if (!empty($cart)) {
             foreach ($cart as $item) {
+                $mwUrl = $item['makerworld_url'] ?? null;
+                if (empty($mwUrl) && !empty($item['product_id'])) {
+                    $prodRow = $db->table('products')->select('makerworld_url')->where('id', $item['product_id'])->get()->getRowArray();
+                    $mwUrl = $prodRow['makerworld_url'] ?? null;
+                }
+
                 $db->table('order_items')->insert([
-                    'order_id'              => $orderId,
-                    'item_type'             => $item['type'] ?? 'ready_made',
-                    'product_id'            => $item['product_id'] ?? null,
-                    'variation_id'          => $item['variation_id'] ?? null,
-                    'product_name_snapshot' => $item['name'],
-                    'specs_snapshot'        => $item['specs'],
-                    'quantity'              => $item['quantity'],
-                    'unit_price_bdt'        => $item['unit_price'],
-                    'line_total_bdt'        => $item['line_total'],
-                    'created_at'            => date('Y-m-d H:i:s'),
+                    'order_id'                => $orderId,
+                    'item_type'               => $item['type'] ?? 'ready_made',
+                    'product_id'              => $item['product_id'] ?? null,
+                    'variation_id'            => $item['variation_id'] ?? null,
+                    'product_name_snapshot'   => $item['name'],
+                    'specs_snapshot'          => $item['specs'],
+                    'makerworld_url_snapshot' => $mwUrl,
+                    'quantity'                => $item['quantity'],
+                    'unit_price_bdt'          => $item['unit_price'],
+                    'line_total_bdt'          => $item['line_total'],
+                    'created_at'              => date('Y-m-d H:i:s'),
                 ]);
             }
         } else {
             // Default specimen for fallback
             $db->table('order_items')->insert([
-                'order_id'              => $orderId,
-                'item_type'             => 'ready_made',
-                'product_name_snapshot' => 'Arc Vessel',
-                'specs_snapshot'        => 'PLA / Terracotta / 140g',
-                'quantity'              => 1,
-                'unit_price_bdt'        => 780.00,
-                'line_total_bdt'        => 780.00,
-                'created_at'            => date('Y-m-d H:i:s'),
+                'order_id'                => $orderId,
+                'item_type'               => 'ready_made',
+                'product_name_snapshot'   => 'Arc Vessel',
+                'specs_snapshot'          => 'PLA / Terracotta / 140g',
+                'makerworld_url_snapshot' => null,
+                'quantity'                => 1,
+                'unit_price_bdt'          => 780.00,
+                'line_total_bdt'          => 780.00,
+                'created_at'              => date('Y-m-d H:i:s'),
             ]);
         }
 
@@ -135,11 +147,21 @@ class Checkout extends BaseController
 
         $db->transComplete();
 
-        // 5. Send automated order confirmation & alert workshop admin
+        // 5. Send automated order confirmation & alert workshop admin with MakerWorld links
         try {
             $orderRecord    = $db->table('orders')->where('id', $orderId)->get()->getRowArray();
             $customerRecord = $db->table('customers')->where('id', $customerId)->get()->getRowArray();
-            $itemsRecords   = $db->table('order_items')->where('order_id', $orderId)->get()->getResultArray();
+            $itemsRecords   = $db->table('order_items')
+                ->select('order_items.*, products.makerworld_url as prod_mw_url')
+                ->join('products', 'products.id = order_items.product_id', 'left')
+                ->where('order_items.order_id', $orderId)
+                ->get()->getResultArray();
+
+            foreach ($itemsRecords as &$it) {
+                if (empty($it['makerworld_url_snapshot']) && !empty($it['prod_mw_url'])) {
+                    $it['makerworld_url_snapshot'] = $it['prod_mw_url'];
+                }
+            }
 
             $notifier = new \App\Services\OrderNotificationService();
             $notifier->sendOrderConfirmation($orderRecord, $customerRecord, $itemsRecords);

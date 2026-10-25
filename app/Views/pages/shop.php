@@ -86,6 +86,8 @@
                      data-name="<?= esc(strtolower($product['name'])) ?>"
                      data-sku="<?= esc(strtolower($product['sku'])) ?>"
                      data-category="<?= esc(strtolower($product['category_name'] ?? '')) ?>"
+                     data-tags="<?= esc(strtolower($product['tags'] ?? '')) ?>"
+                     data-material="<?= esc(strtolower(str_contains($product['tags'] ?? '', 'tpu') ? 'tpu-95a' : (str_contains($product['tags'] ?? '', 'petg') ? 'petg' : 'pla'))) ?>"
                      data-price="<?= esc($product['price_bdt']) ?>">
               <div class="k3d-product-card-wrap">
                 <a href="/product/<?= esc($product['slug']) ?>" class="k3d-product-link">
