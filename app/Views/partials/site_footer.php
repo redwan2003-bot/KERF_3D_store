@@ -14,6 +14,7 @@
                     <li><a href="/shop">Catalog Archive</a></li>
                     <li><a href="/quote">Upload Custom Mesh</a></li>
                     <li><a href="/materials">Materials & Workshop Specs</a></li>
+                    <li><a href="/track">Live Order Tracking</a></li>
                     <li><a href="/checkout">Order Intake & Checkout</a></li>
                 </ul>
             </div>

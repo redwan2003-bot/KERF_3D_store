@@ -60,7 +60,7 @@
   </section>
 
   <section class="k3d-material-table-section">
-    <p class="k3d-kicker">POLYMER COMPARISON / 03</p>
+    <p class="k3d-kicker">POLYMER COMPARISON / 05</p>
     <h2>Pick the right<br><em>behavior.</em></h2>
     <div class="k3d-material-table">
       <div class="k3d-material-row k3d-material-head">
@@ -90,6 +90,20 @@
         <span>Tougher utility<br>Higher heat resistance</span>
         <span>Brackets, fittings,<br>functional parts</span>
         <em>IDEAL</em>
+      </div>
+      <div class="k3d-material-row">
+        <strong>ASA</strong>
+        <b>WEATHERPROOF</b>
+        <span>UV resistant<br>100°C thermal threshold</span>
+        <span>Automotive, outdoor,<br>sunlight exposed parts</span>
+        <em>ADVANCED</em>
+      </div>
+      <div class="k3d-material-row">
+        <strong>PA-CF</strong>
+        <b>CARBON COMPOSITE</b>
+        <span>Carbon fiber + Nylon<br>Extreme stiffness</span>
+        <span>Structural drones,<br>rigs, tooling fixtures</span>
+        <em>SPECIALIST</em>
       </div>
     </div>
     <p class="k3d-rate-footnote">*Custom polymers and engineering formulations are quoted automatically during custom CAD intake.</p>

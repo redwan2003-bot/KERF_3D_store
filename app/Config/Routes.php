@@ -19,6 +19,7 @@ $routes->get('/', 'Home::index');
 $routes->get('shop', 'Shop::index');
 $routes->get('product/(:segment)', 'Product::view/$1');
 $routes->get('materials', 'Materials::index');
+$routes->get('track', 'Track::index');
 $routes->get('privacy', 'Home::privacy');
 $routes->get('terms', 'Home::terms');
 

@@ -10,6 +10,7 @@
             <a href="/shop" class="<?= (uri_string() === 'shop' || str_starts_with(uri_string(), 'product')) ? 'is-active' : '' ?>">SHOP</a>
             <a href="/quote" class="<?= (uri_string() === 'quote') ? 'is-active' : '' ?>"><span class="k3d-hide-mobile">CUSTOM </span>QUOTE</a>
             <a href="/materials" class="<?= (uri_string() === 'materials') ? 'is-active' : '' ?>">MATERIALS</a>
+            <a href="/track" class="<?= (uri_string() === 'track') ? 'is-active' : '' ?>">TRACK</a>
         </nav>
 
         <!-- Cart Trigger with Dynamic Badge -->
