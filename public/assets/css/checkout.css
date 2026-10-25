@@ -127,7 +127,9 @@
   transition: all 0.15s ease;
 }
 
-.k3d-region-options label:has(input:checked), .k3d-payment-option.is-selected {
+.k3d-region-options label:has(input:checked),
+.k3d-payment-option:has(input:checked),
+.k3d-payment-option.is-selected {
   border-color: var(--k3d-ink);
   box-shadow: 2px 2px 0 var(--k3d-ink);
 }
