@@ -45,3 +45,10 @@ writable/uploads/*
 .DS_Store
 Thumbs.db
 Desktop.ini
+
+# Video recordings and media exports
+*.mp4
+*.webm
+*.avi
+*.mov
+writable/recordings/
