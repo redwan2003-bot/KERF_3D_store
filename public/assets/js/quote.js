@@ -513,16 +513,16 @@
     // 1. Sliced layers at 0.20mm standard layer height (Bambu Lab A1 standard)
     const totalLayers = Math.max(1, Math.round(boundingDims.y / 0.20));
 
-    // 2. Bambu Studio 0.20mm Standard Physical Slicing Model:
-    // Solid shell: 2 perimeters (0.8mm) + 4-5 top/bottom solid layers (0.8-1.0mm) = ~0.08cm solid thickness
-    // Core infill: Gyroid (15%, 20%, 50%, 100%)
+    // 2. Bambu Studio 0.20mm Standard Physical Slicing Rules:
+    // Solid shell: 2 perimeters (0.84mm line width) + 4-5 solid top/bottom layers (0.8-1.0mm)
+    // Shell thickness average = 0.085 cm
     const rawDensity = activeDensity; // 1.240 g/cm³ for PLA
-    const shellThicknessCm = 0.08;
-    const estShellVolCm3 = Math.min(meshVolumeCm3 * 0.70, Math.max(meshVolumeCm3 * 0.35, meshSurfaceAreaCm2 * shellThicknessCm));
+    const shellThicknessCm = 0.085;
+    const estShellVolCm3 = Math.min(meshVolumeCm3 * 0.65, Math.max(meshVolumeCm3 * 0.25, meshSurfaceAreaCm2 * shellThicknessCm));
     const infillVolCm3 = Math.max(0, meshVolumeCm3 - estShellVolCm3);
-    const infillRatio = activeInfill / 100;
+    const infillRatio = activeInfill / 100.0;
 
-    // Shell is 100% dense plastic; infill core is sparse Gyroid
+    // Shell is 100% dense plastic; infill core scales with Gyroid percentage
     const solidShellMass = estShellVolCm3 * rawDensity;
     const infillMass = infillVolCm3 * infillRatio * rawDensity;
     const modelGrams = Math.max(15, Math.round((solidShellMass + infillMass) * 10) / 10);
@@ -548,7 +548,7 @@
     const mins = totalMinutes % 60;
     const timeStr = hours > 0 ? `~${hours}H ${mins}M` : `~${mins}M`;
 
-    // 6. Pricing Breakdown (NO PRINT SETUP FEE)
+    // 6. Pricing Breakdown (NO SETUP FEE)
     const printSubtotal = Math.round(totalGrams * activeRate);
     const totalQuote = printSubtotal;
     const advanceDeposit = 100.0;
@@ -556,6 +556,14 @@
 
     // Check Bambu A1 volume limits (256 × 256 × 256 mm)
     const fitsA1 = boundingDims.x <= 256 && boundingDims.y <= 256 && boundingDims.z <= 256;
+
+    // Tactical feedback flash
+    [statWeightEl, statModelEl, statSupportEl, statTimeEl, calcSubtotalEl, calcTotalEl].forEach(el => {
+      if (el) {
+        el.classList.add('k3d-stat-flash');
+        setTimeout(() => el.classList.remove('k3d-stat-flash'), 220);
+      }
+    });
 
     // Update Bambu Studio Slicing Telemetry Grid
     if (statBoxEl) statBoxEl.textContent = `${boundingDims.x} × ${boundingDims.y} × ${boundingDims.z} MM`;
@@ -629,57 +637,113 @@
 
   // ── 7. Polymer Material & Infill Selection Wiring ─────────────
   function initMaterialControls() {
+    // 1. Polymer Material Radio & Card Selection
     const materialOptions = document.querySelectorAll('.k3d-radio-option');
+    const materialRadios  = document.querySelectorAll('input[name="quote_material"]');
+
+    function selectMaterial(radio) {
+      if (!radio) return;
+      radio.checked = true;
+      materialOptions.forEach(opt => {
+        const r = opt.querySelector('input[type="radio"]');
+        opt.classList.toggle('is-selected', r && r.checked);
+      });
+      activeRate = parseFloat(radio.getAttribute('data-rate')) || (radio.value.includes('tpu') ? 9.75 : 6.50);
+      activeDensity = parseFloat(radio.getAttribute('data-density')) || 1.240;
+
+      if (currentMesh) {
+        currentMesh.material = getActiveMaterial();
+      }
+      updateQuotePricing();
+    }
+
+    materialRadios.forEach(radio => {
+      radio.addEventListener('change', function () {
+        selectMaterial(this);
+      });
+    });
 
     materialOptions.forEach(opt => {
       opt.addEventListener('click', function () {
-        materialOptions.forEach(l => l.classList.remove('is-selected'));
-        this.classList.add('is-selected');
-
         const radio = this.querySelector('input[type="radio"]');
-        if (radio) {
-          radio.checked = true;
-          activeRate = parseFloat(radio.getAttribute('data-rate')) || (radio.value.includes('tpu') ? 9.75 : 6.50);
-          activeDensity = parseFloat(radio.getAttribute('data-density')) || 1.240;
-
-          // Update 3D mesh material
-          if (currentMesh) {
-            currentMesh.material = getActiveMaterial();
-          }
-
-          updateQuotePricing();
-        }
+        if (radio) selectMaterial(radio);
       });
     });
 
-    const infillPills = document.querySelectorAll('.k3d-infill-pill');
+    // 2. Infill Density Radio & Pill Selection (Bambu Studio Presets)
+    const infillPills   = document.querySelectorAll('.k3d-infill-pill');
+    const infillRadios  = document.querySelectorAll('input[name="quote_infill"]');
+
+    function selectInfill(radioOrVal) {
+      const val = typeof radioOrVal === 'object' ? parseInt(radioOrVal.value, 10) : parseInt(radioOrVal, 10);
+      activeInfill = val || 20;
+
+      infillRadios.forEach(r => {
+        if (parseInt(r.value, 10) === activeInfill) {
+          r.checked = true;
+        }
+      });
+
+      infillPills.forEach(pill => {
+        const r = pill.querySelector('input[type="radio"]');
+        const pillVal = r ? parseInt(r.value, 10) : parseInt(pill.getAttribute('data-infill'), 10);
+        pill.classList.toggle('is-selected', pillVal === activeInfill);
+      });
+
+      updateQuotePricing();
+    }
+
+    infillRadios.forEach(radio => {
+      radio.addEventListener('change', function () {
+        selectInfill(this);
+      });
+    });
+
     infillPills.forEach(pill => {
       pill.addEventListener('click', function () {
-        infillPills.forEach(p => p.classList.remove('is-selected'));
-        this.classList.add('is-selected');
-
         const radio = this.querySelector('input[type="radio"]');
-        if (radio) {
-          radio.checked = true;
-          activeInfill = parseInt(radio.value, 10) || 20;
-          updateQuotePricing();
-        }
+        const val = radio ? radio.value : this.getAttribute('data-infill');
+        selectInfill(val);
       });
     });
 
-    const supportPills = document.querySelectorAll('.k3d-support-pill');
+    // 3. Support Structures Radio & Pill Selection
+    const supportPills   = document.querySelectorAll('.k3d-support-pill');
+    const supportRadios  = document.querySelectorAll('input[name="quote_support"]');
+
+    function selectSupport(radioOrVal) {
+      const val = typeof radioOrVal === 'object' ? radioOrVal.value : radioOrVal;
+      activeSupportType = val || 'none';
+
+      let foundPct = 0;
+      supportRadios.forEach(r => {
+        if (r.value === activeSupportType) {
+          r.checked = true;
+          foundPct = parseFloat(r.getAttribute('data-support-pct')) || 0;
+        }
+      });
+      activeSupportPct = foundPct;
+
+      supportPills.forEach(pill => {
+        const r = pill.querySelector('input[type="radio"]');
+        const pillVal = r ? r.value : pill.getAttribute('data-support');
+        pill.classList.toggle('is-selected', pillVal === activeSupportType);
+      });
+
+      updateQuotePricing();
+    }
+
+    supportRadios.forEach(radio => {
+      radio.addEventListener('change', function () {
+        selectSupport(this);
+      });
+    });
+
     supportPills.forEach(pill => {
       pill.addEventListener('click', function () {
-        supportPills.forEach(p => p.classList.remove('is-selected'));
-        this.classList.add('is-selected');
-
         const radio = this.querySelector('input[type="radio"]');
-        if (radio) {
-          radio.checked = true;
-          activeSupportPct = parseFloat(radio.getAttribute('data-support-pct')) || 0;
-          activeSupportType = radio.value;
-          updateQuotePricing();
-        }
+        const val = radio ? radio.value : this.getAttribute('data-support');
+        selectSupport(val);
       });
     });
   }

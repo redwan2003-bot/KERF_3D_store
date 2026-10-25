@@ -106,10 +106,10 @@
         <fieldset class="k3d-param-group">
           <legend>02 / INFILL DENSITY</legend>
           <div class="k3d-infill-pills">
-            <label class="k3d-infill-pill"><input type="radio" name="quote_infill" value="15"><span>15% Light</span></label>
-            <label class="k3d-infill-pill is-selected"><input type="radio" name="quote_infill" value="20" checked><span>20% Gyroid</span></label>
-            <label class="k3d-infill-pill"><input type="radio" name="quote_infill" value="50"><span>50% Heavy</span></label>
-            <label class="k3d-infill-pill"><input type="radio" name="quote_infill" value="100"><span>100% Solid</span></label>
+            <label class="k3d-infill-pill" data-infill="15"><input type="radio" name="quote_infill" value="15"><span>15% Light</span></label>
+            <label class="k3d-infill-pill is-selected" data-infill="20"><input type="radio" name="quote_infill" value="20" checked><span>20% Gyroid</span></label>
+            <label class="k3d-infill-pill" data-infill="50"><input type="radio" name="quote_infill" value="50"><span>50% Heavy</span></label>
+            <label class="k3d-infill-pill" data-infill="100"><input type="radio" name="quote_infill" value="100"><span>100% Solid</span></label>
           </div>
         </fieldset>
 
@@ -117,15 +117,15 @@
         <fieldset class="k3d-param-group">
           <legend>03 / SUPPORT STRUCTURES (BAMBU STUDIO ENGINE)</legend>
           <div class="k3d-support-pills">
-            <label class="k3d-support-pill is-selected">
+            <label class="k3d-support-pill is-selected" data-support="none">
               <input type="radio" name="quote_support" value="none" data-support-pct="0" checked>
               <span>NO SUPPORTS<br><small style="color:var(--k3d-meta);">+0% Weight</small></span>
             </label>
-            <label class="k3d-support-pill">
+            <label class="k3d-support-pill" data-support="tree">
               <input type="radio" name="quote_support" value="tree" data-support-pct="17.6">
               <span>TREE (AUTO)<br><small style="color:var(--k3d-rust);">+17.6% Weight</small></span>
             </label>
-            <label class="k3d-support-pill">
+            <label class="k3d-support-pill" data-support="standard">
               <input type="radio" name="quote_support" value="standard" data-support-pct="28">
               <span>LINEAR DENSE<br><small style="color:var(--k3d-meta);">+28% Weight</small></span>
             </label>

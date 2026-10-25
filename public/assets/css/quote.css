@@ -392,8 +392,23 @@
   text-align: center;
 }
 
-.k3d-infill-pills label input {
-  display: none;
+.k3d-infill-pills label input,
+.k3d-support-pills label input,
+.k3d-radio-stack label input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+#k3d-stat-weight, #k3d-stat-model, #k3d-stat-support, #k3d-stat-time, #k3d-calc-subtotal, #k3d-calc-total {
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.k3d-stat-flash {
+  color: var(--k3d-rust) !important;
+  transform: scale(1.04);
 }
 
 .k3d-infill-pills label.is-selected {
