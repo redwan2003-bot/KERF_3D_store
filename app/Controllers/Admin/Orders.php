@@ -80,12 +80,15 @@ class Orders extends BaseController
         $status = $this->request->getPost('payment_status') ?: 'verified';
         $db = \Config\Database::connect();
 
-        $order = $db->table('orders')->where('id', $orderId)->get()->getRowArray();
+        $order = $db->table('orders')
+            ->where('id', $orderId)
+            ->orWhere('order_number', $orderId)
+            ->get()->getRowArray();
         if (!$order) {
             return redirect()->back()->with('error', 'Order not found.');
         }
 
-        $db->table('orders')->where('id', $orderId)->update([
+        $db->table('orders')->where('id', $order['id'])->update([
             'payment_status' => $status,
             'updated_at'     => date('Y-m-d H:i:s'),
         ]);
@@ -101,7 +104,10 @@ class Orders extends BaseController
         $adminNotes      = trim((string) $this->request->getPost('admin_notes'));
 
         $db = \Config\Database::connect();
-        $order = $db->table('orders')->where('id', $orderId)->get()->getRowArray();
+        $order = $db->table('orders')
+            ->where('id', $orderId)
+            ->orWhere('order_number', $orderId)
+            ->get()->getRowArray();
         if (!$order) {
             return redirect()->back()->with('error', 'Order not found.');
         }
@@ -122,7 +128,7 @@ class Orders extends BaseController
             $updateData['admin_notes'] = $adminNotes;
         }
 
-        $db->table('orders')->where('id', $orderId)->update($updateData);
+        $db->table('orders')->where('id', $order['id'])->update($updateData);
 
         return redirect()->back()->with('success', "Order status successfully updated to " . strtoupper($status ?? $order['order_status']));
     }

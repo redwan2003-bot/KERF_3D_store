@@ -456,3 +456,38 @@ body.admin-body {
     grid-template-columns: 1fr;
   }
 }
+
+/* Workshop Packing Slip Print Optimization */
+@media print {
+  .admin-navbar,
+  .admin-btn,
+  .admin-filter-bar,
+  .admin-page-header div:last-child,
+  form button,
+  .admin-card:has(form) {
+    display: none !important;
+  }
+  body.admin-body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  .admin-card {
+    background: #fff !important;
+    border: 1px solid #000 !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    margin-bottom: 20px !important;
+  }
+  .admin-table th, .admin-table td {
+    color: #000 !important;
+    border-color: #ddd !important;
+  }
+  .admin-card-title,
+  .admin-label,
+  strong {
+    color: #000 !important;
+  }
+  .admin-grid-2col {
+    display: block !important;
+  }
+}

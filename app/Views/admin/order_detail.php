@@ -32,6 +32,9 @@
         <a href="<?= $adminWaHref ?>" target="_blank" rel="noopener" class="admin-btn" style="background:#25D366; color:#fff; border:0;">
             WHATSAPP CUSTOMER ↗
         </a>
+        <button type="button" onclick="window.print()" class="admin-btn secondary" style="cursor:pointer;" title="Print Workshop Packing Slip">
+            PRINT TICKET ↗
+        </button>
         <a href="/admin/orders" class="admin-btn secondary">&larr; Back to Order Queue</a>
     </div>
 </div>
@@ -118,7 +121,7 @@
                 <h2 class="admin-card-title">Customer Shipping & Intake Details</h2>
             </div>
             <div style="padding: 24px;">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 20px;">
                     <div>
                         <div class="admin-label">Customer Name</div>
                         <div style="font-weight: 700; font-size: 16px; color: #fff;"><?= esc($order['customer_name'] ?? 'N/A') ?></div>
@@ -129,6 +132,18 @@
                             <a href="tel:<?= esc($order['customer_phone']) ?>" style="color:inherit; text-decoration:underline;">
                                 <?= esc($order['customer_phone'] ?? 'N/A') ?>
                             </a>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="admin-label">Customer Email</div>
+                        <div style="font-family: var(--font-mono); font-size: 13px; color: var(--admin-muted); word-break: break-all;">
+                            <?php if (!empty($order['customer_email'])): ?>
+                                <a href="mailto:<?= esc($order['customer_email']) ?>" style="color:inherit; text-decoration:underline;">
+                                    <?= esc($order['customer_email']) ?>
+                                </a>
+                            <?php else: ?>
+                                <span>No email provided</span>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -221,7 +236,21 @@
                     </div>
 
                     <div class="admin-form-group">
-                        <label class="admin-label">Consignment / Tracking Number</label>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                            <label class="admin-label" style="margin:0;">Consignment / Tracking Number</label>
+                            <?php if (!empty($order['courier_tracking'])): ?>
+                                <?php
+                                    $trackNum = trim($order['courier_tracking']);
+                                    $prov = strtolower($order['courier_provider'] ?? '');
+                                    $trackUrl = str_contains($prov, 'pathao') 
+                                        ? "https://merchant.pathao.com/tracking?consignment_id=" . rawurlencode($trackNum)
+                                        : "https://steadfast.com.bd/t/" . rawurlencode($trackNum);
+                                ?>
+                                <a href="<?= esc($trackUrl) ?>" target="_blank" rel="noopener" style="font-family:var(--font-mono); font-size:10px; color:var(--admin-cyan); text-decoration:underline;">
+                                    Track on Courier ↗
+                                </a>
+                            <?php endif; ?>
+                        </div>
                         <input type="text" name="courier_tracking" class="admin-input" placeholder="e.g. SF-94827104" value="<?= esc($order['courier_tracking'] ?? '') ?>">
                     </div>
 
