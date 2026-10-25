@@ -18,8 +18,12 @@
   const dimYEl       = document.getElementById('k3d-dim-y');
   const dimZEl       = document.getElementById('k3d-dim-z');
   const statBoxEl    = document.getElementById('k3d-stat-box');
+  const statLayersEl = document.getElementById('k3d-stat-layers');
+  const statModelEl  = document.getElementById('k3d-stat-model');
+  const statSupportEl = document.getElementById('k3d-stat-support');
   const statWeightEl = document.getElementById('k3d-stat-weight');
   const statTimeEl   = document.getElementById('k3d-stat-time');
+  const waConfirmBtn = document.getElementById('k3d-wa-confirm-btn');
 
   // Price Calculation Elements
   const calcRateRowEl    = document.getElementById('k3d-calc-rate-row');
@@ -35,6 +39,9 @@
   const btnWireframe  = document.getElementById('k3d-btn-wireframe');
   const btnCage       = document.getElementById('k3d-btn-cage');
   const btnResetView  = document.getElementById('k3d-btn-reset-view');
+  const btnOrient45   = document.getElementById('k3d-btn-orient-45');
+  const btnOrient90   = document.getElementById('k3d-btn-orient-90');
+  const btnOrient180  = document.getElementById('k3d-btn-orient-180');
   const btnAutoOrient = document.getElementById('k3d-btn-auto-orient');
 
   // State Variables
@@ -209,13 +216,57 @@
     });
   }
 
+  function rotateGeometryAngle(angleDeg, axisName = 'x') {
+    if (!currentGeometry || !currentMesh) return;
+
+    const rad = (angleDeg * Math.PI) / 180;
+    const axis = (axisName === 'z') ? new THREE.Vector3(0, 0, 1) : new THREE.Vector3(1, 0, 0);
+
+    currentGeometry.applyQuaternion(new THREE.Quaternion().setFromAxisAngle(axis, rad));
+    currentGeometry.computeVertexNormals();
+    currentGeometry.computeBoundingBox();
+
+    // Re-render resting flat on the Bambu A1 bed at Y = dy/2
+    displayGeometry(currentGeometry, currentFile ? currentFile.name : 'model.stl', meshVolumeCm3, false);
+  }
+
+  function pulseButton(btn, text) {
+    if (!btn) return;
+    const orig = btn.textContent;
+    btn.textContent = text;
+    btn.classList.add('is-active');
+    setTimeout(() => { 
+      btn.textContent = orig; 
+      btn.classList.remove('is-active');
+    }, 1100);
+  }
+
+  if (btnOrient45) {
+    btnOrient45.addEventListener('click', function () {
+      rotateGeometryAngle(45, 'x');
+      pulseButton(this, '45° ✓');
+    });
+  }
+
+  if (btnOrient90) {
+    btnOrient90.addEventListener('click', function () {
+      rotateGeometryAngle(90, 'x');
+      pulseButton(this, '90° ✓');
+    });
+  }
+
+  if (btnOrient180) {
+    btnOrient180.addEventListener('click', function () {
+      rotateGeometryAngle(180, 'x');
+      pulseButton(this, '180° ✓');
+    });
+  }
+
   if (btnAutoOrient) {
     btnAutoOrient.addEventListener('click', function () {
       if (!currentGeometry) return;
       autoOrientGeometry();
-      const origText = this.textContent;
-      this.textContent = 'ORIENTED ✓';
-      setTimeout(() => { this.textContent = origText; }, 1200);
+      pulseButton(this, 'BASE ✓');
     });
   }
 
@@ -416,32 +467,56 @@
     updateQuotePricing();
   }
 
-  // ── 4. Real-Time Price Calculation Engine ─────────────────────
+  // ── 4. Real-Time Price Calculation Engine (Bambu Studio Fidelity) ─
   function updateQuotePricing() {
-    // Infill factor: e.g. 15% -> 0.49, 20% -> 0.52, 50% -> 0.70, 100% -> 1.00
-    const infillFactor = (activeInfill / 100) * 0.6 + 0.4;
-    const baseGrams = Math.round(meshVolumeCm3 * activeDensity * infillFactor);
-    const supportGrams = Math.round(baseGrams * (activeSupportPct / 100));
-    const estimatedGrams = Math.max(15, baseGrams + supportGrams);
+    // 1. Sliced layers at 0.20mm standard layer height (BBL A1 benchmark)
+    const totalLayers = Math.max(1, Math.round(boundingDims.y / 0.20));
 
-    // NO SETUP FEE (setupFee = 0.00)
-    const printSubtotal = Math.round(estimatedGrams * activeRate);
+    // 2. Bambu Studio Slicer Density Calibration:
+    // Outer perimeter walls (0.8mm) + solid top/bottom skins (0.8mm) form 100% dense shell.
+    // Core infill (Gyroid) scales interior mass.
+    const infillRatio = activeInfill / 100;
+    const effectiveDensityFactor = (infillRatio * 0.55) + 0.45;
+    const modelGrams = Math.max(12, Math.round(meshVolumeCm3 * activeDensity * effectiveDensityFactor * 10) / 10);
+
+    // 3. Support filament calculation (matches Bambu Studio tree(auto) benchmark = +17.6%)
+    let supportGrams = 0;
+    if (activeSupportType === 'tree') {
+      supportGrams = Math.round(modelGrams * 0.176 * 10) / 10;
+    } else if (activeSupportType === 'standard') {
+      supportGrams = Math.round(modelGrams * 0.280 * 10) / 10;
+    }
+
+    const totalGrams = Math.round((modelGrams + supportGrams) * 10) / 10;
+
+    // 4. Filament Length in meters (1.75mm PLA filament = ~3.03 g/m)
+    const modelMeters = (modelGrams / 3.03).toFixed(1);
+    const supportMeters = (supportGrams / 3.03).toFixed(1);
+    const totalMeters = (totalGrams / 3.03).toFixed(1);
+
+    // 5. Bambu Lab A1 Speed Benchmark (1.71 min/g + 17 min warmup & leveling)
+    const totalMinutes = Math.round(totalGrams * 1.71 + 17);
+    const hours = Math.floor(totalMinutes / 60);
+    const mins = totalMinutes % 60;
+    const timeStr = hours > 0 ? `~${hours}H ${mins}M` : `~${mins}M`;
+
+    // 6. Pricing Breakdown (NO PRINT SETUP FEE)
+    const printSubtotal = Math.round(totalGrams * activeRate);
     const totalQuote = printSubtotal;
     const advanceDeposit = 100.0;
     const balanceDue = Math.max(0, totalQuote - advanceDeposit);
 
-    // Estimated Print Time (Bambu Lab A1 benchmark)
-    const estMinutes = Math.round(estimatedGrams * 2.2 + 25);
-    const hours = Math.floor(estMinutes / 60);
-    const mins = estMinutes % 60;
-    const timeStr = hours > 0 ? `~${hours}H ${mins}M` : `~${mins}M`;
-
     // Check Bambu A1 volume limits (256 × 256 × 256 mm)
     const fitsA1 = boundingDims.x <= 256 && boundingDims.y <= 256 && boundingDims.z <= 256;
 
-    // Update Telemetry Grid
-    if (statWeightEl) statWeightEl.textContent = `${estimatedGrams} GRAMS`;
+    // Update Bambu Studio Slicing Telemetry Grid
+    if (statBoxEl) statBoxEl.textContent = `${boundingDims.x} × ${boundingDims.y} × ${boundingDims.z} MM`;
+    if (statLayersEl) statLayersEl.textContent = `${totalLayers} LAYERS @ 0.20MM`;
+    if (statModelEl) statModelEl.textContent = `${modelGrams.toFixed(1)} G (${modelMeters} M)`;
+    if (statSupportEl) statSupportEl.textContent = `${supportGrams.toFixed(1)} G (${supportMeters} M)`;
+    if (statWeightEl) statWeightEl.textContent = `${totalGrams.toFixed(1)} G (~${totalMeters} M)`;
     if (statTimeEl) statTimeEl.textContent = timeStr;
+
     if (fitStatusEl) {
       if (fitsA1) {
         fitStatusEl.textContent = 'VERIFIED FIT';
@@ -464,13 +539,44 @@
 
     // Update Price Summary Breakdown (NO SETUP FEE)
     if (calcRateRowEl) calcRateRowEl.textContent = `৳${activeRate.toFixed(2)} / GRAM`;
-    if (calcGramsLabelEl) calcGramsLabelEl.textContent = `${estimatedGrams}G`;
+    if (calcGramsLabelEl) calcGramsLabelEl.textContent = `${totalGrams.toFixed(0)}G`;
     if (calcSubtotalEl) calcSubtotalEl.textContent = `৳${printSubtotal.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
     if (calcTotalEl) calcTotalEl.textContent = `৳${totalQuote.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
     if (calcBalanceEl) calcBalanceEl.textContent = `৳${balanceDue.toLocaleString('en-US', { minimumFractionDigits: 2 })} + courier`;
-    if (btnDepositLabel) btnDepositLabel.textContent = `৳${advanceDeposit.toFixed(0)} DEPOSIT →`;
+    if (btnDepositLabel) btnDepositLabel.textContent = `+880 1754-550297 →`;
 
-    return { estimatedGrams, totalQuote, advanceDeposit, fitsA1 };
+    // 7. Synchronize WhatsApp Pre-filled Technical Spec Intake
+    if (waConfirmBtn) {
+      const selectedMatInput = document.querySelector('input[name="quote_material"]:checked');
+      const matName = selectedMatInput ? selectedMatInput.closest('label').querySelector('strong').textContent.trim() : 'PLA / RIGID BIOPOLYMER';
+      const supportName = (activeSupportType === 'tree') 
+        ? 'Tree Supports (Auto) [+17.6%]' 
+        : (activeSupportType === 'standard' ? 'Linear Dense [+28%]' : 'No Supports (+0%)');
+      const filename = currentFile ? currentFile.name : 'Custom_Architectural_Mesh.stl';
+
+      const waMsg = 
+        `*Kerf 3D Studio — Custom CAD Quotation Intake*\n` +
+        `------------------------------------------\n` +
+        `📁 *Specimen:* ${filename}\n` +
+        `📐 *Dimensions:* ${boundingDims.x} × ${boundingDims.y} × ${boundingDims.z} mm\n` +
+        `📊 *Sliced Layers:* ${totalLayers} @ 0.20mm Standard\n` +
+        `🧵 *Polymer:* ${matName}\n` +
+        `🎛 *Infill:* ${activeInfill}% Gyroid\n` +
+        `🌲 *Support:* ${supportName}\n` +
+        `⚖️ *Model Mass:* ${modelGrams.toFixed(1)}g (${modelMeters}m)\n` +
+        `🛠 *Support Mass:* ${supportGrams.toFixed(1)}g (${supportMeters}m)\n` +
+        `📦 *Total Mass:* ${totalGrams.toFixed(1)}g (~${totalMeters}m filament)\n` +
+        `⏱ *Est. Print Time:* ${timeStr} (Bambu Lab A1)\n` +
+        `💰 *Specimen Estimate:* ৳${totalQuote.toLocaleString('en-US', { minimumFractionDigits: 2 })}\n` +
+        `💳 *Mandatory Advance Deposit:* ৳100 (via bKash)\n` +
+        (uploadedFileId ? `🆔 *Upload Intake ID:* #${uploadedFileId}\n` : '') +
+        `------------------------------------------\n` +
+        `Hi Kerf 3D, I would like to review this custom CAD specimen and confirm the slicing and production queue on WhatsApp.`;
+
+      waConfirmBtn.href = `https://wa.me/8801754550297?text=${encodeURIComponent(waMsg)}`;
+    }
+
+    return { modelGrams, supportGrams, totalGrams, totalQuote, advanceDeposit, fitsA1 };
   }
 
   // ── 5. Polymer Material, Infill & Support Selection Wiring ────
@@ -693,49 +799,23 @@
     }
   }
 
-  // ── 9. Submit CAD Specimen to Bag ─────────────────────────────
+  // ── 9. WhatsApp Specimen Confirmation Wiring ──────────────────
   function initSubmitButton() {
-    if (!addQuoteBtn) return;
+    if (waConfirmBtn) {
+      waConfirmBtn.addEventListener('click', function () {
+        // Ensure pricing and WhatsApp prefill URL are completely up to date
+        updateQuotePricing();
+      });
+    }
 
-    addQuoteBtn.addEventListener('click', async function (e) {
-      e.preventDefault();
-
-      const pricing = updateQuotePricing();
-      const materialSelected = document.querySelector('input[name="quote_material"]:checked')?.value || 'pla';
-      const filename = currentFile ? currentFile.name : 'Custom_Architectural_Mesh.stl';
-
-      const customPayload = {
-        upload_id: uploadedFileId || 0,
-        material: materialSelected,
-        infill: activeInfill,
-        support: activeSupportType,
-        grams: pricing.estimatedGrams,
-        total_quote: pricing.totalQuote,
-        advance_deposit: pricing.advanceDeposit,
-        filename: filename,
-      };
-
-      const originalHtml = addQuoteBtn.innerHTML;
-      addQuoteBtn.disabled = true;
-      addQuoteBtn.innerHTML = '<span>ADDING SPECIMEN...</span> <strong>✦</strong>';
-
-      try {
-        if (window.k3dCart) {
-          await window.k3dCart.addCustomPrint(customPayload);
-          addQuoteBtn.innerHTML = '<span>ADDED TO BAG ✓</span> <strong>100% SECURE</strong>';
-          setTimeout(() => {
-            addQuoteBtn.disabled = false;
-            addQuoteBtn.innerHTML = originalHtml;
-          }, 1500);
-        } else {
-          window.location.href = '/checkout';
+    if (addQuoteBtn) {
+      addQuoteBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (waConfirmBtn && waConfirmBtn.href) {
+          window.open(waConfirmBtn.href, '_blank');
         }
-      } catch (err) {
-        console.error('Failed to add custom CAD specimen:', err);
-        addQuoteBtn.disabled = false;
-        addQuoteBtn.innerHTML = originalHtml;
-      }
-    });
+      });
+    }
   }
 
   // ── 10. Bootstrap on Ready ────────────────────────────────────

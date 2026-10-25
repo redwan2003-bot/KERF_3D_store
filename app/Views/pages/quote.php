@@ -34,7 +34,10 @@
           </div>
           <div class="k3d-viewer-actions">
             <button type="button" id="k3d-btn-reset-view">RESET VIEW</button>
-            <button type="button" id="k3d-btn-auto-orient">AUTO-ORIENT</button>
+            <button type="button" class="k3d-angle-btn" data-angle="45" id="k3d-btn-orient-45" title="Auto-orient 45° tilt">45°</button>
+            <button type="button" class="k3d-angle-btn" data-angle="90" id="k3d-btn-orient-90" title="Auto-orient 90° flip">90°</button>
+            <button type="button" class="k3d-angle-btn" data-angle="180" id="k3d-btn-orient-180" title="Auto-orient 180° inversion">180°</button>
+            <button type="button" id="k3d-btn-auto-orient" title="Snap largest planar base to bed">SNAP BASE</button>
           </div>
         </div>
       </div>
@@ -112,40 +115,48 @@
 
         <!-- 03 / Support Structures -->
         <fieldset class="k3d-param-group">
-          <legend>03 / SUPPORT STRUCTURES</legend>
+          <legend>03 / SUPPORT STRUCTURES (BAMBU STUDIO ENGINE)</legend>
           <div class="k3d-support-pills">
             <label class="k3d-support-pill is-selected">
               <input type="radio" name="quote_support" value="none" data-support-pct="0" checked>
               <span>NO SUPPORTS<br><small style="color:var(--k3d-meta);">+0% Weight</small></span>
             </label>
             <label class="k3d-support-pill">
-              <input type="radio" name="quote_support" value="tree" data-support-pct="15">
-              <span>TREE SUPPORTS<br><small style="color:var(--k3d-rust);">+15% Weight</small></span>
+              <input type="radio" name="quote_support" value="tree" data-support-pct="17.6">
+              <span>TREE (AUTO)<br><small style="color:var(--k3d-rust);">+17.6% Weight</small></span>
             </label>
             <label class="k3d-support-pill">
-              <input type="radio" name="quote_support" value="standard" data-support-pct="25">
-              <span>LINEAR DENSE<br><small style="color:var(--k3d-meta);">+25% Weight</small></span>
+              <input type="radio" name="quote_support" value="standard" data-support-pct="28">
+              <span>LINEAR DENSE<br><small style="color:var(--k3d-meta);">+28% Weight</small></span>
             </label>
           </div>
         </fieldset>
 
-        <!-- Model Geometry Metrics -->
-        <div class="k3d-metrics-grid">
+        <!-- Bambu Studio Slicing Telemetry Grid -->
+        <div class="k3d-metrics-grid k3d-slicer-grid">
           <div>
             <span>BOUNDING BOX</span>
             <strong id="k3d-stat-box">--- × --- × --- MM</strong>
           </div>
           <div>
-            <span>ESTIMATED WEIGHT</span>
-            <strong id="k3d-stat-weight">--- GRAMS</strong>
+            <span>SLICED LAYERS</span>
+            <strong id="k3d-stat-layers">--- LAYERS @ 0.20MM</strong>
           </div>
           <div>
-            <span>EST. PRINT TIME</span>
+            <span>MODEL FILAMENT</span>
+            <strong id="k3d-stat-model">--- G (--- M)</strong>
+          </div>
+          <div>
+            <span>SUPPORT FILAMENT</span>
+            <strong id="k3d-stat-support">0.0 G (0.0 M)</strong>
+          </div>
+          <div>
+            <span>TOTAL WEIGHT / LENGTH</span>
+            <strong id="k3d-stat-weight" style="color:var(--k3d-rust);">--- G (~--- M)</strong>
+          </div>
+          <div>
+            <span>EST. PRINT TIME (BBL A1)</span>
             <strong id="k3d-stat-time">---</strong>
-          </div>
-          <div>
-            <span>BAMBU A1 STATUS</span>
-            <strong id="k3d-stat-status" style="color: #1f6b3d;">READY</strong>
           </div>
         </div>
 
@@ -173,13 +184,27 @@
           </div>
         </div>
 
-        <p class="k3d-quote-notice">
-          Advance deposit of <strong>৳100 via bKash</strong> is mandatory before slicing verification and machine queue assignment.
-        </p>
+        <div class="k3d-quote-restriction-notice">
+          <strong>DIRECT CHECKOUT RESTRICTED</strong>
+          <p>
+            To verify wall thickness, bed orientation stability, and machine queue allocation on our Bambu Lab A1 roster, 
+            <strong>you must confirm your order via WhatsApp</strong>. Direct checkout without consultation is disabled.
+          </p>
+        </div>
 
-        <button class="k3d-button k3d-quote-cta" type="button" id="k3d-add-quote-btn">
-          <span>SUBMIT CAD SPECIMEN TO BAG</span> <strong id="k3d-btn-deposit-label">৳100 DEPOSIT →</strong>
-        </button>
+        <!-- One-Click WhatsApp Consultation & Confirmation -->
+        <a href="https://wa.me/8801754550297" 
+           class="k3d-button k3d-wa-quote-cta" 
+           id="k3d-wa-confirm-btn" 
+           target="_blank" 
+           rel="noopener"
+           aria-label="Confirm custom 3D print quote via WhatsApp">
+          <span style="display:inline-flex; align-items:center; gap:6px;">
+            <span class="k3d-wa-icon">✦</span>
+            <span>CONFIRM ON WHATSAPP</span>
+          </span>
+          <strong id="k3d-btn-deposit-label">+880 1754-550297 →</strong>
+        </a>
       </div>
     </aside>
   </div>
