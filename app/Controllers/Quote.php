@@ -27,26 +27,27 @@ class Quote extends BaseController
      */
     public function calculate(): ResponseInterface
     {
-        $grams    = (float) $this->request->getPost('grams') ?: 140.0;
-        $matSlug  = (string) $this->request->getPost('material') ?: 'pla';
-        $infill   = (int) $this->request->getPost('infill') ?: 20;
+        $grams      = (float) $this->request->getPost('grams') ?: 140.0;
+        $matSlug    = (string) $this->request->getPost('material') ?: 'pla';
+        $infill     = (int) $this->request->getPost('infill') ?: 20;
+        $supportPct = (int) $this->request->getPost('support_pct') ?: 0;
 
         $db = \Config\Database::connect();
         $mat = $db->table('materials')->where('slug', $matSlug)->get()->getRowArray();
         $rate = $mat ? (float) $mat['rate_per_gram_bdt'] : 6.50;
 
-        $setupFee       = 50.00;
+        $setupFee       = 0.00;
         $printSubtotal  = $grams * $rate;
-        $totalQuote     = $printSubtotal + $setupFee;
+        $totalQuote     = $printSubtotal;
         $advanceDeposit = 100.00;
-        $balanceDue     = $totalQuote - $advanceDeposit;
+        $balanceDue     = max(0.00, $totalQuote - $advanceDeposit);
 
         return $this->response->setJSON([
             'success'          => true,
             'grams'            => $grams,
             'rate'             => $rate,
             'print_subtotal'   => round($printSubtotal, 2),
-            'setup_fee'        => $setupFee,
+            'setup_fee'        => 0.00,
             'total_quote'      => round($totalQuote, 2),
             'advance_deposit'  => $advanceDeposit,
             'balance_due'      => round($balanceDue, 2),
@@ -126,7 +127,7 @@ class Quote extends BaseController
                 'drive_url'         => $driveUrl,
                 'drive_folder_id'   => $driveFolderId,
                 'fits_build_volume' => 1,
-                'setup_fee_bdt'     => 50.00,
+                'setup_fee_bdt'     => 0.00,
                 'quote_status'      => 'quoted',
                 'uploaded_at'       => date('Y-m-d H:i:s'),
                 'updated_at'        => date('Y-m-d H:i:s'),

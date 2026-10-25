@@ -103,10 +103,29 @@
         <fieldset class="k3d-param-group">
           <legend>02 / INFILL DENSITY</legend>
           <div class="k3d-infill-pills">
-            <label class="k3d-infill-pill"><input type="radio" name="quote_infill" value="15"><span>15% Lightweight</span></label>
+            <label class="k3d-infill-pill"><input type="radio" name="quote_infill" value="15"><span>15% Light</span></label>
             <label class="k3d-infill-pill is-selected"><input type="radio" name="quote_infill" value="20" checked><span>20% Gyroid</span></label>
-            <label class="k3d-infill-pill"><input type="radio" name="quote_infill" value="50"><span>50% Structural</span></label>
+            <label class="k3d-infill-pill"><input type="radio" name="quote_infill" value="50"><span>50% Heavy</span></label>
             <label class="k3d-infill-pill"><input type="radio" name="quote_infill" value="100"><span>100% Solid</span></label>
+          </div>
+        </fieldset>
+
+        <!-- 03 / Support Structures -->
+        <fieldset class="k3d-param-group">
+          <legend>03 / SUPPORT STRUCTURES</legend>
+          <div class="k3d-support-pills">
+            <label class="k3d-support-pill is-selected">
+              <input type="radio" name="quote_support" value="none" data-support-pct="0" checked>
+              <span>NO SUPPORTS<br><small style="color:var(--k3d-meta);">+0% Weight</small></span>
+            </label>
+            <label class="k3d-support-pill">
+              <input type="radio" name="quote_support" value="tree" data-support-pct="15">
+              <span>TREE SUPPORTS<br><small style="color:var(--k3d-rust);">+15% Weight</small></span>
+            </label>
+            <label class="k3d-support-pill">
+              <input type="radio" name="quote_support" value="standard" data-support-pct="25">
+              <span>LINEAR DENSE<br><small style="color:var(--k3d-meta);">+25% Weight</small></span>
+            </label>
           </div>
         </fieldset>
 
@@ -130,19 +149,15 @@
           </div>
         </div>
 
-        <!-- Price Calculation Breakdown -->
+        <!-- Price Calculation Breakdown (NO PRINT SETUP FEE) -->
         <div class="k3d-quote-summary">
           <div class="k3d-summary-row">
             <span>MATERIAL RATE</span>
             <span id="k3d-calc-rate-row">৳6.50 / GRAM</span>
           </div>
           <div class="k3d-summary-row">
-            <span>PRINT FABRICATION</span>
+            <span>TOTAL FABRICATION MATERIAL (<span id="k3d-calc-grams-label">0G</span>)</span>
             <span id="k3d-calc-subtotal">৳0.00</span>
-          </div>
-          <div class="k3d-summary-row">
-            <span>MACHINE SETUP FEE</span>
-            <span>৳50.00</span>
           </div>
           <div class="k3d-summary-row k3d-total-row">
             <span>CUSTOM SPECIMEN ESTIMATE</span>

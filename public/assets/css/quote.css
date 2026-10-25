@@ -395,6 +395,37 @@
   color: var(--k3d-canvas);
 }
 
+.k3d-support-pills {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.k3d-support-pill {
+  border: 1px solid var(--k3d-border);
+  padding: 8px 6px;
+  font: 700 10px var(--k3d-mono);
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.15s ease;
+  line-height: 1.35;
+  background: var(--k3d-surface);
+}
+
+.k3d-support-pill input {
+  display: none;
+}
+
+.k3d-support-pill.is-selected {
+  border-color: var(--k3d-ink);
+  background: var(--k3d-ink);
+  color: #fff;
+}
+
+.k3d-support-pill.is-selected small {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
 .k3d-metrics-grid {
   border-top: 1px solid var(--k3d-ink);
   border-bottom: 1px solid var(--k3d-ink);

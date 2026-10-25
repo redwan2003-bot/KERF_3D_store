@@ -104,10 +104,17 @@ class Cart extends BaseController
         $uploadId       = (int) $this->request->getPost('upload_id');
         $materialSlug   = (string) $this->request->getPost('material') ?: 'pla';
         $infill         = (int) $this->request->getPost('infill') ?: 20;
+        $support        = (string) $this->request->getPost('support') ?: 'none';
         $grams          = (float) $this->request->getPost('grams') ?: 140.0;
         $totalQuote     = (float) $this->request->getPost('total_quote') ?: 960.0;
         $advanceDeposit = (float) $this->request->getPost('advance_deposit') ?: 100.0;
         $filename       = trim((string) $this->request->getPost('filename')) ?: 'Custom_Mesh.stl';
+
+        $supportLabel = match(strtolower($support)) {
+            'tree'     => 'TREE SUPPORTS',
+            'standard' => 'STD SUPPORTS',
+            default    => 'NO SUPPORTS',
+        };
 
         $cart = $this->session->get('k3d_cart') ?? [];
         $cartKey = "custom_upl_" . ($uploadId ?: uniqid());
@@ -119,7 +126,7 @@ class Cart extends BaseController
             'sku'             => 'CAD-CUSTOM',
             'name'            => 'Custom Print: ' . $filename,
             'slug'            => 'quote',
-            'specs'           => strtoupper($materialSlug) . " · {$infill}% GYROID · {$grams}G",
+            'specs'           => strtoupper($materialSlug) . " · {$infill}% GYROID · {$supportLabel} · {$grams}G",
             'material'        => strtoupper($materialSlug),
             'shade'           => 'Custom Specification',
             'unit_price'      => $totalQuote,

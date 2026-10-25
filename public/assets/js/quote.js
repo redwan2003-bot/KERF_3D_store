@@ -23,6 +23,7 @@
 
   // Price Calculation Elements
   const calcRateRowEl    = document.getElementById('k3d-calc-rate-row');
+  const calcGramsLabelEl = document.getElementById('k3d-calc-grams-label');
   const calcSubtotalEl   = document.getElementById('k3d-calc-subtotal');
   const calcTotalEl      = document.getElementById('k3d-calc-total');
   const calcBalanceEl    = document.getElementById('k3d-calc-balance');
@@ -38,15 +39,17 @@
 
   // State Variables
   let scene, camera, renderer, controls, currentMesh, buildCage, gridHelper;
-  let currentGeometry = null;
-  let meshVolumeCm3   = 280.0; // Default specimen volume cm3
-  let boundingDims    = { x: 120, y: 120, z: 180 };
-  let currentFile     = null;
-  let uploadedFileId  = null;
-  let activeRate      = 6.50;
-  let activeDensity   = 0.500;
-  let activeInfill    = 20;
-  let isWireframe     = false;
+  let currentGeometry   = null;
+  let meshVolumeCm3     = 280.0; // Default specimen volume cm3
+  let boundingDims      = { x: 120, y: 120, z: 180 };
+  let currentFile       = null;
+  let uploadedFileId    = null;
+  let activeRate        = 6.50;
+  let activeDensity     = 0.500;
+  let activeInfill      = 20;
+  let activeSupportPct  = 0;
+  let activeSupportType = 'none';
+  let isWireframe       = false;
 
   // ── 1. Three.js Scene & Camera Initialization ─────────────────
   function initThree() {
@@ -219,22 +222,101 @@
   function autoOrientGeometry() {
     if (!currentGeometry || !currentMesh) return;
 
-    currentGeometry.computeBoundingBox();
-    const bbox = currentGeometry.boundingBox;
-    const size = new THREE.Vector3();
-    bbox.getSize(size);
+    const pos = currentGeometry.attributes.position;
+    if (!pos || pos.count < 3) return;
 
-    // If height (Y) is larger than width (X) or depth (Z), lay it flat
-    if (size.y > size.x || size.y > size.z) {
-      if (size.x >= size.z) {
-        currentGeometry.rotateZ(Math.PI / 2);
-      } else {
-        currentGeometry.rotateX(Math.PI / 2);
+    // 1. Extract face normals & cluster by surface area
+    const pA = new THREE.Vector3();
+    const pB = new THREE.Vector3();
+    const pC = new THREE.Vector3();
+    const cb = new THREE.Vector3();
+    const ab = new THREE.Vector3();
+    const normal = new THREE.Vector3();
+
+    const clusters = []; // { normal: Vector3, area: number }
+    const SIMILARITY_THRESHOLD = 0.985; // ~10 degrees
+
+    const hasIndex = currentGeometry.index !== null;
+    const index = hasIndex ? currentGeometry.index : null;
+    const numTriangles = hasIndex ? Math.floor(index.count / 3) : Math.floor(pos.count / 3);
+
+    for (let t = 0; t < numTriangles; t++) {
+      const iA = hasIndex ? index.getX(t * 3 + 0) : t * 3 + 0;
+      const iB = hasIndex ? index.getX(t * 3 + 1) : t * 3 + 1;
+      const iC = hasIndex ? index.getX(t * 3 + 2) : t * 3 + 2;
+
+      pA.fromBufferAttribute(pos, iA);
+      pB.fromBufferAttribute(pos, iB);
+      pC.fromBufferAttribute(pos, iC);
+
+      cb.subVectors(pC, pB);
+      ab.subVectors(pA, pB);
+      cb.cross(ab);
+
+      const area = cb.length() * 0.5;
+      if (area < 0.0001) continue;
+
+      normal.copy(cb).normalize();
+
+      // Find matching cluster
+      let matched = false;
+      for (let c = 0; c < clusters.length; c++) {
+        if (clusters[c].normal.dot(normal) > SIMILARITY_THRESHOLD) {
+          clusters[c].area += area;
+          clusters[c].normal.addScaledVector(normal, area / (clusters[c].area + area)).normalize();
+          matched = true;
+          break;
+        }
       }
-      currentGeometry.computeBoundingBox();
-      currentGeometry.center();
-      displayGeometry(currentGeometry, currentFile ? currentFile.name : 'model.stl', null, false);
+
+      if (!matched && clusters.length < 64) {
+        clusters.push({ normal: normal.clone(), area: area });
+      }
     }
+
+    if (clusters.length === 0) return;
+
+    // Sort clusters by largest surface area descending
+    clusters.sort((a, b) => b.area - a.area);
+    let bestNormal = clusters[0].normal.clone();
+
+    // Snap to cardinal unit axes if within ~25 deg (prevents 45° or diagonal tilts)
+    const axes = [
+      new THREE.Vector3(1, 0, 0),
+      new THREE.Vector3(-1, 0, 0),
+      new THREE.Vector3(0, 1, 0),
+      new THREE.Vector3(0, -1, 0),
+      new THREE.Vector3(0, 0, 1),
+      new THREE.Vector3(0, 0, -1)
+    ];
+    for (const axis of axes) {
+      if (bestNormal.dot(axis) > 0.90) {
+        bestNormal.copy(axis);
+        break;
+      }
+    }
+
+    // Rotate best normal so it points straight down (0, -1, 0)
+    const targetDown = new THREE.Vector3(0, -1, 0);
+    const quat = new THREE.Quaternion();
+    const dot = bestNormal.dot(targetDown);
+
+    if (dot > 0.999999) {
+      // Already resting downward on its largest flat base
+      quat.identity();
+    } else if (dot < -0.999999) {
+      // Normal points directly upward (0, 1, 0) -> flip 180° around X axis
+      quat.setFromAxisAngle(new THREE.Vector3(1, 0, 0), Math.PI);
+    } else {
+      quat.setFromUnitVectors(bestNormal, targetDown);
+    }
+
+    currentGeometry.applyQuaternion(quat);
+    currentGeometry.computeVertexNormals();
+    currentGeometry.computeBoundingBox();
+
+    // Re-render mesh resting cleanly on Bambu A1 bed
+    displayGeometry(currentGeometry, currentFile ? currentFile.name : 'model.stl', meshVolumeCm3, false);
   }
 
   function frameCameraToMesh() {
@@ -258,7 +340,9 @@
   function computeSignedVolume(geometry) {
     if (!geometry || !geometry.attributes || !geometry.attributes.position) return 0;
     const pos = geometry.attributes.position;
-    const count = pos.count;
+    const hasIndex = geometry.index !== null;
+    const index = hasIndex ? geometry.index : null;
+    const numTriangles = hasIndex ? Math.floor(index.count / 3) : Math.floor(pos.count / 3);
     let totalVolume = 0;
 
     const p1 = new THREE.Vector3();
@@ -266,10 +350,14 @@
     const p3 = new THREE.Vector3();
     const cross = new THREE.Vector3();
 
-    for (let i = 0; i < count; i += 3) {
-      p1.fromBufferAttribute(pos, i + 0);
-      p2.fromBufferAttribute(pos, i + 1);
-      p3.fromBufferAttribute(pos, i + 2);
+    for (let t = 0; t < numTriangles; t++) {
+      const iA = hasIndex ? index.getX(t * 3 + 0) : t * 3 + 0;
+      const iB = hasIndex ? index.getX(t * 3 + 1) : t * 3 + 1;
+      const iC = hasIndex ? index.getX(t * 3 + 2) : t * 3 + 2;
+
+      p1.fromBufferAttribute(pos, iA);
+      p2.fromBufferAttribute(pos, iB);
+      p3.fromBufferAttribute(pos, iC);
 
       cross.crossVectors(p2, p3);
       totalVolume += p1.dot(cross) / 6.0;
@@ -332,10 +420,13 @@
   function updateQuotePricing() {
     // Infill factor: e.g. 15% -> 0.49, 20% -> 0.52, 50% -> 0.70, 100% -> 1.00
     const infillFactor = (activeInfill / 100) * 0.6 + 0.4;
-    const estimatedGrams = Math.max(15, Math.round(meshVolumeCm3 * activeDensity * infillFactor));
-    const setupFee = 50.0;
+    const baseGrams = Math.round(meshVolumeCm3 * activeDensity * infillFactor);
+    const supportGrams = Math.round(baseGrams * (activeSupportPct / 100));
+    const estimatedGrams = Math.max(15, baseGrams + supportGrams);
+
+    // NO SETUP FEE (setupFee = 0.00)
     const printSubtotal = Math.round(estimatedGrams * activeRate);
-    const totalQuote = printSubtotal + setupFee;
+    const totalQuote = printSubtotal;
     const advanceDeposit = 100.0;
     const balanceDue = Math.max(0, totalQuote - advanceDeposit);
 
@@ -371,8 +462,9 @@
       }
     }
 
-    // Update Price Summary Breakdown
+    // Update Price Summary Breakdown (NO SETUP FEE)
     if (calcRateRowEl) calcRateRowEl.textContent = `৳${activeRate.toFixed(2)} / GRAM`;
+    if (calcGramsLabelEl) calcGramsLabelEl.textContent = `${estimatedGrams}G`;
     if (calcSubtotalEl) calcSubtotalEl.textContent = `৳${printSubtotal.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
     if (calcTotalEl) calcTotalEl.textContent = `৳${totalQuote.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
     if (calcBalanceEl) calcBalanceEl.textContent = `৳${balanceDue.toLocaleString('en-US', { minimumFractionDigits: 2 })} + courier`;
@@ -381,7 +473,7 @@
     return { estimatedGrams, totalQuote, advanceDeposit, fitsA1 };
   }
 
-  // ── 5. Polymer Material & Infill Selection Wiring ─────────────
+  // ── 5. Polymer Material, Infill & Support Selection Wiring ────
   function initMaterialControls() {
     const materialOptions = document.querySelectorAll('.k3d-radio-option');
 
@@ -416,6 +508,22 @@
         if (radio) {
           radio.checked = true;
           activeInfill = parseInt(radio.value, 10) || 20;
+          updateQuotePricing();
+        }
+      });
+    });
+
+    const supportPills = document.querySelectorAll('.k3d-support-pill');
+    supportPills.forEach(pill => {
+      pill.addEventListener('click', function () {
+        supportPills.forEach(p => p.classList.remove('is-selected'));
+        this.classList.add('is-selected');
+
+        const radio = this.querySelector('input[type="radio"]');
+        if (radio) {
+          radio.checked = true;
+          activeSupportPct = parseInt(radio.getAttribute('data-support-pct'), 10) || 0;
+          activeSupportType = radio.value;
           updateQuotePricing();
         }
       });
@@ -600,6 +708,7 @@
         upload_id: uploadedFileId || 0,
         material: materialSelected,
         infill: activeInfill,
+        support: activeSupportType,
         grams: pricing.estimatedGrams,
         total_quote: pricing.totalQuote,
         advance_deposit: pricing.advanceDeposit,
