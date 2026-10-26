@@ -167,6 +167,41 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   gap: 14px;
 }
 
+/* Japanese Hardware Heartbeat Telemetry */
+.k3d-header-heartbeat {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 12px;
+  background: var(--k3d-surface);
+  border: 1px solid var(--k3d-border);
+  font-family: var(--k3d-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--k3d-ink);
+}
+
+.k3d-heartbeat-dot {
+  width: 6px;
+  height: 6px;
+  background: #16a34a;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #22c55e;
+  animation: k3dHeaderPulse 2s infinite ease-in-out;
+}
+
+@keyframes k3dHeaderPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.85); }
+}
+
+@media (max-width: 780px) {
+  .k3d-header-heartbeat {
+    display: none;
+  }
+}
+
 .k3d-cart-trigger {
   background: var(--k3d-ink);
   color: var(--k3d-canvas);

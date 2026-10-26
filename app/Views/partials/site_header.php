@@ -13,8 +13,12 @@
             <a href="/track" class="<?= (uri_string() === 'track') ? 'is-active' : '' ?>">TRACK</a>
         </nav>
 
-        <!-- Cart Trigger with Dynamic Badge -->
+        <!-- Workshop Hardware Telemetry & Cart Trigger -->
         <div class="k3d-header-actions">
+            <div class="k3d-header-heartbeat" title="Dhaka Workshop Fabrication Queue: ONLINE" aria-label="Workshop Status">
+                <span class="k3d-heartbeat-dot"></span>
+                <span class="k3d-heartbeat-label">A1 // ACTIVE</span>
+            </div>
             <button type="button" class="k3d-cart-trigger k3d-open-cart" aria-label="Open Shopping Bag">
                 <span>BAG</span>
                 <span class="k3d-cart-count" id="k3d-nav-cart-count">0</span>
