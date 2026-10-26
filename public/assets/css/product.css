@@ -539,3 +539,164 @@
     width: 80px;
   }
 }
+
+/* ── Japanese Craft Anatomy & Spec Teardown (Postalco & MD PRODUCT) ── */
+.k3d-japanese-craft-teardown {
+  border-top: 2px solid var(--k3d-ink);
+  padding: 60px 24px 80px;
+  max-width: var(--k3d-content-width);
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.k3d-teardown-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 1px solid var(--k3d-ink);
+  padding-bottom: 24px;
+  margin-bottom: 36px;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.k3d-teardown-header h2 {
+  font-family: var(--k3d-display);
+  font-size: clamp(28px, 4.5vw, 48px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 10px 0 0;
+}
+
+.k3d-teardown-header h2 em {
+  color: var(--k3d-rust);
+  font-style: normal;
+}
+
+.k3d-teardown-stamp {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-family: var(--k3d-mono);
+  text-align: right;
+  border: 1.5px solid var(--k3d-ink);
+  padding: 8px 14px;
+  background: var(--k3d-surface);
+}
+
+.k3d-teardown-stamp span {
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  color: var(--k3d-meta);
+}
+
+.k3d-teardown-stamp strong {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--k3d-ink);
+  margin: 2px 0;
+}
+
+.k3d-teardown-stamp small {
+  font-size: 8px;
+  font-weight: 700;
+  color: #16a34a;
+  letter-spacing: 0.08em;
+}
+
+/* 3-Column Teardown Cards */
+.k3d-teardown-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.k3d-teardown-card {
+  border: 1px solid var(--k3d-border);
+  padding: 24px 20px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.k3d-card-num {
+  font-family: var(--k3d-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--k3d-meta);
+}
+
+.k3d-teardown-card strong {
+  font-family: var(--k3d-display);
+  font-size: 17px;
+  letter-spacing: -0.01em;
+  color: var(--k3d-ink);
+}
+
+.k3d-teardown-meter {
+  height: 4px;
+  background: #e2e8f0;
+  position: relative;
+  overflow: hidden;
+  margin: 4px 0 8px;
+}
+
+.k3d-teardown-meter div {
+  height: 100%;
+  background: var(--k3d-rust);
+  transition: width 0.3s ease;
+}
+
+.k3d-teardown-card p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--k3d-meta);
+  margin: 0;
+}
+
+/* MD PRODUCT Clean Ledger */
+.k3d-craft-spec-ledger {
+  border: 1px solid var(--k3d-ink);
+  background: var(--k3d-surface);
+  font-family: var(--k3d-mono);
+}
+
+.k3d-spec-row {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  padding: 12px 20px;
+  border-bottom: 1px dashed var(--k3d-border);
+  font-size: 12px;
+  align-items: center;
+}
+
+.k3d-spec-row:last-child {
+  border-bottom: none;
+}
+
+.k3d-spec-row span {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--k3d-meta);
+}
+
+.k3d-spec-row strong {
+  font-weight: 700;
+  color: var(--k3d-ink);
+}
+
+@media (max-width: 768px) {
+  .k3d-teardown-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .k3d-spec-row {
+    grid-template-columns: 1fr;
+    gap: 4px;
+    padding: 10px 16px;
+  }
+}

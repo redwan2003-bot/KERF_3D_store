@@ -205,6 +205,83 @@
       <p><a href="/quote">Need a specific scale or custom geometry? Start a live 3D mesh quote →</a></p>
     </div>
   </section>
+
+  <!-- Postalco & MD PRODUCT Japanese Craft Anatomy & Spec Teardown -->
+  <section class="k3d-japanese-craft-teardown" aria-label="Additive Manufacturing Teardown">
+    <div class="k3d-teardown-header">
+      <div>
+        <p class="k3d-kicker">CRAFT ANATOMY // ADDITIVE DEPOSITION TEARDOWN · 解体新書</p>
+        <h2>Engineered for<br><em>the layer line.</em></h2>
+      </div>
+      <div class="k3d-teardown-stamp">
+        <span>FACTORY QC</span>
+        <strong>DHAKA WORKSHOP</strong>
+        <small>UNIT 01 / PASS</small>
+      </div>
+    </div>
+
+    <div class="k3d-teardown-grid">
+      <!-- Card 1: Shell Perimeter -->
+      <div class="k3d-teardown-card">
+        <span class="k3d-card-num">01 / EXTERIOR SHELL</span>
+        <strong>3-LAYER SOLID WALL</strong>
+        <div class="k3d-teardown-meter">
+          <div style="width: 100%;"></div>
+        </div>
+        <p>Extruded with 3 concentric perimeter perimeters (1.2mm total wall thickness). Provides mechanical rigidity, dimensional stability, and tactile matte exterior finish.</p>
+      </div>
+
+      <!-- Card 2: Gyroid Infill Core -->
+      <div class="k3d-teardown-card">
+        <span class="k3d-card-num">02 / CORE ANATOMY</span>
+        <strong>GYROID CELLULAR MATRIX</strong>
+        <div class="k3d-teardown-meter">
+          <div style="width: <?= esc($product['infill_percent'] ?: 20) ?>%;"></div>
+        </div>
+        <p><?= esc($product['infill_percent'] ?: 20) ?>% isotropic continuous gyroid structure. Disperses multi-directional stress uniformly without internal resonance or dead-weight shear.</p>
+      </div>
+
+      <!-- Card 3: Layer Micro-Resolution -->
+      <div class="k3d-teardown-card">
+        <span class="k3d-card-num">03 / RESOLUTION</span>
+        <strong><?= esc($product['layer_height_mm'] ?: '0.20') ?>MM SLICER SLICE</strong>
+        <div class="k3d-teardown-meter">
+          <div style="width: 85%;"></div>
+        </div>
+        <p>Direct-drive extruder deposition at 215°C hotend / 60°C textured PEI bed. Calibrated with Bambu Lab active vibration compensation to eliminate ghosting artifacts.</p>
+      </div>
+    </div>
+
+    <!-- MD PRODUCT Style Complete Specification Ledger -->
+    <div class="k3d-craft-spec-ledger">
+      <div class="k3d-spec-row">
+        <span>SPECIMEN IDENTITY</span>
+        <strong><?= esc($product['name']) ?> (<?= esc($product['sku']) ?>)</strong>
+      </div>
+      <div class="k3d-spec-row">
+        <span>PRIMARY POLYMER</span>
+        <strong><?= esc(strtoupper($product['material_name'] ?? 'PLA BIO-RIGID')) ?></strong>
+      </div>
+      <div class="k3d-spec-row">
+        <span>PRODUCTION HARDWARE</span>
+        <strong>BAMBU LAB A1 · 0.4MM STAINLESS NOZZLE</strong>
+      </div>
+      <div class="k3d-spec-row">
+        <span>ESTIMATED MASS</span>
+        <strong><?= esc($product['weight_g'] ? (int)$product['weight_g'] . ' GRAMS' : 'STANDARD WORKSHOP SPEC') ?></strong>
+      </div>
+      <div class="k3d-spec-row">
+        <span>MANUFACTURING TOLERANCE</span>
+        <strong>±0.15 MM (ISO DIN FDM WORKSHOP GRADE)</strong>
+      </div>
+      <?php if (!empty($product['makerworld_url'])): ?>
+      <div class="k3d-spec-row">
+        <span>SOURCE CAD REPOSITORY</span>
+        <strong><a href="<?= esc($product['makerworld_url']) ?>" target="_blank" rel="noopener" style="color:var(--k3d-rust); text-decoration:underline;">MAKERWORLD MODEL SPECIMEN ↗</a></strong>
+      </div>
+      <?php endif; ?>
+    </div>
+  </section>
 </div>
 <?= $this->endSection() ?>
 
