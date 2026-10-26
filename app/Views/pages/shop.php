@@ -3,9 +3,45 @@
 <?= $this->section('content') ?>
 <div class="k3d-shop">
   <header class="k3d-shop-intro">
-    <p class="k3d-kicker">ARCHIVE / CATALOG 01—<?= str_pad((string) count($products ?? []), 2, '0', STR_PAD_LEFT) ?></p>
-    <h1>Objects for<br><em>daily use.</em></h1>
-    <p>A considered collection of printed artifacts, developed in the Kerf 3D workshop and dispatched from Dhaka.</p>
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px;">
+      <div>
+        <p class="k3d-kicker">ARCHIVE // CATALOG SPECIMENS 001—<?= sprintf('%03d', count($products ?? [])) ?> · 工房</p>
+        <h1>Objects for<br><em>daily use.</em></h1>
+        <p>A considered collection of physical artifacts, sliced and fabricated to order on Bambu Lab A1 hardware in Dhaka, Bangladesh.</p>
+      </div>
+      <div class="k3d-editorial-telemetry">
+        <div class="k3d-telemetry-badge">
+          <span class="pulse-dot"></span>
+          <span>BAMBU A1 / DHAKA UNIT 01</span>
+        </div>
+        <small>BUILD ENVELOPE: 256³ MM<br>NOZZLE: 0.4MM STAINLESS STEEL<br>LAYER RES: 0.08—0.28MM</small>
+      </div>
+    </div>
+
+    <!-- SyuRo-Inspired Elemental Polymer Ribbon -->
+    <div class="k3d-elemental-ribbon" role="navigation" aria-label="Elemental Material Filter">
+      <span class="k3d-elemental-label">ELEMENTAL POLYMERS:</span>
+      <div class="k3d-elemental-pills">
+        <button type="button" class="k3d-elemental-pill is-active" data-element="all">
+          <b>ALL</b><span>457 SPECIMENS</span>
+        </button>
+        <button type="button" class="k3d-elemental-pill" data-element="pla">
+          <b>PLA</b><span>BIO-RIGID</span>
+        </button>
+        <button type="button" class="k3d-elemental-pill" data-element="tpu-95a">
+          <b>TPU 95A</b><span>FLEXIBLE</span>
+        </button>
+        <button type="button" class="k3d-elemental-pill" data-element="petg">
+          <b>PETG</b><span>COPOLYMER</span>
+        </button>
+        <button type="button" class="k3d-elemental-pill" data-element="asa">
+          <b>ASA</b><span>WEATHERPROOF</span>
+        </button>
+        <button type="button" class="k3d-elemental-pill" data-element="pa-cf">
+          <b>PA-CF</b><span>CARBON NYLON</span>
+        </button>
+      </div>
+    </div>
   </header>
 
   <div class="k3d-shop-layout">
@@ -80,16 +116,28 @@
 
       <div class="k3d-product-grid">
         <?php if (!empty($products)): ?>
-          <?php foreach ($products as $product): ?>
+          <?php foreach ($products as $idx => $product): ?>
+            <?php
+              $itemIndex = sprintf('%03d', $idx + 1);
+              $prodMaterial = esc(strtolower(str_contains($product['tags'] ?? '', 'tpu') ? 'tpu-95a' : (str_contains($product['tags'] ?? '', 'petg') ? 'petg' : (str_contains($product['tags'] ?? '', 'asa') ? 'asa' : (str_contains($product['tags'] ?? '', 'pa-cf') ? 'pa-cf' : 'pla')))));
+              $layerRes = $product['layer_height_mm'] ? number_format((float)$product['layer_height_mm'], 2) . 'MM' : '0.20MM';
+              $infillPct = $product['infill_percent'] ? (int)$product['infill_percent'] . '%' : '20%';
+            ?>
             <article class="k3d-product-card"
                      data-id="<?= esc($product['id']) ?>"
                      data-name="<?= esc(strtolower($product['name'])) ?>"
                      data-sku="<?= esc(strtolower($product['sku'])) ?>"
                      data-category="<?= esc(strtolower($product['category_name'] ?? '')) ?>"
                      data-tags="<?= esc(strtolower($product['tags'] ?? '')) ?>"
-                     data-material="<?= esc(strtolower(str_contains($product['tags'] ?? '', 'tpu') ? 'tpu-95a' : (str_contains($product['tags'] ?? '', 'petg') ? 'petg' : 'pla'))) ?>"
+                     data-material="<?= $prodMaterial ?>"
                      data-price="<?= esc($product['price_bdt']) ?>">
               <div class="k3d-product-card-wrap">
+                <!-- Casa BRUTUS & PUEBCO Archival Index Header -->
+                <div class="k3d-card-archival-head">
+                  <span class="k3d-archival-num">№ <?= $itemIndex ?></span>
+                  <span class="k3d-archival-sku"><?= esc($product['sku']) ?></span>
+                </div>
+
                 <a href="/product/<?= esc($product['slug']) ?>" class="k3d-product-link">
                   <div class="k3d-product-image">
                     <?php 
@@ -106,16 +154,27 @@
                     <?php else: ?>
                       <span style="font-family: var(--k3d-mono); font-size: 10px; color: var(--k3d-meta); padding: 10px;">SPECIMEN<br><?= esc($product['sku']) ?></span>
                     <?php endif; ?>
+
+                    <!-- Floating Japanese/PUEBCO Polymer Stamp -->
+                    <div class="k3d-card-polymer-stamp">
+                      <?= strtoupper($prodMaterial) ?> · <?= $infillPct ?>
+                    </div>
                   </div>
+
                   <div class="k3d-product-meta">
-                    <span><?= esc($product['category_name'] ?? 'CATALOG') ?> · <?= esc($product['weight_g'] ? (int)$product['weight_g'] . 'G' : 'FDM') ?></span>
+                    <div class="k3d-product-meta-sub">
+                      <span><?= esc(strtoupper($product['category_name'] ?? 'CATALOG')) ?></span>
+                      <small>BAMBU A1 / <?= $layerRes ?></small>
+                    </div>
                     <strong><?= esc($product['name']) ?></strong>
+                    
                     <div class="k3d-product-price-row">
                       <?php if ((float)($product['price_bdt'] ?? 0) > 0): ?>
                         <b class="k3d-price-val">৳<?= number_format($product['price_bdt'], 2) ?></b>
                       <?php else: ?>
                         <b style="color: var(--k3d-rust); font-size: 10px; letter-spacing: 0.05em;">PRICE ON REQUEST</b>
                       <?php endif; ?>
+                      <span class="k3d-card-inspect-hint">INSPECT SPECIMEN &rarr;</span>
                     </div>
                   </div>
                 </a>

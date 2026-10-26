@@ -16,6 +16,18 @@
 
   const materialChecks = Array.from(document.querySelectorAll('input[name="material[]"]'));
   const swatches       = Array.from(document.querySelectorAll('.k3d-swatches .swatch'));
+  const elementalPills = Array.from(document.querySelectorAll('.k3d-elemental-pill'));
+  let activeElement    = 'all';
+
+  // ── SyuRo Elemental Polymer Filter ─────────────────────────────
+  elementalPills.forEach(pill => {
+    pill.addEventListener('click', function () {
+      elementalPills.forEach(p => p.classList.remove('is-active'));
+      this.classList.add('is-active');
+      activeElement = this.getAttribute('data-element') || 'all';
+      filterCatalog();
+    });
+  });
 
   // ── 1. Real-Time Keystroke & Facet Catalog Filter ──────────────
   function filterCatalog() {
@@ -29,7 +41,7 @@
 
     let matchCount = 0;
 
-    const noFilters = tokens.length === 0 && selectedMats.length === 0;
+    const noFilters = tokens.length === 0 && selectedMats.length === 0 && activeElement === 'all';
 
     if (noFilters) {
       // Show all cards
@@ -52,8 +64,9 @@
 
         const matchesTokens = tokens.length === 0 || tokens.every(token => haystack.includes(token));
         const matchesMaterial = selectedMats.length === 0 || selectedMats.some(m => haystack.includes(m) || mat === m);
+        const matchesElement = activeElement === 'all' || mat === activeElement || haystack.includes(activeElement);
 
-        if (matchesTokens && matchesMaterial) {
+        if (matchesTokens && matchesMaterial && matchesElement) {
           card.style.display = '';
           matchCount++;
         } else {

@@ -533,3 +533,186 @@
     height: 220px;
   }
 }
+
+/* ── Japanese Editorial & Archival Refinements ──────────────── */
+.k3d-editorial-telemetry {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  text-align: right;
+  font-family: var(--k3d-mono);
+}
+
+.k3d-telemetry-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: var(--k3d-ink);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.k3d-telemetry-badge .pulse-dot {
+  width: 6px;
+  height: 6px;
+  background: #22c55e;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #22c55e;
+  display: inline-block;
+  animation: k3dPulse 2s infinite ease-in-out;
+}
+
+@keyframes k3dPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.k3d-editorial-telemetry small {
+  font-size: 9px;
+  color: var(--k3d-meta);
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+}
+
+/* SyuRo Elemental Ribbon */
+.k3d-elemental-ribbon {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 36px;
+  padding: 14px 18px;
+  background: #f4efe6;
+  border: 1px solid var(--k3d-border);
+  flex-wrap: wrap;
+}
+
+.k3d-elemental-label {
+  font-family: var(--k3d-mono);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--k3d-ink);
+  white-space: nowrap;
+}
+
+.k3d-elemental-pills {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.k3d-elemental-pill {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 6px 12px;
+  background: #fff;
+  border: 1px solid var(--k3d-border);
+  cursor: pointer;
+  transition: all 0.18s ease;
+  font-family: var(--k3d-mono);
+  text-align: left;
+}
+
+.k3d-elemental-pill b {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--k3d-ink);
+  letter-spacing: 0.04em;
+}
+
+.k3d-elemental-pill span {
+  font-size: 8px;
+  color: var(--k3d-meta);
+  letter-spacing: 0.06em;
+  margin-top: 2px;
+}
+
+.k3d-elemental-pill:hover,
+.k3d-elemental-pill.is-active {
+  background: var(--k3d-ink);
+  border-color: var(--k3d-ink);
+}
+
+.k3d-elemental-pill:hover b,
+.k3d-elemental-pill.is-active b {
+  color: #fff;
+}
+
+.k3d-elemental-pill:hover span,
+.k3d-elemental-pill.is-active span {
+  color: #a8a29e;
+}
+
+/* Casa BRUTUS & PUEBCO Archival Card Header */
+.k3d-card-archival-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0 8px;
+  font-family: var(--k3d-mono);
+  font-size: 11px;
+  border-bottom: 1px dashed rgba(28, 25, 23, 0.15);
+  margin-bottom: 8px;
+}
+
+.k3d-archival-num {
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--k3d-ink);
+}
+
+.k3d-archival-sku {
+  font-size: 10px;
+  color: var(--k3d-meta);
+  letter-spacing: 0.08em;
+}
+
+.k3d-card-polymer-stamp {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  padding: 3px 8px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(4px);
+  border: 1px solid var(--k3d-border);
+  font-family: var(--k3d-mono);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--k3d-ink);
+  pointer-events: none;
+}
+
+.k3d-product-meta-sub {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--k3d-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--k3d-meta);
+}
+
+.k3d-card-inspect-hint {
+  font-family: var(--k3d-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--k3d-meta);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: all 0.2s ease;
+}
+
+.k3d-product-card:hover .k3d-card-inspect-hint {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--k3d-rust);
+}
+
