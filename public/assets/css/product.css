@@ -700,3 +700,90 @@
     padding: 10px 16px;
   }
 }
+
+/* ── KINTO Architectural Dimension Frame & Corner Markers ── */
+.k3d-gallery-main {
+  position: relative;
+}
+
+.k3d-kinto-dimension-frame {
+  position: absolute;
+  inset: 12px;
+  border: 1px dashed rgba(28, 25, 23, 0.22);
+  pointer-events: none;
+  z-index: 2;
+  box-sizing: border-box;
+}
+
+.k3d-corner-cross {
+  position: absolute;
+  font-family: var(--k3d-mono);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--k3d-meta);
+  line-height: 1;
+}
+
+.k3d-corner-cross.top-left { top: -8px; left: -6px; }
+.k3d-corner-cross.top-right { top: -8px; right: -6px; }
+.k3d-corner-cross.bottom-left { bottom: -8px; left: -6px; }
+.k3d-corner-cross.bottom-right { bottom: -8px; right: -6px; }
+
+.k3d-dimension-badge-x {
+  position: absolute;
+  top: 10px;
+  left: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(4px);
+  padding: 4px 10px;
+  border: 1px solid var(--k3d-border);
+  font-family: var(--k3d-mono);
+  font-size: 10px;
+}
+
+.k3d-dimension-badge-x span {
+  color: var(--k3d-meta);
+  font-size: 8px;
+  letter-spacing: 0.08em;
+}
+
+.k3d-dimension-badge-x strong {
+  color: var(--k3d-rust);
+  letter-spacing: 0.04em;
+}
+
+.k3d-dimension-badge-y {
+  position: absolute;
+  bottom: 10px;
+  right: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(4px);
+  padding: 4px 10px;
+  border: 1px solid var(--k3d-border);
+  font-family: var(--k3d-mono);
+  font-size: 10px;
+}
+
+.k3d-dimension-badge-y span {
+  color: var(--k3d-meta);
+  font-size: 8px;
+  letter-spacing: 0.08em;
+}
+
+.k3d-dimension-badge-y strong {
+  color: var(--k3d-ink);
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 600px) {
+  .k3d-dimension-badge-y {
+    display: none;
+  }
+}
+
