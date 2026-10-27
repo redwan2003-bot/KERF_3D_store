@@ -55,7 +55,11 @@
           <div class="k3d-track-label">WORKSHOP TICKET</div>
           <div class="k3d-track-id"><?= esc($order['order_number']) ?></div>
         </div>
-        <div>
+        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+          <a href="/track/receipt/<?= esc($order['order_number']) ?>" target="_blank" class="k3d-track-btn" style="height: 34px; padding: 0 14px; font-size: 11px; background: var(--k3d-ink); color: #fff; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--k3d-ink);">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+            PRINT INVOICE / RECEIPT
+          </a>
           <span class="k3d-track-status-pill status-<?= esc($status) ?>">
             STATUS: <?= esc($status) ?>
           </span>
@@ -110,10 +114,13 @@
       <div class="k3d-track-meta-grid">
         <div class="k3d-track-meta-cell">
           <span class="k3d-track-label">DESTINATION / RECIPIENT</span>
-          <span class="k3d-track-val"><?= esc($customer['full_name'] ?? 'Guest Customer') ?></span>
+          <span class="k3d-track-val"><?= esc($customer['name'] ?? $customer['full_name'] ?? 'Guest Customer') ?></span>
           <small style="color: var(--k3d-meta); font-family: var(--font-mono); font-size: 11px;">
-            <?= esc($customer['address_line1'] ?? '') ?>, <?= esc($customer['city'] ?? '') ?>
+            <?= esc($customer['address_line'] ?? $customer['address_line1'] ?? 'Dhaka') ?>
             (<?= $order['shipping_zone'] === 'inside_dhaka' ? 'Inside Dhaka' : 'Outside Dhaka' ?>)
+            <?php if (!empty($customer['phone'])): ?>
+              &middot; <?= esc($customer['phone']) ?>
+            <?php endif; ?>
           </small>
         </div>
         <div class="k3d-track-meta-cell">

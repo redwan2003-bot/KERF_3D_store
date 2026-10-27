@@ -22,11 +22,14 @@ class OrderNotificationService
         $canSendSmtp = !empty($smtpPass) || env('email.protocol') === 'mail';
 
         // 1. Send to Customer if email provided and SMTP configured
+        $fromEmail = env('email.fromEmail', env('EMAIL_FROM_ADDRESS', 'kerf.3d@gmail.com'));
+        $fromName  = env('email.fromName', 'Kerf 3D Studio Dhaka');
+
         if (!empty($toEmail) && filter_var($toEmail, FILTER_VALIDATE_EMAIL)) {
             if ($canSendSmtp) {
                 try {
                     $email->clear();
-                    $email->setFrom(env('EMAIL_FROM_ADDRESS', 'kerf.3d@gmail.com'), 'Kerf 3D Studio Dhaka');
+                    $email->setFrom($fromEmail, $fromName);
                     $email->setTo($toEmail);
                     $email->setSubject($customerSubject);
                     $email->setMessage($customerBody);
@@ -54,7 +57,7 @@ class OrderNotificationService
             if ($canSendSmtp) {
                 try {
                     $email->clear();
-                    $email->setFrom(env('EMAIL_FROM_ADDRESS', 'kerf.3d@gmail.com'), 'Kerf 3D Intake Robot');
+                    $email->setFrom($fromEmail, 'Kerf 3D Intake Robot');
                     $email->setTo($adminEmail);
                     $email->setSubject($adminSubject);
                     $email->setMessage($adminBody);
@@ -171,6 +174,8 @@ class OrderNotificationService
         $waCustomerMsg = rawurlencode("Hello Kerf 3D Studio, I placed Order #{$orderNum}. Total: ৳{$total} BDT. Please verify my order.");
         $waCustomerUrl = "https://wa.me/8801754550297?text={$waCustomerMsg}";
 
+        $trackUrl = base_url("track?ticket={$orderNum}");
+
         return <<<HTML
 <!DOCTYPE html>
 <html>
@@ -248,7 +253,10 @@ class OrderNotificationService
         </p>
 
         <div style="margin-top: 18px; text-align: center;">
-          <a href="{$waCustomerUrl}" style="background: #25D366; color: #fff; text-decoration: none; padding: 10px 18px; font-size: 12px; font-weight: bold; display: inline-block; border-radius: 2px;">
+          <a href="{$trackUrl}" style="background: #181818; color: #fff; text-decoration: none; padding: 10px 18px; font-size: 11px; font-weight: bold; display: inline-block; border-radius: 2px; margin-bottom: 8px;">
+            TRACK ORDER ONLINE // TICKET #{$orderNum} &rarr;
+          </a><br>
+          <a href="{$waCustomerUrl}" style="background: #25D366; color: #fff; text-decoration: none; padding: 8px 16px; font-size: 11px; font-weight: bold; display: inline-block; border-radius: 2px;">
             DIRECT WHATSAPP CONFIRMATION (+880 1754-550297) ↗
           </a>
         </div>

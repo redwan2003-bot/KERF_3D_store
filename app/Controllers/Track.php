@@ -73,4 +73,33 @@ class Track extends BaseController
 
         return view('pages/track', $data);
     }
+
+    /**
+     * Printable customer receipt / official tax invoice.
+     */
+    public function receipt(string $orderNumber): string
+    {
+        $db = \Config\Database::connect();
+        $order = $db->table('orders')->where('order_number', $orderNumber)->get()->getRowArray();
+
+        if (!$order) {
+            throw PageNotFoundException::forPageNotFound("Order ticket '{$orderNumber}' not found.");
+        }
+
+        $customer = $db->table('customers')->where('id', $order['customer_id'])->get()->getRowArray();
+        $items = $db->table('order_items')
+            ->select('order_items.*, products.slug as prod_slug')
+            ->join('products', 'products.id = order_items.product_id', 'left')
+            ->where('order_items.order_id', $order['id'])
+            ->get()->getResultArray();
+
+        $data = [
+            'title'    => "Receipt & Invoice — {$order['order_number']} — Kerf 3D Studio",
+            'order'    => $order,
+            'customer' => $customer,
+            'items'    => $items,
+        ];
+
+        return view('pages/order_receipt', $data);
+    }
 }

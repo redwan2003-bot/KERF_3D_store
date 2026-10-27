@@ -13,7 +13,8 @@ class Shop extends BaseController
         $productModel = new ProductModel();
         $imageModel   = new ProductImageModel();
 
-        // Filter: Selected materials and category from GET query
+        // Filter: Selected materials, category, and search query from GET query
+        $searchQuery       = trim((string) ($this->request->getGet('q') ?? $this->request->getGet('search') ?? ''));
         $selectedMaterials = $this->request->getGet('material') ?? [];
         $selectedCategory  = (string) $this->request->getGet('category');
         $sort              = $this->request->getGet('sort') ?? 'featured';
@@ -22,8 +23,29 @@ class Shop extends BaseController
             ->join('categories', 'categories.id = products.category_id', 'left')
             ->where('products.status', 'active');
 
+        if (!empty($searchQuery)) {
+            $builder->groupStart()
+                ->like('products.name', $searchQuery)
+                ->orLike('products.sku', $searchQuery)
+                ->orLike('products.tags', $searchQuery)
+                ->orLike('products.description', $searchQuery)
+            ->groupEnd();
+        }
+
         if (!empty($selectedCategory)) {
             $builder->where('categories.slug', $selectedCategory);
+        }
+
+        if (!empty($selectedMaterials)) {
+            $builder->groupStart();
+            foreach ((array) $selectedMaterials as $mIdx => $matSlug) {
+                if ($mIdx === 0) {
+                    $builder->like('products.tags', $matSlug);
+                } else {
+                    $builder->orLike('products.tags', $matSlug);
+                }
+            }
+            $builder->groupEnd();
         }
 
         // Sorting
@@ -39,7 +61,16 @@ class Shop extends BaseController
                 break;
         }
 
-        $products = $builder->findAll();
+        // Pagination: 36 specimens per page
+        $totalProducts = (clone $builder)->countAllResults(false);
+        $perPage       = 36;
+        $currentPage   = max(1, (int) $this->request->getGet('page'));
+        $totalPages    = max(1, (int) ceil($totalProducts / $perPage));
+        if ($currentPage > $totalPages) {
+            $currentPage = $totalPages;
+        }
+
+        $products = $builder->findAll($perPage, ($currentPage - 1) * $perPage);
 
         // Attach primary Google Drive CDN thumbnail for each product
         foreach ($products as &$prod) {
@@ -66,6 +97,11 @@ class Shop extends BaseController
             'shades'            => $shades,
             'selectedMaterials' => (array) $selectedMaterials,
             'currentSort'       => $sort,
+            'searchQuery'       => $searchQuery,
+            'totalProducts'     => $totalProducts,
+            'currentPage'       => $currentPage,
+            'totalPages'        => $totalPages,
+            'perPage'           => $perPage,
         ];
 
         return view('pages/shop', $data);

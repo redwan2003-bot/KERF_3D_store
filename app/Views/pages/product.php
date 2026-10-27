@@ -67,10 +67,21 @@
       </div>
 
       <?php if (!empty($product['images']) && count($product['images']) > 1): ?>
-      <div class="k3d-gallery-thumbs">
+      <div class="k3d-gallery-thumbs" style="display: flex; gap: 8px; margin-top: 12px; overflow-x: auto; padding-bottom: 4px;">
         <?php foreach ($product['images'] as $idx => $img): ?>
-          <button type="button" class="<?= $idx === 0 ? 'is-selected' : '' ?>" onclick="document.getElementById('k3d-main-img').src = '<?= esc($img['drive_url']) ?>'; document.querySelectorAll('.k3d-gallery-thumbs button').forEach(b => b.classList.remove('is-selected')); this.classList.add('is-selected');">
-            <img src="<?= esc($img['drive_thumbnail_url'] ?? $img['drive_url']) ?>" alt="View <?= $idx + 1 ?>" style="width: 100%; height: 100%; object-fit: cover;">
+          <?php
+            $thumbSrc = (!empty($img['filename']) && file_exists(FCPATH . 'assets/images/products/' . $img['filename']))
+                ? '/assets/images/products/' . esc($img['filename'])
+                : (!empty($img['drive_thumbnail_url']) ? esc($img['drive_thumbnail_url']) : esc($img['drive_url'] ?? ''));
+            $fullSrc = (!empty($img['filename']) && file_exists(FCPATH . 'assets/images/products/' . $img['filename']))
+                ? '/assets/images/products/' . esc($img['filename'])
+                : (!empty($img['drive_url']) ? esc($img['drive_url']) : $thumbSrc);
+          ?>
+          <button type="button" 
+                  class="<?= $idx === 0 ? 'is-selected' : '' ?>" 
+                  style="width: 56px; height: 56px; padding: 2px; border: 1px solid var(--k3d-border); background: var(--k3d-surface); cursor: pointer; flex-shrink: 0;"
+                  onclick="document.getElementById('k3d-main-img').src = '<?= $fullSrc ?>'; document.querySelectorAll('.k3d-gallery-thumbs button').forEach(b => b.classList.remove('is-selected')); this.classList.add('is-selected');">
+            <img src="<?= $thumbSrc ?>" alt="View <?= $idx + 1 ?>" style="width: 100%; height: 100%; object-fit: cover;">
           </button>
         <?php endforeach; ?>
       </div>
@@ -137,12 +148,20 @@
           <strong><?= esc($product['layer_height_mm'] ? $product['layer_height_mm'] . ' MM FINE' : '0.16 MM FINE') ?></strong>
         </div>
         <div>
+          <span>HOTEND NOZZLE</span>
+          <strong>0.4MM HARDENED STEEL</strong>
+        </div>
+        <div>
           <span>PHYSICAL WEIGHT</span>
-          <strong><?= esc($product['weight_g'] ? (int)$product['weight_g'] . ' GRAMS' : 'STANDARD') ?></strong>
+          <strong><?= esc($product['weight_g'] ? (int)$product['weight_g'] . ' GRAMS' : 'CALIBRATED') ?></strong>
         </div>
         <div>
           <span>INTERNAL INFILL</span>
           <strong><?= esc($product['infill_percent'] ? $product['infill_percent'] . '% GYROID' : '20% GYROID') ?></strong>
+        </div>
+        <div>
+          <span>BUILD VOLUME</span>
+          <strong>256³ MM PEI TEXTURED</strong>
         </div>
         <div>
           <span>FABRICATION HARDWARE</span>

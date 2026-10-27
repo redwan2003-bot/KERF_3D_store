@@ -93,17 +93,23 @@
       </div>
 
       <div class="k3d-results-toolbar">
-        <div class="k3d-search-box">
+        <form action="/shop" method="get" class="k3d-search-box" style="margin: 0;">
+          <?php if (!empty($selectedCategory)): ?>
+            <input type="hidden" name="category" value="<?= esc($selectedCategory) ?>">
+          <?php endif; ?>
+          <?php if (!empty($currentSort)): ?>
+            <input type="hidden" name="sort" value="<?= esc($currentSort) ?>">
+          <?php endif; ?>
           <svg class="k3d-search-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="11" cy="11" r="8"></circle>
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
-          <input type="text" id="k3d-catalog-search" placeholder="Type to filter specimens (AirPods, Lamp, Clip)..." autocomplete="off" spellcheck="false" aria-label="Search catalog">
-          <button type="button" id="k3d-search-clear" aria-label="Clear search" title="Clear filter" style="display: none;">&times;</button>
-        </div>
+          <input type="text" name="q" id="k3d-catalog-search" value="<?= esc($searchQuery ?? '') ?>" placeholder="Type to filter specimens (AirPods, Lamp, Clip)..." autocomplete="off" spellcheck="false" aria-label="Search catalog">
+          <button type="button" id="k3d-search-clear" aria-label="Clear search" title="Clear filter" style="<?= !empty($searchQuery) ? '' : 'display: none;' ?>">&times;</button>
+        </form>
 
         <div class="k3d-toolbar-right">
-          <span class="k3d-archive-count"><strong id="k3d-visible-count"><?= count($products ?? []) ?></strong> OF <strong><?= count($products ?? []) ?></strong> ARTIFACTS</span>
+          <span class="k3d-archive-count"><strong id="k3d-visible-count"><?= count($products ?? []) ?></strong> OF <strong><?= esc($totalProducts ?? count($products ?? [])) ?></strong> ARTIFACTS</span>
           <label for="k3d-sort">SORT 
             <select id="k3d-sort" onchange="const p = new URLSearchParams(window.location.search); p.set('sort', this.value); window.location.search = p.toString();">
               <option value="featured" <?= ($currentSort ?? '') === 'featured' ? 'selected' : '' ?>>Featured</option>
@@ -210,6 +216,34 @@
           </div>
         <?php endif; ?>
       </div>
+
+      <!-- Architectural Pagination Engine -->
+      <?php if (!empty($totalPages) && $totalPages > 1): ?>
+        <nav class="k3d-pagination" aria-label="Catalog pages" style="margin-top: 40px; padding-top: 24px; border-top: 1px dashed var(--k3d-border); display: flex; justify-content: center; align-items: center; gap: 8px; font-family: var(--k3d-mono); font-size: 11px; flex-wrap: wrap;">
+          <?php
+            $queryBase = $_GET;
+            unset($queryBase['page']);
+            $buildPageUrl = function($p) use ($queryBase) {
+                $q = $queryBase;
+                $q['page'] = $p;
+                return '/shop?' . http_build_query($q);
+            };
+          ?>
+          <?php if ($currentPage > 1): ?>
+            <a href="<?= esc($buildPageUrl($currentPage - 1)) ?>" class="k3d-button is-style-outline sm" style="padding: 6px 12px; font-size: 10px;">&larr; PREV</a>
+          <?php endif; ?>
+
+          <?php for ($p = max(1, $currentPage - 2); $p <= min($totalPages, $currentPage + 2); $p++): ?>
+            <a href="<?= esc($buildPageUrl($p)) ?>" class="k3d-button sm <?= $p === $currentPage ? 'is-style-fill' : 'is-style-outline' ?>" style="padding: 6px 12px; min-width: 34px; text-align: center; font-size: 10px;">
+              <?= $p ?>
+            </a>
+          <?php endfor; ?>
+
+          <?php if ($currentPage < $totalPages): ?>
+            <a href="<?= esc($buildPageUrl($currentPage + 1)) ?>" class="k3d-button is-style-outline sm" style="padding: 6px 12px; font-size: 10px;">NEXT &rarr;</a>
+          <?php endif; ?>
+        </nav>
+      <?php endif; ?>
     </main>
   </div>
 </div>
