@@ -5,6 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= esc($title ?? 'Kerf 3D Studio — Precision Additive Manufacturing & Curated Artifacts') ?></title>
     <meta name="description" content="<?= esc($meta_description ?? 'Curated 3D printed artifacts and on-demand FDM additive manufacturing on Bambu Lab A1 in Dhaka, Bangladesh.') ?>">
+    <link rel="canonical" href="<?= esc($canonical_url ?? current_url()) ?>">
+
+    <!-- OpenGraph Social Cards (WhatsApp / Facebook) -->
+    <meta property="og:type" content="<?= esc($og_type ?? 'website') ?>">
+    <meta property="og:site_name" content="KERF 3D Studio">
+    <meta property="og:title" content="<?= esc($og_title ?? $title ?? 'Kerf 3D Studio') ?>">
+    <meta property="og:description" content="<?= esc($og_description ?? $meta_description ?? 'Curated 3D printed artifacts and on-demand FDM additive manufacturing on Bambu Lab A1 in Dhaka.') ?>">
+    <meta property="og:url" content="<?= esc($canonical_url ?? current_url()) ?>">
+    <meta property="og:image" content="<?= esc($og_image ?? base_url('assets/images/favicon.svg')) ?>">
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="<?= esc($og_title ?? $title ?? 'Kerf 3D Studio') ?>">
+    <meta name="twitter:description" content="<?= esc($og_description ?? $meta_description ?? 'Curated 3D printed artifacts and on-demand FDM additive manufacturing.') ?>">
+    <meta name="twitter:image" content="<?= esc($og_image ?? base_url('assets/images/favicon.svg')) ?>">
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">

@@ -42,12 +42,12 @@
           </div>
           <div class="k3d-region-options">
             <label>
-              <input type="radio" name="shipping_zone" value="inside_dhaka" checked onchange="updateShipping(70)">
+              <input type="radio" name="shipping_zone" value="inside_dhaka" <?= ($selectedZone ?? 'inside_dhaka') === 'inside_dhaka' ? 'checked' : '' ?> onchange="updateShipping(70)">
               <strong>INSIDE DHAKA</strong>
               <span>৳70 · 24—48H</span>
             </label>
             <label>
-              <input type="radio" name="shipping_zone" value="outside_dhaka" onchange="updateShipping(130)">
+              <input type="radio" name="shipping_zone" value="outside_dhaka" <?= ($selectedZone ?? 'inside_dhaka') === 'outside_dhaka' ? 'checked' : '' ?> onchange="updateShipping(130)">
               <strong>OUTSIDE DHAKA</strong>
               <span>৳130 · 2—4 DAYS (NATIONWIDE)</span>
             </label>
@@ -70,31 +70,31 @@
               <div>
                 <strong>bKASH / NAGAD / ROCKET (MFS SEND MONEY)</strong>
                 <div style="margin-top: 6px; font-size: 11px;">
-                  Send money to: <strong id="k3d-mfs-num-display" style="color:var(--k3d-rust); font-size:13px; font-family:var(--k3d-mono);"><?= esc($mfsNumber ?? '01XXXXXXXXX') ?></strong>
-                  <button type="button" onclick="navigator.clipboard.writeText('<?= esc($mfsNumber ?? '01XXXXXXXXX') ?>'); this.innerText='COPIED ✓'; setTimeout(() => this.innerText='COPY', 2000);" style="background:var(--k3d-ink); color:#fff; border:0; padding:3px 8px; font-size:9px; font-family:var(--k3d-mono); cursor:pointer; margin-left:8px;">COPY</button>
+                  bKash / Nagad Personal: <strong id="k3d-mfs-num-display" style="color:var(--k3d-rust); font-size:13px; font-family:var(--k3d-mono);"><?= esc($mfsNumber ?? '01754550297') ?></strong>
+                  <button type="button" onclick="navigator.clipboard.writeText('<?= esc($mfsNumber ?? '01754550297') ?>'); this.innerText='COPIED ✓'; setTimeout(() => this.innerText='COPY', 2000);" style="background:var(--k3d-ink); color:#fff; border:0; padding:3px 8px; font-size:9px; font-family:var(--k3d-mono); cursor:pointer; margin-left:8px;">COPY</button>
                 </div>
-                <small style="display:block; margin-top:4px; color:var(--k3d-meta);">Enter the 8-10 digit Transaction ID (TrxID) received via SMS.</small>
+                <small style="display:block; margin-top:4px; color:var(--k3d-meta);">Send Money to the above number, then enter the Transaction ID (TrxID) below.</small>
               </div>
             </label>
             <label class="k3d-payment-option" id="k3d-pay-cod-label">
               <input type="radio" name="payment_method" value="cod" onchange="togglePayMethod('cod')">
               <div>
-                <strong>CASH ON DELIVERY (DHAKA & NATIONWIDE)</strong>
+                <strong>CASH ON DELIVERY (DHAKA &amp; NATIONWIDE)</strong>
                 <small style="display:block; margin-top:4px; color:var(--k3d-meta);">Pay courier at your doorstep upon inspecting artifact packaging.</small>
               </div>
             </label>
           </div>
           <label class="k3d-trxid-field">
             TRANSACTION ID (TrxID)
-            <input type="text" name="trx_id" placeholder="Enter 8-10 digit TrxID from SMS">
+            <input type="text" name="trx_id" placeholder="Enter 8-10 character TrxID from SMS">
           </label>
           <p class="k3d-deposit-alert">
-            CUSTOM STL ORDERS REQUIRE A MANDATORY <strong>৳100 BKASH ADVANCE DEPOSIT</strong> BEFORE SLICING & QUEUE ASSIGNMENT.
+            CUSTOM STL ORDERS REQUIRE A MANDATORY <strong>৳100 BKASH ADVANCE DEPOSIT</strong> BEFORE SLICING &amp; QUEUE ASSIGNMENT.
           </p>
         </section>
 
         <button class="k3d-place-order" type="submit">
-          PLACE ORDER & ISSUE TICKET <span>→</span>
+          PLACE ORDER &amp; ISSUE TICKET <span>&rarr;</span>
         </button>
       </form>
     </main>
@@ -119,7 +119,7 @@
         <?php else: ?>
           <div>
             <span>ARC VESSEL (SPECIMEN DRAFT)<br><small>PLA / TERRACOTTA / 140G × 1</small></span>
-            <b>৳780</b>
+            <b>৳780.00</b>
           </div>
         <?php endif; ?>
       </div>
@@ -131,11 +131,11 @@
       </div>
       <div class="k3d-invoice-row">
         <span>COURIER</span>
-        <b id="k3d-inv-shipping">৳70</b>
+        <b id="k3d-inv-shipping">৳<?= number_format($shippingCost ?? 70, 2) ?></b>
       </div>
       <div class="k3d-invoice-total">
         <span>TOTAL DUE NOW</span>
-        <b id="k3d-inv-total">৳<?= number_format(($cartSubtotal ?? 780) + 70, 2) ?></b>
+        <b id="k3d-inv-total">৳<?= number_format(($cartSubtotal ?? 780) + ($shippingCost ?? 70), 2) ?></b>
       </div>
       <p class="k3d-invoice-note">Prices in BDT. Orders enter the workshop queue immediately following TrxID payment verification.</p>
     </aside>

@@ -132,6 +132,10 @@
 
     setShipping: function (zone) {
       currentShippingZone = zone;
+      const checkoutLink = document.getElementById('k3d-drawer-checkout-link');
+      if (checkoutLink) {
+        checkoutLink.href = `/checkout?zone=${encodeURIComponent(zone)}`;
+      }
       if (cachedCartData) {
         renderCart(cachedCartData);
       }

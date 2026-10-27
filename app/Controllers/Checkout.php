@@ -14,12 +14,20 @@ class Checkout extends BaseController
             $subtotal += $item['line_total'];
         }
 
+        $selectedZone = in_array($this->request->getGet('zone'), ['inside_dhaka', 'outside_dhaka'], true)
+            ? $this->request->getGet('zone')
+            : 'inside_dhaka';
+        $shippingCost = ($selectedZone === 'inside_dhaka') ? 70.00 : 130.00;
+
         $data = [
             'title'        => 'Checkout & Workshop Order Intake — Kerf 3D Studio',
             'pageCss'      => ['checkout.css'],
             'cartItems'    => array_values($cart),
             'cartSubtotal' => $subtotal,
-            'mfsNumber'    => env('BKASH_ACCOUNT_NUMBER', '01XXXXXXXXX'),
+            'selectedZone' => $selectedZone,
+            'shippingCost' => $shippingCost,
+            'mfsNumber'    => env('BKASH_ACCOUNT_NUMBER', '01754550297'),
+            'nagadNumber'  => env('NAGAD_ACCOUNT_NUMBER', '01754550297'),
         ];
 
         return view('pages/checkout', $data);

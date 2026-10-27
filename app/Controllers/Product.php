@@ -29,11 +29,25 @@ class Product extends BaseController
             ->get()
             ->getResultArray();
 
+        $primaryImg = !empty($product['primary_image']['filename'])
+            ? base_url('assets/images/products/' . $product['primary_image']['filename'])
+            : (!empty($product['images'][0]['filename']) ? base_url('assets/images/products/' . $product['images'][0]['filename']) : base_url('assets/images/favicon.svg'));
+
+        $shortDesc = !empty($product['short_description'])
+            ? strip_tags($product['short_description'])
+            : (!empty($product['description']) ? mb_substr(strip_tags($product['description']), 0, 160) . '...' : 'Precision FDM 3D printed artifact calibrated in Dhaka on Bambu Lab A1 hardware.');
+
         $data = [
-            'title'       => esc($product['name']) . ' — Kerf 3D Specimen Sheet',
-            'pageCss'     => ['product.css'],
-            'product'     => $product,
-            'variations'  => $variations,
+            'title'            => esc($product['name']) . ' — Kerf 3D Specimen Sheet',
+            'meta_description' => $shortDesc,
+            'canonical_url'    => site_url('product/' . $product['slug']),
+            'og_type'          => 'product',
+            'og_title'         => $product['name'] . ' — KERF 3D Studio',
+            'og_description'   => $shortDesc,
+            'og_image'         => $primaryImg,
+            'pageCss'          => ['product.css'],
+            'product'          => $product,
+            'variations'       => $variations,
         ];
 
         return view('pages/product', $data);

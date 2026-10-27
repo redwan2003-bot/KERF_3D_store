@@ -22,6 +22,7 @@ $routes->get('materials', 'Materials::index');
 $routes->get('track', 'Track::index');
 $routes->get('privacy', 'Home::privacy');
 $routes->get('terms', 'Home::terms');
+$routes->get('sitemap.xml', 'Sitemap::index');
 
 // ── Custom 3D Mesh Quote & Upload ───────────────────────────
 $routes->get('quote', 'Quote::index');
