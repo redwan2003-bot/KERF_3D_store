@@ -137,6 +137,28 @@
   box-shadow: 8px 8px 0 var(--k3d-ink);
 }
 
+.k3d-spotlight-frame::before {
+  content: "+";
+  position: absolute;
+  bottom: 8px;
+  left: 10px;
+  font-family: var(--k3d-mono);
+  font-size: 11px;
+  color: var(--k3d-meta);
+  line-height: 1;
+}
+
+.k3d-spotlight-frame::after {
+  content: "+";
+  position: absolute;
+  bottom: 8px;
+  right: 10px;
+  font-family: var(--k3d-mono);
+  font-size: 11px;
+  color: var(--k3d-meta);
+  line-height: 1;
+}
+
 .k3d-frame-datum {
   position: absolute;
   top: 12px;
@@ -183,6 +205,25 @@
   color: var(--k3d-rust);
   font-weight: 700;
   margin-bottom: 2px;
+}
+
+.k3d-hero-stamp-wrap {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+
+.k3d-hero-stamp {
+  display: inline-block;
+  font-family: var(--k3d-mono);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 2px 6px;
+  background: rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  color: var(--k3d-ink);
 }
 
 .k3d-frame-footer strong {

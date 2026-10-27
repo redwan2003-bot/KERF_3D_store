@@ -3,32 +3,33 @@
 <?= $this->section('content') ?>
 <div class="k3d-home">
 
-  <!-- ── 01 / Monumental Architectural Hero (GRAU Aesthetic) ── -->
+  <!-- ── 01 / Monumental Architectural Hero (Tajimi Coordinate Grid × GRAU Spotlight) ── -->
   <section class="k3d-hero">
     <div class="k3d-hero-inner k3d-container">
       
       <!-- Studio Telemetry Status Ribbon -->
       <div class="k3d-telemetry-strip">
-        <span class="k3d-status-badge"><span class="k3d-dot-live"></span> BAMBU LAB A1 FLEET · ACTIVE</span>
-        <span class="k3d-telemetry-datum">WORKSPACE: DHAKA HUB</span>
-        <span class="k3d-telemetry-datum">TOLERANCE: &plusmn;0.2 MM</span>
+        <span class="k3d-status-badge"><span class="k3d-dot-live"></span> BAMBU LAB A1 FLEET · 工房 ACTIVE</span>
+        <span class="k3d-telemetry-datum">COORD: 23.8103° N, 90.4125° E</span>
+        <span class="k3d-telemetry-datum">CATALOG: 457 SPECIMENS</span>
+        <span class="k3d-telemetry-datum">TOLERANCE: &plusmn;0.15 MM</span>
         <span class="k3d-telemetry-datum">COURIER SLA: 24—48H</span>
       </div>
 
       <div class="k3d-hero-grid">
         <!-- Left: Monumental Editorial Typography -->
         <div class="k3d-hero-content">
-          <p class="k3d-kicker">01 // STUDIO INDEX · ADDITIVE MANUFACTURING</p>
+          <p class="k3d-kicker">01 // ATELIER ARCHIVE · 手仕事とデジタル造形</p>
           <h1 class="k3d-hero-title">
             Objects designed for <span class="k3d-accent-text">weight &amp; presence.</span>
           </h1>
           <p class="k3d-hero-description">
-            Curated tactile artifacts and on-demand FDM additive manufacturing. Printed in Dhaka on calibrated Bambu Lab A1 hardware using architectural Bio-PLA and compliant TPU 95A.
+            Curated tactile artifacts and on-demand FDM additive manufacturing. Printed in Dhaka on calibrated Bambu Lab A1 hardware using architectural Bio-PLA, PETG, TPU 95A, ASA, and PA-CF.
           </p>
 
           <div class="k3d-hero-actions">
             <a href="/shop" class="k3d-button k3d-btn-solid">
-              <span>EXPLORE ARCHIVE</span>
+              <span>EXPLORE ARCHIVE (457)</span>
               <span>&rarr;</span>
             </a>
             <a href="/quote" class="k3d-button k3d-btn-outline">
@@ -48,17 +49,17 @@
               <span>LAYER RESOLUTION</span>
             </div>
             <div>
-              <strong>24—48H</strong>
-              <span>DHAKA DISPATCH</span>
+              <strong>457 UNITS</strong>
+              <span>ACTIVE SPECIMENS</span>
             </div>
           </div>
         </div>
 
-        <!-- Right: Monumental Specimen Spotlight Frame (GRAU Lighting Style) -->
+        <!-- Right: Monumental Specimen Spotlight Frame (Tajimi Crosshairs & PUEBCO Stamp) -->
         <div class="k3d-hero-spotlight">
           <div class="k3d-spotlight-frame">
-            <div class="k3d-frame-datum top-left">+ 00.00 [X/Y/Z]</div>
-            <div class="k3d-frame-datum top-right">BAMBU A1 // SPECIMEN 01</div>
+            <div class="k3d-frame-datum top-left">+ 23&deg;48'N 90&deg;24'E [DHAKA]</div>
+            <div class="k3d-frame-datum top-right">ATELIER SPECIMEN № 001 // 工房選定</div>
             
             <a href="/product/charlie-brown-airpods-pro-2nd-gen-case" class="k3d-spotlight-link" aria-label="View Charlie Brown AirPods Pro Case">
               <img src="/assets/images/products/charlie-brown-airpods-pro-2nd-gen-case.webp?v=<?= filemtime(FCPATH . 'assets/images/products/charlie-brown-airpods-pro-2nd-gen-case.webp') ?>" alt="Charlie Brown AirPods Pro 2nd Gen Case" class="k3d-spotlight-img">
@@ -66,8 +67,12 @@
 
             <div class="k3d-frame-footer">
               <div>
-                <span class="k3d-spec-sku">K3D-MW-001 // CARRY GEAR</span>
+                <span class="k3d-spec-sku">№ 001 // K3D-MW-001 · CARRY GEAR</span>
                 <strong>CHARLIE BROWN AIRPODS PRO CASE</strong>
+                <div class="k3d-hero-stamp-wrap">
+                  <span class="k3d-hero-stamp">BIO-PLA · 100% SOLID</span>
+                  <span class="k3d-hero-stamp">TOLERANCE 0.15MM</span>
+                </div>
               </div>
               <div class="k3d-spec-price">
                 <span>INTAKE</span>
