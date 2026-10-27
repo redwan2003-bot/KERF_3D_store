@@ -178,6 +178,35 @@
           </div>
         </fieldset>
 
+        <!-- 04 / Nozzle & Layer Profile -->
+        <fieldset class="k3d-param-group">
+          <legend>04 / NOZZLE &amp; LAYER RESOLUTION</legend>
+          <div class="k3d-support-pills">
+            <label class="k3d-support-pill" data-nozzle="0.2">
+              <input type="radio" name="quote_nozzle" value="0.2" data-layer-height="0.12" data-speed-factor="1.65">
+              <span>0.2MM FINE<br><small style="color:var(--k3d-rust);">0.12mm Archival</small></span>
+            </label>
+            <label class="k3d-support-pill is-selected" data-nozzle="0.4">
+              <input type="radio" name="quote_nozzle" value="0.4" data-layer-height="0.20" data-speed-factor="1.0" checked>
+              <span>0.4MM STD<br><small style="color:var(--k3d-meta);">0.20mm Balance</small></span>
+            </label>
+            <label class="k3d-support-pill" data-nozzle="0.6">
+              <input type="radio" name="quote_nozzle" value="0.6" data-layer-height="0.28" data-speed-factor="0.75">
+              <span>0.6MM RAPID<br><small style="color:var(--k3d-meta);">0.28mm Rapid</small></span>
+            </label>
+          </div>
+        </fieldset>
+
+        <!-- 05 / Perimeter Walls -->
+        <fieldset class="k3d-param-group">
+          <legend>05 / PERIMETER WALL LOOPS</legend>
+          <div class="k3d-infill-pills">
+            <label class="k3d-infill-pill is-selected" data-walls="2"><input type="radio" name="quote_walls" value="2" checked><span>2 Walls (Std)</span></label>
+            <label class="k3d-infill-pill" data-walls="3"><input type="radio" name="quote_walls" value="3"><span>3 Walls (Stiff)</span></label>
+            <label class="k3d-infill-pill" data-walls="4"><input type="radio" name="quote_walls" value="4"><span>4 Walls (Heavy)</span></label>
+          </div>
+        </fieldset>
+
         <!-- Bambu Studio Slicing Telemetry Grid -->
         <div class="k3d-metrics-grid k3d-slicer-grid">
           <div>

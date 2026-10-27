@@ -209,6 +209,13 @@
           const data = await res.json();
           renderCart(data);
           openDrawer();
+          if (typeof window.k3dTrack === 'function') {
+            window.k3dTrack('AddToCart', {
+              content_type: 'product',
+              value: data.subtotal,
+              currency: 'BDT'
+            });
+          }
           return data;
         } else {
           const errData = await res.json().catch(() => null);
@@ -244,6 +251,13 @@
           const data = await res.json();
           renderCart(data);
           openDrawer();
+          if (typeof window.k3dTrack === 'function') {
+            window.k3dTrack('AddToCart', {
+              content_type: 'product',
+              value: data.subtotal,
+              currency: 'BDT'
+            });
+          }
           return data;
         } else {
           const err = await res.json().catch(() => null);

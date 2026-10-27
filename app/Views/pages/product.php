@@ -348,4 +348,15 @@
 
 <?= $this->section('scripts') ?>
 <script src="/assets/js/product.js?v=<?= time() ?>"></script>
+<script>
+  if (typeof window.k3dTrack === 'function') {
+    window.k3dTrack('ViewContent', {
+      content_name: <?= json_encode($product['name']) ?>,
+      content_ids: [<?= json_encode($product['sku']) ?>],
+      content_type: 'product',
+      value: <?= (float)($product['price_bdt'] ?? 0) ?>,
+      currency: 'BDT'
+    });
+  }
+</script>
 <?= $this->endSection() ?>

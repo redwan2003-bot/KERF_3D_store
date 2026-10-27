@@ -39,6 +39,9 @@
             <link rel="stylesheet" href="/assets/css/<?= esc($cssFile) ?>?v=<?= time() ?>">
         <?php endforeach; ?>
     <?php endif; ?>
+
+    <!-- Studio E-Commerce Analytics & Conversion Event Engine -->
+    <?= $this->include('partials/analytics_head') ?>
 </head>
 <body>
 

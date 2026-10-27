@@ -58,6 +58,10 @@
   let activeInfill       = 20;
   let activeSupportPct   = 0;
   let activeSupportType  = 'none';
+  let activeNozzle       = 0.4;
+  let activeLayerHeight  = 0.20;
+  let activeSpeedFactor  = 1.0;
+  let activeWallCount    = 2;
   let isWireframe        = false;
 
   // ── 1. Three.js Scene & Camera Initialization ─────────────────
@@ -510,15 +514,14 @@
 
   // ── 6. Bambu Studio Slicer Fidelity Pricing Engine ────────────
   function updateQuotePricing() {
-    // 1. Sliced layers at 0.20mm standard layer height (Bambu Lab A1 standard)
-    const totalLayers = Math.max(1, Math.round(boundingDims.y / 0.20));
+    // 1. Sliced layers based on chosen nozzle & layer height
+    const totalLayers = Math.max(1, Math.round(boundingDims.y / activeLayerHeight));
 
-    // 2. Bambu Studio 0.20mm Standard Physical Slicing Rules:
-    // Solid shell: 2 perimeters (0.84mm line width) + 4-5 solid top/bottom layers (0.8-1.0mm)
-    // Shell thickness average = 0.085 cm
+    // 2. Bambu Studio Physical Slicing Rules:
+    // Solid shell: wall loops (2 walls = 0.085cm, 3 walls = 0.125cm, 4 walls = 0.165cm)
     const rawDensity = activeDensity; // 1.240 g/cm³ for PLA
-    const shellThicknessCm = 0.085;
-    const estShellVolCm3 = Math.min(meshVolumeCm3 * 0.65, Math.max(meshVolumeCm3 * 0.25, meshSurfaceAreaCm2 * shellThicknessCm));
+    const shellThicknessCm = 0.085 + (activeWallCount - 2) * 0.040;
+    const estShellVolCm3 = Math.min(meshVolumeCm3 * 0.75, Math.max(meshVolumeCm3 * 0.25, meshSurfaceAreaCm2 * shellThicknessCm));
     const infillVolCm3 = Math.max(0, meshVolumeCm3 - estShellVolCm3);
     const infillRatio = activeInfill / 100.0;
 
@@ -542,8 +545,8 @@
     const supportMeters = (supportGrams / 3.03).toFixed(1);
     const totalMeters = (totalGrams / 3.03).toFixed(1);
 
-    // 5. Bambu Lab A1 Speed Benchmark (1.71 min/g + 17 min warmup & bed-leveling)
-    const totalMinutes = Math.round(totalGrams * 1.71 + 17);
+    // 5. Bambu Lab A1 Speed Benchmark (1.71 min/g * activeSpeedFactor + 17 min warmup & bed-leveling)
+    const totalMinutes = Math.round(totalGrams * 1.71 * activeSpeedFactor + 17);
     const hours = Math.floor(totalMinutes / 60);
     const mins = totalMinutes % 60;
     const timeStr = hours > 0 ? `~${hours}H ${mins}M` : `~${mins}M`;
@@ -567,7 +570,7 @@
 
     // Update Bambu Studio Slicing Telemetry Grid
     if (statBoxEl) statBoxEl.textContent = `${boundingDims.x} × ${boundingDims.y} × ${boundingDims.z} MM`;
-    if (statLayersEl) statLayersEl.textContent = `${totalLayers} LAYERS @ 0.20MM`;
+    if (statLayersEl) statLayersEl.textContent = `${totalLayers} LAYERS @ ${activeLayerHeight.toFixed(2)}MM`;
     if (statModelEl) statModelEl.textContent = `${modelGrams.toFixed(1)} G (${modelMeters} M)`;
     if (statSupportEl) statSupportEl.textContent = `${supportGrams.toFixed(1)} G (${supportMeters} M)`;
     if (statWeightEl) statWeightEl.textContent = `${totalGrams.toFixed(1)} G (~${totalMeters} M)`;
@@ -615,7 +618,7 @@
         `------------------------------------------\n` +
         `📁 *Specimen:* ${filename}\n` +
         `📐 *Dimensions:* ${boundingDims.x} × ${boundingDims.y} × ${boundingDims.z} mm\n` +
-        `📊 *Sliced Layers:* ${totalLayers} @ 0.20mm Standard\n` +
+        `📊 *Sliced Layers:* ${totalLayers} @ ${activeLayerHeight.toFixed(2)}mm (${activeNozzle}mm Nozzle, ${activeWallCount} Walls)\n` +
         `🧵 *Polymer:* ${matName}\n` +
         `🎛 *Infill:* ${activeInfill}% Gyroid\n` +
         `🌲 *Support:* ${supportName}\n` +
@@ -744,6 +747,80 @@
         const radio = this.querySelector('input[type="radio"]');
         const val = radio ? radio.value : this.getAttribute('data-support');
         selectSupport(val);
+      });
+    });
+
+    // 4. Nozzle & Layer Profile Radio & Pill Selection
+    const nozzlePills   = document.querySelectorAll('label[data-nozzle]');
+    const nozzleRadios  = document.querySelectorAll('input[name="quote_nozzle"]');
+
+    function selectNozzle(radioOrVal) {
+      const val = typeof radioOrVal === 'object' ? radioOrVal.value : radioOrVal;
+      activeNozzle = parseFloat(val) || 0.4;
+
+      nozzleRadios.forEach(r => {
+        if (parseFloat(r.value) === activeNozzle) {
+          r.checked = true;
+          activeLayerHeight = parseFloat(r.getAttribute('data-layer-height')) || 0.20;
+          activeSpeedFactor = parseFloat(r.getAttribute('data-speed-factor')) || 1.0;
+        }
+      });
+
+      nozzlePills.forEach(pill => {
+        const pillVal = parseFloat(pill.getAttribute('data-nozzle'));
+        pill.classList.toggle('is-selected', pillVal === activeNozzle);
+      });
+
+      updateQuotePricing();
+    }
+
+    nozzleRadios.forEach(radio => {
+      radio.addEventListener('change', function () {
+        selectNozzle(this);
+      });
+    });
+
+    nozzlePills.forEach(pill => {
+      pill.addEventListener('click', function () {
+        const radio = this.querySelector('input[type="radio"]');
+        const val = radio ? radio.value : this.getAttribute('data-nozzle');
+        selectNozzle(val);
+      });
+    });
+
+    // 5. Perimeter Walls Radio & Pill Selection
+    const wallPills   = document.querySelectorAll('label[data-walls]');
+    const wallRadios  = document.querySelectorAll('input[name="quote_walls"]');
+
+    function selectWalls(radioOrVal) {
+      const val = typeof radioOrVal === 'object' ? parseInt(radioOrVal.value, 10) : parseInt(radioOrVal, 10);
+      activeWallCount = val || 2;
+
+      wallRadios.forEach(r => {
+        if (parseInt(r.value, 10) === activeWallCount) {
+          r.checked = true;
+        }
+      });
+
+      wallPills.forEach(pill => {
+        const pillVal = parseInt(pill.getAttribute('data-walls'), 10);
+        pill.classList.toggle('is-selected', pillVal === activeWallCount);
+      });
+
+      updateQuotePricing();
+    }
+
+    wallRadios.forEach(radio => {
+      radio.addEventListener('change', function () {
+        selectWalls(this);
+      });
+    });
+
+    wallPills.forEach(pill => {
+      pill.addEventListener('click', function () {
+        const radio = this.querySelector('input[type="radio"]');
+        const val = radio ? radio.value : this.getAttribute('data-walls');
+        selectWalls(val);
       });
     });
   }

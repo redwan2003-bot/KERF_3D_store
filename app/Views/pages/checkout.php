@@ -174,5 +174,13 @@
             if (trxInput) trxInput.placeholder = 'Optional for Cash on Delivery';
         }
     }
+
+    if (typeof window.k3dTrack === 'function') {
+        window.k3dTrack('InitiateCheckout', {
+            num_items: <?= count($cartItems ?? []) ?>,
+            value: <?= (float)($cartSubtotal ?? 780) ?>,
+            currency: 'BDT'
+        });
+    }
 </script>
 <?= $this->endSection() ?>

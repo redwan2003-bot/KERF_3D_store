@@ -254,4 +254,14 @@
     </footer>
   </div>
 </div>
+
+<script>
+  if (typeof window.k3dTrack === 'function') {
+    window.k3dTrack('Purchase', {
+      transaction_id: <?= json_encode($orderNum) ?>,
+      value: <?= (float)($order['total_bdt'] ?? 0) ?>,
+      currency: 'BDT'
+    });
+  }
+</script>
 <?= $this->endSection() ?>
