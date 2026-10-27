@@ -47,6 +47,12 @@
       $isDispatched = in_array($status, ['dispatched', 'delivered']);
       $isDelivered  = ($status === 'delivered');
       $isCancelled  = ($status === 'cancelled');
+
+      $progressPct = 25;
+      if ($isDelivered) { $progressPct = 100; }
+      elseif ($isDispatched) { $progressPct = 85; }
+      elseif ($isPrinting) { $progressPct = 65; }
+      elseif ($isSlicing) { $progressPct = 45; }
     ?>
 
     <div class="k3d-track-result">
@@ -56,10 +62,17 @@
           <div class="k3d-track-id"><?= esc($order['order_number']) ?></div>
         </div>
         <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+          <button type="button" onclick="copyTrackUrl('<?= esc($order['order_number']) ?>')" class="k3d-track-btn" style="height: 34px; padding: 0 14px; font-size: 11px; background: var(--k3d-paper); color: var(--k3d-ink); border: 1px solid var(--k3d-ink); cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+            <span id="k3d-copy-btn-text">COPY TRACKING LINK</span>
+          </button>
           <a href="/track/receipt/<?= esc($order['order_number']) ?>" target="_blank" class="k3d-track-btn" style="height: 34px; padding: 0 14px; font-size: 11px; background: var(--k3d-ink); color: #fff; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--k3d-ink);">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
             PRINT INVOICE / RECEIPT
           </a>
+          <span style="font-family: var(--k3d-mono, monospace); font-size: 10px; font-weight: 700; padding: 6px 10px; background: rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.15); letter-spacing: 0.05em;">
+            [ <?= $progressPct ?>% FULFILLED ]
+          </span>
           <span class="k3d-track-status-pill status-<?= esc($status) ?>">
             STATUS: <?= esc($status) ?>
           </span>
@@ -191,4 +204,23 @@
     </div>
   <?php endif; ?>
 </div>
+
+<script>
+function copyTrackUrl(ticket) {
+    const url = window.location.origin + '/track?ticket=' + encodeURIComponent(ticket);
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(() => {
+            if (typeof window.k3dToast === 'function') {
+                window.k3dToast('TRACKING LINK COPIED TO CLIPBOARD', '🔗');
+            }
+            const btn = document.getElementById('k3d-copy-btn-text');
+            if (btn) {
+                const orig = btn.innerText;
+                btn.innerText = 'COPIED ✓';
+                setTimeout(() => { btn.innerText = orig; }, 2500);
+            }
+        });
+    }
+}
+</script>
 <?= $this->endSection() ?>

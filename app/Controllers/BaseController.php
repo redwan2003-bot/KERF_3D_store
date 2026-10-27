@@ -19,6 +19,11 @@ abstract class BaseController extends Controller
     protected $request;
 
     /**
+     * Session service instance.
+     */
+    protected \CodeIgniter\Session\Session $session;
+
+    /**
      * An array of helpers to be loaded automatically upon
      * class instantiation. These helpers will be available
      * to all other controllers that extend BaseController.

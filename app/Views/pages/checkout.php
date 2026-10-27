@@ -25,7 +25,7 @@
             </label>
             <label>
               PHONE (FOR COURIER CONTACT)
-              <input type="tel" name="customer_phone" required placeholder="01XXXXXXXXX">
+              <input type="tel" name="customer_phone" required placeholder="01XXXXXXXXX" pattern="[0-9+]{11,15}" oninput="this.value = this.value.replace(/[^0-9+]/g, '')">
             </label>
             <label class="k3d-wide-field">
               EMAIL (FOR WORKSHOP TICKET & TRACKING)
@@ -137,7 +137,11 @@
       </div>
       <div class="k3d-invoice-row">
         <span>COURIER</span>
-        <b id="k3d-inv-shipping">৳<?= number_format($shippingCost ?? 70, 2) ?></b>
+        <b id="k3d-inv-shipping"><?= (!empty($isFreeShipping) && ($selectedZone ?? 'inside_dhaka') === 'inside_dhaka') ? 'FREE (৳0.00)' : '৳' . number_format($shippingCost ?? 70, 2) ?></b>
+      </div>
+      <div id="k3d-free-badge" style="display: <?= (!empty($isFreeShipping) && ($selectedZone ?? 'inside_dhaka') === 'inside_dhaka') ? 'flex' : 'none' ?>; align-items: center; justify-content: space-between; background: rgba(34, 197, 94, 0.1); border: 1px dashed rgba(34, 197, 94, 0.4); padding: 4px 8px; margin: 4px 0 8px; font-family: var(--k3d-mono); font-size: 9px; color: #166534;">
+        <span>✓ FREE DHAKA DELIVERY</span>
+        <strong>SAVE ৳70</strong>
       </div>
       <div class="k3d-invoice-total">
         <span>TOTAL DUE NOW</span>
@@ -150,7 +154,12 @@
 
 <script>
     function updateShipping(rate) {
-        document.getElementById('k3d-inv-shipping').innerText = (rate === 0) ? 'FREE (৳0.00)' : ('৳' + rate.toFixed(2));
+        const isFree = (rate === 0);
+        document.getElementById('k3d-inv-shipping').innerText = isFree ? 'FREE (৳0.00)' : ('৳' + rate.toFixed(2));
+        const freeBadge = document.getElementById('k3d-free-badge');
+        if (freeBadge) {
+            freeBadge.style.display = isFree ? 'flex' : 'none';
+        }
         const subtotal = <?= (float) ($cartSubtotal ?? 780) ?>;
         const total = subtotal + rate;
         document.getElementById('k3d-inv-total').innerText = '৳' + total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });

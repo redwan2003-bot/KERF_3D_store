@@ -267,10 +267,47 @@
           Hotline: +880 1754-550297 · Web: https://kerf3d.store
         </div>
       </div>
-      <div style="text-align: right;">
+      <div style="text-align: right; display: flex; flex-direction: column; align-items: flex-end;">
         <div class="invoice-tag">INVOICE &amp; RECEIPT</div>
-        <div style="font-family: var(--mono); font-size: 11px; margin-top: 6px; font-weight: 700;">
-          TICKET #<?= esc($order['order_number']) ?>
+        <div style="margin-top: 8px;">
+          <!-- Industrial Barcode Graphic for Scanner Intake -->
+          <svg width="150" height="38" viewBox="0 0 150 38" xmlns="http://www.w3.org/2000/svg" style="display:block;">
+            <rect width="150" height="38" fill="#ffffff"/>
+            <g fill="#111317">
+              <rect x="5" y="4" width="2" height="24"/>
+              <rect x="9" y="4" width="1" height="24"/>
+              <rect x="12" y="4" width="3" height="24"/>
+              <rect x="17" y="4" width="2" height="24"/>
+              <rect x="22" y="4" width="1" height="24"/>
+              <rect x="25" y="4" width="2" height="24"/>
+              <rect x="30" y="4" width="3" height="24"/>
+              <rect x="35" y="4" width="1" height="24"/>
+              <rect x="38" y="4" width="2" height="24"/>
+              <rect x="43" y="4" width="1" height="24"/>
+              <rect x="47" y="4" width="3" height="24"/>
+              <rect x="53" y="4" width="2" height="24"/>
+              <rect x="58" y="4" width="1" height="24"/>
+              <rect x="62" y="4" width="2" height="24"/>
+              <rect x="67" y="4" width="3" height="24"/>
+              <rect x="73" y="4" width="1" height="24"/>
+              <rect x="76" y="4" width="2" height="24"/>
+              <rect x="80" y="4" width="3" height="24"/>
+              <rect x="85" y="4" width="1" height="24"/>
+              <rect x="89" y="4" width="2" height="24"/>
+              <rect x="93" y="4" width="1" height="24"/>
+              <rect x="97" y="4" width="3" height="24"/>
+              <rect x="103" y="4" width="2" height="24"/>
+              <rect x="107" y="4" width="1" height="24"/>
+              <rect x="111" y="4" width="2" height="24"/>
+              <rect x="116" y="4" width="3" height="24"/>
+              <rect x="122" y="4" width="1" height="24"/>
+              <rect x="126" y="4" width="2" height="24"/>
+              <rect x="131" y="4" width="3" height="24"/>
+              <rect x="137" y="4" width="1" height="24"/>
+              <rect x="141" y="4" width="2" height="24"/>
+            </g>
+            <text x="75" y="35" font-family="'Space Mono', monospace" font-size="8" font-weight="700" fill="#111317" text-anchor="middle" letter-spacing="1">* <?= esc($order['order_number']) ?> *</text>
+          </svg>
         </div>
       </div>
     </div>

@@ -271,12 +271,32 @@
 }
 
 .k3d-product-card {
-  transition: transform 0.2s ease;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
+  will-change: transform;
 }
 
 .k3d-product-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-5px);
+}
+
+.k3d-product-card:hover .k3d-product-image {
+  border-color: var(--k3d-ink);
+  box-shadow: 0 12px 28px rgba(38, 29, 22, 0.09);
+}
+
+.k3d-product-card:hover .k3d-archival-num {
+  color: var(--k3d-rust);
+}
+
+.k3d-product-card:hover .k3d-card-inspect-hint {
+  color: var(--k3d-rust);
+  transform: translateX(3px);
+}
+
+.k3d-card-inspect-hint {
+  transition: transform 0.2s ease, color 0.2s ease;
+  display: inline-block;
 }
 
 .k3d-product-card-wrap {

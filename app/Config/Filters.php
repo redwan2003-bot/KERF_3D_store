@@ -39,6 +39,7 @@ class Filters extends BaseConfig
             // 'csrf',
         ],
         'after' => [
+            'secureheaders',
             // 'toolbar',
         ],
     ];

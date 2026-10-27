@@ -209,6 +209,9 @@
           const data = await res.json();
           renderCart(data);
           openDrawer();
+          if (typeof window.k3dToast === 'function') {
+            window.k3dToast('SPECIMEN ADDED TO ARCHIVE BAG');
+          }
           if (typeof window.k3dTrack === 'function') {
             window.k3dTrack('AddToCart', {
               content_type: 'product',
@@ -251,6 +254,9 @@
           const data = await res.json();
           renderCart(data);
           openDrawer();
+          if (typeof window.k3dToast === 'function') {
+            window.k3dToast('SPECIMEN ADDED TO ARCHIVE BAG');
+          }
           if (typeof window.k3dTrack === 'function') {
             window.k3dTrack('AddToCart', {
               content_type: 'product',
@@ -306,11 +312,39 @@
         if (res.ok) {
           const data = await res.json();
           renderCart(data);
+          if (typeof window.k3dToast === 'function') {
+            window.k3dToast('ITEM REMOVED FROM BAG', '—');
+          }
         }
       } catch (e) {
         console.error('Failed to remove item from cart:', e);
       }
     }
+  };
+
+  // Global Studio Brutalist Toast Helper
+  window.k3dToast = function (message, icon = '✓') {
+    let toastContainer = document.getElementById('k3d-toast-container');
+    if (!toastContainer) {
+      toastContainer = document.createElement('div');
+      toastContainer.id = 'k3d-toast-container';
+      toastContainer.className = 'k3d-toast-container';
+      document.body.appendChild(toastContainer);
+    }
+
+    const toast = document.createElement('div');
+    toast.className = 'k3d-toast';
+    toast.innerHTML = `<span class="k3d-toast-icon">${icon}</span><span>${message}</span>`;
+    toastContainer.appendChild(toast);
+
+    requestAnimationFrame(() => {
+      toast.classList.add('is-visible');
+    });
+
+    setTimeout(() => {
+      toast.classList.remove('is-visible');
+      setTimeout(() => toast.remove(), 250);
+    }, 2800);
   };
 
   // Initial Fetch on DOM Ready
