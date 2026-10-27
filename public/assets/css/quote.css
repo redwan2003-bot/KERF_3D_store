@@ -658,3 +658,94 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ── Balmuda-Style 4-Step Scrollytelling Fabrication Pipeline ── */
+.k3d-balmuda-pipeline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 36px;
+  padding: 18px 24px;
+  background: var(--k3d-surface);
+  border: 1px solid var(--k3d-ink);
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.k3d-pipeline-step {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1 1 180px;
+  padding: 8px 10px;
+  transition: all 0.2s ease;
+}
+
+.k3d-step-marker {
+  font-family: var(--k3d-mono);
+  font-size: 13px;
+  font-weight: 800;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: 1px solid var(--k3d-ink);
+  color: var(--k3d-ink);
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.k3d-pipeline-step.is-active .k3d-step-marker {
+  background: var(--k3d-rust);
+  border-color: var(--k3d-rust);
+  color: #fff;
+}
+
+.k3d-step-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.k3d-step-body strong {
+  font-family: var(--k3d-mono);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--k3d-ink);
+}
+
+.k3d-pipeline-step.is-active .k3d-step-body strong {
+  color: var(--k3d-rust);
+}
+
+.k3d-step-body small {
+  font-size: 10px;
+  line-height: 1.35;
+  color: var(--k3d-meta);
+}
+
+.k3d-pipeline-divider {
+  font-family: var(--k3d-mono);
+  font-size: 12px;
+  color: var(--k3d-border);
+  flex-shrink: 0;
+}
+
+@media (max-width: 820px) {
+  .k3d-pipeline-divider {
+    display: none;
+  }
+  .k3d-pipeline-step {
+    flex: 1 1 45%;
+  }
+}
+
+@media (max-width: 500px) {
+  .k3d-pipeline-step {
+    flex: 1 1 100%;
+  }
+}
+

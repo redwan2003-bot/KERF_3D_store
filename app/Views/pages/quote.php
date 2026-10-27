@@ -3,9 +3,55 @@
 <?= $this->section('content') ?>
 <div class="k3d-quote-page">
   <header class="k3d-quote-header">
-    <p class="k3d-kicker">CUSTOM MANUFACTURING / ON-DEMAND</p>
-    <h1>Upload a mesh,<br><em>receive a live quote.</em></h1>
-    <p class="k3d-quote-lead">Direct FDM additive manufacturing on our Bambu Lab A1 roster in Dhaka. Upload your CAD geometry for automated volume analysis, material pricing, and instant order intake.</p>
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px;">
+      <div>
+        <p class="k3d-kicker">CUSTOM MANUFACTURING / ON-DEMAND · 試作工房</p>
+        <h1>Upload a mesh,<br><em>receive a live quote.</em></h1>
+        <p class="k3d-quote-lead">Direct FDM additive manufacturing on our Bambu Lab A1 roster in Dhaka. Upload your CAD geometry for automated volume analysis, material pricing, and instant order intake.</p>
+      </div>
+      <div class="k3d-editorial-telemetry">
+        <div class="k3d-telemetry-badge">
+          <span class="pulse-dot"></span>
+          <span>BAMBU A1 / DHAKA UNIT 01</span>
+        </div>
+        <small>BUILD ENVELOPE: 256³ MM<br>NOZZLE: 0.4MM STAINLESS STEEL<br>SLICER ENGINE: BAMBU STUDIO CALIBRATED</small>
+      </div>
+    </div>
+
+    <!-- Balmuda-Inspired 4-Step Scrollytelling Fabrication Pipeline -->
+    <div class="k3d-balmuda-pipeline" aria-label="Additive Manufacturing Workflow">
+      <div class="k3d-pipeline-step is-active" data-step="1">
+        <div class="k3d-step-marker">01</div>
+        <div class="k3d-step-body">
+          <strong>CAD INTAKE</strong>
+          <small>Volume, surface area & bounding box mesh verification</small>
+        </div>
+      </div>
+      <div class="k3d-pipeline-divider">→</div>
+      <div class="k3d-pipeline-step" data-step="2">
+        <div class="k3d-step-marker">02</div>
+        <div class="k3d-step-body">
+          <strong>CAM SLICING</strong>
+          <small>Gyroid infill calibration & auto tree supports</small>
+        </div>
+      </div>
+      <div class="k3d-pipeline-divider">→</div>
+      <div class="k3d-pipeline-step" data-step="3">
+        <div class="k3d-step-marker">03</div>
+        <div class="k3d-step-body">
+          <strong>HOTEND DEPOSITION</strong>
+          <small>0.4mm nozzle layer extrusion on textured PEI bed</small>
+        </div>
+      </div>
+      <div class="k3d-pipeline-divider">→</div>
+      <div class="k3d-pipeline-step" data-step="4">
+        <div class="k3d-step-marker">04</div>
+        <div class="k3d-step-body">
+          <strong>QC & DISPATCH</strong>
+          <small>Tolerance check, post-process & nationwide courier</small>
+        </div>
+      </div>
+    </div>
   </header>
 
   <div class="k3d-quote-layout">
