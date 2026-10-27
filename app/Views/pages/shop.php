@@ -5,7 +5,7 @@
   <header class="k3d-shop-intro">
     <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px;">
       <div>
-        <p class="k3d-kicker">ARCHIVE // CATALOG SPECIMENS 001—<?= sprintf('%03d', count($products ?? [])) ?> · 工房</p>
+        <p class="k3d-kicker">ARCHIVE // CATALOG SPECIMENS 001—<?= sprintf('%03d', count($products ?? [])) ?> · ATELIER</p>
         <h1>Objects for<br><em>daily use.</em></h1>
         <p>A considered collection of physical artifacts, sliced and fabricated to order on Bambu Lab A1 hardware in Dhaka, Bangladesh.</p>
       </div>

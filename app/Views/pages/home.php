@@ -9,7 +9,7 @@
       
       <!-- Studio Telemetry Status Ribbon -->
       <div class="k3d-telemetry-strip">
-        <span class="k3d-status-badge"><span class="k3d-dot-live"></span> BAMBU LAB A1 FLEET · 工房 ACTIVE</span>
+        <span class="k3d-status-badge"><span class="k3d-dot-live"></span> BAMBU LAB A1 FLEET · ATELIER ACTIVE</span>
         <span class="k3d-telemetry-datum">COORD: 23.8103° N, 90.4125° E</span>
         <span class="k3d-telemetry-datum">CATALOG: 457 SPECIMENS</span>
         <span class="k3d-telemetry-datum">TOLERANCE: &plusmn;0.15 MM</span>
@@ -19,7 +19,7 @@
       <div class="k3d-hero-grid">
         <!-- Left: Monumental Editorial Typography -->
         <div class="k3d-hero-content">
-          <p class="k3d-kicker">01 // ATELIER ARCHIVE · 手仕事とデジタル造形</p>
+          <p class="k3d-kicker">01 // ATELIER ARCHIVE · ADDITIVE FABRICATION</p>
           <h1 class="k3d-hero-title">
             Objects designed for <span class="k3d-accent-text">weight &amp; presence.</span>
           </h1>
@@ -59,7 +59,7 @@
         <div class="k3d-hero-spotlight">
           <div class="k3d-spotlight-frame">
             <div class="k3d-frame-datum top-left">+ 23&deg;48'N 90&deg;24'E [DHAKA]</div>
-            <div class="k3d-frame-datum top-right">ATELIER SPECIMEN № 001 // 工房選定</div>
+            <div class="k3d-frame-datum top-right">ATELIER SPECIMEN № 001 // CURATED SELECTION</div>
             
             <a href="/product/charlie-brown-airpods-pro-2nd-gen-case" class="k3d-spotlight-link" aria-label="View Charlie Brown AirPods Pro Case">
               <img src="/assets/images/products/charlie-brown-airpods-pro-2nd-gen-case.webp?v=<?= filemtime(FCPATH . 'assets/images/products/charlie-brown-airpods-pro-2nd-gen-case.webp') ?>" alt="Charlie Brown AirPods Pro 2nd Gen Case" class="k3d-spotlight-img">
@@ -89,19 +89,19 @@
   <!-- ── 02 / Continuous Studio Marquee (High-Speed Manufacturing Ribbon) ── -->
   <div class="k3d-marquee-bar" aria-hidden="true">
     <div class="k3d-marquee-track">
-      <span>&#10022; KERF 3D // 伝統と先端造形</span>
+      <span>&#10022; KERF 3D // PRECISION ADDITIVE STUDIO</span>
       <span>&#10022; BAMBU LAB A1 PRECISION FLEET</span>
       <span>&#10022; 0.15MM MICRON TOLERANCE</span>
       <span>&#10022; 5 ADVANCED POLYMERS: PLA · PETG · TPU · ASA · PA-CF</span>
       <span>&#10022; 457 ARCHIVED SPECIMENS</span>
-      <span>&#10022; DHAKA WORKSHOP // 全国即日配送 (&#2547;70 / &#2547;130)</span>
+      <span>&#10022; DHAKA WORKSHOP // NATIONWIDE DISPATCH (&#2547;70 / &#2547;130)</span>
       <span>&#10022; BKASH &amp; NAGAD VERIFIED INTAKE</span>
-      <span>&#10022; KERF 3D // 伝統と先端造形</span>
+      <span>&#10022; KERF 3D // PRECISION ADDITIVE STUDIO</span>
       <span>&#10022; BAMBU LAB A1 PRECISION FLEET</span>
       <span>&#10022; 0.15MM MICRON TOLERANCE</span>
       <span>&#10022; 5 ADVANCED POLYMERS: PLA · PETG · TPU · ASA · PA-CF</span>
       <span>&#10022; 457 ARCHIVED SPECIMENS</span>
-      <span>&#10022; DHAKA WORKSHOP // 全国即日配送 (&#2547;70 / &#2547;130)</span>
+      <span>&#10022; DHAKA WORKSHOP // NATIONWIDE DISPATCH (&#2547;70 / &#2547;130)</span>
       <span>&#10022; BKASH &amp; NAGAD VERIFIED INTAKE</span>
     </div>
   </div>
@@ -111,7 +111,7 @@
     <div class="k3d-container">
       <div class="k3d-section-header">
         <div>
-          <span class="k3d-kicker">02 // CURATED SPECIMEN DOSSIER · 日常の造形美</span>
+          <span class="k3d-kicker">02 // CURATED SPECIMEN DOSSIER · DAILY OBJECTS</span>
           <h2 class="k3d-section-title">Architectural objects for daily use.</h2>
         </div>
         <a href="/shop" class="k3d-text-link">VIEW COMPLETE ARCHIVE (№ 001—457) &rarr;</a>
@@ -223,7 +223,7 @@
     <div class="k3d-container">
       <div class="k3d-section-header">
         <div>
-          <span class="k3d-kicker">03 // WORKSPACE CASE STUDIES · 空間と造形研究</span>
+          <span class="k3d-kicker">03 // WORKSPACE CASE STUDIES · SPATIAL RESEARCH</span>
           <h2 class="k3d-section-title">Harmonious desk artifacts in curated environments.</h2>
         </div>
         <span class="k3d-cases-indicator">CASE 01 &amp; 02 // ATELIER EDITIONS</span>
@@ -234,7 +234,7 @@
         <article class="k3d-case-card">
           <div class="k3d-case-badge-row">
             <span class="k3d-case-tag">CASE 01 · DHAKA ATELIER</span>
-            <span class="k3d-case-serial">№ STUDY-01 // 卓上制御</span>
+            <span class="k3d-case-serial">№ STUDY-01 // DESK CONTROLS</span>
           </div>
 
           <div class="k3d-case-visual-frame">
@@ -278,7 +278,7 @@
         <article class="k3d-case-card">
           <div class="k3d-case-badge-row">
             <span class="k3d-case-tag">CASE 02 · DHAKA ATELIER</span>
-            <span class="k3d-case-serial">№ STUDY-02 // 空間調和</span>
+            <span class="k3d-case-serial">№ STUDY-02 // AMBIENT BALANCE</span>
           </div>
 
           <div class="k3d-case-visual-frame">
@@ -327,7 +327,7 @@
       <div class="k3d-intake-card">
         <div class="k3d-intake-grid">
           <div class="k3d-intake-info">
-            <span class="k3d-kicker">04 // ON-DEMAND CAD INTAKE · カスタム造形</span>
+            <span class="k3d-kicker">04 // ON-DEMAND CAD INTAKE · RAPID PROTOTYPING</span>
             <h2 class="k3d-intake-heading">Upload your mesh.<br>Instant build quote.</h2>
             <p>
               Direct FDM additive manufacturing for architects, industrial designers, and makers. Send your 3D CAD geometry for automated volume estimation, slicer verification, and instant workshop intake.
@@ -361,7 +361,7 @@
     <div class="k3d-container">
       <div class="k3d-section-header">
         <div>
-          <span class="k3d-kicker">04 // POLYMER SCIENCE · 素材の真価</span>
+          <span class="k3d-kicker">05 // POLYMER SCIENCE · MATERIAL MATRIX</span>
           <h2 class="k3d-section-title">Tested for mechanical integrity.</h2>
         </div>
         <a href="/materials" class="k3d-text-link">FULL HARDWARE &amp; TOLERANCE GUIDE (5 POLYMERS) &rarr;</a>
@@ -432,7 +432,7 @@
     <div class="k3d-container">
       <div class="k3d-section-header">
         <div>
-          <span class="k3d-kicker">06 // INTERNAL INFILL ARCHITECTURE · 内部構造の美学</span>
+          <span class="k3d-kicker">06 // INTERNAL INFILL ARCHITECTURE · STRUCTURAL SCIENCE</span>
           <h2 class="k3d-section-title">The unseen mathematical matrix inside every wall.</h2>
         </div>
         <a href="/materials" class="k3d-text-link">TOLERANCE &amp; HARDWARE GUIDE &rarr;</a>
@@ -443,7 +443,7 @@
         <div class="k3d-infill-card">
           <div class="k3d-infill-header">
             <span class="k3d-infill-chip">3D ISOTROPIC MATRIX</span>
-            <h3>Gyroid Infill (三次元ジャイロイド)</h3>
+            <h3>Gyroid Infill (3D Minimal Surface)</h3>
           </div>
           <div class="k3d-infill-diagram">
             <svg viewBox="0 0 120 60" class="k3d-infill-svg" aria-hidden="true">
@@ -464,7 +464,7 @@
         <div class="k3d-infill-card">
           <div class="k3d-infill-header">
             <span class="k3d-infill-chip">CELLULAR COMPRESSION</span>
-            <h3>Honeycomb Infill (六角形蜂の巣)</h3>
+            <h3>Honeycomb Infill (Hexagonal Matrix)</h3>
           </div>
           <div class="k3d-infill-diagram">
             <svg viewBox="0 0 120 60" class="k3d-infill-svg" aria-hidden="true">
@@ -486,7 +486,7 @@
         <div class="k3d-infill-card">
           <div class="k3d-infill-header">
             <span class="k3d-infill-chip" style="background:var(--k3d-rust); color:#fff;">100% SOLID REINFORCED</span>
-            <h3>Continuous Shells (高密度外殻)</h3>
+            <h3>Continuous Shells (High-Density Walls)</h3>
           </div>
           <div class="k3d-infill-diagram">
             <svg viewBox="0 0 120 60" class="k3d-infill-svg" aria-hidden="true">
@@ -521,19 +521,29 @@
     <div class="k3d-container">
       <div class="k3d-dispatch-grid">
         <div class="k3d-dispatch-box">
-          <span class="k3d-kicker">LOGISTICS 01 // 配送市内</span>
+          <span class="k3d-kicker">LOGISTICS 01 // CITY COURIER</span>
           <h4>Inside Dhaka</h4>
           <p class="k3d-dispatch-rate">&#2547;70.00 BDT</p>
           <p>Delivered within 24—48 hours via dedicated Steadfast / Pathao courier hubs directly to your doorstep.</p>
         </div>
         <div class="k3d-dispatch-box">
-          <span class="k3d-kicker">LOGISTICS 02 // 全国配送</span>
+          <span class="k3d-kicker">LOGISTICS 02 // NATIONWIDE</span>
           <h4>Outside Dhaka</h4>
           <p class="k3d-dispatch-rate">&#2547;130.00 BDT</p>
           <p>Nationwide courier service (2—4 days) across all 64 districts in Bangladesh with live tracking updates.</p>
         </div>
         <div class="k3d-dispatch-box k3d-dispatch-highlight">
-          <span class="k3d-kicker" style="color: var(--k3d-canvas);">DIRECT WORKSHOP HOTLINE // 工房直通</span>
+          <span class="k3d-kicker" style="color: var(--k3d-canvas);">DIRECT WORKSHOP HOTLINE // STUDIO DESK</span>
+          <h4 style="color: #fff;">Need Custom Slicing?</h4>
+          <p style="color: rgba(255,255,255,0.8);">Talk directly with our Dhaka manufacturing operator for scale recommendations or rush orders.</p>
+          <a href="https://wa.me/8801754550297" target="_blank" rel="noopener" class="k3d-button" style="background:#fff; color:var(--k3d-ink); margin-top:14px; width:100%; justify-content:space-between;">
+            <span>WHATSAPP HOTLINE</span>
+            <span>+880 1754-550297 &nearr;</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
           <h4 style="color: #fff;">Need Custom Slicing?</h4>
           <p style="color: rgba(255,255,255,0.8);">Talk directly with our Dhaka manufacturing operator for scale recommendations or rush orders.</p>
           <a href="https://wa.me/8801754550297" target="_blank" rel="noopener" class="k3d-button" style="background:#fff; color:var(--k3d-ink); margin-top:14px; width:100%; justify-content:space-between;">

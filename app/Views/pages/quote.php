@@ -5,7 +5,7 @@
   <header class="k3d-quote-header">
     <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px;">
       <div>
-        <p class="k3d-kicker">CUSTOM MANUFACTURING / ON-DEMAND · 試作工房</p>
+        <p class="k3d-kicker">CUSTOM MANUFACTURING / ON-DEMAND · RAPID PROTOTYPING</p>
         <h1>Upload a mesh,<br><em>receive a live quote.</em></h1>
         <p class="k3d-quote-lead">Direct FDM additive manufacturing on our Bambu Lab A1 roster in Dhaka. Upload your CAD geometry for automated volume analysis, material pricing, and instant order intake.</p>
       </div>

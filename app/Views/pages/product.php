@@ -244,7 +244,7 @@
   <section class="k3d-japanese-craft-teardown" aria-label="Additive Manufacturing Teardown">
     <div class="k3d-teardown-header">
       <div>
-        <p class="k3d-kicker">CRAFT ANATOMY // ADDITIVE DEPOSITION TEARDOWN · 解体新書</p>
+        <p class="k3d-kicker">CRAFT ANATOMY // ADDITIVE DEPOSITION TEARDOWN</p>
         <h2>Engineered for<br><em>the layer line.</em></h2>
       </div>
       <div class="k3d-teardown-stamp">
