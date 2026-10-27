@@ -387,6 +387,25 @@
   margin: 0 0 16px;
 }
 
+.k3d-stamp-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.k3d-bento-stamp {
+  display: inline-block;
+  font-family: var(--k3d-mono);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 2px 6px;
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  color: var(--k3d-ink);
+}
+
 .k3d-card-action {
   display: flex;
   justify-content: space-between;
@@ -558,6 +577,24 @@
   background: #ffffff;
   border: 1px solid var(--k3d-ink);
   padding: 32px 24px;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.k3d-dispatch-box::before {
+  content: "+";
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  font-family: var(--k3d-mono);
+  font-size: 11px;
+  color: var(--k3d-meta);
+  line-height: 1;
+}
+
+.k3d-dispatch-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 0 var(--k3d-ink);
 }
 
 .k3d-dispatch-box h4 {
@@ -633,5 +670,9 @@
   }
   .k3d-intake-card {
     padding: 24px 16px;
+  }
+  .k3d-mat-specs {
+    grid-template-columns: 1fr;
+    gap: 8px;
   }
 }

@@ -89,40 +89,40 @@
   <!-- ── 02 / Continuous Studio Marquee (High-Speed Manufacturing Ribbon) ── -->
   <div class="k3d-marquee-bar" aria-hidden="true">
     <div class="k3d-marquee-track">
-      <span>&#10022; ADDITIVE MANUFACTURING STUDIO</span>
-      <span>&#10022; BAMBU LAB A1 CALIBRATED HARDWARE</span>
-      <span>&#10022; 0.16MM ULTRA-FINE RESOLUTION</span>
-      <span>&#10022; BIO-PLA &amp; HIGH-GRADE TPU 95A</span>
-      <span>&#10022; INSIDE DHAKA 24—48H (&#2547;70)</span>
-      <span>&#10022; NATIONWIDE COURIER DISPATCH (&#2547;130)</span>
+      <span>&#10022; KERF 3D // 伝統と先端造形</span>
+      <span>&#10022; BAMBU LAB A1 PRECISION FLEET</span>
+      <span>&#10022; 0.15MM MICRON TOLERANCE</span>
+      <span>&#10022; 5 ADVANCED POLYMERS: PLA · PETG · TPU · ASA · PA-CF</span>
+      <span>&#10022; 457 ARCHIVED SPECIMENS</span>
+      <span>&#10022; DHAKA WORKSHOP // 全国即日配送 (&#2547;70 / &#2547;130)</span>
       <span>&#10022; BKASH &amp; NAGAD VERIFIED INTAKE</span>
-      <span>&#10022; ADDITIVE MANUFACTURING STUDIO</span>
-      <span>&#10022; BAMBU LAB A1 CALIBRATED HARDWARE</span>
-      <span>&#10022; 0.16MM ULTRA-FINE RESOLUTION</span>
-      <span>&#10022; BIO-PLA &amp; HIGH-GRADE TPU 95A</span>
-      <span>&#10022; INSIDE DHAKA 24—48H (&#2547;70)</span>
-      <span>&#10022; NATIONWIDE COURIER DISPATCH (&#2547;130)</span>
+      <span>&#10022; KERF 3D // 伝統と先端造形</span>
+      <span>&#10022; BAMBU LAB A1 PRECISION FLEET</span>
+      <span>&#10022; 0.15MM MICRON TOLERANCE</span>
+      <span>&#10022; 5 ADVANCED POLYMERS: PLA · PETG · TPU · ASA · PA-CF</span>
+      <span>&#10022; 457 ARCHIVED SPECIMENS</span>
+      <span>&#10022; DHAKA WORKSHOP // 全国即日配送 (&#2547;70 / &#2547;130)</span>
       <span>&#10022; BKASH &amp; NAGAD VERIFIED INTAKE</span>
     </div>
   </div>
 
-  <!-- ── 03 / Curated Specimen Bento Grid (Editorial Artifact Exhibition) ── -->
+  <!-- ── 03 / Curated Specimen Bento Grid (Casa BRUTUS Archival Dossier) ── -->
   <section class="k3d-section k3d-bento-section">
     <div class="k3d-container">
       <div class="k3d-section-header">
         <div>
-          <span class="k3d-kicker">02 // CURATED SPECIMEN DOSSIER</span>
+          <span class="k3d-kicker">02 // CURATED SPECIMEN DOSSIER · 日常の造形美</span>
           <h2 class="k3d-section-title">Architectural objects for daily use.</h2>
         </div>
-        <a href="/shop" class="k3d-text-link">VIEW COMPLETE ARCHIVE (417+) &rarr;</a>
+        <a href="/shop" class="k3d-text-link">VIEW COMPLETE ARCHIVE (№ 001—457) &rarr;</a>
       </div>
 
       <div class="k3d-bento-grid">
         <!-- Bento Card 1: Featured AirPods Case -->
         <article class="k3d-bento-card k3d-bento-feature">
           <div class="k3d-card-meta">
-            <span>K3D-MW-001 &middot; CARRY GEAR</span>
-            <b>BAMBU A1</b>
+            <span>№ 001 // K3D-MW-001 &middot; CARRY GEAR</span>
+            <b>BAMBU A1 // 0.16MM</b>
           </div>
           <a href="/product/charlie-brown-airpods-pro-2nd-gen-case" class="k3d-bento-visual">
             <img src="/assets/images/products/charlie-brown-airpods-pro-2nd-gen-case.webp?v=<?= filemtime(FCPATH . 'assets/images/products/charlie-brown-airpods-pro-2nd-gen-case.webp') ?>" alt="Charlie Brown AirPods Pro 2nd Gen Case" loading="lazy">
@@ -131,6 +131,10 @@
             <div>
               <h3>Charlie Brown AirPods Pro 2nd Gen Case</h3>
               <p>Iconic graphic aesthetic 3D printed case engineered for precise snap-retention on AirPods Pro 2nd Gen.</p>
+              <div class="k3d-stamp-row">
+                <span class="k3d-bento-stamp">BIO-PLA · 100% SOLID</span>
+                <span class="k3d-bento-stamp">SNAP RETENTION</span>
+              </div>
             </div>
             <div class="k3d-card-action">
               <span class="k3d-card-price">৳140.00</span>
@@ -142,7 +146,7 @@
         <!-- Bento Card 2: Nebula Lamp -->
         <article class="k3d-bento-card">
           <div class="k3d-card-meta">
-            <span>K3D-MW-008 &middot; LAMPS</span>
+            <span>№ 008 // K3D-MW-008 &middot; LAMPS</span>
             <b>LIGHT KIT MH001</b>
           </div>
           <a href="/product/nebula-lamp" class="k3d-bento-visual">
@@ -152,6 +156,9 @@
             <div>
               <h3>Nebula Lamp</h3>
               <p>Soft ambient diffusers engineered for Bambu Lab LED hardware kits.</p>
+              <div class="k3d-stamp-row">
+                <span class="k3d-bento-stamp">PETG · AMBIENT DIFFUSION</span>
+              </div>
             </div>
             <div class="k3d-card-action">
               <span class="k3d-card-price">৳745.00</span>
@@ -163,7 +170,7 @@
         <!-- Bento Card 3: Mini Paracord Pulley -->
         <article class="k3d-bento-card">
           <div class="k3d-card-meta">
-            <span>K3D-MW-002 &middot; CARRY GEAR</span>
+            <span>№ 002 // K3D-MW-002 &middot; CARRY GEAR</span>
             <b>608 BEARING</b>
           </div>
           <a href="/product/mini-paracord-pulley-608-bearing---skeleton-zero" class="k3d-bento-visual">
@@ -173,6 +180,9 @@
             <div>
               <h3>Mini Paracord Pulley</h3>
               <p>Functional Skeleton Zero mechanical pulley for 608 skate bearings.</p>
+              <div class="k3d-stamp-row">
+                <span class="k3d-bento-stamp">PA-CF / PLA · LOAD BEARING</span>
+              </div>
             </div>
             <div class="k3d-card-action">
               <span class="k3d-card-price">৳125.00</span>
@@ -184,7 +194,7 @@
         <!-- Bento Card 4: DUO Pen Holder -->
         <article class="k3d-bento-card">
           <div class="k3d-card-meta">
-            <span>K3D-MW-006 &middot; ORGANIZERS</span>
+            <span>№ 006 // K3D-MW-006 &middot; ORGANIZERS</span>
             <b>MODULAR TRAY</b>
           </div>
           <a href="/product/duo-pen-holder-with-removable-tray" class="k3d-bento-visual">
@@ -194,6 +204,9 @@
             <div>
               <h3>DUO Pen Holder</h3>
               <p>Dual-compartment desk caddy with removable tool tray.</p>
+              <div class="k3d-stamp-row">
+                <span class="k3d-bento-stamp">BIO-PLA · MODULAR FIT</span>
+              </div>
             </div>
             <div class="k3d-card-action">
               <span class="k3d-card-price">৳505.00</span>
@@ -205,22 +218,22 @@
     </div>
   </section>
 
-  <!-- ── 04 / On-Page Instant CAD Intake Dropzone ── -->
+  <!-- ── 04 / On-Page Instant CAD Intake Dropzone (Balmuda Pipeline Precision) ── -->
   <section class="k3d-section k3d-intake-section" id="cad-intake">
     <div class="k3d-container">
       <div class="k3d-intake-card">
         <div class="k3d-intake-grid">
           <div class="k3d-intake-info">
-            <span class="k3d-kicker">03 // ON-DEMAND CAD INTAKE</span>
+            <span class="k3d-kicker">03 // ON-DEMAND CAD INTAKE · カスタム造形</span>
             <h2 class="k3d-intake-heading">Upload your mesh.<br>Instant build quote.</h2>
             <p>
               Direct FDM additive manufacturing for architects, industrial designers, and makers. Send your 3D CAD geometry for automated volume estimation, slicer verification, and instant workshop intake.
             </p>
             <div class="k3d-rate-chips">
-              <span>POLYMERS: BIO-PLA &amp; TPU 95A</span>
+              <span>5 POLYMERS: PLA · PETG · TPU · ASA · PA-CF</span>
               <span>LAYER RESOLUTION: 0.16—0.20 MM</span>
               <span>WORKSHOP FIT: 256³ MM CUBE</span>
-              <span>AUTOMATED GEOMETRY SLICING</span>
+              <span>BALMUDA 4-STEP CAM SLICING</span>
             </div>
           </div>
 
@@ -240,15 +253,15 @@
     </div>
   </section>
 
-  <!-- ── 05 / Polymer Science Matrix (Tactile Materials) ── -->
+  <!-- ── 05 / Polymer Science Matrix (SyuRo Elemental Materials) ── -->
   <section class="k3d-section k3d-materials-section">
     <div class="k3d-container">
       <div class="k3d-section-header">
         <div>
-          <span class="k3d-kicker">04 // POLYMER SCIENCE</span>
+          <span class="k3d-kicker">04 // POLYMER SCIENCE · 素材の真価</span>
           <h2 class="k3d-section-title">Tested for mechanical integrity.</h2>
         </div>
-        <a href="/materials" class="k3d-text-link">FULL HARDWARE &amp; TOLERANCE GUIDE &rarr;</a>
+        <a href="/materials" class="k3d-text-link">FULL HARDWARE &amp; TOLERANCE GUIDE (5 POLYMERS) &rarr;</a>
       </div>
 
       <div class="k3d-material-grid">
@@ -262,7 +275,7 @@
             <div><span>SHORE HARDNESS:</span> <strong>85D RIGID</strong></div>
             <div><span>HEAT DEFLECTION:</span> <strong>55&deg;C</strong></div>
             <div><span>LAYER RESOLUTION:</span> <strong>0.16—0.20 MM</strong></div>
-            <div><span>TENSILE STRENGTH:</span> <strong>65 MPa RIGID</strong></div>
+            <div><span>RATE (PER G):</span> <strong>&#2547;6.50 BDT</strong></div>
           </div>
         </div>
 
@@ -276,31 +289,59 @@
             <div><span>SHORE HARDNESS:</span> <strong>95A ELASTIC</strong></div>
             <div><span>MAX ELONGATION:</span> <strong>450%</strong></div>
             <div><span>LAYER RESOLUTION:</span> <strong>0.20 MM</strong></div>
-            <div><span>TENSILE STRENGTH:</span> <strong>40 MPa IMPACT</strong></div>
+            <div><span>RATE (PER G):</span> <strong>&#2547;9.75 BDT</strong></div>
+          </div>
+        </div>
+
+        <div class="k3d-material-card">
+          <div class="k3d-mat-head">
+            <span class="k3d-mat-tag">THERMAL &amp; IMPACT RESISTANT</span>
+            <h3>PETG (Polyethylene Terephthalate)</h3>
+          </div>
+          <p>High impact resistance and exceptional thermal stability. Excellent moisture resistance and chemical tolerance for functional tooling and mechanical brackets.</p>
+          <div class="k3d-mat-specs">
+            <div><span>SHORE HARDNESS:</span> <strong>80D RIGID</strong></div>
+            <div><span>HEAT DEFLECTION:</span> <strong>75&deg;C</strong></div>
+            <div><span>LAYER RESOLUTION:</span> <strong>0.16—0.20 MM</strong></div>
+            <div><span>RATE (PER G):</span> <strong>&#2547;7.50 BDT</strong></div>
+          </div>
+        </div>
+
+        <div class="k3d-material-card">
+          <div class="k3d-mat-head">
+            <span class="k3d-mat-tag" style="background: var(--k3d-rust); color: #fff;">CARBON-REINFORCED COMPOSITE</span>
+            <h3>PA-CF (Carbon Fiber Nylon)</h3>
+          </div>
+          <p>High-modulus carbon fiber micro-strands embedded in polyamide matrix. Unrivaled tensile strength, matte tactical finish, and heat deflection up to 150°C.</p>
+          <div class="k3d-mat-specs">
+            <div><span>TENSILE MODULUS:</span> <strong>7,200 MPa</strong></div>
+            <div><span>HEAT DEFLECTION:</span> <strong>150&deg;C</strong></div>
+            <div><span>LAYER RESOLUTION:</span> <strong>0.16—0.20 MM</strong></div>
+            <div><span>RATE (PER G):</span> <strong>&#2547;14.50 BDT</strong></div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ── 06 / Dhaka Workshop Dispatch & Consultation Ledger ── -->
+  <!-- ── 06 / Dhaka Workshop Dispatch & Consultation Ledger (D&DEPARTMENT Bins) ── -->
   <section class="k3d-section k3d-dispatch-section">
     <div class="k3d-container">
       <div class="k3d-dispatch-grid">
         <div class="k3d-dispatch-box">
-          <span class="k3d-kicker">LOGISTICS 01</span>
+          <span class="k3d-kicker">LOGISTICS 01 // 配送市内</span>
           <h4>Inside Dhaka</h4>
           <p class="k3d-dispatch-rate">&#2547;70.00 BDT</p>
           <p>Delivered within 24—48 hours via dedicated Steadfast / Pathao courier hubs directly to your doorstep.</p>
         </div>
         <div class="k3d-dispatch-box">
-          <span class="k3d-kicker">LOGISTICS 02</span>
+          <span class="k3d-kicker">LOGISTICS 02 // 全国配送</span>
           <h4>Outside Dhaka</h4>
           <p class="k3d-dispatch-rate">&#2547;130.00 BDT</p>
           <p>Nationwide courier service (2—4 days) across all 64 districts in Bangladesh with live tracking updates.</p>
         </div>
         <div class="k3d-dispatch-box k3d-dispatch-highlight">
-          <span class="k3d-kicker" style="color: var(--k3d-canvas);">DIRECT WORKSHOP HOTLINE</span>
+          <span class="k3d-kicker" style="color: var(--k3d-canvas);">DIRECT WORKSHOP HOTLINE // 工房直通</span>
           <h4 style="color: #fff;">Need Custom Slicing?</h4>
           <p style="color: rgba(255,255,255,0.8);">Talk directly with our Dhaka manufacturing operator for scale recommendations or rush orders.</p>
           <a href="https://wa.me/8801754550297" target="_blank" rel="noopener" class="k3d-button" style="background:#fff; color:var(--k3d-ink); margin-top:14px; width:100%; justify-content:space-between;">
