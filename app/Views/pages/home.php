@@ -218,13 +218,116 @@
     </div>
   </section>
 
-  <!-- ── 04 / On-Page Instant CAD Intake Dropzone (Balmuda Pipeline Precision) ── -->
+  <!-- ── 04 / Karimoku Case Studies (Japandi Architectural Workstation Suites) ── -->
+  <section class="k3d-section k3d-cases-section">
+    <div class="k3d-container">
+      <div class="k3d-section-header">
+        <div>
+          <span class="k3d-kicker">03 // WORKSPACE CASE STUDIES · 空間と造形研究</span>
+          <h2 class="k3d-section-title">Harmonious desk artifacts in curated environments.</h2>
+        </div>
+        <span class="k3d-cases-indicator">CASE 01 &amp; 02 // ATELIER EDITIONS</span>
+      </div>
+
+      <div class="k3d-cases-grid">
+        <!-- Case 01: The Mechanical Workspace -->
+        <article class="k3d-case-card">
+          <div class="k3d-case-badge-row">
+            <span class="k3d-case-tag">CASE 01 · DHAKA ATELIER</span>
+            <span class="k3d-case-serial">№ STUDY-01 // 卓上制御</span>
+          </div>
+
+          <div class="k3d-case-visual-frame">
+            <div class="k3d-case-crosshair top-left">+</div>
+            <div class="k3d-case-crosshair top-right">+</div>
+            <a href="/product/16-key-mechanical-keyboard-frame" class="k3d-case-main-link" aria-label="Explore Case 01 Keyboard Frame">
+              <img src="/assets/images/products/16-key-mechanical-keyboard-frame.webp?v=<?= filemtime(FCPATH . 'assets/images/products/16-key-mechanical-keyboard-frame.webp') ?>" alt="16-Key Mechanical Keyboard Frame" loading="lazy" class="k3d-case-hero-img">
+            </a>
+          </div>
+
+          <div class="k3d-case-meta">
+            <h3>The Mechanical Workspace Suite</h3>
+            <p>Engineered for high-focus typing sessions and cable discipline. Ultra-rigid carbon-nylon and matte Bio-PLA.</p>
+
+            <div class="k3d-case-ensemble">
+              <a href="/product/16-key-mechanical-keyboard-frame" class="k3d-ensemble-item">
+                <span class="k3d-ens-sku">16-KEY KEYBOARD FRAME</span>
+                <span class="k3d-ens-mat">PA-CF / PLA · ৳480</span>
+              </a>
+              <a href="/product/duo-pen-holder-with-removable-tray" class="k3d-ensemble-item">
+                <span class="k3d-ens-sku">DUO PEN HOLDER TRAY</span>
+                <span class="k3d-ens-mat">BIO-PLA · ৳505</span>
+              </a>
+              <a href="/product/5-grams-cable-clip" class="k3d-ensemble-item">
+                <span class="k3d-ens-sku">5G CABLE CLIP</span>
+                <span class="k3d-ens-mat">TPU 95A · ৳65</span>
+              </a>
+            </div>
+
+            <div class="k3d-case-footer">
+              <span class="k3d-case-note">3 COHESIVE SPECIMENS</span>
+              <a href="/shop" class="k3d-button k3d-btn-sm">
+                <span>EXPLORE ARCHIVE</span>
+                <span>&rarr;</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Case 02: Ambient Atelier & Chrono -->
+        <article class="k3d-case-card">
+          <div class="k3d-case-badge-row">
+            <span class="k3d-case-tag">CASE 02 · DHAKA ATELIER</span>
+            <span class="k3d-case-serial">№ STUDY-02 // 空間調和</span>
+          </div>
+
+          <div class="k3d-case-visual-frame">
+            <div class="k3d-case-crosshair top-left">+</div>
+            <div class="k3d-case-crosshair top-right">+</div>
+            <a href="/product/aevum---the-perpetual-calendar" class="k3d-case-main-link" aria-label="Explore Case 02 Perpetual Calendar">
+              <img src="/assets/images/products/aevum---the-perpetual-calendar.webp?v=<?= filemtime(FCPATH . 'assets/images/products/aevum---the-perpetual-calendar.webp') ?>" alt="AEVUM Perpetual Calendar" loading="lazy" class="k3d-case-hero-img">
+            </a>
+          </div>
+
+          <div class="k3d-case-meta">
+            <h3>Ambient Atelier &amp; Chrono Architecture</h3>
+            <p>Sculptural lighting diffusers paired with kinetic timekeeping and smooth bearing rotation for contemplative desk spaces.</p>
+
+            <div class="k3d-case-ensemble">
+              <a href="/product/aevum---the-perpetual-calendar" class="k3d-ensemble-item">
+                <span class="k3d-ens-sku">AEVUM PERPETUAL CALENDAR</span>
+                <span class="k3d-ens-mat">BIO-PLA · ৳340</span>
+              </a>
+              <a href="/product/nebula-lamp" class="k3d-ensemble-item">
+                <span class="k3d-ens-sku">NEBULA DIFFUSER LAMP</span>
+                <span class="k3d-ens-mat">PETG · ৳745</span>
+              </a>
+              <a href="/product/360-rotating-desk-organizer" class="k3d-ensemble-item">
+                <span class="k3d-ens-sku">360 ROTATING CADDY</span>
+                <span class="k3d-ens-mat">BIO-PLA · ৳495</span>
+              </a>
+            </div>
+
+            <div class="k3d-case-footer">
+              <span class="k3d-case-note">3 COHESIVE SPECIMENS</span>
+              <a href="/shop" class="k3d-button k3d-btn-sm">
+                <span>EXPLORE ARCHIVE</span>
+                <span>&rarr;</span>
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 05 / On-Page Instant CAD Intake Dropzone (Balmuda Pipeline Precision) ── -->
   <section class="k3d-section k3d-intake-section" id="cad-intake">
     <div class="k3d-container">
       <div class="k3d-intake-card">
         <div class="k3d-intake-grid">
           <div class="k3d-intake-info">
-            <span class="k3d-kicker">03 // ON-DEMAND CAD INTAKE · カスタム造形</span>
+            <span class="k3d-kicker">04 // ON-DEMAND CAD INTAKE · カスタム造形</span>
             <h2 class="k3d-intake-heading">Upload your mesh.<br>Instant build quote.</h2>
             <p>
               Direct FDM additive manufacturing for architects, industrial designers, and makers. Send your 3D CAD geometry for automated volume estimation, slicer verification, and instant workshop intake.
@@ -324,7 +427,96 @@
     </div>
   </section>
 
-  <!-- ── 06 / Dhaka Workshop Dispatch & Consultation Ledger (D&DEPARTMENT Bins) ── -->
+  <!-- ── 06 / Internal Infill & Architecture (HASAMI PORCELAIN Modular Science) ── -->
+  <section class="k3d-section k3d-infill-section">
+    <div class="k3d-container">
+      <div class="k3d-section-header">
+        <div>
+          <span class="k3d-kicker">06 // INTERNAL INFILL ARCHITECTURE · 内部構造の美学</span>
+          <h2 class="k3d-section-title">The unseen mathematical matrix inside every wall.</h2>
+        </div>
+        <a href="/materials" class="k3d-text-link">TOLERANCE &amp; HARDWARE GUIDE &rarr;</a>
+      </div>
+
+      <div class="k3d-infill-grid">
+        <!-- Infill 1: Gyroid -->
+        <div class="k3d-infill-card">
+          <div class="k3d-infill-header">
+            <span class="k3d-infill-chip">3D ISOTROPIC MATRIX</span>
+            <h3>Gyroid Infill (三次元ジャイロイド)</h3>
+          </div>
+          <div class="k3d-infill-diagram">
+            <svg viewBox="0 0 120 60" class="k3d-infill-svg" aria-hidden="true">
+              <path d="M 5 15 Q 20 2 35 15 T 65 15 T 95 15 T 115 15" fill="none" stroke="currentColor" stroke-width="2.5" />
+              <path d="M 5 30 Q 20 45 35 30 T 65 30 T 95 30 T 115 30" fill="none" stroke="currentColor" stroke-width="2.5" />
+              <path d="M 5 45 Q 20 32 35 45 T 65 45 T 95 45 T 115 45" fill="none" stroke="currentColor" stroke-width="2.5" />
+            </svg>
+          </div>
+          <p>Continuous sinusoidal 3D minimal surface. Distributes mechanical stress equally in all directions with zero shear failure planes.</p>
+          <div class="k3d-infill-metrics">
+            <div><span>ISOTROPIC STRENGTH</span><strong>100% UNIFORM</strong></div>
+            <div><span>OPTIMAL DENSITY</span><strong>15% — 25%</strong></div>
+            <div><span>CALIBRATED FOR</span><strong>GRIPS &amp; EDC GEAR</strong></div>
+          </div>
+        </div>
+
+        <!-- Infill 2: Honeycomb -->
+        <div class="k3d-infill-card">
+          <div class="k3d-infill-header">
+            <span class="k3d-infill-chip">CELLULAR COMPRESSION</span>
+            <h3>Honeycomb Infill (六角形蜂の巣)</h3>
+          </div>
+          <div class="k3d-infill-diagram">
+            <svg viewBox="0 0 120 60" class="k3d-infill-svg" aria-hidden="true">
+              <polygon points="20,12 35,5 50,12 50,26 35,33 20,26" fill="none" stroke="currentColor" stroke-width="2" />
+              <polygon points="50,12 65,5 80,12 80,26 65,33 50,26" fill="none" stroke="currentColor" stroke-width="2" />
+              <polygon points="35,33 50,26 65,33 65,47 50,54 35,47" fill="none" stroke="currentColor" stroke-width="2" />
+              <polygon points="65,33 80,26 95,33 95,47 80,54 65,47" fill="none" stroke="currentColor" stroke-width="2" />
+            </svg>
+          </div>
+          <p>Nature’s most weight-efficient structural truss. Provides maximum vertical crush rigidity for heavy loads and structural mounting brackets.</p>
+          <div class="k3d-infill-metrics">
+            <div><span>CRUSH RESISTANCE</span><strong>MAXIMUM RIGID</strong></div>
+            <div><span>OPTIMAL DENSITY</span><strong>20% — 35%</strong></div>
+            <div><span>CALIBRATED FOR</span><strong>SHELVES &amp; STANDS</strong></div>
+          </div>
+        </div>
+
+        <!-- Infill 3: Solid Snap-Fit Perimeters -->
+        <div class="k3d-infill-card">
+          <div class="k3d-infill-header">
+            <span class="k3d-infill-chip" style="background:var(--k3d-rust); color:#fff;">100% SOLID REINFORCED</span>
+            <h3>Continuous Shells (高密度外殻)</h3>
+          </div>
+          <div class="k3d-infill-diagram">
+            <svg viewBox="0 0 120 60" class="k3d-infill-svg" aria-hidden="true">
+              <rect x="10" y="8" width="100" height="44" fill="none" stroke="currentColor" stroke-width="2.5" />
+              <rect x="18" y="15" width="84" height="30" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3,2" />
+              <line x1="28" y1="22" x2="92" y2="22" stroke="currentColor" stroke-width="1.5" />
+              <line x1="28" y1="30" x2="92" y2="30" stroke="currentColor" stroke-width="1.5" />
+              <line x1="28" y1="38" x2="92" y2="38" stroke="currentColor" stroke-width="1.5" />
+            </svg>
+          </div>
+          <p>Quadruple concentric perimeter walls fused with 100% rectilinear solid fill. Impermeable to fluid leaks and threaded fastener torque.</p>
+          <div class="k3d-infill-metrics">
+            <div><span>WATERTIGHTNESS</span><strong>100% SEALED</strong></div>
+            <div><span>WALL PERIMETERS</span><strong>4 — 6 SHELLS</strong></div>
+            <div><span>CALIBRATED FOR</span><strong>VESSELS &amp; FASTENERS</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Workshop Tolerance Guarantee Strip -->
+      <div class="k3d-tolerance-callout">
+        <div class="k3d-tol-badge">+ 0.15 MM TOLERANCE FIT</div>
+        <div class="k3d-tol-desc">
+          <strong>HASAMI MODULAR CALIBRATION:</strong> Every KERF 3D specimen is precision-sliced on calibrated Bambu Lab A1 hardware, ensuring interlocking containers, slide-out trays, and snap-fit cases mate cleanly with zero secondary tooling or sanding.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 07 / Dhaka Workshop Dispatch & Consultation Ledger (D&DEPARTMENT Bins) ── -->
   <section class="k3d-section k3d-dispatch-section">
     <div class="k3d-container">
       <div class="k3d-dispatch-grid">

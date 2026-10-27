@@ -432,6 +432,167 @@
   background: var(--k3d-rust);
 }
 
+/* ── Karimoku Case Studies (Japandi Architectural Suites) ─── */
+.k3d-cases-section {
+  border-bottom: 2px solid var(--k3d-ink);
+}
+
+.k3d-cases-indicator {
+  font-family: var(--k3d-mono);
+  font-size: 10px;
+  color: var(--k3d-meta);
+  letter-spacing: 0.1em;
+}
+
+.k3d-cases-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.k3d-case-card {
+  background: #ffffff;
+  border: 1px solid var(--k3d-ink);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.k3d-case-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 6px 6px 0 var(--k3d-ink);
+}
+
+.k3d-case-badge-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--k3d-mono);
+  font-size: 9px;
+  border-bottom: 1px dashed var(--k3d-border);
+  padding-bottom: 10px;
+  margin-bottom: 16px;
+}
+
+.k3d-case-tag {
+  font-weight: 700;
+  color: var(--k3d-ink);
+}
+
+.k3d-case-serial {
+  color: var(--k3d-meta);
+  letter-spacing: 0.05em;
+}
+
+.k3d-case-visual-frame {
+  background: var(--k3d-canvas);
+  border: 1px solid var(--k3d-border);
+  padding: 24px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 280px;
+}
+
+.k3d-case-crosshair {
+  position: absolute;
+  font-family: var(--k3d-mono);
+  font-size: 11px;
+  color: var(--k3d-meta);
+  line-height: 1;
+}
+
+.k3d-case-crosshair.top-left { top: 8px; left: 10px; }
+.k3d-case-crosshair.top-right { top: 8px; right: 10px; }
+
+.k3d-case-main-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.k3d-case-hero-img {
+  max-width: 100%;
+  max-height: 240px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.k3d-case-main-link:hover .k3d-case-hero-img {
+  transform: scale(1.03);
+}
+
+.k3d-case-meta {
+  margin-top: 20px;
+}
+
+.k3d-case-meta h3 {
+  font-family: var(--k3d-display);
+  font-size: 22px;
+  line-height: 1.25;
+  margin: 0 0 8px;
+}
+
+.k3d-case-meta p {
+  font-size: 13px;
+  color: var(--k3d-secondary);
+  line-height: 1.5;
+  margin: 0 0 16px;
+}
+
+.k3d-case-ensemble {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-top: 1px dashed var(--k3d-border);
+  border-bottom: 1px dashed var(--k3d-border);
+  padding: 12px 0;
+  margin-bottom: 16px;
+}
+
+.k3d-ensemble-item {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--k3d-mono);
+  font-size: 10px;
+  text-decoration: none;
+  color: inherit;
+  padding: 4px 6px;
+  border-radius: 2px;
+  transition: background 0.15s ease;
+}
+
+.k3d-ensemble-item:hover {
+  background: var(--k3d-canvas);
+  color: var(--k3d-rust);
+}
+
+.k3d-ens-sku {
+  font-weight: 700;
+}
+
+.k3d-ens-mat {
+  color: var(--k3d-meta);
+}
+
+.k3d-case-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.k3d-case-note {
+  font-family: var(--k3d-mono);
+  font-size: 9px;
+  color: var(--k3d-meta);
+  letter-spacing: 0.05em;
+}
+
 /* ── On-Page CAD Intake Dropzone ──────────────────────────── */
 .k3d-intake-card {
   background: #ffffff;
@@ -566,6 +727,124 @@
   font-size: 11px;
 }
 
+/* ── HASAMI PORCELAIN Infill Architecture ─────────────────── */
+.k3d-infill-section {
+  border-bottom: 2px solid var(--k3d-ink);
+}
+
+.k3d-infill-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.k3d-infill-card {
+  background: #ffffff;
+  border: 1px solid var(--k3d-ink);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.k3d-infill-chip {
+  display: inline-block;
+  font-family: var(--k3d-mono);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 2px 6px;
+  background: var(--k3d-canvas);
+  border: 1px solid var(--k3d-border);
+  color: var(--k3d-ink);
+  margin-bottom: 8px;
+}
+
+.k3d-infill-header h3 {
+  font-family: var(--k3d-display);
+  font-size: 18px;
+  margin: 0;
+}
+
+.k3d-infill-diagram {
+  background: var(--k3d-canvas);
+  border: 1px dashed var(--k3d-border);
+  padding: 16px;
+  margin: 16px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--k3d-rust);
+}
+
+.k3d-infill-svg {
+  width: 100%;
+  max-height: 60px;
+}
+
+.k3d-infill-card p {
+  font-size: 13px;
+  color: var(--k3d-secondary);
+  line-height: 1.5;
+  margin: 0 0 16px;
+}
+
+.k3d-infill-metrics {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  border-top: 1px dashed var(--k3d-border);
+  padding-top: 12px;
+  font-family: var(--k3d-mono);
+}
+
+.k3d-infill-metrics div {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+}
+
+.k3d-infill-metrics div span {
+  color: var(--k3d-meta);
+}
+
+.k3d-infill-metrics div strong {
+  color: var(--k3d-ink);
+}
+
+.k3d-tolerance-callout {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-top: 32px;
+  background: #ffffff;
+  border: 2px solid var(--k3d-ink);
+  padding: 20px 24px;
+  box-shadow: 4px 4px 0 var(--k3d-ink);
+}
+
+.k3d-tol-badge {
+  font-family: var(--k3d-mono);
+  font-size: 11px;
+  font-weight: 800;
+  background: var(--k3d-rust);
+  color: #fff;
+  padding: 6px 12px;
+  white-space: nowrap;
+  letter-spacing: 0.05em;
+}
+
+.k3d-tol-desc {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--k3d-ink);
+}
+
+.k3d-tol-desc strong {
+  font-family: var(--k3d-mono);
+  font-size: 11px;
+}
+
 /* ── Dispatch & Logistics ─────────────────────────────────── */
 .k3d-dispatch-grid {
   display: grid;
@@ -636,6 +915,10 @@
   .k3d-bento-feature {
     grid-column: span 2;
   }
+  .k3d-cases-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
   .k3d-intake-grid {
     grid-template-columns: 1fr;
     gap: 32px;
@@ -644,6 +927,14 @@
   .k3d-dispatch-grid {
     grid-template-columns: 1fr;
     gap: 20px;
+  }
+  .k3d-infill-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .k3d-tolerance-callout {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 
@@ -668,11 +959,24 @@
     grid-column: span 1;
     grid-template-columns: 1fr;
   }
+  .k3d-case-card {
+    padding: 20px 16px;
+  }
+  .k3d-case-visual-frame {
+    min-height: 220px;
+    padding: 16px;
+  }
   .k3d-intake-card {
     padding: 24px 16px;
   }
   .k3d-mat-specs {
     grid-template-columns: 1fr;
     gap: 8px;
+  }
+  .k3d-infill-card {
+    padding: 20px 16px;
+  }
+  .k3d-tolerance-callout {
+    padding: 16px;
   }
 }
