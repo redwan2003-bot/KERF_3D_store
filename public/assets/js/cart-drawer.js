@@ -54,6 +54,40 @@
     if (navBadge) navBadge.textContent = data.total_items;
     if (drawerBadge) drawerBadge.textContent = `${data.total_items} ${data.total_items === 1 ? 'ITEM' : 'ITEMS'}`;
 
+    // Free Shipping Goal Tracker
+    const fsBar   = document.getElementById('k3d-free-shipping-bar');
+    const fsText  = document.getElementById('k3d-fs-text');
+    const fsBadge = document.getElementById('k3d-fs-badge');
+    const fsFill  = document.getElementById('k3d-free-shipping-fill');
+    const insideRateEl = document.getElementById('k3d-rate-inside');
+    const dhakaSubtext = document.getElementById('k3d-dhaka-subtext');
+
+    if (fsBar && fsText && fsBadge && fsFill) {
+      if (data.total_items === 0) {
+        fsBar.classList.remove('is-unlocked');
+        fsText.textContent = 'FREE DHAKA DELIVERY ON ORDERS OVER ৳1,200';
+        fsBadge.textContent = 'GOAL: ৳1,200';
+        fsFill.style.width = '0%';
+        if (insideRateEl) insideRateEl.textContent = '৳70.00';
+        if (dhakaSubtext) dhakaSubtext.textContent = '24—48H Hub Delivery';
+      } else if (data.is_free_shipping) {
+        fsBar.classList.add('is-unlocked');
+        fsText.innerHTML = '🎉 <strong>FREE DHAKA DELIVERY UNLOCKED!</strong>';
+        fsBadge.textContent = 'UNLOCKED';
+        fsFill.style.width = '100%';
+        if (insideRateEl) insideRateEl.innerHTML = '<span style="color:#16a34a; font-weight:700;">FREE (৳0)</span>';
+        if (dhakaSubtext) dhakaSubtext.textContent = 'Free Atelier Delivery Applied';
+      } else {
+        fsBar.classList.remove('is-unlocked');
+        const neededFmt = '৳' + Number(data.amount_needed_for_free).toFixed(2);
+        fsText.innerHTML = `ADD <strong>${neededFmt}</strong> MORE FOR FREE DHAKA DELIVERY`;
+        fsBadge.textContent = `${data.free_shipping_progress}%`;
+        fsFill.style.width = `${data.free_shipping_progress}%`;
+        if (insideRateEl) insideRateEl.textContent = '৳70.00';
+        if (dhakaSubtext) dhakaSubtext.textContent = '24—48H Hub Delivery';
+      }
+    }
+
     // Subtotal
     if (subtotalEl) subtotalEl.textContent = data.subtotal_fmt;
 

@@ -208,25 +208,35 @@ class Cart extends BaseController
             }
         }
 
-        $shippingInside  = 70.00;
-        $shippingOutside = 130.00;
+        $freeShippingThreshold = 1200.00;
+        $isFreeShipping        = ($subtotal >= $freeShippingThreshold);
+        $shippingInside        = $isFreeShipping ? 0.00 : 70.00;
+        $shippingOutside       = 130.00;
+        $amountNeeded          = max(0.00, $freeShippingThreshold - $subtotal);
+        $progressPct           = ($freeShippingThreshold > 0)
+            ? min(100, round(($subtotal / $freeShippingThreshold) * 100))
+            : 100;
 
         return $this->response->setJSON([
-            'success'              => true,
-            'items'                => array_values($cart),
-            'total_items'          => $totalItems,
-            'subtotal'             => round($subtotal, 2),
-            'subtotal_fmt'         => '৳' . number_format($subtotal, 2),
-            'deposit_total'        => round($depositTotal, 2),
-            'deposit_total_fmt'    => '৳' . number_format($depositTotal, 2),
-            'shipping_inside'      => $shippingInside,
-            'shipping_outside'     => $shippingOutside,
-            'shipping_inside_fmt'  => '৳' . number_format($shippingInside, 2),
-            'shipping_outside_fmt' => '৳' . number_format($shippingOutside, 2),
-            'total_inside'         => round($subtotal + $shippingInside, 2),
-            'total_inside_fmt'     => '৳' . number_format($subtotal + $shippingInside, 2),
-            'total_outside'        => round($subtotal + $shippingOutside, 2),
-            'total_outside_fmt'    => '৳' . number_format($subtotal + $shippingOutside, 2),
+            'success'                 => true,
+            'items'                   => array_values($cart),
+            'total_items'             => $totalItems,
+            'subtotal'                => round($subtotal, 2),
+            'subtotal_fmt'            => '৳' . number_format($subtotal, 2),
+            'deposit_total'           => round($depositTotal, 2),
+            'deposit_total_fmt'       => '৳' . number_format($depositTotal, 2),
+            'free_shipping_threshold' => $freeShippingThreshold,
+            'is_free_shipping'        => $isFreeShipping,
+            'amount_needed_for_free'  => round($amountNeeded, 2),
+            'free_shipping_progress'  => $progressPct,
+            'shipping_inside'         => $shippingInside,
+            'shipping_outside'        => $shippingOutside,
+            'shipping_inside_fmt'     => $isFreeShipping ? 'FREE (৳0.00)' : '৳' . number_format($shippingInside, 2),
+            'shipping_outside_fmt'    => '৳' . number_format($shippingOutside, 2),
+            'total_inside'            => round($subtotal + $shippingInside, 2),
+            'total_inside_fmt'        => '৳' . number_format($subtotal + $shippingInside, 2),
+            'total_outside'           => round($subtotal + $shippingOutside, 2),
+            'total_outside_fmt'       => '৳' . number_format($subtotal + $shippingOutside, 2),
         ]);
     }
 }

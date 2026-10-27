@@ -32,10 +32,57 @@
         <a href="<?= $adminWaHref ?>" target="_blank" rel="noopener" class="admin-btn" style="background:#25D366; color:#fff; border:0;">
             WHATSAPP CUSTOMER ↗
         </a>
-        <button type="button" onclick="window.print()" class="admin-btn secondary" style="cursor:pointer;" title="Print Workshop Packing Slip">
-            PRINT TICKET ↗
-        </button>
+        <a href="/admin/orders/<?= esc($order['id']) ?>/packing-slip" target="_blank" rel="noopener" class="admin-btn secondary" title="View & Print Workshop Packing Slip">
+            PRINT PACKING SLIP ↗
+        </a>
         <a href="/admin/orders" class="admin-btn secondary">&larr; Back to Order Queue</a>
+    </div>
+</div>
+
+<!-- 1-Click Mobile Operator Lifecycle Stepper -->
+<div class="admin-quick-stepper" style="background: #14161d; border: 1px solid var(--admin-border); padding: 16px 20px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; border-radius: 4px;">
+    <div>
+        <span style="font-family: var(--font-mono); font-size: 10px; color: var(--admin-muted); text-transform: uppercase; letter-spacing: 0.05em;">1-CLICK OPERATOR LIFECYCLE</span>
+        <div style="font-weight: 700; font-size: 14px; color: #fff; margin-top: 2px;">
+            CURRENT STAGE: <span class="admin-badge badge-<?= esc($order['order_status']) ?>"><?= strtoupper(esc($order['order_status'])) ?></span>
+        </div>
+    </div>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <?php if ($order['order_status'] === 'received'): ?>
+            <form action="/admin/orders/<?= esc($order['id']) ?>/status" method="POST" style="display:inline;">
+                <?= csrf_field() ?>
+                <input type="hidden" name="order_status" value="slicing">
+                <button type="submit" class="admin-btn" style="background:#3b82f6; color:#fff; border:0; cursor:pointer;">
+                    ⚡ ADVANCE TO SLICING &rarr;
+                </button>
+            </form>
+        <?php elseif ($order['order_status'] === 'slicing'): ?>
+            <form action="/admin/orders/<?= esc($order['id']) ?>/status" method="POST" style="display:inline;">
+                <?= csrf_field() ?>
+                <input type="hidden" name="order_status" value="printing">
+                <button type="submit" class="admin-btn" style="background:#f59e0b; color:#fff; border:0; cursor:pointer;">
+                    ⚡ START PRINTING ON A1 &rarr;
+                </button>
+            </form>
+        <?php elseif ($order['order_status'] === 'printing'): ?>
+            <form action="/admin/orders/<?= esc($order['id']) ?>/status" method="POST" style="display:inline;">
+                <?= csrf_field() ?>
+                <input type="hidden" name="order_status" value="dispatched">
+                <button type="submit" class="admin-btn" style="background:#10b981; color:#fff; border:0; cursor:pointer;">
+                    ⚡ MARK DISPATCHED TO COURIER &rarr;
+                </button>
+            </form>
+        <?php elseif ($order['order_status'] === 'dispatched'): ?>
+            <form action="/admin/orders/<?= esc($order['id']) ?>/status" method="POST" style="display:inline;">
+                <?= csrf_field() ?>
+                <input type="hidden" name="order_status" value="delivered">
+                <button type="submit" class="admin-btn" style="background:#059669; color:#fff; border:0; cursor:pointer;">
+                    ✔ MARK DELIVERED / COMPLETED
+                </button>
+            </form>
+        <?php else: ?>
+            <span style="font-family: var(--font-mono); font-size: 11px; color: #10b981; font-weight: 700;">ORDER COMPLETE &amp; ARCHIVED</span>
+        <?php endif; ?>
     </div>
 </div>
 

@@ -75,6 +75,35 @@ class Orders extends BaseController
         return view('admin/order_detail', $data);
     }
 
+    public function packingSlip($orderId): string
+    {
+        $db = \Config\Database::connect();
+        $order = $db->table('orders')
+            ->select('orders.*, customers.name as customer_name, customers.phone as customer_phone, customers.email as customer_email, customers.address_line, customers.is_dhaka')
+            ->join('customers', 'customers.id = orders.customer_id', 'left')
+            ->where('orders.id', $orderId)
+            ->orWhere('orders.order_number', $orderId)
+            ->get()->getRowArray();
+
+        if (!$order) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound("Order not found: {$orderId}");
+        }
+
+        $items = $db->table('order_items')
+            ->select('order_items.*, products.sku as prod_sku')
+            ->join('products', 'products.id = order_items.product_id', 'left')
+            ->where('order_items.order_id', $order['id'])
+            ->get()->getResultArray();
+
+        $data = [
+            'title' => "Packing Slip — {$order['order_number']}",
+            'order' => $order,
+            'items' => $items,
+        ];
+
+        return view('admin/packing_slip', $data);
+    }
+
     public function verifyPayment($orderId)
     {
         $status = $this->request->getPost('payment_status') ?: 'verified';

@@ -466,3 +466,110 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     align-items: flex-start;
   }
 }
+
+/* ==============================================================================
+   Floating Workshop WhatsApp Concierge Pill
+   ============================================================================== */
+.k3d-whatsapp-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 990;
+  pointer-events: auto;
+}
+
+.k3d-whatsapp-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: #14161c;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  padding: 8px 16px 8px 10px;
+  text-decoration: none;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 999px;
+}
+
+.k3d-whatsapp-pill:hover {
+  background: #191d24;
+  border-color: #25D366;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(37, 211, 102, 0.28);
+  color: #ffffff;
+}
+
+.k3d-wa-icon-wrap {
+  position: relative;
+  width: 34px;
+  height: 34px;
+  background: #25D366;
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.k3d-wa-radar-ping {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 9px;
+  height: 9px;
+  background: #22c55e;
+  border: 2px solid #14161c;
+  border-radius: 50%;
+  animation: k3d-radar-pulse 2s infinite ease-out;
+}
+
+@keyframes k3d-radar-pulse {
+  0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.8); }
+  70% { transform: scale(1.1); box-shadow: 0 0 0 7px rgba(34, 197, 94, 0); }
+  100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+.k3d-wa-meta {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.k3d-wa-status {
+  font-family: var(--k3d-mono);
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #25D366;
+}
+
+.k3d-wa-label {
+  font-family: var(--k3d-display);
+  font-size: 12px;
+  font-weight: 600;
+  color: #f6f3eb;
+  letter-spacing: -0.01em;
+}
+
+@media (max-width: 650px) {
+  .k3d-whatsapp-fab {
+    bottom: 16px;
+    right: 14px;
+  }
+  .k3d-wa-label {
+    display: none;
+  }
+  .k3d-whatsapp-pill {
+    padding: 6px 12px 6px 6px;
+    gap: 8px;
+  }
+  .k3d-wa-status {
+    font-size: 8px;
+  }
+  .k3d-wa-icon-wrap {
+    width: 30px;
+    height: 30px;
+  }
+}

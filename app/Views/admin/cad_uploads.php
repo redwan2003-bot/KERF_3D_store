@@ -88,10 +88,16 @@
                                         <a href="https://drive.google.com/uc?export=download&id=<?= esc($u['drive_file_id']) ?>" class="admin-btn sm" style="background:#10b981; border-color:#059669; color:#fff;" title="Direct download file for Bambu Studio slicing">
                                             Download ↓
                                         </a>
+                                    <?php elseif (!empty($u['stored_filename'])): ?>
+                                        <a href="/admin/cad-uploads/download/<?= esc($u['session_id'] ?? 'default') ?>/<?= esc($u['stored_filename']) ?>" class="admin-btn sm" style="background:#3b82f6; border-color:#2563eb; color:#fff;" title="Local download file for Bambu Studio slicing">
+                                            Download ↓
+                                        </a>
                                     <?php endif; ?>
-                                    <a href="<?= esc($u['drive_url']) ?>" target="_blank" rel="noopener" class="admin-btn sm secondary" title="View file in Google Drive">
-                                        Drive ↗
-                                    </a>
+                                    <?php if (!empty($u['drive_url'])): ?>
+                                        <a href="<?= esc($u['drive_url']) ?>" target="_blank" rel="noopener" class="admin-btn sm secondary" title="View file in Google Drive">
+                                            Drive ↗
+                                        </a>
+                                    <?php endif; ?>
                                 </div>
                             </td>
                         </tr>

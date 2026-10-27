@@ -53,6 +53,9 @@
     <!-- Site Footer -->
     <?= $this->include('partials/site_footer') ?>
 
+    <!-- Floating Workshop WhatsApp Concierge -->
+    <?= $this->include('partials/floating_whatsapp') ?>
+
     <!-- Global Cart Drawer (Receipt Panel) -->
     <?= $this->include('partials/cart_drawer') ?>
 

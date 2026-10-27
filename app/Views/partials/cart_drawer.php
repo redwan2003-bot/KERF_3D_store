@@ -16,6 +16,17 @@
       <span id="k3d-cart-timestamp"><?= date('d M Y / H:i') ?></span>
     </div>
 
+    <!-- Free Delivery Goal Bar -->
+    <div class="k3d-free-shipping-bar" id="k3d-free-shipping-bar">
+      <div class="k3d-free-shipping-msg">
+        <span id="k3d-fs-text">ADD ৳1,200.00 FOR FREE DHAKA DELIVERY</span>
+        <strong id="k3d-fs-badge" class="k3d-fs-tag">GOAL: ৳1,200</strong>
+      </div>
+      <div class="k3d-free-shipping-track">
+        <div class="k3d-free-shipping-fill" id="k3d-free-shipping-fill" style="width: 0%;"></div>
+      </div>
+    </div>
+
     <!-- Dynamic Cart Items Container -->
     <div class="k3d-receipt-items" id="k3d-cart-items-container">
       <div class="k3d-cart-empty-notice" style="padding: 40px 0; text-align: center; color: var(--k3d-meta); font-family: var(--k3d-mono); font-size: 11px;">
@@ -30,9 +41,9 @@
         <input type="radio" name="drawer-shipping-zone" value="inside_dhaka" checked onchange="window.k3dCart && window.k3dCart.setShipping(this.value)"> 
         <div>
           <strong>INSIDE DHAKA</strong>
-          <small>24—48H Hub Delivery</small>
+          <small id="k3d-dhaka-subtext">24—48H Hub Delivery</small>
         </div>
-        <b>৳70.00</b>
+        <b id="k3d-rate-inside">৳70.00</b>
       </label>
       <label class="k3d-shipping-option">
         <input type="radio" name="drawer-shipping-zone" value="outside_dhaka" onchange="window.k3dCart && window.k3dCart.setShipping(this.value)"> 
@@ -40,7 +51,7 @@
           <strong>OUTSIDE DHAKA</strong>
           <small>2—4 Days Nationwide Courier</small>
         </div>
-        <b>৳130.00</b>
+        <b id="k3d-rate-outside">৳130.00</b>
       </label>
     </div>
 

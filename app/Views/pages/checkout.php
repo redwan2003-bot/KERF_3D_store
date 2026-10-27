@@ -40,11 +40,17 @@
             <span>02 / DELIVERY REGION</span>
             <b>COURIER RATE</b>
           </div>
+          <?php if (!empty($isFreeShipping)): ?>
+            <div style="background: rgba(34, 197, 94, 0.08); border: 1px solid rgba(34, 197, 94, 0.35); padding: 8px 12px; margin-bottom: 12px; font-family: var(--k3d-mono); font-size: 10px; color: #166534; display: flex; align-items: center; justify-content: space-between;">
+              <span>🎉 FREE DHAKA DELIVERY UNLOCKED (ORDER OVER ৳1,200)</span>
+              <strong style="background: #16a34a; color: #fff; padding: 1px 6px; font-size: 9px;">APPLIED</strong>
+            </div>
+          <?php endif; ?>
           <div class="k3d-region-options">
             <label>
-              <input type="radio" name="shipping_zone" value="inside_dhaka" <?= ($selectedZone ?? 'inside_dhaka') === 'inside_dhaka' ? 'checked' : '' ?> onchange="updateShipping(70)">
+              <input type="radio" name="shipping_zone" value="inside_dhaka" <?= ($selectedZone ?? 'inside_dhaka') === 'inside_dhaka' ? 'checked' : '' ?> onchange="updateShipping(<?= !empty($isFreeShipping) ? '0' : '70' ?>)">
               <strong>INSIDE DHAKA</strong>
-              <span>৳70 · 24—48H</span>
+              <span><?= !empty($isFreeShipping) ? '<b style="color:#16a34a;">FREE (৳0.00)</b> · 24—48H' : '৳70 · 24—48H' ?></span>
             </label>
             <label>
               <input type="radio" name="shipping_zone" value="outside_dhaka" <?= ($selectedZone ?? 'inside_dhaka') === 'outside_dhaka' ? 'checked' : '' ?> onchange="updateShipping(130)">
@@ -144,7 +150,7 @@
 
 <script>
     function updateShipping(rate) {
-        document.getElementById('k3d-inv-shipping').innerText = '৳' + rate.toFixed(2);
+        document.getElementById('k3d-inv-shipping').innerText = (rate === 0) ? 'FREE (৳0.00)' : ('৳' + rate.toFixed(2));
         const subtotal = <?= (float) ($cartSubtotal ?? 780) ?>;
         const total = subtotal + rate;
         document.getElementById('k3d-inv-total').innerText = '৳' + total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });

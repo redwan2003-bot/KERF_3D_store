@@ -17,17 +17,21 @@ class Checkout extends BaseController
         $selectedZone = in_array($this->request->getGet('zone'), ['inside_dhaka', 'outside_dhaka'], true)
             ? $this->request->getGet('zone')
             : 'inside_dhaka';
-        $shippingCost = ($selectedZone === 'inside_dhaka') ? 70.00 : 130.00;
+        $freeShippingThreshold = 1200.00;
+        $isFreeShipping = ($selectedZone === 'inside_dhaka' && $subtotal >= $freeShippingThreshold);
+        $shippingCost   = $isFreeShipping ? 0.00 : (($selectedZone === 'inside_dhaka') ? 70.00 : 130.00);
 
         $data = [
-            'title'        => 'Checkout & Workshop Order Intake — Kerf 3D Studio',
-            'pageCss'      => ['checkout.css'],
-            'cartItems'    => array_values($cart),
-            'cartSubtotal' => $subtotal,
-            'selectedZone' => $selectedZone,
-            'shippingCost' => $shippingCost,
-            'mfsNumber'    => env('BKASH_ACCOUNT_NUMBER', '01754550297'),
-            'nagadNumber'  => env('NAGAD_ACCOUNT_NUMBER', '01754550297'),
+            'title'                 => 'Checkout & Workshop Order Intake — Kerf 3D Studio',
+            'pageCss'               => ['checkout.css'],
+            'cartItems'             => array_values($cart),
+            'cartSubtotal'          => $subtotal,
+            'selectedZone'          => $selectedZone,
+            'shippingCost'          => $shippingCost,
+            'isFreeShipping'        => $isFreeShipping,
+            'freeShippingThreshold' => $freeShippingThreshold,
+            'mfsNumber'             => env('BKASH_ACCOUNT_NUMBER', '01754550297'),
+            'nagadNumber'           => env('NAGAD_ACCOUNT_NUMBER', '01754550297'),
         ];
 
         return view('pages/checkout', $data);
@@ -61,8 +65,10 @@ class Checkout extends BaseController
             $subtotal = 780.00;
         }
 
-        $shippingCost = ($zone === 'inside_dhaka') ? 70.00 : 130.00;
-        $totalAmount  = $subtotal + $shippingCost;
+        $freeShippingThreshold = 1200.00;
+        $isFreeShipping = ($zone === 'inside_dhaka' && $subtotal >= $freeShippingThreshold);
+        $shippingCost   = $isFreeShipping ? 0.00 : (($zone === 'inside_dhaka') ? 70.00 : 130.00);
+        $totalAmount    = $subtotal + $shippingCost;
 
         $db = \Config\Database::connect();
         $db->transStart();

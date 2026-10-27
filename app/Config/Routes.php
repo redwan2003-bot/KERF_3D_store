@@ -54,6 +54,7 @@ $routes->group('admin', ['filter' => 'adminauth'], static function ($routes) {
     $routes->get('api/telemetry', 'Admin\Dashboard::telemetry');
     $routes->get('orders', 'Admin\Orders::index');
     $routes->get('orders/(:segment)', 'Admin\Orders::view/$1');
+    $routes->get('orders/(:segment)/packing-slip', 'Admin\Orders::packingSlip/$1');
     $routes->post('orders/(:segment)/verify-payment', 'Admin\Orders::verifyPayment/$1');
     $routes->post('orders/(:segment)/status', 'Admin\Orders::updateStatus/$1');
     $routes->get('cad-uploads', 'Admin\CadUploads::index');
