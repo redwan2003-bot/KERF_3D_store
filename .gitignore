@@ -52,3 +52,8 @@ Desktop.ini
 *.avi
 *.mov
 writable/recordings/
+
+# Database dumps and local archives
+backups/
+*.sql
+*.sql.gz
