@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>KERF 3D STUDIO — Server Handover & Hosting Deployment Guide</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
+    @page {
+      size: A4;
+      margin: 16mm 14mm 16mm 14mm;
+      @bottom-right {
+        content: counter(page);
+      }
+    }
+
+    :root {
+      --ink: #0f1115;
+      --paper: #ffffff;
+      --bg: #f8f6f0;
+      --border: #dfd9cf;
+      --rust: #b85d38;
+      --forest: #166534;
+      --meta: #6e655d;
+      --code-bg: #1e222b;
+      --mono: "Space Mono", monospace;
+      --sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--sans);
+      font-size: 10.5pt;
+      line-height: 1.55;
+      color: var(--ink);
+      background: var(--paper);
+      padding: 0;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    .doc-header {
+      border-bottom: 2.5px solid var(--ink);
+      padding-bottom: 14px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .kicker {
+      font-family: var(--mono);
+      font-size: 8pt;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--rust);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    h1 {
+      font-size: 20pt;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      color: var(--ink);
+    }
+
+    .doc-meta {
+      text-align: right;
+      font-family: var(--mono);
+      font-size: 7.5pt;
+      color: var(--meta);
+      line-height: 1.4;
+    }
+
+    .badge {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 7pt;
+      font-weight: 700;
+      padding: 2px 6px;
+      background: var(--ink);
+      color: #fff;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+
+    h2 {
+      font-size: 12pt;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin-top: 18px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 4px;
+      color: var(--ink);
+    }
+
+    h2 .section-num {
+      font-family: var(--mono);
+      font-size: 9pt;
+      color: var(--rust);
+      font-weight: 700;
+    }
+
+    h3 {
+      font-size: 10.5pt;
+      font-weight: 700;
+      margin-top: 12px;
+      margin-bottom: 6px;
+      color: var(--ink);
+    }
+
+    p {
+      margin-bottom: 8px;
+    }
+
+    strong {
+      font-weight: 700;
+    }
+
+    /* Callout Card */
+    .callout {
+      background: #faf7f2;
+      border-left: 3.5px solid var(--rust);
+      padding: 10px 14px;
+      margin: 12px 0;
+      font-size: 9.5pt;
+      border-top: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .callout-title {
+      font-family: var(--mono);
+      font-size: 8pt;
+      font-weight: 700;
+      color: var(--rust);
+      letter-spacing: 0.05em;
+      margin-bottom: 3px;
+      text-transform: uppercase;
+    }
+
+    .callout-green {
+      background: #f0fdf4;
+      border-left-color: #16a34a;
+    }
+
+    .callout-green .callout-title {
+      color: #166534;
+    }
+
+    /* Code Blocks */
+    pre {
+      font-family: var(--mono);
+      font-size: 8pt;
+      line-height: 1.45;
+      background: var(--code-bg);
+      color: #f1f5f9;
+      padding: 10px 12px;
+      margin: 8px 0 12px;
+      border: 1px solid #334155;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    code {
+      font-family: var(--mono);
+      font-size: 8.5pt;
+      background: #f1ede4;
+      color: #8b3c1b;
+      padding: 1px 4px;
+      border: 1px solid #dfd7cb;
+    }
+
+    pre code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+      border: none;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0 14px;
+      font-size: 9pt;
+    }
+
+    th {
+      font-family: var(--mono);
+      font-size: 7.5pt;
+      font-weight: 700;
+      text-align: left;
+      padding: 6px 8px;
+      background: #ede8df;
+      border: 1px solid var(--border);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    td {
+      padding: 6px 8px;
+      border: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    tr:nth-child(even) td {
+      background: #faf8f5;
+    }
+
+    /* Step boxes */
+    .step-box {
+      margin-bottom: 12px;
+      page-break-inside: avoid;
+    }
+
+    .step-title {
+      font-family: var(--mono);
+      font-size: 8.5pt;
+      font-weight: 700;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+
+    .step-badge {
+      background: var(--ink);
+      color: #fff;
+      font-size: 7pt;
+      padding: 1px 5px;
+    }
+
+    ul, ol {
+      margin-left: 20px;
+      margin-bottom: 8px;
+      font-size: 9.5pt;
+    }
+
+    li {
+      margin-bottom: 3px;
+    }
+
+    .page-break {
+      page-break-before: always;
+    }
+
+    .doc-footer {
+      margin-top: 24px;
+      padding-top: 10px;
+      border-top: 1px dashed var(--border);
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--mono);
+      font-size: 7.5pt;
+      color: var(--meta);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Page 1 -->
+  <div class="doc-header">
+    <div>
+      <div class="kicker">PRODUCTION RUNTIME &amp; DEPLOYMENT SPECIFICATION</div>
+      <h1>KERF 3D STUDIO</h1>
+      <p style="font-size: 9.5pt; color: var(--meta); margin-top: 2px;">Precision Additive Manufacturing · Server Handover Documentation</p>
+    </div>
+    <div class="doc-meta">
+      <div class="badge">HOSTING SPEC V2.4</div>
+      <div>STACK: CodeIgniter 4.7 / PHP 8.2+</div>
+      <div>DATABASE: MariaDB 10.11+</div>
+      <div>DATE: October 2026</div>
+    </div>
+  </div>
+
+  <div class="callout callout-green">
+    <div class="callout-title">✦ Zero-Conflict Host Isolation</div>
+    Kerf 3D Studio is designed to be <strong>100% self-contained</strong>. When deployed on a shared VPS with other existing websites, it runs inside lightweight isolated containers or a dedicated virtual host, ensuring <strong>zero port conflicts, zero dependency interference, and zero file pollution</strong>.
+  </div>
+
+  <h2><span class="section-num">01 //</span> SYSTEM ARCHITECTURE &amp; DIRECTORY MAP</h2>
+  
+  <p>The codebase strictly adheres to CodeIgniter 4 framework separation. Only the <code>public/</code> folder is exposed to incoming HTTP traffic:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 25%;">Directory / File</th>
+        <th style="width: 25%;">Purpose</th>
+        <th>Hosting Permission &amp; Security Rule</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>app/</code></td>
+        <td>Core App Logic</td>
+        <td>Controllers, Models, Views. Kept completely outside web access.</td>
+      </tr>
+      <tr>
+        <td><code>public/</code> <strong>★</strong></td>
+        <td><strong>Web Document Root</strong></td>
+        <td><strong>The ONLY folder exposed to Nginx / Apache / OpenLiteSpeed.</strong></td>
+      </tr>
+      <tr>
+        <td><code>public/uploads/cad/</code></td>
+        <td>Temporary CAD Ingestion</td>
+        <td>Strictly stores incoming STL/OBJ 3D uploads. Must be writable (775).</td>
+      </tr>
+      <tr>
+        <td><code>writable/</code></td>
+        <td>Runtime Data</td>
+        <td>Logs, session cache, debug bar. Must have full write permission (775).</td>
+      </tr>
+      <tr>
+        <td><code>config/credentials/</code></td>
+        <td>Google Drive API Key</td>
+        <td>Contains <code>drive-service-account.json</code> for media synchronization.</td>
+      </tr>
+      <tr>
+        <td><code>.env</code></td>
+        <td>Environment Secrets</td>
+        <td>Domain URL, DB credentials, MFS bKash/Nagad accounts. Never committed.</td>
+      </tr>
+      <tr>
+        <td><code>deploy.sh / deploy.ps1</code></td>
+        <td>Hot Reload Scripts</td>
+        <td>1-Click zero-downtime updates: git pull, migrations, cache clear, reload.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <div class="callout-title">★ Zero-Bandwidth Media Storage</div>
+    All heavy product catalog photos are hosted on <strong>Google Drive</strong> and delivered directly to users via Google CDN edge nodes. <strong>Zero storage load and zero bandwidth cost</strong> on the server disk!
+  </div>
+
+  <h2><span class="section-num">02 //</span> DEPLOYMENT METHOD A: DOCKER / VPS (RECOMMENDED)</h2>
+  <p>This is the fastest, cleanest approach. Kerf 3D runs in its own isolated network.</p>
+
+  <div class="step-box">
+    <div class="step-title"><span class="step-badge">STEP 1</span> Clone the Git Repository</div>
+    <pre><code>git clone https://github.com/redwan2003-bot/KERF_3D_store.git /var/www/kerf3d
+cd /var/www/kerf3d</code></pre>
+  </div>
+
+  <div class="step-box">
+    <div class="step-title"><span class="step-badge">STEP 2</span> Configure Environment (.env)</div>
+    <pre><code>cp .env.example .env
+nano .env</code></pre>
+    <p>Verify the following production settings inside <code>.env</code>:</p>
+    <pre><code>CI_ENVIRONMENT = production
+app.baseURL = 'https://kerf3d.store/'   # Replace with actual live domain
+
+# MariaDB credentials (internal to Docker bridge network)
+database.default.hostname = db
+database.default.database = kerf3d
+database.default.username = kerf3d_user
+database.default.password = kerf3d_secret_password_here
+
+# MFS Payment Intake
+BKASH_ACCOUNT_NUMBER = '01754550297'
+NAGAD_ACCOUNT_NUMBER = '01754550297'</code></pre>
+  </div>
+
+  <div class="doc-footer">
+    <span>KERF 3D STUDIO · HOSTING DEPLOYMENT GUIDE</span>
+    <span>PAGE 1 OF 2</span>
+  </div>
+
+  <!-- Page 2 -->
+  <div class="page-break"></div>
+
+  <div class="doc-header" style="padding-bottom: 8px; margin-bottom: 14px;">
+    <div>
+      <div class="kicker">HOSTING DEPLOYMENT SPECIFICATION (CONTINUED)</div>
+      <h1 style="font-size: 16pt;">KERF 3D STUDIO · PRODUCTION HANDOVER</h1>
+    </div>
+    <div class="doc-meta">
+      <div class="badge">PAGE 2 // RUNTIME OPS</div>
+    </div>
+  </div>
+
+  <div class="step-box">
+    <div class="step-title"><span class="step-badge">STEP 3</span> Place Google Drive API Key</div>
+    <p>Copy the service account credentials provided by the site owner into:</p>
+    <pre><code>/var/www/kerf3d/config/credentials/drive-service-account.json</code></pre>
+  </div>
+
+  <div class="step-box">
+    <div class="step-title"><span class="step-badge">STEP 4</span> Launch Docker Containers &amp; Run Migrations</div>
+    <p>If host port <code>8080</code> is already used by another service, change the mapped port in <code>docker-compose.yml</code> (e.g. <code>"8088:80"</code>):</p>
+    <pre><code>docker compose up -d
+docker exec -w /var/www/vhosts/localhost/html kerf3d_ols php spark migrate --all</code></pre>
+  </div>
+
+  <div class="step-box">
+    <div class="step-title"><span class="step-badge">STEP 5</span> Nginx Reverse Proxy &amp; SSL Certbot</div>
+    <p>Add this virtual host block to your host Nginx configuration (e.g., <code>/etc/nginx/sites-available/kerf3d</code>):</p>
+    <pre><code>server {
+    server_name kerf3d.store www.kerf3d.store;
+
+    location / {
+        proxy_pass http://127.0.0.1:8080;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        client_max_body_size 128M; # Supports high-poly STL customer uploads
+    }
+}</code></pre>
+    <p>Issue SSL Certificate:</p>
+    <pre><code>certbot --nginx -d kerf3d.store -d www.kerf3d.store</code></pre>
+  </div>
+
+  <h2><span class="section-num">03 //</span> DEPLOYMENT METHOD B: CPANEL / STANDARD HOSTING (NO DOCKER)</h2>
+  
+  <ul>
+    <li><strong>Document Root:</strong> In cPanel / DirectAdmin, point the domain DocumentRoot specifically to <code>/path/to/kerf3d/public</code>. <em>(Never point directly to the project root directory).</em></li>
+    <li><strong>PHP Version:</strong> Select <strong>PHP 8.2</strong> or <strong>PHP 8.3</strong> with extensions: <code>php-intl</code>, <code>php-mbstring</code>, <code>php-curl</code>, <code>php-mysql</code>.</li>
+    <li><strong>Permissions:</strong> Grant write permissions: <code>chmod -R 775 writable public/uploads</code>.</li>
+    <li><strong>Database:</strong> Create MySQL DB in cPanel, enter details in <code>.env</code>, then run <code>php spark migrate --all</code> via SSH or Terminal.</li>
+  </ul>
+
+  <h2><span class="section-num">04 //</span> AUTOMATED MEDIA SYNC (CRON JOB)</h2>
+  <p>To automatically sync newly uploaded photos from Google Drive into the live catalog every hour, add this to crontab (<code>crontab -e</code>):</p>
+  <pre><code>0 * * * * docker exec -w /var/www/vhosts/localhost/html kerf3d_ols php spark drive:sync > /dev/null 2>&1</code></pre>
+
+  <h2><span class="section-num">05 //</span> 1-CLICK ZERO-DOWNTIME UPDATES</h2>
+  <p>To update the site when new features or fixes are pushed to GitHub, simply run:</p>
+  <pre><code>cd /var/www/kerf3d
+chmod +x deploy.sh
+./deploy.sh</code></pre>
+
+  <h2><span class="section-num">06 //</span> HANDOVER CHECKLIST FOR ADMINISTRATOR</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Value / Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>GitHub Repository</strong></td>
+        <td><code>https://github.com/redwan2003-bot/KERF_3D_store.git</code></td>
+      </tr>
+      <tr>
+        <td><strong>Live Domain</strong></td>
+        <td><code>kerf3d.store</code> (or designated domain)</td>
+      </tr>
+      <tr>
+        <td><strong>bKash / Nagad Number</strong></td>
+        <td><code>01754550297</code></td>
+      </tr>
+      <tr>
+        <td><strong>Service Account JSON</strong></td>
+        <td><code>drive-service-account.json</code> (Delivered via secure private message)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="doc-footer">
+    <span>KERF 3D STUDIO · DHAKA ATELIER · PRECISION ADDITIVE MANUFACTURING</span>
+    <span>PAGE 2 OF 2</span>
+  </div>
+
+</body>
+</html>
