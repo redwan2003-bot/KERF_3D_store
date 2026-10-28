@@ -25,7 +25,8 @@
             </label>
             <label>
               PHONE (FOR COURIER CONTACT)
-              <input type="tel" name="customer_phone" required placeholder="01XXXXXXXXX" pattern="[0-9+]{11,15}" oninput="this.value = this.value.replace(/[^0-9+]/g, '')">
+              <input type="tel" name="customer_phone" required placeholder="01XXXXXXXXX" pattern="[0-9+]{11,15}" oninput="validatePhoneInput(this)">
+              <span id="phone-feedback" style="font-family:var(--k3d-mono); font-size:9.5px; display:block; margin-top:3px; min-height:14px;"></span>
             </label>
             <label class="k3d-wide-field">
               EMAIL (FOR WORKSHOP TICKET & TRACKING)
@@ -153,6 +154,20 @@
 </div>
 
 <script>
+    function validatePhoneInput(input) {
+        input.value = input.value.replace(/[^0-9+]/g, '');
+        const feedback = document.getElementById('phone-feedback');
+        if (!feedback) return;
+        const clean = input.value.trim();
+        if (clean.length === 11 && clean.startsWith('01')) {
+            feedback.innerHTML = '<span style="color:#16a34a; font-weight:700;">✓ VALID BANGLADESH MOBILE NUMBER</span>';
+        } else if (clean.length > 0) {
+            feedback.innerHTML = '<span style="color:var(--k3d-meta);">Format: 11 digits (e.g. 017XXXXXXXX)</span>';
+        } else {
+            feedback.innerHTML = '';
+        }
+    }
+
     function updateShipping(rate) {
         const isFree = (rate === 0);
         document.getElementById('k3d-inv-shipping').innerText = isFree ? 'FREE (৳0.00)' : ('৳' + rate.toFixed(2));

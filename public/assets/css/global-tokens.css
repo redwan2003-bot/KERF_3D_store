@@ -25,6 +25,35 @@
   box-sizing: border-box;
 }
 
+::selection {
+  background: var(--k3d-rust);
+  color: #ffffff;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--k3d-canvas);
+  border-left: 1px solid var(--k3d-border);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--k3d-ink);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--k3d-rust);
+}
+
+:focus-visible {
+  outline: 2px solid var(--k3d-rust);
+  outline-offset: 2px;
+}
+
+.k3d-button:active, button[type="submit"]:active, .k3d-place-order:active, .k3d-track-btn:active {
+  transform: translateY(1.5px) !important;
+}
+
 html, body {
   background: var(--k3d-canvas);
   color: var(--k3d-ink);
