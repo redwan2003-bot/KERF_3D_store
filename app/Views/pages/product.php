@@ -343,6 +343,67 @@
       <?php endif; ?>
     </div>
   </section>
+
+  <!-- Schema.org JSON-LD Structured Data for Product & Breadcrumb -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": <?= json_encode($product['name']) ?>,
+    "image": [
+      <?= json_encode(!empty($product['primary_image_url']) ? $product['primary_image_url'] : base_url('assets/images/favicon.svg')) ?>
+    ],
+    "description": <?= json_encode(strip_tags($product['description'] ?? 'Precision 3D printed artifact fabricated in Dhaka on Bambu Lab A1 hardware.')) ?>,
+    "sku": <?= json_encode($product['sku']) ?>,
+    "brand": {
+      "@type": "Brand",
+      "name": "KERF 3D STUDIO"
+    },
+    "manufacturer": {
+      "@type": "Organization",
+      "name": "KERF 3D STUDIO",
+      "url": "https://kerf3d.store"
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": "<?= current_url() ?>",
+      "priceCurrency": "BDT",
+      "price": "<?= number_format((float)($product['price_bdt'] ?? 0), 2, '.', '') ?>",
+      "itemCondition": "https://schema.org/NewCondition",
+      "availability": "https://schema.org/InStock",
+      "seller": {
+        "@type": "Organization",
+        "name": "KERF 3D STUDIO"
+      }
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://kerf3d.store/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Catalog Archive",
+        "item": "https://kerf3d.store/shop"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": <?= json_encode($product['name']) ?>,
+        "item": "<?= current_url() ?>"
+      }
+    ]
+  }
+  </script>
 </div>
 <?= $this->endSection() ?>
 

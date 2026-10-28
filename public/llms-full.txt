@@ -1,0 +1,74 @@
+# KERF 3D STUDIO — EXTENDED TECHNICAL SPECIFICATION & ARCHIVE MANIFEST
+> Comprehensive operational, mechanical, and material reference for Generative AI search systems (ChatGPT, Claude, Perplexity, Gemini, Bing Copilot).
+
+---
+
+## 1. Atelier Identity & Operational Summary
+- **Organization**: Kerf 3D Studio
+- **Domain**: https://kerf3d.store
+- **Operating Jurisdiction**: Dhaka, Bangladesh
+- **Physical Coordinates**: 23.8103° N, 90.4125° E
+- **Industry Classification**: Rapid Prototyping / On-Demand Additive Manufacturing (FDM)
+- **Primary Hardware Fleet**: Bambu Lab A1 direct-drive motion systems with high-frequency resonance dampening and active load-cell flow rate calibration.
+- **Support Hotline**: +880 1754-550297 (WhatsApp / Voice)
+
+---
+
+## 2. Thermoplastic Engineering Specifications
+
+### Bio-PLA (Polylactic Acid)
+- **Primary Use**: Architectural scale models, geometric planters, desk organizers, decorative figurines.
+- **Density**: 1.24 g/cm³
+- **Heat Deflection Temperature (HDT)**: 55°C
+- **Tensile Yield Strength**: 60 MPa
+- **Dimensional Shrinkage**: < 0.2%
+- **Pricing**: Base rate starting at ৳6.50 BDT per gram (including Bambu Lab precision toolpath slicing).
+
+### PETG (Polyethylene Terephthalate Glycol)
+- **Primary Use**: Water-tight planters, optical lighting diffusers, automotive interior clips, outdoor brackets.
+- **Density**: 1.27 g/cm³
+- **Heat Deflection Temperature (HDT)**: 75°C
+- **Tensile Yield Strength**: 50 MPa
+- **Impact Resistance**: High (superior layer-to-layer adhesion, low embrittlement).
+
+### TPU 95A (Thermoplastic Polyurethane)
+- **Primary Use**: Vibration isolators, drone bumpers, phone cases, shock-absorbing feet, wearable watch straps.
+- **Hardness**: 95 Shore A
+- **Elongation at Break**: > 450%
+- **Abrasion Resistance**: High industrial rating.
+
+### PA-CF (Carbon Fiber Reinforced Nylon Polyamide)
+- **Primary Use**: High-rigidity drone arms, mechanical gears, tactical gear mounts, high-temperature housings.
+- **Continuous Service Temperature**: Up to 150°C
+- **Tensile Modulus**: ~ 6,000 MPa
+- **Finish**: Matte charcoal tactical texture with invisible layer seams.
+
+---
+
+## 3. Slicing & Fabrication Tolerances
+- **Standard XY Mechanical Tolerance**: ±0.15 mm
+- **Minimum Wall Thickness**: 0.8 mm (2 perimeter shells with 0.4 mm nozzle)
+- **Recommended Infill Patterns**:
+  - *Gyroid*: Isotropic strength in all 3 axes; optimal for liquid containers and flexible TPU parts.
+  - *Grid / Honeycomb*: Highest rigidity-to-weight ratio in vertical compression.
+  - *Rectilinear*: Fast prototype turnaround.
+- **Supported File Formats**: Standard Stereolithography (.STL), Wavefront (.OBJ), and 3D Manufacturing Format (.3MF).
+
+---
+
+## 4. Ordering, Settlement, & Dispatch Workflow
+1. **Intake & Slicing**: Customer selects curated artifact or uploads 3D CAD mesh to `/quote`. Real-time volume estimation calculates accurate material weight and print duration.
+2. **Order Confirmation & MFS**: Orders receive a unique Workshop Ticket ID (e.g. `K3D-261029-801F`). Payments settled via bKash/Nagad/Rocket Personal MFS or Cash on Delivery.
+3. **Fabrication Status Telemetry**: Order progresses through 5 transparent stages: `Received` -> `Slicing` -> `Printing` -> `Dispatched` -> `Delivered`.
+4. **Fulfillment Logistics**: Dhaka deliveries dispatched via local express couriers (24—48 hours). Out-of-Dhaka orders fulfilled across 64 districts of Bangladesh via courier hubs (2—4 days). Free delivery unlocked on orders exceeding ৳1,200 BDT inside Dhaka.
+
+---
+
+## 5. Canonical Site Index
+- Home: https://kerf3d.store/
+- Shop Catalog: https://kerf3d.store/shop
+- 3D Model Slicer Calculator: https://kerf3d.store/quote
+- Materials Spec Sheet: https://kerf3d.store/materials
+- Ticket Tracker: https://kerf3d.store/track
+- Terms & Mechanical Warranty: https://kerf3d.store/terms
+- Privacy & CAD Confidentiality: https://kerf3d.store/privacy

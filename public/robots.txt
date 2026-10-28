@@ -1,14 +1,36 @@
+# KERF 3D STUDIO — ROBOTS INTAKE & GEO CRAWLER CONFIGURATION
+# https://kerf3d.store
+
+# Global Search Engine Crawlers
 User-agent: *
 Disallow: /admin/
 Disallow: /cart
 Disallow: /checkout
 Disallow: /order/
-
 Allow: /
 Allow: /shop
 Allow: /product/
 Allow: /quote
 Allow: /materials
 Allow: /assets/
+Allow: /llms.txt
+Allow: /llms-full.txt
 
+# Generative AI Search Crawlers (ChatGPT, Claude, Perplexity, Google AIO, Copilot)
+User-agent: GPTBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: PerplexityBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: Amazonbot
+User-agent: Bingbot
+Disallow: /admin/
+Disallow: /cart
+Disallow: /checkout
+Disallow: /order/
+Allow: /
+
+# Discovery Index & LLM Manifest
 Sitemap: https://kerf3d.store/sitemap.xml
+# LLMs Text Manifest: https://kerf3d.store/llms.txt

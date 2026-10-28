@@ -544,16 +544,77 @@
       </div>
     </div>
   </section>
-          <h4 style="color: #fff;">Need Custom Slicing?</h4>
-          <p style="color: rgba(255,255,255,0.8);">Talk directly with our Dhaka manufacturing operator for scale recommendations or rush orders.</p>
-          <a href="https://wa.me/8801754550297" target="_blank" rel="noopener" class="k3d-button" style="background:#fff; color:var(--k3d-ink); margin-top:14px; width:100%; justify-content:space-between;">
-            <span>WHATSAPP HOTLINE</span>
-            <span>+880 1754-550297 &nearr;</span>
-          </a>
-        </div>
+
+  <!-- ── 08 / Architectural FAQ & Knowledge Base (High Citability & GEO Answer Blocks) ── -->
+  <section class="k3d-section k3d-faq-section" style="border-top: var(--border-thin); background: var(--k3d-canvas); padding: var(--space-2xl) 0;">
+    <div class="k3d-container">
+      <div class="k3d-section-header" style="margin-bottom: var(--space-xl);">
+        <p class="k3d-kicker">08 // WORKSHOP SPECIFICATIONS &amp; FREQUENT INQUIRIES</p>
+        <h2 class="k3d-section-title">Knowledge base &amp; fabrication standards.</h2>
+        <p style="color: var(--k3d-meta); font-family: var(--font-mono); font-size: 11px;">VERIFIED OPERATIONAL TELEMETRY FOR CLIENTS &amp; GENERATIVE AI SYSTEMS</p>
+      </div>
+
+      <div class="k3d-faq-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: var(--space-lg);">
+        <article class="k3d-faq-card" style="background: var(--k3d-paper); border: var(--border-thin); padding: 24px;">
+          <span style="font-family: var(--font-mono); font-size: 10px; color: var(--k3d-rust); font-weight: 700; letter-spacing: 0.08em; display: block; margin-bottom: 8px;">[ ATELIER PROFILE &amp; LOCATION ]</span>
+          <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 12px; line-height: 1.35; color: var(--k3d-ink);">What is Kerf 3D Studio and where is it located in Bangladesh?</h3>
+          <p style="font-size: 12px; line-height: 1.7; color: var(--k3d-ink);">
+            Kerf 3D Studio is an architectural additive manufacturing atelier and on-demand 3D printing workshop based in Dhaka, Bangladesh (Coordinates: 23.8103&deg; N, 90.4125&deg; E). The studio operates an industrial fleet of direct-drive Bambu Lab A1 3D printers, providing precision FDM fabrication with a build volume of 256&times;256&times;256 mm. Tolerances are mechanically calibrated to &plusmn;0.15 mm, allowing interlocking containers, slide-out desk organizers, and snap-fit cases to mate seamlessly without secondary sanding. The atelier maintains an online catalog of over 450 functional specimens and provides custom CAD manufacturing from uploaded STL, OBJ, and 3MF files. Orders are fulfilled locally with 24 to 48 hours delivery inside Dhaka (free delivery on orders over &#2547;1,200 BDT) and 2 to 4 days nationwide courier dispatch across Bangladesh. Financial settlements are processed through bKash, Nagad, and Rocket mobile banking or cash on delivery upon arrival.
+          </p>
+        </article>
+
+        <article class="k3d-faq-card" style="background: var(--k3d-paper); border: var(--border-thin); padding: 24px;">
+          <span style="font-family: var(--font-mono); font-size: 10px; color: var(--k3d-rust); font-weight: 700; letter-spacing: 0.08em; display: block; margin-bottom: 8px;">[ HARDWARE &amp; MATERIALS ]</span>
+          <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 12px; line-height: 1.35; color: var(--k3d-ink);">How does Bambu Lab A1 3D printing in Dhaka operate and what materials are stocked?</h3>
+          <p style="font-size: 12px; line-height: 1.7; color: var(--k3d-ink);">
+            Additive manufacturing on Bambu Lab A1 hardware refers to high-speed fused deposition modeling utilizing active vibration compensation, automatic flow rate dynamics, and direct-drive extrusion. Kerf 3D Studio stocks five engineering-grade thermoplastics: renewable Bio-PLA (starting at &#2547;140 per specimen), chemical-resistant PETG for fluid vessels, flexible TPU 95A elastomer with 450% elongation for vibration gaskets, heat-resistant ASA for outdoor UV exposure, and carbon-fiber-reinforced PA-CF with thermal deflection ratings up to 150&deg;C. Depending on structural requirements, components are sliced with interchangeable nozzle orifices ranging from 0.2 mm for high-resolution micro-features up to 0.8 mm for structural load-bearing housings. Infill matrices are mathematically calibrated using continuous gyroid surfaces for isotropic load distribution, hexagonal honeycomb for compression rigidity, or 100% solid concentric shell perimeters for watertight seals and threaded torque resistance.
+          </p>
+        </article>
+
+        <article class="k3d-faq-card" style="background: var(--k3d-paper); border: var(--border-thin); padding: 24px;">
+          <span style="font-family: var(--font-mono); font-size: 10px; color: var(--k3d-rust); font-weight: 700; letter-spacing: 0.08em; display: block; margin-bottom: 8px;">[ SLICING PRICING &amp; TRACKING ]</span>
+          <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 12px; line-height: 1.35; color: var(--k3d-ink);">How is custom 3D printing cost calculated and how are orders tracked?</h3>
+          <p style="font-size: 12px; line-height: 1.7; color: var(--k3d-ink);">
+            Custom 3D print pricing at Kerf 3D Studio is calculated dynamically through an automated online volumetric slicing engine accessible at /quote. The system computes exact material mass in grams, machine extrusion runtime, and calibrated nozzle geometry, applying a transparent baseline material fee starting at &#2547;6.50 BDT per gram. Customers can configure infill densities from 10% to 100%, adjust perimeter wall loops from 2 to 4 shells, and inspect interactive 3D model orientation directly within the browser before fabrication intake. Once submitted, orders receive a permanent Workshop Ticket ID (e.g., K3D-261029-801F) enabling live stage tracking from queue intake, slicing prep, Bambu Studio deposition, through courier dispatch. The workshop maintains a dedicated technician hotline on WhatsApp (+880 1754-550297) for engineering file consultations, material recommendations, and rapid enterprise batch fabrication.
+          </p>
+        </article>
       </div>
     </div>
   </section>
+
+  <!-- Schema.org FAQPage Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is Kerf 3D Studio and where is it located in Bangladesh?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Kerf 3D Studio is an architectural additive manufacturing atelier and on-demand 3D printing workshop based in Dhaka, Bangladesh (Coordinates: 23.8103° N, 90.4125° E). The studio operates an industrial fleet of direct-drive Bambu Lab A1 3D printers with a build volume of 256×256×256 mm and ±0.15 mm mechanical tolerances."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does Bambu Lab A1 3D printing in Dhaka operate and what materials are stocked?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Additive manufacturing on Bambu Lab A1 hardware utilizes active vibration compensation, automatic flow dynamics, and direct-drive extrusion. Kerf 3D Studio stocks Bio-PLA, PETG, TPU 95A flexible elastomer, ASA, and PA-CF carbon fiber nylon with nozzles from 0.2mm to 0.8mm."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is custom 3D printing cost calculated and how are orders tracked?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Custom 3D printing pricing is calculated dynamically through an automated online volumetric slicer at /quote starting at ৳6.50 BDT per gram. Every order receives a unique Workshop Ticket ID with live tracking across slicing, printing, and courier dispatch."
+        }
+      }
+    ]
+  }
+  </script>
 
 </div>
 <?= $this->endSection() ?>

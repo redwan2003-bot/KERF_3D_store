@@ -42,6 +42,9 @@
 
     <!-- Studio E-Commerce Analytics & Conversion Event Engine -->
     <?= $this->include('partials/analytics_head') ?>
+
+    <!-- Schema.org JSON-LD Structured Data for GEO & AI Search Engines -->
+    <?= $this->include('partials/schema_org') ?>
 </head>
 <body>
 

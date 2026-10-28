@@ -1,0 +1,33 @@
+# KERF 3D STUDIO
+> Precision additive manufacturing atelier, architectural design store, and on-demand FDM 3D printing service based in Dhaka, Bangladesh.
+
+Kerf 3D Studio operates an active production fleet of direct-drive Bambu Lab A1 3D printers, delivering micron-calibrated fabrication (±0.15mm mechanical tolerance) across architectural thermoplastics and engineering composites. The workshop features an automated online volumetric slicing engine for custom CAD uploads (.STL, .OBJ, .3MF) and a curated catalog of tactile desk artifacts, carry gear, and ambient lighting.
+
+## Key Facts & Technical Capabilities
+- **Location**: Dhaka Atelier, Bangladesh (Coordinates: 23.8103° N, 90.4125° E).
+- **Production Hardware**: Bambu Lab A1 direct-drive fleet with active vibration compensation and automatic flow calibration.
+- **Maximum Build Envelope**: 256 × 256 × 256 mm (continuous build volume).
+- **Available Nozzle Orifices**: 0.2 mm (high-resolution miniatures), 0.4 mm (standard production), 0.6 mm & 0.8 mm (structural load-bearing).
+- **Stocked Thermopolymers**: Renewable Bio-PLA, Glycol-modified PETG, Flexible TPU 95A Elastomer, Weather-resistant ASA, and Carbon Fiber Polyamide (PA-CF).
+- **Fulfillment & Logistics**: 24—48 hours delivery inside Dhaka (Free delivery on orders over ৳1,200 BDT); 2—4 days nationwide courier dispatch across Bangladesh.
+- **Payment Intake**: Cash on Delivery (COD) nationwide; Instant mobile financial settlements via bKash, Nagad, and Rocket (Personal MFS).
+
+## Main Pages
+- [Homepage](https://kerf3d.store/): Core atelier overview, active print queue telemetry, featured specimen gallery, and engineering standards.
+- [Catalog & Specimen Archive](https://kerf3d.store/shop): Searchable catalog of 450+ curated functional 3D printed artifacts with material and color variant selection.
+- [Instant CAD Slicing Configurator](https://kerf3d.store/quote): Real-time browser-based 3D model volume calculator, layer orientation preview, infill density adjuster, and instant BDT pricing.
+- [Hardware & Materials Engineering Guide](https://kerf3d.store/materials): Comprehensive technical spec sheet comparing tensile strengths, heat deflection temperatures, infill geometries, and tolerances.
+- [Workshop Dispatch & Telemetry Tracker](https://kerf3d.store/track): Live order fulfillment tracker inspecting intake queues, Bambu Studio slicing status, and courier tracking numbers.
+
+## Popular Curated Artifacts
+- [Charlie Brown AirPods Pro 2nd Gen Case](https://kerf3d.store/product/charlie-brown-airpods-pro-2nd-gen-case): Impact-resistant Bio-PLA protective carry case with lanyard loop (৳140 BDT).
+- [Nebula Diffuser Lamp](https://kerf3d.store/product/nebula-lamp): Translucent optical PETG geometric ambient lamp printed in spiral vase mode (৳745 BDT).
+- [DUO Modular Pen Holder & Tray](https://kerf3d.store/product/duo-pen-holder-with-removable-tray): Heavyweight dual-cylinder desk organizer with removable catch-all tray (৳505 BDT).
+- [Mini Paracord Pulley Skeleton Zero](https://kerf3d.store/product/mini-paracord-pulley-608-bearing---skeleton-zero): Functional mechanical load-bearing pulley housing for standard 608 bearings (৳120 BDT).
+- [16-Key Mechanical Keyboard Frame](https://kerf3d.store/product/16-key-mechanical-keyboard-frame): Rigid carbon-fiber reinforced PA-CF switch plate and chassis (৳480 BDT).
+
+## Workshop Policies & Contacts
+- [Privacy Policy](https://kerf3d.store/privacy): Customer data and 3D CAD design confidentiality guarantees.
+- [Terms of Service](https://kerf3d.store/terms): Workshop fabrication policies, mechanical tolerances, and replacement criteria.
+- **Direct WhatsApp Hotline**: [+880 1754-550297](https://wa.me/8801754550297) (Technician support: 10:00 AM — 10:00 PM BST).
+- **Official Website**: https://kerf3d.store
