@@ -57,3 +57,6 @@ writable/recordings/
 backups/
 *.sql
 *.sql.gz
+
+# Local Claude CLI runtime
+.claude/
