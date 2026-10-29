@@ -66,6 +66,10 @@
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
             <span id="k3d-copy-btn-text">COPY TRACKING LINK</span>
           </button>
+          <button type="button" onclick="copySmsText('<?= esc($order['order_number']) ?>', '<?= number_format((float)($order['total_bdt'] ?? 0), 2) ?>')" class="k3d-track-btn" style="height: 34px; padding: 0 14px; font-size: 11px; background: var(--k3d-paper); color: var(--k3d-ink); border: 1px solid var(--k3d-ink); cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            <span id="k3d-sms-btn-text">COPY SMS / GATE TEXT</span>
+          </button>
           <?php
             $shareText = rawurlencode("Track my Kerf 3D workshop job #{$order['order_number']}: " . base_url('track?ticket=' . $order['order_number']));
           ?>
@@ -85,6 +89,18 @@
           </span>
         </div>
       </div>
+
+      <?php if (!$isCancelled && !$isDelivered): ?>
+        <div id="k3d-poll-ticker" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 16px; background: rgba(28, 25, 23, 0.03); border-top: 1px dashed var(--k3d-border); border-bottom: 1px dashed var(--k3d-border); font-family: var(--k3d-mono); font-size: 10px; color: var(--k3d-meta);">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #16a34a;"></span>
+            <span>WORKSHOP TELEMETRY ACTIVE &mdash; AUTO-REFRESHING IN <strong id="k3d-poll-timer">60s</strong></span>
+          </div>
+          <button type="button" onclick="window.location.reload()" style="background: none; border: none; color: var(--k3d-ink); font-family: var(--k3d-mono); font-size: 10px; font-weight: 700; cursor: pointer; text-decoration: underline;">
+            REFRESH NOW &rarr;
+          </button>
+        </div>
+      <?php endif; ?>
 
       <!-- Live Stepper -->
       <div class="k3d-track-timeline">
@@ -229,5 +245,37 @@ function copyTrackUrl(ticket) {
         });
     }
 }
+
+function copySmsText(ticket, total) {
+    const text = `Kerf 3D Delivery: Ticket #${ticket}. Total: ৳${total}. Track at https://kerf3d.store/track?ticket=${ticket}`;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+            if (typeof window.k3dToast === 'function') {
+                window.k3dToast('SMS / GATE TEXT COPIED TO CLIPBOARD', '💬');
+            }
+            const btn = document.getElementById('k3d-sms-btn-text');
+            if (btn) {
+                const orig = btn.innerText;
+                btn.innerText = 'COPIED ✓';
+                setTimeout(() => { btn.innerText = orig; }, 2500);
+            }
+        });
+    }
+}
+
+// 60-Second Auto-Polling Ticker
+(function() {
+    const tickerEl = document.getElementById('k3d-poll-timer');
+    if (!tickerEl) return;
+    let timeLeft = 60;
+    const interval = setInterval(() => {
+        timeLeft--;
+        if (tickerEl) tickerEl.innerText = timeLeft + 's';
+        if (timeLeft <= 0) {
+            clearInterval(interval);
+            window.location.reload();
+        }
+    }, 1000);
+})();
 </script>
 <?= $this->endSection() ?>

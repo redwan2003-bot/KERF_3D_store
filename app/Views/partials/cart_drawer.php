@@ -19,7 +19,7 @@
     <!-- Free Delivery Goal Bar -->
     <div class="k3d-free-shipping-bar" id="k3d-free-shipping-bar">
       <div class="k3d-free-shipping-msg">
-        <span id="k3d-fs-text">ADD ৳1,200.00 FOR FREE DHAKA DELIVERY</span>
+        <span id="k3d-fs-text">FREE DHAKA DELIVERY: ৳0.00 / ৳1,200 — ADD ৳1,200.00 TO UNLOCK FREE SHIPPING</span>
         <strong id="k3d-fs-badge" class="k3d-fs-tag">GOAL: ৳1,200</strong>
       </div>
       <div class="k3d-free-shipping-track">
@@ -31,6 +31,9 @@
     <div class="k3d-receipt-items" id="k3d-cart-items-container">
       <div class="k3d-cart-empty-notice" style="padding: 40px 0; text-align: center; color: var(--k3d-meta); font-family: var(--k3d-mono); font-size: 11px;">
         YOUR ARTIFACT BAG IS CURRENTLY EMPTY.
+        <div style="margin-top: 14px;">
+          <a href="/shop" class="k3d-button is-style-outline" style="font-size: 10px; padding: 10px 14px; text-decoration: none; display: inline-block;">BROWSE SPECIMEN ARCHIVE &rarr;</a>
+        </div>
       </div>
     </div>
 

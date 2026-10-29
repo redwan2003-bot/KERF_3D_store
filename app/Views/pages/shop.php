@@ -120,6 +120,13 @@
         </div>
       </div>
 
+      <!-- Active Filter Chips Bar -->
+      <div id="k3d-active-filters" class="k3d-active-filters-bar" style="display: none;">
+        <span class="k3d-active-filter-label">ACTIVE CRITERIA:</span>
+        <div id="k3d-filter-chips" class="k3d-filter-chips"></div>
+        <button type="button" id="k3d-clear-all-filters" class="k3d-clear-all-btn">[ &times; RESET ALL ]</button>
+      </div>
+
       <div class="k3d-product-grid">
         <?php if (!empty($products)): ?>
           <?php foreach ($products as $idx => $product): ?>
@@ -161,7 +168,7 @@
                       <span style="font-family: var(--k3d-mono); font-size: 10px; color: var(--k3d-meta); padding: 10px;">SPECIMEN<br><?= esc($product['sku']) ?></span>
                     <?php endif; ?>
 
-                    <!-- Floating Japanese/PUEBCO Polymer Stamp -->
+                    <!-- Floating PUEBCO Polymer Stamp -->
                     <div class="k3d-card-polymer-stamp">
                       <?= strtoupper($prodMaterial) ?> · <?= $infillPct ?>
                     </div>
@@ -205,9 +212,12 @@
           <div id="k3d-search-empty" class="k3d-search-empty-state" style="display: none;">
             <div class="k3d-empty-inner">
               <span class="k3d-empty-code">SPECIMEN // NOT_FOUND</span>
-              <h3>No artifacts match "<span id="k3d-empty-query"></span>"</h3>
-              <p>Try filtering by broader keywords like "Lamp", "AirPods", "Cable", "Stand", or clear your search input.</p>
-              <button type="button" id="k3d-empty-clear-btn" class="k3d-button is-style-outline sm">CLEAR SEARCH QUERY</button>
+              <h3>[ 0 SPECIMENS FOUND MATCHING YOUR QUERY ]</h3>
+              <p>No catalog specimens currently match "<span id="k3d-empty-query"></span>". Have a custom 3D model, STEP or STL file ready? Upload your model directly to our configurator for instant slicing &amp; manufacturing quotation.</p>
+              <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 18px;">
+                <button type="button" id="k3d-empty-clear-btn" class="k3d-button is-style-outline sm">CLEAR SEARCH QUERY</button>
+                <a href="/quote" class="k3d-button is-style-fill sm">CUSTOM CAD SLICING &rarr;</a>
+              </div>
             </div>
           </div>
         <?php else: ?>

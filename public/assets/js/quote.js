@@ -44,6 +44,10 @@
   const btnOrient90   = document.getElementById('k3d-btn-orient-90');
   const btnOrient180  = document.getElementById('k3d-btn-orient-180');
   const btnAutoOrient = document.getElementById('k3d-btn-auto-orient');
+  const btnCamIso     = document.getElementById('k3d-cam-iso');
+  const btnCamTop     = document.getElementById('k3d-cam-top');
+  const btnCamFront   = document.getElementById('k3d-cam-front');
+  const btnClearMesh  = document.getElementById('k3d-btn-clear-mesh');
 
   // State Variables
   let scene, camera, renderer, controls, currentMesh, buildCage, gridHelper;
@@ -319,6 +323,11 @@
     if (shouldRefocus) {
       frameCameraToMesh();
     }
+
+    const clearBtn = document.getElementById('k3d-btn-clear-mesh');
+    if (clearBtn) {
+      clearBtn.style.display = (fileName && fileName !== 'Architectural_Column_Specimen.stl') ? 'inline-block' : 'none';
+    }
   }
 
   function frameCameraToMesh() {
@@ -508,6 +517,92 @@
       btnAutoOrient.addEventListener('click', function () {
         autoOrientGeometry();
         pulseButton(this, 'BASE ✓');
+      });
+    }
+
+    // Camera Viewport Presets
+    function setCameraPreset(preset) {
+      if (!camera) return;
+      const maxDim = Math.max(boundingDims.x, boundingDims.y, boundingDims.z, 60);
+      const fov = camera.fov * (Math.PI / 180);
+      const cameraDist = Math.abs(maxDim / 2 / Math.tan(fov / 2)) * 1.85;
+      const targetY = boundingDims.y / 2;
+
+      if (preset === 'top') {
+        camera.position.set(0, cameraDist * 1.6, 0.001);
+        camera.lookAt(0, targetY, 0);
+      } else if (preset === 'front') {
+        camera.position.set(0, targetY, cameraDist * 1.5);
+        camera.lookAt(0, targetY, 0);
+      } else { // 'iso'
+        camera.position.set(cameraDist * 0.75, cameraDist * 0.85, cameraDist * 1.05);
+        camera.lookAt(0, targetY, 0);
+      }
+
+      if (controls) {
+        controls.target.set(0, targetY, 0);
+        controls.update();
+      }
+
+      if (btnCamIso) btnCamIso.classList.toggle('is-active', preset === 'iso');
+      if (btnCamTop) btnCamTop.classList.toggle('is-active', preset === 'top');
+      if (btnCamFront) btnCamFront.classList.toggle('is-active', preset === 'front');
+    }
+
+    if (btnCamIso) {
+      btnCamIso.addEventListener('click', function () {
+        setCameraPreset('iso');
+      });
+    }
+
+    if (btnCamTop) {
+      btnCamTop.addEventListener('click', function () {
+        setCameraPreset('top');
+      });
+    }
+
+    if (btnCamFront) {
+      btnCamFront.addEventListener('click', function () {
+        setCameraPreset('front');
+      });
+    }
+
+    // Clear Mesh Action
+    function clearMeshState() {
+      if (currentMesh && scene) {
+        scene.remove(currentMesh);
+        if (currentMesh.geometry) currentMesh.geometry.dispose();
+        currentMesh = null;
+      }
+      currentGeometry = null;
+      currentFile = null;
+      uploadedFileId = null;
+
+      const fileInput = document.getElementById('k3d-cad-file-input');
+      if (fileInput) fileInput.value = '';
+
+      if (modelTag) {
+        modelTag.innerHTML = '<strong>NO MODEL LOADED</strong> / 0.0 MB';
+      }
+
+      const fitBadge = document.getElementById('k3d-fit-badge');
+      if (fitBadge) {
+        fitBadge.textContent = 'AWAITING CAD FILE';
+        fitBadge.className = 'k3d-build-badge is-valid';
+      }
+
+      const clearBtn = document.getElementById('k3d-btn-clear-mesh');
+      if (clearBtn) clearBtn.style.display = 'none';
+
+      loadDefaultSpecimen();
+      if (typeof window.k3dToast === 'function') {
+        window.k3dToast('CAD MESH UNLOADED');
+      }
+    }
+
+    if (btnClearMesh) {
+      btnClearMesh.addEventListener('click', function () {
+        clearMeshState();
       });
     }
   }

@@ -63,6 +63,10 @@
             DELIVERY ADDRESS
             <textarea name="delivery_address" rows="3" required placeholder="Apartment / House, Road, Area, District"></textarea>
           </label>
+          <label class="k3d-address-field" style="margin-top: 14px;">
+            DELIVERY &amp; GATE INSTRUCTIONS (OPTIONAL)
+            <textarea name="order_notes" rows="2" placeholder="e.g. Leave with building security, call upon gate arrival, preferred dispatch time"></textarea>
+          </label>
         </section>
 
         <!-- 03 / Payment Intake -->
@@ -100,7 +104,7 @@
           </p>
         </section>
 
-        <button class="k3d-place-order" type="submit">
+        <button class="k3d-place-order" id="k3d-checkout-submit-btn" type="submit">
           PLACE ORDER &amp; ISSUE TICKET <span>&rarr;</span>
         </button>
       </form>
@@ -204,6 +208,22 @@
             num_items: <?= count($cartItems ?? []) ?>,
             value: <?= (float)($cartSubtotal ?? 780) ?>,
             currency: 'BDT'
+        });
+    }
+
+    // Double-click Lockout Guard
+    const checkoutForm = document.getElementById('k3d-checkout-form');
+    const submitBtn = document.getElementById('k3d-checkout-submit-btn');
+    if (checkoutForm && submitBtn) {
+        checkoutForm.addEventListener('submit', function (e) {
+            if (submitBtn.disabled) {
+                e.preventDefault();
+                return;
+            }
+            submitBtn.disabled = true;
+            submitBtn.style.opacity = '0.75';
+            submitBtn.style.cursor = 'wait';
+            submitBtn.innerHTML = 'LOGGING WORKSHOP TICKET...';
         });
     }
 </script>

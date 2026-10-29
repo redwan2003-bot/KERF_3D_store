@@ -65,24 +65,27 @@
     if (fsBar && fsText && fsBadge && fsFill) {
       if (data.total_items === 0) {
         fsBar.classList.remove('is-unlocked');
-        fsText.textContent = 'FREE DHAKA DELIVERY ON ORDERS OVER ৳1,200';
+        fsText.textContent = 'FREE DHAKA DELIVERY: ৳0.00 / ৳1,200 — ADD ৳1,200.00 TO UNLOCK FREE SHIPPING';
         fsBadge.textContent = 'GOAL: ৳1,200';
         fsFill.style.width = '0%';
         if (insideRateEl) insideRateEl.textContent = '৳70.00';
         if (dhakaSubtext) dhakaSubtext.textContent = '24—48H Hub Delivery';
-      } else if (data.is_free_shipping) {
+      } else if (data.is_free_shipping || (data.subtotal >= 1200)) {
         fsBar.classList.add('is-unlocked');
-        fsText.innerHTML = '🎉 <strong>FREE DHAKA DELIVERY UNLOCKED!</strong>';
+        fsText.innerHTML = '<strong>✓ FREE DHAKA DELIVERY UNLOCKED (SAVE ৳70)</strong>';
         fsBadge.textContent = 'UNLOCKED';
         fsFill.style.width = '100%';
         if (insideRateEl) insideRateEl.innerHTML = '<span style="color:#16a34a; font-weight:700;">FREE (৳0)</span>';
         if (dhakaSubtext) dhakaSubtext.textContent = 'Free Atelier Delivery Applied';
       } else {
         fsBar.classList.remove('is-unlocked');
-        const neededFmt = '৳' + Number(data.amount_needed_for_free).toFixed(2);
-        fsText.innerHTML = `ADD <strong>${neededFmt}</strong> MORE FOR FREE DHAKA DELIVERY`;
-        fsBadge.textContent = `${data.free_shipping_progress}%`;
-        fsFill.style.width = `${data.free_shipping_progress}%`;
+        const neededVal = Math.max(0, 1200 - (Number(data.subtotal) || 0));
+        const neededFmt = '৳' + Number(neededVal).toFixed(2);
+        const subtotalFmt = '৳' + Number(data.subtotal || 0).toFixed(2);
+        fsText.innerHTML = `FREE DHAKA DELIVERY: <strong>${subtotalFmt}</strong> / ৳1,200 &mdash; ADD <strong>${neededFmt}</strong> TO UNLOCK FREE SHIPPING`;
+        const pct = Math.min(100, Math.round(((Number(data.subtotal) || 0) / 1200) * 100));
+        fsBadge.textContent = `${pct}%`;
+        fsFill.style.width = `${pct}%`;
         if (insideRateEl) insideRateEl.textContent = '৳70.00';
         if (dhakaSubtext) dhakaSubtext.textContent = '24—48H Hub Delivery';
       }
@@ -107,7 +110,7 @@
         <div class="k3d-cart-empty-notice" style="padding: 48px 0; text-align: center; color: var(--k3d-meta); font-family: var(--k3d-mono); font-size: 11px;">
           YOUR ARTIFACT BAG IS CURRENTLY EMPTY.
           <div style="margin-top: 14px;">
-            <a href="/shop" class="k3d-button is-style-outline" style="font-size: 10px; padding: 10px 14px;" onclick="window.k3dCart.close()">BROWSE ARTIFACTS &rarr;</a>
+            <a href="/shop" class="k3d-button is-style-outline" style="font-size: 10px; padding: 10px 14px; text-decoration: none; display: inline-block;" onclick="window.k3dCart.close()">BROWSE SPECIMEN ARCHIVE &rarr;</a>
           </div>
         </div>
       `;

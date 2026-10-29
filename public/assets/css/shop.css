@@ -249,6 +249,81 @@
   white-space: nowrap;
 }
 
+/* Active Filter Chips Bar */
+.k3d-active-filters-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 8px 12px;
+  background: rgba(28, 25, 23, 0.03);
+  border: 1px dashed var(--k3d-border);
+  margin-bottom: 24px;
+  font-family: var(--k3d-mono);
+  font-size: 10px;
+}
+
+.k3d-active-filter-label {
+  color: var(--k3d-meta);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  font-size: 9px;
+}
+
+.k3d-filter-chips {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.k3d-filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--k3d-ink);
+  color: #fff;
+  padding: 3px 8px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.k3d-filter-chip button {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 0 0 0 4px;
+  font-size: 12px;
+  line-height: 1;
+  opacity: 0.8;
+  transition: opacity 0.15s ease;
+}
+
+.k3d-filter-chip button:hover {
+  opacity: 1;
+  color: var(--k3d-rust);
+}
+
+.k3d-clear-all-btn {
+  background: none;
+  border: none;
+  color: var(--k3d-rust);
+  font-family: var(--k3d-mono);
+  font-size: 9px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-left: auto;
+  letter-spacing: 0.06em;
+  padding: 4px 6px;
+}
+
+.k3d-clear-all-btn:hover {
+  text-decoration: underline;
+}
+
 .k3d-archive-count strong {
   color: var(--k3d-rust);
 }

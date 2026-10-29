@@ -299,6 +299,7 @@ CREATE TABLE `orders` (
     `courier_provider`      VARCHAR(60)     NULL,
     `courier_tracking`      VARCHAR(120)    NULL,
     `admin_notes`           TEXT            NULL,
+    `order_notes`           TEXT            NULL,
     `created_at`            DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at`            DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 

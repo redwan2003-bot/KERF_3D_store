@@ -223,6 +223,41 @@
       margin-bottom: 4px;
     }
 
+    /* Industrial Tear-Line Demarcation */
+    .tear-line-boundary {
+      margin: 36px 0 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      position: relative;
+    }
+    .tear-line-boundary::before,
+    .tear-line-boundary::after {
+      content: "";
+      flex: 1;
+      border-bottom: 1.5px dashed var(--meta);
+    }
+    .tear-scissors {
+      font-size: 14px;
+      color: var(--meta);
+      user-select: none;
+    }
+    .tear-label {
+      font-family: var(--mono);
+      font-size: 8.5px;
+      letter-spacing: 0.1em;
+      color: var(--meta);
+      text-transform: uppercase;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .packing-slip-section {
+      background: #faf8f5;
+      border: 1px solid var(--border);
+      padding: 18px 20px;
+      margin-top: 12px;
+    }
+
     /* Print Stylesheet */
     @media print {
       body {
@@ -238,6 +273,14 @@
         border: none;
         box-shadow: none;
         max-width: 100%;
+      }
+      .tear-line-boundary::before,
+      .tear-line-boundary::after {
+        border-bottom: 1.5px dashed #000;
+      }
+      .packing-slip-section {
+        background: #fff;
+        border: 1px solid #000;
       }
     }
   </style>
@@ -384,6 +427,40 @@
     <div class="quality-stamp">
       <strong>✦ BAMBU LAB A1 FABRICATION CERTIFICATION</strong>
       Every artifact in this batch has been sliced, calibrated, and extruded in our Dhaka studio. Fabricated on direct-drive Bambu Lab A1 systems with verified continuous layer adhesion. Retain this invoice as proof of purchase and warranty tracking.
+    </div>
+
+    <!-- Industrial Tear-Line Demarcation for Workshop Packing -->
+    <div class="tear-line-boundary">
+      <span class="tear-scissors">✂</span>
+      <span class="tear-label">TEAR OR DETACH ALONG DOTTED LINE — WORKSHOP PACKAGING SLIP</span>
+      <span class="tear-scissors">✂</span>
+    </div>
+
+    <!-- Workshop Thermal Packing & Dispatch Slip -->
+    <div class="packing-slip-section">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+        <div>
+          <span style="font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--ink);">WORKSHOP PACKING &amp; DISPATCH SLIP</span>
+          <div style="font-size: 10px; color: var(--meta); font-family: var(--mono); margin-top: 2px;">TICKET: <?= esc($order['order_number']) ?> · DATE: <?= date('d M Y') ?></div>
+        </div>
+        <div style="text-align: right; font-family: var(--mono); font-size: 10px;">
+          <strong>RECIPIENT: <?= esc($customer['name'] ?? 'Customer') ?></strong>
+          <div><?= esc($customer['phone'] ?? '') ?></div>
+        </div>
+      </div>
+
+      <div style="font-family: var(--mono); font-size: 10px; color: var(--ink); background: rgba(0,0,0,0.03); padding: 8px 12px; border: 1px dashed var(--border); margin-bottom: 12px; line-height: 1.4;">
+        <strong>DESTINATION:</strong> <?= esc($customer['address_line'] ?? '') ?> 
+        (<?= $order['shipping_zone'] === 'inside_dhaka' ? 'INSIDE DHAKA' : 'OUTSIDE DHAKA' ?>)
+        <?php if (!empty($order['order_notes'])): ?>
+          <div style="margin-top: 4px; color: var(--rust);"><strong>GATE/DELIVERY NOTE:</strong> <?= esc($order['order_notes']) ?></div>
+        <?php endif; ?>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 9px; color: var(--meta);">
+        <span>ITEMS: <?= count($items) ?> ARTIFACT(S) · TOTAL DUE: ৳<?= number_format((float)($order['total_bdt'] ?? 0), 2) ?> (<?= strtoupper(esc($order['payment_method'] ?? 'COD')) ?>)</span>
+        <span>QC PASSED: [ &nbsp; ] NOZZLE &nbsp; [ &nbsp; ] INFILL &nbsp; [ &nbsp; ] PACKAGING</span>
+      </div>
     </div>
 
     <footer style="margin-top: 40px; padding-top: 16px; border-top: 1px dashed var(--border); display: flex; justify-content: space-between; font-family: var(--mono); font-size: 9px; color: var(--meta);">

@@ -11,6 +11,9 @@
   const emptyState   = document.getElementById('k3d-search-empty');
   const emptyQuery   = document.getElementById('k3d-empty-query');
   const emptyReset   = document.getElementById('k3d-empty-clear-btn');
+  const activeFiltersBar = document.getElementById('k3d-active-filters');
+  const filterChipsContainer = document.getElementById('k3d-filter-chips');
+  const clearAllFiltersBtn = document.getElementById('k3d-clear-all-filters');
   const productCards = Array.from(document.querySelectorAll('.k3d-product-card'));
   const totalCount   = productCards.length;
 
@@ -29,6 +32,73 @@
     });
   });
 
+  // ── Active Filter Chips Controller ────────────────────────────
+  function updateActiveChips(rawQuery, selectedMats, currentElement) {
+    if (!activeFiltersBar || !filterChipsContainer) return;
+
+    const chips = [];
+
+    if (rawQuery.trim()) {
+      chips.push({
+        label: `SEARCH: "${rawQuery.trim()}"`,
+        type: 'query'
+      });
+    }
+
+    selectedMats.forEach(m => {
+      chips.push({
+        label: `POLYMER: ${m.toUpperCase()}`,
+        type: 'material',
+        value: m
+      });
+    });
+
+    if (currentElement !== 'all') {
+      chips.push({
+        label: `ELEMENT: ${currentElement.toUpperCase()}`,
+        type: 'element',
+        value: currentElement
+      });
+    }
+
+    if (chips.length === 0) {
+      activeFiltersBar.style.display = 'none';
+      filterChipsContainer.innerHTML = '';
+      return;
+    }
+
+    activeFiltersBar.style.display = 'flex';
+    filterChipsContainer.innerHTML = chips.map((c, i) => `
+      <span class="k3d-filter-chip">
+        ${c.label}
+        <button type="button" data-chip-index="${i}" aria-label="Remove filter">&times;</button>
+      </span>
+    `).join('');
+
+    filterChipsContainer.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', function () {
+        const idx = parseInt(this.getAttribute('data-chip-index'), 10);
+        const chip = chips[idx];
+        if (!chip) return;
+
+        if (chip.type === 'query') {
+          if (searchInput) searchInput.value = '';
+        } else if (chip.type === 'material') {
+          materialChecks.forEach(cb => {
+            if (cb.value.toLowerCase() === chip.value.toLowerCase()) cb.checked = false;
+          });
+        } else if (chip.type === 'element') {
+          activeElement = 'all';
+          elementalPills.forEach(p => {
+            if (p.getAttribute('data-element') === 'all') p.classList.add('is-active');
+            else p.classList.remove('is-active');
+          });
+        }
+        filterCatalog();
+      });
+    });
+  }
+
   // ── 1. Real-Time Keystroke & Facet Catalog Filter ──────────────
   function filterCatalog() {
     const rawQuery = (searchInput ? searchInput.value : '') || '';
@@ -38,6 +108,8 @@
     const selectedMats = materialChecks
       .filter(cb => cb.checked)
       .map(cb => cb.value.toLowerCase());
+
+    updateActiveChips(rawQuery, selectedMats, activeElement);
 
     let matchCount = 0;
 
@@ -77,7 +149,7 @@
       if (emptyState) {
         if (matchCount === 0) {
           emptyState.style.display = 'block';
-          if (emptyQuery) emptyQuery.textContent = rawQuery.trim() || selectedMats.join(', ');
+          if (emptyQuery) emptyQuery.textContent = rawQuery.trim() || selectedMats.join(', ') || activeElement;
         } else {
           emptyState.style.display = 'none';
         }
@@ -120,6 +192,11 @@
   function resetSearch() {
     if (searchInput) searchInput.value = '';
     materialChecks.forEach(cb => { cb.checked = false; });
+    activeElement = 'all';
+    elementalPills.forEach(p => {
+      if (p.getAttribute('data-element') === 'all') p.classList.add('is-active');
+      else p.classList.remove('is-active');
+    });
     filterCatalog();
     if (searchInput) searchInput.focus();
   }
@@ -130,6 +207,10 @@
 
   if (emptyReset) {
     emptyReset.addEventListener('click', resetSearch);
+  }
+
+  if (clearAllFiltersBtn) {
+    clearAllFiltersBtn.addEventListener('click', resetSearch);
   }
 
   // ── 2. Quick Add To Bag Interaction ───────────────────────────

@@ -46,6 +46,7 @@ class Checkout extends BaseController
         $phone    = trim((string) $this->request->getPost('customer_phone'));
         $email    = trim((string) $this->request->getPost('customer_email'));
         $address  = trim((string) $this->request->getPost('delivery_address'));
+        $notes    = trim((string) $this->request->getPost('order_notes'));
         $zone     = (string) $this->request->getPost('shipping_zone') ?: 'inside_dhaka';
         $payMethod = (string) $this->request->getPost('payment_method') ?: 'bkash';
         $trxId    = trim((string) $this->request->getPost('trx_id'));
@@ -103,6 +104,7 @@ class Checkout extends BaseController
             'trx_id'            => $trxId ?: null,
             'payment_status'    => !empty($trxId) ? 'on_hold' : 'pending',
             'order_status'      => 'received',
+            'order_notes'       => !empty($notes) ? $notes : null,
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
         ]);

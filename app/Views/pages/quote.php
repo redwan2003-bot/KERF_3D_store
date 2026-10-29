@@ -59,7 +59,10 @@
     <div class="k3d-quote-viewport-column">
       <div class="k3d-viewer-card" aria-label="Interactive 3D model viewport">
         <div class="k3d-viewer-topbar">
-          <span class="k3d-model-tag" id="k3d-model-name-display"><strong>NO MODEL LOADED</strong> / 0.0 MB</span>
+          <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+            <span class="k3d-model-tag" id="k3d-model-name-display"><strong>NO MODEL LOADED</strong> / 0.0 MB</span>
+            <button type="button" id="k3d-btn-clear-mesh" class="k3d-btn-clear-mesh" style="display: none;" title="Unload current mesh">[ &times; CLEAR MESH ]</button>
+          </div>
           <span class="k3d-build-badge is-valid" id="k3d-fit-badge">AWAITING CAD FILE</span>
         </div>
 
@@ -77,6 +80,11 @@
             <button type="button" class="is-active" id="k3d-btn-solid">SOLID</button>
             <button type="button" id="k3d-btn-wireframe">WIREFRAME</button>
             <button type="button" class="is-active" id="k3d-btn-cage">BED BOUNDS</button>
+          </div>
+          <div class="k3d-viewer-btn-group k3d-camera-presets">
+            <button type="button" id="k3d-cam-iso" class="is-active" title="Isometric view">ISO</button>
+            <button type="button" id="k3d-cam-top" title="Top-down orthographic view">TOP</button>
+            <button type="button" id="k3d-cam-front" title="Front elevation view">FRONT</button>
           </div>
           <div class="k3d-viewer-actions">
             <button type="button" id="k3d-btn-reset-view">RESET VIEW</button>

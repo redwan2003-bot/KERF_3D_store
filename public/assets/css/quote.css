@@ -151,6 +151,23 @@
   padding: 4px 8px;
 }
 
+.k3d-btn-clear-mesh {
+  background: transparent;
+  border: 1px dashed var(--k3d-rust);
+  color: var(--k3d-rust);
+  font: 700 8.5px var(--k3d-mono);
+  padding: 2px 6px;
+  cursor: pointer;
+  letter-spacing: .06em;
+  transition: all .15s ease;
+  line-height: 1.2;
+}
+
+.k3d-btn-clear-mesh:hover {
+  background: var(--k3d-rust);
+  color: #fff;
+}
+
 .k3d-viewer-controls {
   background: var(--k3d-surface);
   border-top: 1px solid var(--k3d-border);
