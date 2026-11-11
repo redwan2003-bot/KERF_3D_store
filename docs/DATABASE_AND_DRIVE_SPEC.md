@@ -94,7 +94,7 @@ Defines printable polymers with fixed pricing rates and physical properties for 
 - `id` (INT UNSIGNED, PK, AUTO_INCREMENT)
 - `name` (VARCHAR(60), NOT NULL, UNIQUE) — e.g. "PLA", "TPU 95A", "PETG"
 - `slug` (VARCHAR(60), NOT NULL, UNIQUE)
-- `rate_per_gram_bdt` (DECIMAL(8,2), NOT NULL) — PLA: 6.50, TPU: 9.75, PETG: 7.50
+- `rate_per_gram_bdt` (DECIMAL(8,2), NOT NULL) — PLA: 6.50, TPU: 9.75, PETG: 8.75
 - `effective_density` (DECIMAL(5,3), NOT NULL) — PLA: 0.500 g/cm³, TPU: 0.480 g/cm³
 - `customer_label` (VARCHAR(60), NOT NULL) — e.g. "PLA / rigid biopolymer"
 - `max_hotend_temp_c` (SMALLINT UNSIGNED, NULL) — Bambu A1 limit: 300°C

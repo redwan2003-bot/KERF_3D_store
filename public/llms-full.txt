@@ -30,6 +30,7 @@
 - **Heat Deflection Temperature (HDT)**: 75°C
 - **Tensile Yield Strength**: 50 MPa
 - **Impact Resistance**: High (superior layer-to-layer adhesion, low embrittlement).
+- **Pricing**: Base rate starting at ৳8.75 BDT per gram.
 
 ### TPU 95A (Thermoplastic Polyurethane)
 - **Primary Use**: Vibration isolators, drone bumpers, phone cases, shock-absorbing feet, wearable watch straps.

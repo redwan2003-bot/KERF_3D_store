@@ -406,7 +406,7 @@
             <div><span>SHORE HARDNESS:</span> <strong>80D RIGID</strong></div>
             <div><span>HEAT DEFLECTION:</span> <strong>75&deg;C</strong></div>
             <div><span>LAYER RESOLUTION:</span> <strong>0.16—0.20 MM</strong></div>
-            <div><span>RATE (PER G):</span> <strong>&#2547;7.50 BDT</strong></div>
+            <div><span>RATE (PER G):</span> <strong>&#2547;8.75 BDT</strong></div>
           </div>
         </div>
 

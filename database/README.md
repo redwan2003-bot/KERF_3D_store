@@ -63,7 +63,7 @@ Current material rates:
 
 - PLA: `৳6.50/g`.
 - TPU 95A: `৳9.75/g`.
-- PETG: `৳7.50/g` only if the owner confirms activation of the reference rate.
+- PETG: `৳8.75/g`.
 
 ## CodeIgniter/MySQL mapping
 

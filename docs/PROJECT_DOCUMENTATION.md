@@ -236,7 +236,7 @@ Before production launch, confirm:
 
 - Real product catalog and product photography.
 - Final material/color inventory.
-- Whether PETG is active and whether its rate is `৳7.50/g`.
+- PETG rate confirmed active at `৳8.75/g`.
 - Dhaka delivery-area boundaries.
 - bKash/Nagad/Rocket payment number.
 - Custom-order payment schedule.

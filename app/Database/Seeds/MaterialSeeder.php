@@ -41,13 +41,13 @@ class MaterialSeeder extends Seeder
             [
                 'name'              => 'PETG',
                 'slug'              => 'petg',
-                'rate_per_gram_bdt' => 7.50,
+                'rate_per_gram_bdt' => 8.75,
                 'effective_density' => 0.500,
                 'customer_label'    => 'PETG / engineering',
                 'max_hotend_temp_c' => 300,
                 'max_bed_temp_c'    => 100,
                 'is_recommended'    => 1,
-                'is_active'         => 0, // Inactive pending owner rate verification
+                'is_active'         => 1,
                 'created_at'        => date('Y-m-d H:i:s'),
                 'updated_at'        => date('Y-m-d H:i:s'),
             ],

@@ -449,7 +449,7 @@ INSERT INTO `materials` (`name`, `slug`, `rate_per_gram_bdt`, `effective_density
 VALUES
     ('PLA',     'pla',      6.50,  0.500, 'PLA / rigid biopolymer', 1, 1),
     ('TPU 95A', 'tpu-95a',  9.75,  0.480, 'TPU 95A / flexible',     1, 1),
-    ('PETG',    'petg',     7.50,  0.500, 'PETG / engineering',     1, 0)
+    ('PETG',    'petg',     8.75,  0.500, 'PETG / engineering',     1, 1)
 ON DUPLICATE KEY UPDATE `rate_per_gram_bdt` = VALUES(`rate_per_gram_bdt`);
 
 -- Initial Filament Shades for PLA
