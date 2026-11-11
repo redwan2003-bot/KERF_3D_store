@@ -45,14 +45,26 @@
 }
 
 .k3d-machine-tag {
-  background: var(--k3d-logo-brown);
-  border: 2px solid var(--k3d-ink);
-  color: var(--k3d-canvas);
+  background: var(--k3d-surface);
+  border: 1px solid var(--k3d-ink);
+  color: var(--k3d-ink);
+  box-shadow: 4px 4px 0 var(--k3d-ink);
   display: grid;
-  gap: 20px;
+  gap: 16px;
   min-width: 260px;
   padding: 24px;
   box-sizing: border-box;
+  position: relative;
+}
+
+.k3d-machine-tag::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--k3d-rust);
 }
 
 .k3d-machine-tag span,

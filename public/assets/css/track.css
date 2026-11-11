@@ -23,28 +23,28 @@
 }
 
 .k3d-track-form-card {
-  background: var(--k3d-paper);
-  border: var(--border-thick);
-  box-shadow: var(--shadow-hard);
-  padding: var(--space-lg);
-  margin-top: var(--space-xl);
+  background: var(--k3d-surface);
+  border: 1px solid var(--k3d-border);
+  box-shadow: 4px 4px 0 var(--k3d-ink);
+  padding: 32px;
+  margin-top: 32px;
 }
 
 .k3d-track-form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr auto;
-  gap: var(--space-md);
+  gap: 20px;
   align-items: flex-end;
 }
 
 .k3d-track-field {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
 .k3d-track-field label {
-  font-family: var(--font-mono);
+  font-family: var(--k3d-font-mono, monospace);
   font-size: 11px;
   letter-spacing: 0.08em;
   font-weight: 700;
@@ -53,26 +53,26 @@
 
 .k3d-track-field input {
   height: 48px;
-  border: var(--border-thin);
-  background: #fff;
+  border: 1px solid var(--k3d-border);
+  background: var(--k3d-surface);
   padding: 0 14px;
-  font-family: var(--font-mono);
+  font-family: var(--k3d-font-mono, monospace);
   font-size: 14px;
   color: var(--k3d-ink);
   outline: none;
-  transition: border-color var(--ease-snappy);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .k3d-track-field input:focus {
-  border-color: var(--k3d-rust);
-  box-shadow: 0 0 0 2px rgba(184, 51, 42, 0.2);
+  border-color: var(--k3d-ink);
+  box-shadow: 2px 2px 0 var(--k3d-ink);
 }
 
 .k3d-track-btn {
   height: 48px;
-  padding: 0 24px;
+  padding: 0 28px;
   background: var(--k3d-ink);
-  color: #fff;
+  color: var(--k3d-surface);
   border: var(--border-thin);
   font-family: var(--font-mono);
   font-size: 12px;
@@ -101,9 +101,9 @@
 }
 
 .k3d-track-header {
-  padding: var(--space-md) var(--space-lg);
-  border-bottom: var(--border-thin);
-  background: var(--k3d-paper);
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--k3d-border);
+  background: var(--k3d-surface);
   display: flex;
   justify-content: space-between;
   align-items: center;

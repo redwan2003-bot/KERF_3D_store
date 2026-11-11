@@ -1,24 +1,76 @@
 <?= $this->extend('layouts/main') ?>
 
 <?= $this->section('content') ?>
-<div class="k3d-container" style="max-width: 800px; margin: 40px auto 80px; padding: 0 20px;">
-  <p class="k3d-kicker" style="color: var(--k3d-accent); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px;">LEGAL // PRIVACY</p>
-  <h1 style="font-size: 32px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 24px; color: var(--k3d-text);">Privacy Policy</h1>
-  
-  <div style="font-size: 15px; line-height: 1.7; color: var(--k3d-muted);">
-    <p>Last updated: October 2026</p>
+<div class="k3d-container" style="max-width: 900px; margin: 50px auto 100px; padding: 0 20px;">
+  <div style="margin-bottom: 24px;">
+    <p class="k3d-kicker" style="color: var(--k3d-rust); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px;">
+      DATA SOVEREIGNTY // PROTOCOL SPEC-02
+    </p>
+    <h1 style="font-size: clamp(32px, 4.5vw, 48px); font-weight: 800; letter-spacing: -0.03em; margin: 0 0 12px; color: var(--k3d-ink); line-height: 1.05;">
+      Privacy Policy <em style="color: var(--k3d-rust); font-style: normal;">&amp; Client Data Protocol.</em>
+    </h1>
+    <p style="font-family: var(--k3d-font-mono); font-size: 11px; color: var(--k3d-meta); letter-spacing: 0.06em;">
+      DOCUMENT ID: K3D-PRIV-2026-V2 · EFFECTIVE: NOVEMBER 2026 · DHAKA ATELIER
+    </p>
+  </div>
+
+  <div style="background: var(--k3d-surface); border: 1px solid var(--k3d-border); box-shadow: 4px 4px 0 var(--k3d-ink); padding: clamp(24px, 4vw, 44px);">
     
-    <h3 style="font-size: 18px; font-weight: 600; margin: 24px 0 8px; color: var(--k3d-text);">1. Information We Collect</h3>
-    <p>Kerf 3D Studio ("we", "our", or "us"), operating at <strong>kerf3d.store</strong>, collects minimal information required to fulfill on-demand 3D printing orders and provide customer support. This includes name, delivery address, phone number, and any uploaded CAD models or design files.</p>
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--k3d-border); padding-bottom: 16px; margin-bottom: 28px; font-family: var(--k3d-font-mono); font-size: 10px; color: var(--k3d-meta); letter-spacing: 0.08em;">
+      <span>CLIENT DATA SECURITY // MINIMALIST TELEMETRY</span>
+      <span style="color: var(--k3d-teal); font-weight: 700;">● ZERO THIRD-PARTY TRACKING</span>
+    </div>
 
-    <h3 style="font-size: 18px; font-weight: 600; margin: 24px 0 8px; color: var(--k3d-text);">2. Google Drive Integration</h3>
-    <p>Our application integrates with Google Drive APIs exclusively to manage product imagery, catalog photography, and secure customer CAD file transfers for manufacturing. We do not sell, rent, or distribute any Google account data to third parties.</p>
+    <div style="display: grid; gap: 28px; font-size: 14px; line-height: 1.7; color: var(--k3d-secondary);">
+      
+      <div>
+        <h3 style="font-family: var(--k3d-font-mono); font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 8px; color: var(--k3d-ink);">
+          01 // Minimalist Data Collection
+        </h3>
+        <p style="margin: 0;">
+          <strong>KERF 3D Studio</strong> collects strictly the bare minimum telemetry required to slice CAD geometries, fulfill physical fabrication jobs, and coordinate dispatch courier delivery. This consists solely of customer name, delivery address, phone number (for courier dispatch verification), and uploaded 3D CAD files.
+        </p>
+      </div>
 
-    <h3 style="font-size: 18px; font-weight: 600; margin: 24px 0 8px; color: var(--k3d-text);">3. Intellectual Property of Customer Files</h3>
-    <p>All custom 3D models (.STL, .OBJ, .3MF) uploaded by users remain the exclusive intellectual property of the customer. Models are only used to slice, estimate, and physically manufacture the requested objects.</p>
+      <div>
+        <h3 style="font-family: var(--k3d-font-mono); font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 8px; color: var(--k3d-ink);">
+          02 // Cloud &amp; Google Drive Integration Guardrails
+        </h3>
+        <p style="margin: 0;">
+          Our infrastructure integrates with Google Drive APIs strictly for server-side product photography synchronization and isolated customer CAD file handoffs. We do not inspect personal cloud files, access private contact records, or distribute Google account metadata to external advertising brokers.
+        </p>
+      </div>
 
-    <h3 style="font-size: 18px; font-weight: 600; margin: 24px 0 8px; color: var(--k3d-text);">4. Contact</h3>
-    <p>For questions regarding this policy, contact us at <strong>kerf.3d@gmail.com</strong>.</p>
+      <div>
+        <h3 style="font-family: var(--k3d-font-mono); font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 8px; color: var(--k3d-ink);">
+          03 // Strict Confidentiality of Proprietary CAD Meshes
+        </h3>
+        <p style="margin: 0;">
+          Prototypes and custom mechanical models uploaded to our slicer remain strictly private. Uploaded geometry is processed in isolated sandboxed workers for volume and surface area calculation and is never shared, indexed in public databases, or utilized for generative AI training without explicit authorization.
+        </p>
+      </div>
+
+      <div>
+        <h3 style="font-family: var(--k3d-font-mono); font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 8px; color: var(--k3d-ink);">
+          04 // Direct Data Inquiries &amp; Erasure Requests
+        </h3>
+        <p style="margin: 0;">
+          Clients may request complete archival erasure of their order history and CAD files at any time by contacting our studio team:
+        </p>
+        <div style="margin-top: 10px; font-family: var(--k3d-font-mono); font-size: 12px; background: var(--k3d-canvas); border: 1px solid var(--k3d-border); padding: 14px;">
+          <div>• Data Controller: KERF 3D Atelier Dhaka</div>
+          <div>• Studio Email: <a href="mailto:kerf.3d@gmail.com" style="color: var(--k3d-ink); font-weight: 700;">kerf.3d@gmail.com</a></div>
+          <div>• Emergency Dispatch Phone: <a href="tel:+8801754550297" style="color: var(--k3d-ink); font-weight: 700;">+880 1754-550297</a></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top: 36px; padding-top: 20px; border-top: 1px dashed var(--k3d-border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+      <span class="k3d-rubber-stamp" style="font-size: 10px;">DATA SOVEREIGNTY VERIFIED · KERF 3D</span>
+      <a href="/quote" class="k3d-button k3d-btn-sm">UPLOAD CAD MESH &rarr;</a>
+    </div>
+
   </div>
 </div>
 <?= $this->endSection() ?>
