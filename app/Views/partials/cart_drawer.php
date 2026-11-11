@@ -30,7 +30,8 @@
     <!-- Dynamic Cart Items Container -->
     <div class="k3d-receipt-items" id="k3d-cart-items-container">
       <div class="k3d-cart-empty-notice" style="padding: 40px 0; text-align: center; color: var(--k3d-meta); font-family: var(--k3d-mono); font-size: 11px;">
-        YOUR ARTIFACT BAG IS CURRENTLY EMPTY.
+        <span class="k3d-rubber-stamp" style="font-size: 8px; margin-bottom: 12px;">ARCHIVE INTAKE EMPTY</span><br>
+        NO SPECIMENS CURRENTLY RESERVED IN LEDGER.
         <div style="margin-top: 14px;">
           <a href="/shop" class="k3d-button is-style-outline" style="font-size: 10px; padding: 10px 14px; text-decoration: none; display: inline-block;">BROWSE SPECIMEN ARCHIVE &rarr;</a>
         </div>

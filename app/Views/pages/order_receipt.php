@@ -424,9 +424,14 @@
     </div>
 
     <!-- Workshop Quality Certificate -->
-    <div class="quality-stamp">
-      <strong>✦ BAMBU LAB A1 FABRICATION CERTIFICATION</strong>
-      Every artifact in this batch has been sliced, calibrated, and extruded in our Dhaka studio. Fabricated on direct-drive Bambu Lab A1 systems with verified continuous layer adhesion. Retain this invoice as proof of purchase and warranty tracking.
+    <div class="quality-stamp" style="border: 1.5px solid var(--rust); background: rgba(184, 93, 56, 0.04); padding: 16px 20px; margin: 24px 0; font-family: var(--mono); font-size: 10px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+        <strong style="color: var(--rust); font-size: 11px; letter-spacing: 0.08em;">✦ BAMBU LAB A1 ATELIER PROVENANCE CERTIFICATION</strong>
+        <span style="font-size: 9px; color: var(--meta); font-weight: 700; border: 1px dashed var(--meta); padding: 2px 6px;">BATCH № <?= strtoupper(substr(md5($order['order_number']), 0, 8)) ?></span>
+      </div>
+      <p style="margin: 0; line-height: 1.6; color: var(--ink);">
+        This document certifies that each artifact detailed above has been sliced, mechanically calibrated, and extruded in our Dhaka atelier on direct-drive Bambu Lab A1 hardware. Evaluated for &plusmn;0.15mm mechanical mating, continuous gyroid infill matrix integrity, and layer adhesion. Retain this provenance slip for lifetime atelier support and repair inquiries.
+      </p>
     </div>
 
     <!-- Industrial Tear-Line Demarcation for Workshop Packing -->

@@ -182,7 +182,7 @@
         </label>
 
         <button class="k3d-add-button" type="submit" id="k3d-main-add-button">
-          <span>ADD ARTIFACT TO BAG</span>
+          <span>ACQUIRE SPECIMEN</span>
           <span id="k3d-cta-price">৳<?= number_format($product['price_bdt'] ?? 0, 2) ?> →</span>
         </button>
       </form>
@@ -198,7 +198,7 @@
           <svg class="k3d-wa-icon" width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.969.585 1.961.933 2.796.933 3.183 0 5.769-2.587 5.769-5.769.001-3.18-2.584-5.717-5.769-5.717zm3.364 8.163c-.144.405-.837.774-1.17.825-.311.047-.704.074-2.18-.537-1.745-.722-2.87-2.484-2.957-2.6-.087-.116-.708-.941-.708-1.792s.448-1.27.607-1.442c.159-.172.348-.216.464-.216.116 0 .232.002.333.007.106.005.249-.04.39.299.144.35.493 1.2.536 1.288.043.088.072.19.014.305-.058.115-.087.188-.174.289-.087.102-.183.228-.261.306-.087.087-.178.182-.077.355.101.173.45 0.742.966 1.202.664.591 1.224.774 1.397.861.174.087.275.072.376-.044.102-.116.435-.506.55-.68.116-.174.232-.145.391-.087s1.013.478 1.187.565c.174.087.29.13.333.203.044.072.044.419-.1 0.824zM12 2C6.477 2 2 6.477 2 12c0 1.891.524 3.662 1.436 5.178L2 22l4.978-1.398A9.956 9.956 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/>
           </svg>
-          <span>QUICK INQUIRY ON WHATSAPP (+880 1754-550297)</span>
+          <span>DIRECT ATELIER CONSULTATION (WHATSAPP)</span>
         </a>
       </div>
       <?php else: ?>
@@ -208,13 +208,24 @@
           $waMsg = urlencode("Hello Kerf 3D, I would like to inquire about the price and custom manufacturing for: " . $product['name'] . " (Specimen " . $product['sku'] . ")");
         ?>
         <a href="https://wa.me/8801754550297?text=<?= $waMsg ?>" target="_blank" rel="noopener" class="k3d-button is-style-fill" style="width: 100%; justify-content: center; padding: 16px; font-size: 11px; text-decoration: none;">
-          INQUIRE FOR PRICE ON WHATSAPP &rarr;
+          RESERVE SPECIMEN / INQUIRE PRICING &rarr;
         </a>
         <p style="font-family: var(--k3d-mono); font-size: 10px; color: var(--k3d-meta); margin-top: 8px; text-align: center;">
           ✦ DIRECT WORKSHOP HOTLINE: 01754550297 · DISPATCHED ACROSS BANGLADESH
         </p>
       </div>
       <?php endif; ?>
+
+      <!-- Provenance & Limited Fabrication Cadence Notice (Pillar 3) -->
+      <div class="k3d-provenance-box" style="margin-top: 20px; border: 1px dashed var(--k3d-rust); background: rgba(184, 93, 56, 0.03); padding: 12px 14px; font-family: var(--k3d-mono); font-size: 9.5px; color: var(--k3d-ink);">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+          <span class="k3d-rubber-stamp" style="font-size: 8px; padding: 2px 6px;">BATCH FABRICATION</span>
+          <span style="color: var(--k3d-rust); font-weight: 700;">PROVENANCE SEAL № <?= strtoupper(substr(md5($product['sku']), 0, 6)) ?></span>
+        </div>
+        <p style="margin: 0; line-height: 1.5; color: var(--k3d-secondary);">
+          Fabricated in controlled atelier runs of 8 units to ensure zero mechanical nozzle drift and maintain &plusmn;0.15mm tolerance. Every specimen ships with a signed workshop verification slip.
+        </p>
+      </div>
 
       <!-- CAD Blueprint Title Block -->
       <div class="k3d-blueprint-title-block" style="border: 1px solid var(--k3d-border); padding: 12px 14px; margin-top: 24px; font-family: var(--k3d-mono); font-size: 10px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px 12px; background: rgba(24, 24, 24, 0.02);">
