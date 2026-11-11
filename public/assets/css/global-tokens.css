@@ -682,16 +682,16 @@ textarea::placeholder {
 
 @media (max-width: 900px) {
   .k3d-whatsapp-fab {
-    bottom: 16px;
-    right: 14px;
+    bottom: 12px;
+    right: 12px;
   }
   .k3d-wa-meta {
     display: none;
   }
   .k3d-whatsapp-pill {
     padding: 0;
-    width: 42px;
-    height: 42px;
+    width: 38px;
+    height: 38px;
     justify-content: center;
     box-shadow: 2px 2px 0 var(--k3d-ink);
   }

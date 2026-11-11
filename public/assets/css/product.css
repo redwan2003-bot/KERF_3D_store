@@ -54,7 +54,7 @@
 
 .k3d-gallery-main {
   align-items: center;
-  background: #e9e4da;
+  background: var(--k3d-surface);
   display: flex;
   height: min(60vw, 620px);
   justify-content: center;
@@ -70,6 +70,7 @@
   max-height: 100%;
   object-fit: contain;
   display: block;
+  image-rendering: -webkit-optimize-contrast;
 }
 
 .k3d-gallery-stamp, .k3d-gallery-axis {
