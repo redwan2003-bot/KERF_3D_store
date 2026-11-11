@@ -18,26 +18,27 @@ class Home extends BaseController
             $materials[$mat['slug']] = $mat;
         }
 
-        // 2. Featured Artifacts (up to 4 products with Drive images)
+        // 2. Featured Artifacts (Curated Bento Selection)
         $productModel = new ProductModel();
         $imageModel   = new ProductImageModel();
 
-        $featured = $productModel->where('status', 'active')
-            ->orderBy('sort_order', 'ASC')
-            ->findAll(4);
-
-        foreach ($featured as &$item) {
-            $item['images'] = $imageModel->where('product_id', $item['id'])
-                ->where('is_active', 1)
-                ->orderBy('is_primary', 'DESC')
-                ->findAll(1);
-        }
+        // 3. Latest Intake Specimens for Interactive Ledger (Latest 8 MakerWorld Arrivals)
+        $latestArrivals = $db->table('products p')
+            ->select('p.id, p.sku, p.name, p.slug, p.layer_height_mm, p.infill_percent, p.makerworld_url, c.name as category_name, pi.filename as image_filename')
+            ->join('categories c', 'c.id = p.category_id', 'left')
+            ->join('product_images pi', 'pi.product_id = p.id AND pi.is_primary = 1', 'left')
+            ->where('p.status', 'active')
+            ->where('p.sku LIKE', 'K3D-MW-%')
+            ->orderBy('p.id', 'DESC')
+            ->limit(8)
+            ->get()
+            ->getResultArray();
 
         $data = [
             'title'            => 'Kerf 3D Studio — Precision Additive Manufacturing & Curated Artifacts',
             'pageCss'          => ['homepage.css'],
             'materials'        => $materials,
-            'featuredProducts' => $featured,
+            'latestArrivals'   => $latestArrivals,
         ];
 
         return view('pages/home', $data);

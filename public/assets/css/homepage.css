@@ -980,3 +980,367 @@
     padding: 16px;
   }
 }
+
+/* ── 04 / Atelier Intake Ledger & Terminal Styles ─────────── */
+.k3d-ledger-section {
+  background: var(--k3d-canvas);
+  border-bottom: 2px solid var(--k3d-ink);
+  padding: 60px 0 80px;
+}
+
+.k3d-ledger-controls {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.k3d-live-pulse-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--k3d-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  background: rgba(200, 100, 70, 0.1);
+  border: 1px solid var(--k3d-rust);
+  color: var(--k3d-rust);
+}
+
+.k3d-pulse-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--k3d-rust);
+  border-radius: 50%;
+  box-shadow: 0 0 6px var(--k3d-rust);
+  animation: k3d-pulse 1.8s infinite ease-in-out;
+}
+
+@keyframes k3d-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.85); }
+}
+
+.k3d-ledger-terminal {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 32px;
+  background: var(--k3d-surface);
+  border: 1px solid var(--k3d-ink);
+  box-shadow: 6px 6px 0px rgba(24, 24, 24, 0.06);
+  margin-top: 24px;
+}
+
+.k3d-ledger-table-wrap {
+  overflow-x: auto;
+  border-right: 1px solid var(--k3d-border);
+}
+
+.k3d-ledger-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--k3d-mono);
+  font-size: 11px;
+}
+
+.k3d-ledger-table th {
+  text-align: left;
+  padding: 14px 16px;
+  background: #f0ede6;
+  border-bottom: 1px solid var(--k3d-ink);
+  color: var(--k3d-ink);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+
+.k3d-ledger-table td {
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--k3d-border);
+  vertical-align: middle;
+}
+
+.k3d-ledger-row {
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.k3d-ledger-row:hover,
+.k3d-ledger-row.is-active {
+  background: #f6f3eb;
+}
+
+.k3d-ledger-row.is-active td {
+  border-left: 3px solid var(--k3d-rust);
+  font-weight: 600;
+}
+
+.k3d-col-sku {
+  color: var(--k3d-meta);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.k3d-col-name {
+  font-weight: 600;
+  color: var(--k3d-ink);
+}
+
+.k3d-row-link {
+  color: var(--k3d-ink);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.k3d-row-link:hover {
+  color: var(--k3d-rust);
+}
+
+.k3d-cat-pill {
+  display: inline-block;
+  font-size: 9px;
+  padding: 2px 6px;
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: var(--k3d-secondary);
+}
+
+.k3d-col-telemetry {
+  font-size: 10px;
+  color: var(--k3d-meta);
+  white-space: nowrap;
+}
+
+.k3d-inspect-btn {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--k3d-ink);
+  text-decoration: none;
+  padding: 4px 8px;
+  border: 1px solid var(--k3d-border);
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.k3d-ledger-row:hover .k3d-inspect-btn,
+.k3d-ledger-row.is-active .k3d-inspect-btn {
+  background: var(--k3d-ink);
+  color: #fff;
+  border-color: var(--k3d-ink);
+}
+
+/* ── Interactive Viewport Pane ─── */
+.k3d-ledger-preview {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  background: var(--k3d-surface);
+  position: relative;
+}
+
+.k3d-preview-hud {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--k3d-mono);
+  font-size: 10px;
+  color: var(--k3d-meta);
+  border-bottom: 1px dashed var(--k3d-border);
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+}
+
+.k3d-preview-canvas {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--k3d-canvas);
+  border: 1px solid var(--k3d-border);
+  padding: 24px;
+  min-height: 280px;
+  position: relative;
+}
+
+.k3d-preview-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.k3d-preview-img {
+  max-width: 240px;
+  max-height: 240px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  transition: transform 0.25s ease;
+}
+
+.k3d-preview-canvas:hover .k3d-preview-img {
+  transform: scale(1.04);
+}
+
+.k3d-preview-footer {
+  margin-top: 20px;
+}
+
+.k3d-hud-cat {
+  font-family: var(--k3d-mono);
+  font-size: 9px;
+  color: var(--k3d-rust);
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.k3d-hud-title {
+  font-family: var(--k3d-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--k3d-ink);
+  display: block;
+  margin-bottom: 6px;
+  line-height: 1.25;
+}
+
+.k3d-hud-specs {
+  font-family: var(--k3d-mono);
+  font-size: 10px;
+  color: var(--k3d-meta);
+  margin-bottom: 16px;
+}
+
+.k3d-hud-actions .k3d-button {
+  width: 100%;
+  justify-content: center;
+  padding: 12px;
+  font-size: 10px;
+}
+
+/* ── Workspace Capsule Trio Banner ─── */
+.k3d-capsule-banner {
+  margin-top: 40px;
+  border: 1px solid var(--k3d-ink);
+  background: #fdfcf9;
+  padding: 24px 28px;
+  box-shadow: 4px 4px 0px rgba(24, 24, 24, 0.05);
+}
+
+.k3d-capsule-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--k3d-mono);
+  font-size: 10px;
+  font-weight: 700;
+  padding-bottom: 16px;
+  border-bottom: 1px dashed var(--k3d-border);
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.k3d-capsule-tag {
+  color: var(--k3d-ink);
+  letter-spacing: 0.08em;
+}
+
+.k3d-capsule-delivery {
+  color: var(--k3d-rust);
+  letter-spacing: 0.06em;
+}
+
+.k3d-capsule-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.k3d-capsule-items-preview {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.k3d-capsule-thumb {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: var(--k3d-surface);
+  border: 1px solid var(--k3d-border);
+  padding: 10px 14px;
+}
+
+.k3d-capsule-thumb img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+
+.k3d-capsule-thumb span {
+  font-family: var(--k3d-mono);
+  font-size: 8px;
+  color: var(--k3d-meta);
+  font-weight: 700;
+}
+
+.k3d-capsule-plus {
+  font-family: var(--k3d-mono);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--k3d-rust);
+}
+
+.k3d-capsule-action {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.k3d-capsule-price-block {
+  text-align: right;
+  font-family: var(--k3d-mono);
+}
+
+.k3d-capsule-price-block small {
+  display: block;
+  font-size: 9px;
+  color: var(--k3d-meta);
+  margin-bottom: 4px;
+}
+
+.k3d-capsule-price-block strong {
+  font-size: 20px;
+  color: var(--k3d-ink);
+}
+
+.k3d-capsule-btn {
+  padding: 14px 22px;
+  font-size: 11px;
+}
+
+@media (max-width: 900px) {
+  .k3d-ledger-terminal {
+    grid-template-columns: 1fr;
+  }
+  .k3d-ledger-table-wrap {
+    border-right: none;
+    border-bottom: 1px solid var(--k3d-border);
+  }
+  .k3d-capsule-body {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .k3d-capsule-action {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

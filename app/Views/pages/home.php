@@ -59,24 +59,24 @@
         <div class="k3d-hero-spotlight">
           <div class="k3d-spotlight-frame">
             <div class="k3d-frame-datum top-left">+ 23&deg;48'N 90&deg;24'E [DHAKA]</div>
-            <div class="k3d-frame-datum top-right">ATELIER SPECIMEN № 001 // CURATED SELECTION</div>
+            <div class="k3d-frame-datum top-right">ATELIER SPECIMEN № 421 // CURATED SPOTLIGHT</div>
             
-            <a href="/product/charlie-brown-airpods-pro-2nd-gen-case" class="k3d-spotlight-link" aria-label="View Charlie Brown AirPods Pro Case">
-              <img src="/assets/images/products/charlie-brown-airpods-pro-2nd-gen-case.webp?v=<?= filemtime(FCPATH . 'assets/images/products/charlie-brown-airpods-pro-2nd-gen-case.webp') ?>" alt="Charlie Brown AirPods Pro 2nd Gen Case" class="k3d-spotlight-img">
+            <a href="/product/niche-01-brutalist-lamp" class="k3d-spotlight-link" aria-label="View Niche 01 Brutalist Lamp">
+              <img src="/assets/images/products/niche-01-brutalist-lamp.webp?v=<?= filemtime(FCPATH . 'assets/images/products/niche-01-brutalist-lamp.webp') ?>" alt="Niche 01 Brutalist Lamp" class="k3d-spotlight-img">
             </a>
 
             <div class="k3d-frame-footer">
               <div>
-                <span class="k3d-spec-sku">№ 001 // K3D-MW-001 · CARRY GEAR</span>
-                <strong>CHARLIE BROWN AIRPODS PRO CASE</strong>
+                <span class="k3d-spec-sku">№ 421 // K3D-MW-421 · LAMPS</span>
+                <strong>NICHE 01 BRUTALIST LAMP</strong>
                 <div class="k3d-hero-stamp-wrap">
-                  <span class="k3d-hero-stamp">BIO-PLA · 100% SOLID</span>
-                  <span class="k3d-hero-stamp">TOLERANCE 0.15MM</span>
+                  <span class="k3d-hero-stamp">TRANSLUCENT PETG · AMBIENT GLOW</span>
+                  <span class="k3d-hero-stamp">BAMBU A1 · 0.16MM FINE</span>
                 </div>
               </div>
               <div class="k3d-spec-price">
                 <span>INTAKE</span>
-                <strong>৳140.00</strong>
+                <strong>PRICE ON REQUEST</strong>
               </div>
             </div>
           </div>
@@ -118,99 +118,99 @@
       </div>
 
       <div class="k3d-bento-grid">
-        <!-- Bento Card 1: Featured AirPods Case -->
+        <!-- Bento Card 1: Featured Desktop Drawers -->
         <article class="k3d-bento-card k3d-bento-feature">
           <div class="k3d-card-meta">
-            <span>№ 001 // K3D-MW-001 &middot; CARRY GEAR</span>
-            <b>BAMBU A1 // 0.16MM</b>
+            <span>№ 411 // K3D-MW-411 &middot; STORAGE</span>
+            <b>BAMBU A1 // 0.20MM</b>
           </div>
-          <a href="/product/charlie-brown-airpods-pro-2nd-gen-case" class="k3d-bento-visual">
-            <img src="/assets/images/products/charlie-brown-airpods-pro-2nd-gen-case.webp?v=<?= filemtime(FCPATH . 'assets/images/products/charlie-brown-airpods-pro-2nd-gen-case.webp') ?>" alt="Charlie Brown AirPods Pro 2nd Gen Case" loading="lazy">
+          <a href="/product/stackable-desktop-drawers---organizer" class="k3d-bento-visual">
+            <img src="/assets/images/products/stackable-desktop-drawers---organizer.webp?v=<?= filemtime(FCPATH . 'assets/images/products/stackable-desktop-drawers---organizer.webp') ?>" alt="Stackable Desktop Drawers - Organizer" loading="lazy">
           </a>
           <div class="k3d-card-footer">
             <div>
-              <h3>Charlie Brown AirPods Pro 2nd Gen Case</h3>
-              <p>Iconic graphic aesthetic 3D printed case engineered for precise snap-retention on AirPods Pro 2nd Gen.</p>
+              <h3>Stackable Desktop Drawers</h3>
+              <p>Minimalist modular desk drawers engineered for hardware tools, screws, and daily desktop EDC discipline.</p>
               <div class="k3d-stamp-row">
-                <span class="k3d-bento-stamp">BIO-PLA · 100% SOLID</span>
-                <span class="k3d-bento-stamp">SNAP RETENTION</span>
+                <span class="k3d-bento-stamp">BIO-PLA · 15% GYROID</span>
+                <span class="k3d-bento-stamp">INTERLOCKING STACK</span>
               </div>
             </div>
             <div class="k3d-card-action">
-              <span class="k3d-card-price">৳140.00</span>
-              <a href="/product/charlie-brown-airpods-pro-2nd-gen-case" class="k3d-button k3d-btn-sm">VIEW DOSSIER &rarr;</a>
+              <span class="k3d-card-price" style="font-size: 11px; color: var(--k3d-rust);">PRICE ON REQUEST</span>
+              <a href="/product/stackable-desktop-drawers---organizer" class="k3d-button k3d-btn-sm">VIEW DOSSIER &rarr;</a>
             </div>
           </div>
         </article>
 
-        <!-- Bento Card 2: Nebula Lamp -->
+        <!-- Bento Card 2: Cheese Keycaps -->
         <article class="k3d-bento-card">
           <div class="k3d-card-meta">
-            <span>№ 008 // K3D-MW-008 &middot; LAMPS</span>
-            <b>LIGHT KIT MH001</b>
+            <span>№ 425 // K3D-MW-425 &middot; KEYBOARDS</span>
+            <b>MX STEM COMPATIBLE</b>
           </div>
-          <a href="/product/nebula-lamp" class="k3d-bento-visual">
-            <img src="/assets/images/products/nebula-lamp.webp?v=<?= filemtime(FCPATH . 'assets/images/products/nebula-lamp.webp') ?>" alt="Nebula Lamp" loading="lazy">
+          <a href="/product/cheese-keycaps" class="k3d-bento-visual">
+            <img src="/assets/images/products/cheese-keycaps.webp?v=<?= filemtime(FCPATH . 'assets/images/products/cheese-keycaps.webp') ?>" alt="Cheese Keycaps" loading="lazy">
           </a>
           <div class="k3d-card-footer">
             <div>
-              <h3>Nebula Lamp</h3>
-              <p>Soft ambient diffusers engineered for Bambu Lab LED hardware kits.</p>
+              <h3>Cheese Keycaps</h3>
+              <p>Tactile mechanical switch keycaps featuring clean textured porous aesthetic and snug MX tolerance.</p>
               <div class="k3d-stamp-row">
-                <span class="k3d-bento-stamp">PETG · AMBIENT DIFFUSION</span>
+                <span class="k3d-bento-stamp">BIO-PLA · 100% SOLID STEM</span>
               </div>
             </div>
             <div class="k3d-card-action">
-              <span class="k3d-card-price">৳745.00</span>
-              <a href="/product/nebula-lamp" class="k3d-button k3d-btn-sm">VIEW DOSSIER &rarr;</a>
+              <span class="k3d-card-price" style="font-size: 11px; color: var(--k3d-rust);">PRICE ON REQUEST</span>
+              <a href="/product/cheese-keycaps" class="k3d-button k3d-btn-sm">VIEW DOSSIER &rarr;</a>
             </div>
           </div>
         </article>
 
-        <!-- Bento Card 3: Mini Paracord Pulley -->
+        <!-- Bento Card 3: Loop Compact Quick Swap Cable Winder -->
         <article class="k3d-bento-card">
           <div class="k3d-card-meta">
-            <span>№ 002 // K3D-MW-002 &middot; CARRY GEAR</span>
-            <b>608 BEARING</b>
+            <span>№ 443 // K3D-MW-443 &middot; CABLES</span>
+            <b>QUICK SWAP CORE</b>
           </div>
-          <a href="/product/mini-paracord-pulley-608-bearing---skeleton-zero" class="k3d-bento-visual">
-            <img src="/assets/images/products/mini-paracord-pulley-608-bearing---skeleton-zero.webp?v=<?= filemtime(FCPATH . 'assets/images/products/mini-paracord-pulley-608-bearing---skeleton-zero.webp') ?>" alt="Mini Paracord Pulley" loading="lazy">
+          <a href="/product/loop-compact-quick-swap-cable-winder" class="k3d-bento-visual">
+            <img src="/assets/images/products/loop-compact-quick-swap-cable-winder.webp?v=<?= filemtime(FCPATH . 'assets/images/products/loop-compact-quick-swap-cable-winder.webp') ?>" alt="Loop Compact Quick Swap Cable Winder" loading="lazy">
           </a>
           <div class="k3d-card-footer">
             <div>
-              <h3>Mini Paracord Pulley</h3>
-              <p>Functional Skeleton Zero mechanical pulley for 608 skate bearings.</p>
+              <h3>Loop Compact Cable Winder</h3>
+              <p>Precision spool winder with quick-swap retention latch for EDC charging cables up to 1.5m.</p>
               <div class="k3d-stamp-row">
-                <span class="k3d-bento-stamp">PA-CF / PLA · LOAD BEARING</span>
+                <span class="k3d-bento-stamp">PETG · TOUGH FLEX RETENTION</span>
               </div>
             </div>
             <div class="k3d-card-action">
-              <span class="k3d-card-price">৳125.00</span>
-              <a href="/product/mini-paracord-pulley-608-bearing---skeleton-zero" class="k3d-button k3d-btn-sm">VIEW DOSSIER &rarr;</a>
+              <span class="k3d-card-price" style="font-size: 11px; color: var(--k3d-rust);">PRICE ON REQUEST</span>
+              <a href="/product/loop-compact-quick-swap-cable-winder" class="k3d-button k3d-btn-sm">VIEW DOSSIER &rarr;</a>
             </div>
           </div>
         </article>
 
-        <!-- Bento Card 4: DUO Pen Holder -->
+        <!-- Bento Card 4: Modular Shelf for Wall / Floor / Desk -->
         <article class="k3d-bento-card">
           <div class="k3d-card-meta">
-            <span>№ 006 // K3D-MW-006 &middot; ORGANIZERS</span>
-            <b>MODULAR TRAY</b>
+            <span>№ 413 // K3D-MW-413 &middot; HARDWARE</span>
+            <b>MODULAR ARCHITECTURE</b>
           </div>
-          <a href="/product/duo-pen-holder-with-removable-tray" class="k3d-bento-visual">
-            <img src="/assets/images/products/duo-pen-holder-with-removable-tray.webp?v=<?= filemtime(FCPATH . 'assets/images/products/duo-pen-holder-with-removable-tray.webp') ?>" alt="DUO Pen Holder" loading="lazy">
+          <a href="/product/modular-shelf-for-wall-floor-desk" class="k3d-bento-visual">
+            <img src="/assets/images/products/modular-shelf-for-wall-floor-desk.webp?v=<?= filemtime(FCPATH . 'assets/images/products/modular-shelf-for-wall-floor-desk.webp') ?>" alt="Modular Shelf for Wall Floor Desk" loading="lazy">
           </a>
           <div class="k3d-card-footer">
             <div>
-              <h3>DUO Pen Holder</h3>
-              <p>Dual-compartment desk caddy with removable tool tray.</p>
+              <h3>Modular Shelf System</h3>
+              <p>Multi-configuration architectural shelf framework for wall-mount, floor riser, or desk elevation.</p>
               <div class="k3d-stamp-row">
-                <span class="k3d-bento-stamp">BIO-PLA · MODULAR FIT</span>
+                <span class="k3d-bento-stamp">PETG / PLA · LOAD BEARING</span>
               </div>
             </div>
             <div class="k3d-card-action">
-              <span class="k3d-card-price">৳505.00</span>
-              <a href="/product/duo-pen-holder-with-removable-tray" class="k3d-button k3d-btn-sm">VIEW DOSSIER &rarr;</a>
+              <span class="k3d-card-price" style="font-size: 11px; color: var(--k3d-rust);">PRICE ON REQUEST</span>
+              <a href="/product/modular-shelf-for-wall-floor-desk" class="k3d-button k3d-btn-sm">VIEW DOSSIER &rarr;</a>
             </div>
           </div>
         </article>
@@ -218,7 +218,145 @@
     </div>
   </section>
 
-  <!-- ── 04 / Karimoku Case Studies (Japandi Architectural Workstation Suites) ── -->
+  <!-- ── 04 / Atelier Intake Ledger (Interactive New Arrivals Terminal) ── -->
+  <section class="k3d-section k3d-ledger-section">
+    <div class="k3d-container">
+      <div class="k3d-section-header">
+        <div>
+          <span class="k3d-kicker">03 // ATELIER INTAKE LEDGER · RECENT FABRICATION QUEUE</span>
+          <h2 class="k3d-section-title">Latest curated arrivals from the Bambu A1 fleet.</h2>
+        </div>
+        <div class="k3d-ledger-controls">
+          <span class="k3d-live-pulse-badge"><span class="k3d-pulse-dot"></span> LIVE INTAKE</span>
+          <a href="/shop" class="k3d-text-link">FULL ARCHIVE (№ 001—457) &rarr;</a>
+        </div>
+      </div>
+
+      <div class="k3d-ledger-terminal">
+        <!-- Left: Monospace Specimen Register Table -->
+        <div class="k3d-ledger-table-wrap">
+          <table class="k3d-ledger-table">
+            <thead>
+              <tr>
+                <th>№ SPECIMEN</th>
+                <th>ARTIFACT DESIGNATION</th>
+                <th>DISCIPLINE</th>
+                <th>CALIBRATION</th>
+                <th>ACTION</th>
+              </tr>
+            </thead>
+            <tbody id="k3d-ledger-rows">
+              <?php if (!empty($latestArrivals)): ?>
+                <?php foreach ($latestArrivals as $idx => $arr): ?>
+                  <?php 
+                    $arrImg = !empty($arr['image_filename']) ? '/assets/images/products/' . esc($arr['image_filename']) : '/assets/images/favicon.svg';
+                    $arrRes = !empty($arr['layer_height_mm']) ? number_format((float)$arr['layer_height_mm'], 2) . 'MM' : '0.20MM';
+                    $arrInfill = !empty($arr['infill_percent']) ? $arr['infill_percent'] . '% GYROID' : '20% GYROID';
+                  ?>
+                  <tr class="k3d-ledger-row <?= $idx === 0 ? 'is-active' : '' ?>"
+                      data-sku="<?= esc($arr['sku']) ?>"
+                      data-name="<?= esc($arr['name']) ?>"
+                      data-slug="<?= esc($arr['slug']) ?>"
+                      data-cat="<?= esc(strtoupper($arr['category_name'] ?? 'GENERAL')) ?>"
+                      data-img="<?= $arrImg ?>"
+                      data-res="<?= $arrRes ?>"
+                      data-infill="<?= $arrInfill ?>">
+                    <td class="k3d-col-sku"><?= esc($arr['sku']) ?></td>
+                    <td class="k3d-col-name">
+                      <a href="/product/<?= esc($arr['slug']) ?>" class="k3d-row-link">
+                        <?= esc($arr['name']) ?>
+                      </a>
+                    </td>
+                    <td class="k3d-col-cat"><span class="k3d-cat-pill"><?= esc(strtoupper($arr['category_name'] ?? 'CATALOG')) ?></span></td>
+                    <td class="k3d-col-telemetry"><?= $arrRes ?> · <?= $arrInfill ?></td>
+                    <td class="k3d-col-action">
+                      <a href="/product/<?= esc($arr['slug']) ?>" class="k3d-inspect-btn">INSPECT &rarr;</a>
+                    </td>
+                  </tr>
+                <?php endforeach; ?>
+              <?php endif; ?>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Right: Interactive Architectural Viewport Pane -->
+        <aside class="k3d-ledger-preview" id="k3d-ledger-preview-pane">
+          <div class="k3d-preview-hud">
+            <span class="k3d-hud-datum top-left">+ 23&deg;48'N 90&deg;24'E</span>
+            <span class="k3d-hud-datum top-right" id="k3d-hud-sku"><?= esc($latestArrivals[0]['sku'] ?? 'K3D-SPECIMEN') ?></span>
+          </div>
+
+          <div class="k3d-preview-canvas">
+            <a href="/product/<?= esc($latestArrivals[0]['slug'] ?? '#') ?>" id="k3d-hud-link" class="k3d-preview-link">
+              <img src="<?= !empty($latestArrivals[0]['image_filename']) ? '/assets/images/products/' . esc($latestArrivals[0]['image_filename']) : '/assets/images/favicon.svg' ?>" 
+                   alt="Specimen preview" 
+                   id="k3d-hud-img" 
+                   class="k3d-preview-img">
+            </a>
+          </div>
+
+          <div class="k3d-preview-footer">
+            <div class="k3d-hud-info">
+              <span class="k3d-hud-cat" id="k3d-hud-cat"><?= esc(strtoupper($latestArrivals[0]['category_name'] ?? 'CATALOG')) ?></span>
+              <strong class="k3d-hud-title" id="k3d-hud-title"><?= esc($latestArrivals[0]['name'] ?? 'Select Specimen') ?></strong>
+              <div class="k3d-hud-specs" id="k3d-hud-specs">BAMBU LAB A1 // 0.20MM FINE // 20% GYROID</div>
+            </div>
+
+            <div class="k3d-hud-actions">
+              <a href="https://wa.me/8801754550297?text=<?= urlencode('Hello Kerf 3D, I would like to inquire about: ' . ($latestArrivals[0]['name'] ?? '') . ' (' . ($latestArrivals[0]['sku'] ?? '') . ')') ?>" 
+                 id="k3d-hud-wa" 
+                 target="_blank" 
+                 rel="noopener" 
+                 class="k3d-button is-style-fill">
+                INQUIRE VIA WHATSAPP &rarr;
+              </a>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <!-- ── Workspace Capsule Set (AOV & Free Delivery Threshold Booster) ── -->
+      <div class="k3d-capsule-banner">
+        <div class="k3d-capsule-header">
+          <span class="k3d-capsule-tag">04 // CURATED WORKSPACE CAPSULE № 01 · DESK DISCIPLINE SET</span>
+          <span class="k3d-capsule-delivery">✦ UNLOCKS FREE DHAKA DELIVERY (GOAL: ৳1,200)</span>
+        </div>
+        <div class="k3d-capsule-body">
+          <div class="k3d-capsule-items-preview">
+            <div class="k3d-capsule-thumb">
+              <img src="/assets/images/products/stackable-desktop-drawers---organizer.webp" alt="Modular Drawers">
+              <span>01. DESK DRAWERS</span>
+            </div>
+            <span class="k3d-capsule-plus">+</span>
+            <div class="k3d-capsule-thumb">
+              <img src="/assets/images/products/loop-compact-quick-swap-cable-winder.webp" alt="Loop Cable Winder">
+              <span>02. LOOP CABLE WINDER</span>
+            </div>
+            <span class="k3d-capsule-plus">+</span>
+            <div class="k3d-capsule-thumb">
+              <img src="/assets/images/products/cheese-keycaps.webp" alt="Cheese Keycaps">
+              <span>03. CHEESE KEYCAPS</span>
+            </div>
+          </div>
+          <div class="k3d-capsule-action">
+            <div class="k3d-capsule-price-block">
+              <small>COORDINATED TRIO // MATTE BLACK OR PARCHMENT</small>
+              <strong>৳1,250.00 BDT</strong>
+            </div>
+            <a href="https://wa.me/8801754550297?text=<?= urlencode('Hello Kerf 3D, I would like to order the Curated Workspace Capsule № 01 (Desk Drawers + Loop Cable Winder + Cheese Keycaps) for ৳1,250 with Free Dhaka Delivery.') ?>" 
+               target="_blank" 
+               rel="noopener" 
+               class="k3d-button is-style-fill k3d-capsule-btn">
+              CLAIM CAPSULE VIA WHATSAPP &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── 05 / Karimoku Case Studies (Japandi Architectural Workstation Suites) ── -->
   <section class="k3d-section k3d-cases-section">
     <div class="k3d-container">
       <div class="k3d-section-header">
@@ -614,6 +752,62 @@
       }
     ]
   }
+  </script>
+
+  <!-- Interactive Intake Ledger JavaScript Engine -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const rows = document.querySelectorAll('.k3d-ledger-row');
+    const hudSku = document.getElementById('k3d-hud-sku');
+    const hudTitle = document.getElementById('k3d-hud-title');
+    const hudCat = document.getElementById('k3d-hud-cat');
+    const hudSpecs = document.getElementById('k3d-hud-specs');
+    const hudImg = document.getElementById('k3d-hud-img');
+    const hudLink = document.getElementById('k3d-hud-link');
+    const hudWa = document.getElementById('k3d-hud-wa');
+
+    if (!rows.length || !hudImg) return;
+
+    function activateRow(row) {
+      rows.forEach(r => r.classList.remove('is-active'));
+      row.classList.add('is-active');
+
+      const sku = row.dataset.sku || '';
+      const name = row.dataset.name || '';
+      const slug = row.dataset.slug || '';
+      const cat = row.dataset.cat || '';
+      const img = row.dataset.img || '';
+      const res = row.dataset.res || '0.20MM';
+      const infill = row.dataset.infill || '20% GYROID';
+
+      if (hudSku) hudSku.textContent = sku;
+      if (hudTitle) hudTitle.textContent = name;
+      if (hudCat) hudCat.textContent = cat;
+      if (hudSpecs) hudSpecs.textContent = 'BAMBU LAB A1 // ' + res + ' FINE // ' + infill;
+      if (hudImg && img) {
+        hudImg.src = img;
+        hudImg.alt = name;
+      }
+      if (hudLink && slug) {
+        hudLink.href = '/product/' + slug;
+      }
+      if (hudWa) {
+        const msg = encodeURIComponent('Hello Kerf 3D, I would like to inquire about: ' + name + ' (' + sku + ')');
+        hudWa.href = 'https://wa.me/8801754550297?text=' + msg;
+      }
+    }
+
+    rows.forEach(row => {
+      row.addEventListener('mouseenter', function() {
+        activateRow(this);
+      });
+      row.addEventListener('click', function(e) {
+        if (!e.target.closest('a')) {
+          activateRow(this);
+        }
+      });
+    });
+  });
   </script>
 
 </div>
