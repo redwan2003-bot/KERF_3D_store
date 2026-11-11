@@ -351,7 +351,7 @@
     "@type": "Product",
     "name": <?= json_encode($product['name']) ?>,
     "image": [
-      <?= json_encode(!empty($product['primary_image_url']) ? $product['primary_image_url'] : base_url('assets/images/favicon.svg')) ?>
+      <?= json_encode($og_image ?? (!empty($product['primary_image_url']) ? $product['primary_image_url'] : base_url('assets/images/favicon.svg'))) ?>
     ],
     "description": <?= json_encode(strip_tags($product['description'] ?? 'Precision 3D printed artifact fabricated in Dhaka on Bambu Lab A1 hardware.')) ?>,
     "sku": <?= json_encode($product['sku']) ?>,
