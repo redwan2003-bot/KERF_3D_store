@@ -1471,13 +1471,46 @@
   .k3d-ledger-table-wrap {
     border-right: none;
     border-bottom: 1px solid var(--k3d-border);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
   .k3d-capsule-body {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
+    gap: 20px;
+  }
+  .k3d-capsule-items-preview {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+  }
+  .k3d-capsule-thumb {
+    padding: 8px 6px;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+  }
+  .k3d-capsule-thumb img {
+    width: 48px;
+    height: 48px;
+  }
+  .k3d-capsule-thumb span {
+    font-size: 7.5px;
+    white-space: nowrap;
   }
   .k3d-capsule-action {
     width: 100%;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .k3d-capsule-price-block {
+    text-align: left;
+  }
+  .k3d-capsule-btn {
+    width: 100%;
+    justify-content: center;
   }
 }

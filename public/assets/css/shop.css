@@ -587,16 +587,26 @@
     margin: 14px 0 18px;
   }
   .k3d-shop-layout {
+    display: flex;
     flex-direction: column !important;
     padding: 0 16px 60px;
   }
+  .k3d-shop-results {
+    order: 1;
+    width: 100%;
+  }
   .k3d-shop-filters {
+    order: 2;
     flex: none;
     width: 100%;
     position: static;
+    margin-top: 36px;
     margin-bottom: 30px;
-    border: 1px solid var(--k3d-ink);
+    border: 1px solid var(--k3d-border);
+    background: var(--k3d-surface);
+    box-shadow: 3px 3px 0 var(--k3d-ink);
     padding: 18px;
+    box-sizing: border-box;
   }
   .k3d-results-toolbar {
     flex-direction: column;

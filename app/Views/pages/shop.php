@@ -163,7 +163,7 @@
                       }
                     ?>
                     <?php if (!empty($imgSrc)): ?>
-                      <img src="<?= $imgSrc ?>" alt="<?= esc($product['name']) ?>" style="width: 100%; height: 100%; object-fit: contain;" loading="lazy">
+                      <img src="<?= $imgSrc ?>" alt="<?= esc($product['name']) ?>" style="width: 100%; height: 100%; object-fit: contain;" <?= ($idx < 6) ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"' ?>>
                     <?php else: ?>
                       <span style="font-family: var(--k3d-mono); font-size: 10px; color: var(--k3d-meta); padding: 10px;">SPECIMEN<br><?= esc($product['sku']) ?></span>
                     <?php endif; ?>

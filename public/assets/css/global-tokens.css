@@ -500,25 +500,17 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     width: 100%;
     order: 3;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
-    gap: 16px;
     margin-top: 10px;
-    padding: 8px 4px 6px;
+    padding: 8px 2px 6px;
     border-top: 1px solid var(--k3d-border);
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-  .k3d-nav::-webkit-scrollbar {
-    display: none;
   }
   .k3d-nav a {
     white-space: nowrap;
     font-size: 11px;
-    letter-spacing: 0.08em;
-    padding: 4px 0;
-    flex-shrink: 0;
+    letter-spacing: 0.06em;
+    padding: 4px 2px;
   }
   .k3d-hide-mobile {
     display: none;
@@ -593,6 +585,32 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   border: 1.5px solid var(--k3d-surface);
   border-radius: 50%;
   animation: k3d-radar-pulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+@media (max-width: 768px) {
+  .k3d-whatsapp-fab {
+    bottom: 16px;
+    right: 16px;
+  }
+  .k3d-whatsapp-pill {
+    padding: 6px 12px 6px 8px;
+    gap: 8px;
+    box-shadow: 2px 2px 0 var(--k3d-ink);
+  }
+  .k3d-wa-icon-wrap {
+    width: 24px;
+    height: 24px;
+  }
+  .k3d-wa-icon-wrap svg {
+    width: 14px;
+    height: 14px;
+  }
+  .k3d-wa-status {
+    font-size: 9px;
+  }
+  .k3d-wa-label {
+    display: none;
+  }
 }
 
 /* ==============================================================================

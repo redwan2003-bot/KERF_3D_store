@@ -105,7 +105,14 @@
     // Render Item Rows
     if (!container) return;
 
+    const checkoutLink = document.getElementById('k3d-drawer-checkout-link');
+
     if (!data.items || data.items.length === 0) {
+      if (checkoutLink) {
+        checkoutLink.style.opacity = '0.4';
+        checkoutLink.style.pointerEvents = 'none';
+        checkoutLink.innerHTML = 'INTAKE LEDGER EMPTY';
+      }
       container.innerHTML = `
         <div class="k3d-cart-empty-notice" style="padding: 48px 0; text-align: center; color: var(--k3d-meta); font-family: var(--k3d-mono); font-size: 11px;">
           YOUR ARTIFACT BAG IS CURRENTLY EMPTY.
@@ -115,6 +122,13 @@
         </div>
       `;
       return;
+    }
+
+    if (checkoutLink) {
+      checkoutLink.style.opacity = '1';
+      checkoutLink.style.pointerEvents = 'auto';
+      checkoutLink.innerHTML = 'PROCEED TO CHECKOUT <span>&rarr;</span>';
+      checkoutLink.href = `/checkout?zone=${encodeURIComponent(currentShippingZone)}`;
     }
 
     let html = '';

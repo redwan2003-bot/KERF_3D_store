@@ -240,9 +240,9 @@
               <tr>
                 <th>№ SPECIMEN</th>
                 <th>ARTIFACT DESIGNATION</th>
-                <th>DISCIPLINE</th>
-                <th>CALIBRATION</th>
-                <th>ACTION</th>
+                <th class="k3d-hide-mobile">DISCIPLINE</th>
+                <th class="k3d-hide-mobile">CALIBRATION</th>
+                <th style="text-align: right;">ACTION</th>
               </tr>
             </thead>
             <tbody id="k3d-ledger-rows">
@@ -267,10 +267,10 @@
                         <?= esc($arr['name']) ?>
                       </a>
                     </td>
-                    <td class="k3d-col-cat"><span class="k3d-cat-pill"><?= esc(strtoupper($arr['category_name'] ?? 'CATALOG')) ?></span></td>
-                    <td class="k3d-col-telemetry"><?= $arrRes ?> · <?= $arrInfill ?></td>
-                    <td class="k3d-col-action">
-                      <a href="/product/<?= esc($arr['slug']) ?>" class="k3d-inspect-btn">INSPECT &rarr;</a>
+                    <td class="k3d-col-cat k3d-hide-mobile"><span class="k3d-cat-pill"><?= esc(strtoupper($arr['category_name'] ?? 'CATALOG')) ?></span></td>
+                    <td class="k3d-col-telemetry k3d-hide-mobile"><?= $arrRes ?> · <?= $arrInfill ?></td>
+                    <td class="k3d-col-action" style="text-align: right;">
+                      <a href="/product/<?= esc($arr['slug']) ?>" class="k3d-inspect-btn">VIEW &rarr;</a>
                     </td>
                   </tr>
                 <?php endforeach; ?>

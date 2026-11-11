@@ -7,10 +7,10 @@
 
         <!-- Primary Navigation -->
         <nav class="k3d-nav" role="navigation" aria-label="Main Navigation">
-            <a href="/shop" class="<?= (uri_string() === 'shop' || str_starts_with(uri_string(), 'product')) ? 'is-active' : '' ?>">SPECIMEN ARCHIVE</a>
+            <a href="/shop" class="<?= (uri_string() === 'shop' || str_starts_with(uri_string(), 'product')) ? 'is-active' : '' ?>"><span class="k3d-hide-mobile">SPECIMEN </span>ARCHIVE</a>
             <a href="/quote" class="<?= (uri_string() === 'quote') ? 'is-active' : '' ?>"><span class="k3d-hide-mobile">CUSTOM </span>CAD INTAKE</a>
             <a href="/materials" class="<?= (uri_string() === 'materials') ? 'is-active' : '' ?>">POLYMERS</a>
-            <a href="/track" class="<?= (uri_string() === 'track') ? 'is-active' : '' ?>">DISPATCH TRACK</a>
+            <a href="/track" class="<?= (uri_string() === 'track') ? 'is-active' : '' ?>"><span class="k3d-hide-mobile">DISPATCH </span>TRACK</a>
         </nav>
 
         <!-- Workshop Hardware Telemetry & Cart Trigger -->
