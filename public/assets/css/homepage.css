@@ -39,9 +39,9 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #28a03c;
+  background: var(--k3d-teal);
   display: inline-block;
-  box-shadow: 0 0 0 3px rgba(40, 160, 60, 0.2);
+  box-shadow: 0 0 0 3px var(--k3d-teal-glow);
 }
 
 .k3d-hero-grid {
@@ -1140,17 +1140,17 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   padding: 4px 10px;
-  background: rgba(200, 100, 70, 0.1);
-  border: 1px solid var(--k3d-rust);
-  color: var(--k3d-rust);
+  background: var(--k3d-teal-glow);
+  border: 1px solid var(--k3d-teal);
+  color: var(--k3d-teal);
 }
 
 .k3d-pulse-dot {
   width: 6px;
   height: 6px;
-  background: var(--k3d-rust);
+  background: var(--k3d-teal);
   border-radius: 50%;
-  box-shadow: 0 0 6px var(--k3d-rust);
+  box-shadow: 0 0 6px var(--k3d-teal);
   animation: k3d-pulse 1.8s infinite ease-in-out;
 }
 

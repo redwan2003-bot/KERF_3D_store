@@ -2,17 +2,30 @@
    Active runtime: CodeIgniter 4 + OpenLiteSpeed. */
 
 :root {
+  /* Surfaces & Canvas (Parchment & Specimen Mount Boards) */
   --k3d-canvas: #f6f3eb;
-  --k3d-surface: #ffffff;
-  --k3d-surface-muted: #ede7dc;
-  --k3d-ink: #261d16;
-  --k3d-secondary: #52453a;
-  --k3d-meta: #847769;
+  --k3d-surface: #faf8f5;
+  --k3d-surface-pure: #ffffff;
+  --k3d-surface-muted: #efebe2;
+  
+  /* Typography & Lines (Carbon Iron & Hairline Drafting Dividers) */
+  --k3d-ink: #1b1917;
+  --k3d-secondary: #574e44;
+  --k3d-meta: #7f7467;
   --k3d-border: #ded7ca;
+  --k3d-border-subtle: #eae4d8;
+  
+  /* Dual Functional Accents: Human Craft vs Machine Telemetry */
   --k3d-rust: #b85d38;
   --k3d-rust-dark: #944525;
+  --k3d-teal: #2a6f6d;
+  --k3d-teal-glow: rgba(42, 111, 109, 0.12);
+  
+  /* Official Brand Mark */
   --k3d-logo-brown: #4a321f;
   --k3d-brand: #4a321f;
+  
+  /* Typography Scale */
   --k3d-display: "Outfit", "Plus Jakarta Sans", sans-serif;
   --k3d-sans: "Plus Jakarta Sans", Arial, sans-serif;
   --k3d-mono: "Space Mono", "Courier New", monospace;
@@ -231,9 +244,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .k3d-heartbeat-dot {
   width: 6px;
   height: 6px;
-  background: #16a34a;
+  background: var(--k3d-teal);
   border-radius: 50%;
-  box-shadow: 0 0 6px #22c55e;
+  box-shadow: 0 0 6px var(--k3d-teal);
   animation: k3dHeaderPulse 2s infinite ease-in-out;
 }
 
