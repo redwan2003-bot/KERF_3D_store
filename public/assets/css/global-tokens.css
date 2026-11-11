@@ -651,9 +651,6 @@ textarea::placeholder {
   color: var(--k3d-meta) !important;
   opacity: 0.75 !important;
 }
-  border-radius: 50%;
-  animation: k3d-radar-pulse 2s infinite ease-out;
-}
 
 @keyframes k3d-radar-pulse {
   0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.8); }
@@ -688,19 +685,19 @@ textarea::placeholder {
     bottom: 16px;
     right: 14px;
   }
-  .k3d-wa-label {
+  .k3d-wa-meta {
     display: none;
   }
   .k3d-whatsapp-pill {
-    padding: 6px 12px 6px 6px;
-    gap: 8px;
-  }
-  .k3d-wa-status {
-    font-size: 8px;
+    padding: 0;
+    width: 42px;
+    height: 42px;
+    justify-content: center;
+    box-shadow: 2px 2px 0 var(--k3d-ink);
   }
   .k3d-wa-icon-wrap {
-    width: 30px;
-    height: 30px;
+    width: 100%;
+    height: 100%;
   }
 }
 
