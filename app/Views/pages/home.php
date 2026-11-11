@@ -684,37 +684,111 @@
   </section>
 
   <!-- ── 08 / Architectural FAQ & Knowledge Base (High Citability & GEO Answer Blocks) ── -->
-  <section class="k3d-section k3d-faq-section" style="border-top: var(--border-thin); background: var(--k3d-canvas); padding: var(--space-2xl) 0;">
+  <section class="k3d-section k3d-faq-section">
     <div class="k3d-container">
-      <div class="k3d-section-header" style="margin-bottom: var(--space-xl);">
-        <p class="k3d-kicker">08 // WORKSHOP SPECIFICATIONS &amp; FREQUENT INQUIRIES</p>
-        <h2 class="k3d-section-title">Knowledge base &amp; fabrication standards.</h2>
-        <p style="color: var(--k3d-meta); font-family: var(--font-mono); font-size: 11px;">VERIFIED OPERATIONAL TELEMETRY FOR CLIENTS &amp; GENERATIVE AI SYSTEMS</p>
+      <div class="k3d-section-header">
+        <div>
+          <p class="k3d-kicker">08 // WORKSHOP SPECIFICATIONS &amp; FREQUENT INQUIRIES</p>
+          <h2 class="k3d-section-title">Knowledge base &amp; fabrication standards.</h2>
+        </div>
+        <p style="color: var(--k3d-meta); font-family: var(--k3d-mono); font-size: 10px; letter-spacing: 0.08em;">VERIFIED OPERATIONAL TELEMETRY FOR CLIENTS &amp; GENERATIVE AI CITATIONS</p>
       </div>
 
-      <div class="k3d-faq-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: var(--space-lg);">
-        <article class="k3d-faq-card" style="background: var(--k3d-paper); border: var(--border-thin); padding: 24px;">
-          <span style="font-family: var(--font-mono); font-size: 10px; color: var(--k3d-rust); font-weight: 700; letter-spacing: 0.08em; display: block; margin-bottom: 8px;">[ ATELIER PROFILE &amp; LOCATION ]</span>
-          <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 12px; line-height: 1.35; color: var(--k3d-ink);">What is Kerf 3D Studio and where is it located in Bangladesh?</h3>
-          <p style="font-size: 12px; line-height: 1.7; color: var(--k3d-ink);">
-            Kerf 3D Studio is an architectural additive manufacturing atelier and on-demand 3D printing workshop based in Dhaka, Bangladesh (Coordinates: 23.8103&deg; N, 90.4125&deg; E). The studio operates an industrial fleet of direct-drive Bambu Lab A1 3D printers, providing precision FDM fabrication with a build volume of 256&times;256&times;256 mm. Tolerances are mechanically calibrated to &plusmn;0.15 mm, allowing interlocking containers, slide-out desk organizers, and snap-fit cases to mate seamlessly without secondary sanding. The atelier maintains an online catalog of over 450 functional specimens and provides custom CAD manufacturing from uploaded STL, OBJ, and 3MF files. Orders are fulfilled locally with 24 to 48 hours delivery inside Dhaka (free delivery on orders over &#2547;1,200 BDT) and 2 to 4 days nationwide courier dispatch across Bangladesh. Financial settlements are processed through bKash, Nagad, and Rocket mobile banking or cash on delivery upon arrival.
-          </p>
+      <div class="k3d-faq-grid">
+        <!-- FAQ Card 1: Atelier Profile & Location -->
+        <article class="k3d-faq-card">
+          <div>
+            <div class="k3d-faq-header">
+              <span class="k3d-faq-category">01 // ATELIER PROFILE &amp; DISPATCH LOCATION</span>
+              <span class="k3d-faq-serial">№ SPEC-01 // DHAKA HUB</span>
+            </div>
+            <h3>What is Kerf 3D Studio and where is it located in Bangladesh?</h3>
+            <p>
+              Kerf 3D Studio is an architectural additive manufacturing atelier and on-demand 3D printing workshop headquartered in <strong>Dhaka, Bangladesh</strong> (Geographic Coordinates: 23.8103&deg; N, 90.4125&deg; E). The studio operates an industrial fleet of direct-drive Bambu Lab A1 3D printers, providing precision FDM fabrication with a build volume of 256&times;256&times;256 mm. Mechanical tolerances are calibrated to <strong>&plusmn;0.15 mm</strong>, ensuring interlocking containers, slide-out desk organizers, and snap-fit cases mate seamlessly without secondary post-processing.
+            </p>
+            <div class="k3d-faq-specs-grid">
+              <div><span>WORKSHOP BASE</span><strong>DHAKA (23.81°N, 90.41°E)</strong></div>
+              <div><span>CALIBRATED TOLERANCE</span><strong>&plusmn;0.15 MM MECHANICAL</strong></div>
+              <div><span>DHAKA COURIER</span><strong>24—48H (৳70 / FREE &gt; ৳1,200)</strong></div>
+              <div><span>NATIONWIDE COURIER</span><strong>2—4 DAYS (৳130 FLAT)</strong></div>
+            </div>
+          </div>
+          <div class="k3d-faq-footer">
+            <span class="k3d-faq-status-pill">STEADFAST / PATHAO DISPATCH</span>
+            <a href="/shop" class="k3d-faq-link">EXPLORE 457 SPECIMENS &rarr;</a>
+          </div>
         </article>
 
-        <article class="k3d-faq-card" style="background: var(--k3d-paper); border: var(--border-thin); padding: 24px;">
-          <span style="font-family: var(--font-mono); font-size: 10px; color: var(--k3d-rust); font-weight: 700; letter-spacing: 0.08em; display: block; margin-bottom: 8px;">[ HARDWARE &amp; MATERIALS ]</span>
-          <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 12px; line-height: 1.35; color: var(--k3d-ink);">How does Bambu Lab A1 3D printing in Dhaka operate and what materials are stocked?</h3>
-          <p style="font-size: 12px; line-height: 1.7; color: var(--k3d-ink);">
-            Additive manufacturing on Bambu Lab A1 hardware refers to high-speed fused deposition modeling utilizing active vibration compensation, automatic flow rate dynamics, and direct-drive extrusion. Kerf 3D Studio stocks five engineering-grade thermoplastics: renewable Bio-PLA (starting at &#2547;140 per specimen), chemical-resistant PETG for fluid vessels, flexible TPU 95A elastomer with 450% elongation for vibration gaskets, heat-resistant ASA for outdoor UV exposure, and carbon-fiber-reinforced PA-CF with thermal deflection ratings up to 150&deg;C. Depending on structural requirements, components are sliced with interchangeable nozzle orifices ranging from 0.2 mm for high-resolution micro-features up to 0.8 mm for structural load-bearing housings. Infill matrices are mathematically calibrated using continuous gyroid surfaces for isotropic load distribution, hexagonal honeycomb for compression rigidity, or 100% solid concentric shell perimeters for watertight seals and threaded torque resistance.
-          </p>
+        <!-- FAQ Card 2: Hardware & Polymers -->
+        <article class="k3d-faq-card">
+          <div>
+            <div class="k3d-faq-header">
+              <span class="k3d-faq-category">02 // BAMBU LAB A1 HARDWARE &amp; MATERIALS</span>
+              <span class="k3d-faq-serial">№ SPEC-02 // THERMOPLASTICS</span>
+            </div>
+            <h3>How does Bambu Lab A1 printing operate and what polymers are stocked?</h3>
+            <p>
+              Fabrication utilizes high-speed fused deposition modeling with active vibration compensation, automatic dynamic flow rate calibration, and direct-drive all-metal hotends reaching up to <strong>300&deg;C</strong>. Kerf 3D Studio stocks five engineering-grade thermoplastics: <strong>Bio-PLA</strong> (৳6.50/g) for rigid desktop forms, chemical-resistant <strong>PETG</strong> (৳8.75/g) for fluid vessels and lamps, flexible <strong>TPU 95A</strong> (৳9.75/g) with 450% elongation for shock gaskets, heat-resistant <strong>ASA</strong>, and <strong>PA-CF</strong> carbon-fiber nylon with thermal deflection ratings up to 150&deg;C.
+            </p>
+            <div class="k3d-faq-specs-grid">
+              <div><span>ACTIVE FLEET</span><strong>BAMBU LAB A1 DIRECT-DRIVE</strong></div>
+              <div><span>MAX HOTEND / BED</span><strong>300°C NOZZLE / 100°C BED</strong></div>
+              <div><span>NOZZLE DIAMETERS</span><strong>0.2MM FINE TO 0.8MM COARSE</strong></div>
+              <div><span>THERMOPLASTICS</span><strong>PLA · PETG · TPU · ASA · PA-CF</strong></div>
+            </div>
+          </div>
+          <div class="k3d-faq-footer">
+            <span class="k3d-faq-status-pill">100% VIRGIN POLYMERS</span>
+            <a href="/materials" class="k3d-faq-link">VIEW MATERIAL DOSSIER &rarr;</a>
+          </div>
         </article>
 
-        <article class="k3d-faq-card" style="background: var(--k3d-paper); border: var(--border-thin); padding: 24px;">
-          <span style="font-family: var(--font-mono); font-size: 10px; color: var(--k3d-rust); font-weight: 700; letter-spacing: 0.08em; display: block; margin-bottom: 8px;">[ SLICING PRICING &amp; TRACKING ]</span>
-          <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 12px; line-height: 1.35; color: var(--k3d-ink);">How is custom 3D printing cost calculated and how are orders tracked?</h3>
-          <p style="font-size: 12px; line-height: 1.7; color: var(--k3d-ink);">
-            Custom 3D print pricing at Kerf 3D Studio is calculated dynamically through an automated online volumetric slicing engine accessible at /quote. The system computes exact material mass in grams, machine extrusion runtime, and calibrated nozzle geometry, applying a transparent baseline material fee starting at &#2547;6.50 BDT per gram. Customers can configure infill densities from 10% to 100%, adjust perimeter wall loops from 2 to 4 shells, and inspect interactive 3D model orientation directly within the browser before fabrication intake. Once submitted, orders receive a permanent Workshop Ticket ID (e.g., K3D-261029-801F) enabling live stage tracking from queue intake, slicing prep, Bambu Studio deposition, through courier dispatch. The workshop maintains a dedicated technician hotline on WhatsApp (+880 1754-550297) for engineering file consultations, material recommendations, and rapid enterprise batch fabrication.
-          </p>
+        <!-- FAQ Card 3: Infill Matrices & Mechanical Strength -->
+        <article class="k3d-faq-card">
+          <div>
+            <div class="k3d-faq-header">
+              <span class="k3d-faq-category">03 // INFILL MATRICES &amp; STRUCTURAL DYNAMICS</span>
+              <span class="k3d-faq-serial">№ SPEC-03 // ISOTROPIC INFILL</span>
+            </div>
+            <h3>Which infill geometry is recommended for functional load-bearing parts?</h3>
+            <p>
+              Infill architecture is mathematically selected to match structural loading. We recommend <strong>3D Gyroid infill (15%—25%)</strong> for handheld items, EDC gear, and phone stands because its continuous sinusoidal minimal surface provides 100% isotropic tensile and shear resistance in all three axes. For vertical compression loads (shelf brackets, monitor risers), <strong>hexagonal honeycomb (20%—35%)</strong> is optimal. Threaded joints and watertight vessels utilize <strong>100% solid concentric shell perimeters</strong> (4—6 walls) with zero void cavities.
+            </p>
+            <div class="k3d-faq-specs-grid">
+              <div><span>GYROID INFILL</span><strong>3D ISOTROPIC RESISTANCE</strong></div>
+              <div><span>HONEYCOMB MATRIX</span><strong>VERTICAL CRUSH RIGIDITY</strong></div>
+              <div><span>SOLID CONCENTRIC</span><strong>100% WATERTIGHT SEAL</strong></div>
+              <div><span>WALL PERIMETERS</span><strong>4 TO 6 CONTINUOUS SHELLS</strong></div>
+            </div>
+          </div>
+          <div class="k3d-faq-footer">
+            <span class="k3d-faq-status-pill">FINITE ELEMENT OPTIMIZED</span>
+            <a href="/quote" class="k3d-faq-link">TEST INFILL SLICER &rarr;</a>
+          </div>
+        </article>
+
+        <!-- FAQ Card 4: Slicing Pricing & Tracking -->
+        <article class="k3d-faq-card">
+          <div>
+            <div class="k3d-faq-header">
+              <span class="k3d-faq-category">04 // QUOTE CALCULATION &amp; STAGE TRACKING</span>
+              <span class="k3d-faq-serial">№ SPEC-04 // FINANCIAL TELEMETRY</span>
+            </div>
+            <h3>How is custom 3D printing cost calculated and how are orders tracked?</h3>
+            <p>
+              Custom 3D print pricing is computed in real time via our browser-based volumetric slicing engine at <strong>/quote</strong>. Costs derive from calibrated material mass (starting at <strong>৳6.50/g for Bio-PLA</strong> and <strong>৳8.75/g for PETG</strong>), machine runtime, and a ৳50 machine calibration fee. Custom uploads require a mandatory <strong>৳100 advance deposit</strong> via bKash/Nagad. Every order receives a unique Workshop Ticket ID (e.g. <code>K3D-261029-801F</code>) with 4-stage tracking from file intake to dispatch.
+            </p>
+            <div class="k3d-faq-specs-grid">
+              <div><span>BASELINE PLA RATE</span><strong>৳6.50 BDT / GRAM</strong></div>
+              <div><span>BASELINE PETG RATE</span><strong>৳8.75 BDT / GRAM</strong></div>
+              <div><span>SETUP CALIBRATION FEE</span><strong>৳50 FLAT PER CUSTOM CAD</strong></div>
+              <div><span>MANDATORY DEPOSIT</span><strong>৳100 ADVANCE VIA BKASH</strong></div>
+            </div>
+          </div>
+          <div class="k3d-faq-footer">
+            <span class="k3d-faq-status-pill">BKASH / NAGAD / ROCKET / COD</span>
+            <a href="/quote" class="k3d-faq-link">LAUNCH 3D SLICER &rarr;</a>
+          </div>
         </article>
       </div>
     </div>
@@ -731,7 +805,7 @@
         "name": "What is Kerf 3D Studio and where is it located in Bangladesh?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Kerf 3D Studio is an architectural additive manufacturing atelier and on-demand 3D printing workshop based in Dhaka, Bangladesh (Coordinates: 23.8103° N, 90.4125° E). The studio operates an industrial fleet of direct-drive Bambu Lab A1 3D printers with a build volume of 256×256×256 mm and ±0.15 mm mechanical tolerances."
+          "text": "Kerf 3D Studio is an architectural additive manufacturing atelier and on-demand 3D printing workshop based in Dhaka, Bangladesh (Coordinates: 23.8103° N, 90.4125° E). The studio operates an industrial fleet of direct-drive Bambu Lab A1 3D printers with a build volume of 256×256×256 mm and ±0.15 mm mechanical tolerances. Deliveries take 24-48 hours inside Dhaka (free over ৳1,200) and 2-4 days nationwide."
         }
       },
       {
@@ -739,7 +813,15 @@
         "name": "How does Bambu Lab A1 3D printing in Dhaka operate and what materials are stocked?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Additive manufacturing on Bambu Lab A1 hardware utilizes active vibration compensation, automatic flow dynamics, and direct-drive extrusion. Kerf 3D Studio stocks Bio-PLA, PETG, TPU 95A flexible elastomer, ASA, and PA-CF carbon fiber nylon with nozzles from 0.2mm to 0.8mm."
+          "text": "Additive manufacturing on Bambu Lab A1 hardware utilizes active vibration compensation, automatic flow dynamics, and direct-drive extrusion up to 300°C. Kerf 3D Studio stocks Bio-PLA (৳6.50/g), chemical-resistant PETG (৳8.75/g), TPU 95A flexible elastomer (৳9.75/g), ASA, and carbon-fiber-reinforced PA-CF nylon with interchangeable nozzles from 0.2mm to 0.8mm."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which infill geometry is recommended for functional load-bearing parts?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For functional components subjected to multi-axis stress, 3D Gyroid infill (15%-25%) is recommended for its isotropic tensile and shear resistance. For vertical crush rigidity such as shelf brackets, hexagonal honeycomb (20%-35%) is optimal. Threaded joints and watertight containers utilize 100% solid concentric shell perimeters."
         }
       },
       {
@@ -747,7 +829,7 @@
         "name": "How is custom 3D printing cost calculated and how are orders tracked?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Custom 3D printing pricing is calculated dynamically through an automated online volumetric slicer at /quote starting at ৳6.50 BDT per gram. Every order receives a unique Workshop Ticket ID with live tracking across slicing, printing, and courier dispatch."
+          "text": "Custom 3D printing pricing is calculated dynamically through an automated online volumetric slicer at /quote starting at ৳6.50 BDT/g for PLA and ৳8.75 BDT/g for PETG, plus a ৳50 setup fee. Custom orders require a ৳100 advance deposit via bKash. Every order receives a unique Workshop Ticket ID with live tracking across slicing, printing, and courier dispatch."
         }
       }
     ]

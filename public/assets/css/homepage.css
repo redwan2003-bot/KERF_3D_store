@@ -981,6 +981,143 @@
   }
 }
 
+/* ── 08 / Architectural FAQ & Knowledge Base Dossier ─────────── */
+.k3d-faq-section {
+  border-top: 2px solid var(--k3d-ink);
+  background: var(--k3d-canvas);
+  padding: 80px 0 100px;
+}
+
+.k3d-faq-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+  margin-top: 32px;
+}
+
+.k3d-faq-card {
+  background: var(--k3d-surface);
+  border: 1px solid var(--k3d-ink);
+  padding: 28px 26px 26px;
+  box-shadow: 4px 4px 0px rgba(24, 24, 24, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+}
+
+.k3d-faq-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 6px 6px 0px rgba(24, 24, 24, 0.09);
+}
+
+.k3d-faq-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  border-bottom: 1px dashed var(--k3d-border);
+  padding-bottom: 10px;
+}
+
+.k3d-faq-category {
+  font-family: var(--k3d-mono);
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--k3d-rust);
+  letter-spacing: 0.1em;
+}
+
+.k3d-faq-serial {
+  font-family: var(--k3d-mono);
+  font-size: 9px;
+  color: var(--k3d-meta);
+}
+
+.k3d-faq-card h3 {
+  font-family: var(--k3d-display);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--k3d-ink);
+  line-height: 1.35;
+  margin: 0 0 16px;
+}
+
+.k3d-faq-card p {
+  font-family: var(--k3d-sans);
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--k3d-secondary);
+  margin: 0 0 20px;
+}
+
+.k3d-faq-card p strong {
+  color: var(--k3d-ink);
+  font-weight: 700;
+}
+
+.k3d-faq-specs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px 12px;
+  background: var(--k3d-canvas);
+  border: 1px solid var(--k3d-border);
+  padding: 12px 14px;
+  margin-bottom: 18px;
+  font-family: var(--k3d-mono);
+  font-size: 9.5px;
+}
+
+.k3d-faq-specs-grid span {
+  color: var(--k3d-meta);
+  display: block;
+  font-size: 8px;
+  letter-spacing: 0.05em;
+  margin-bottom: 2px;
+}
+
+.k3d-faq-specs-grid strong {
+  color: var(--k3d-ink);
+  font-weight: 700;
+}
+
+.k3d-faq-footer {
+  border-top: 1px dashed var(--k3d-border);
+  padding-top: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--k3d-mono);
+  font-size: 10px;
+}
+
+.k3d-faq-link {
+  color: var(--k3d-ink);
+  text-decoration: none;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.15s ease;
+}
+
+.k3d-faq-link:hover {
+  color: var(--k3d-rust);
+}
+
+.k3d-faq-status-pill {
+  font-size: 8.5px;
+  color: var(--k3d-meta);
+  letter-spacing: 0.06em;
+}
+
+@media (max-width: 900px) {
+  .k3d-faq-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ── 04 / Atelier Intake Ledger & Terminal Styles ─────────── */
 .k3d-ledger-section {
   background: var(--k3d-canvas);
