@@ -1,14 +1,17 @@
 <?php
 
+// ============================================================
+// KERF 3D Studio - Comprehensive Facebook Feed Purge
+// ============================================================
+
 require __DIR__ . '/social_manager.php';
 
 echo "============================================================\n";
-echo "KERF 3D - PURGING ALL REMAINING PUBLISHED LEGACY POSTS\n";
+echo "KERF 3D - COMPREHENSIVE FEED PURGE (RUNNING UNTIL ZERO)\n";
 echo "============================================================\n";
 
-// 1. Get all scheduled post IDs to make 100% sure we don't touch them
-$schedUrl = "{$pageId}/scheduled_posts?fields=id&limit=100";
-$schedRes = apiGet($schedUrl, $pageToken);
+// 1. Identify all scheduled post IDs to protect
+$schedRes = apiGet("{$pageId}/scheduled_posts?fields=id&limit=100", $pageToken);
 $scheduledIds = [];
 if (!empty($schedRes['data']['data'])) {
     foreach ($schedRes['data']['data'] as $sp) {
@@ -17,52 +20,63 @@ if (!empty($schedRes['data']['data'])) {
 }
 echo "Identified " . count($scheduledIds) . " scheduled posts to protect.\n";
 
-// 2. Paginate through all published posts
-$allLegacyPosts = [];
-$url = "{$pageId}/published_posts?fields=id,message,created_time,shares,comments.summary(true),reactions.summary(true)&limit=50";
+$totalDeleted = 0;
+$iteration = 0;
 
-do {
-    $res = apiGet($url, $pageToken);
-    if (!empty($res['data']['data'])) {
-        foreach ($res['data']['data'] as $post) {
-            // Only add if not in scheduled
-            if (!isset($scheduledIds[$post['id']])) {
-                $allLegacyPosts[] = $post;
-            }
+// 2. Loop continuously on published_posts until count is 0
+while (true) {
+    $iteration++;
+    echo "\n--- Batch #{$iteration}: Fetching published posts ---\n";
+    $res = apiGet("{$pageId}/published_posts?fields=id,message,created_time&limit=100", $pageToken);
+    $posts = $res['data']['data'] ?? [];
+    
+    $batchToDelete = [];
+    foreach ($posts as $p) {
+        if (!isset($scheduledIds[$p['id']])) {
+            $batchToDelete[] = $p;
         }
     }
-    $url = null;
-    if (!empty($res['data']['paging']['next'])) {
-        $parts = parse_url($res['data']['paging']['next']);
-        $url = ltrim($parts['path'], '/') . '?' . ($parts['query'] ?? '');
+
+    $count = count($batchToDelete);
+    echo "Found {$count} posts in this batch.\n";
+
+    if ($count === 0) {
+        echo "No more posts found in published_posts!\n";
+        break;
     }
-} while ($url);
 
-echo "Found " . count($allLegacyPosts) . " published legacy posts to purge.\n";
+    // Save batch backup
+    $backupFile = __DIR__ . "/../backups/legacy_batch_{$iteration}_" . date('Ymd_His') . ".json";
+    file_put_contents($backupFile, json_encode($batchToDelete, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
 
-if (empty($allLegacyPosts)) {
-    echo "No legacy published posts found. Feed is clean!\n";
-    exit(0);
+    foreach ($batchToDelete as $i => $post) {
+        $idx = $i + 1;
+        $dRes = apiDelete($post['id'], $pageToken);
+        if (!empty($dRes['data']['success'])) {
+            $totalDeleted++;
+            echo " [{$idx}/{$count}] (Total: {$totalDeleted}) ✔ Deleted: {$post['id']}\n";
+        } else {
+            echo " [{$idx}/{$count}] ✖ Failed: {$post['id']} - " . json_encode($dRes['data']) . "\n";
+        }
+        usleep(200000); // 200ms delay
+    }
 }
 
-// Backup before deletion
-$backupFile = __DIR__ . '/../backups/legacy_posts_backup_' . date('Ymd_His') . '.json';
-file_put_contents($backupFile, json_encode($allLegacyPosts, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
-echo "Backed up " . count($allLegacyPosts) . " posts to {$backupFile}\n";
-
-$deletedCount = 0;
-foreach ($allLegacyPosts as $i => $post) {
-    $num = $i + 1;
-    $res = apiDelete($post['id'], $pageToken);
-    if (!empty($res['data']['success'])) {
-        $deletedCount++;
-        echo "[{$num}/" . count($allLegacyPosts) . "] ✔ Deleted: {$post['id']}\n";
-    } else {
-        echo "[{$num}/" . count($allLegacyPosts) . "] ✖ Failed: {$post['id']} - " . json_encode($res['data']) . "\n";
+// 3. Final Sweep: Check /feed for any orphaned user posts or shared posts
+echo "\n--- Final Sweep: Checking /feed for any remaining posts ---\n";
+$feedRes = apiGet("{$pageId}/feed?fields=id,is_published,scheduled_publish_time&limit=100", $pageToken);
+$feedPosts = $feedRes['data']['data'] ?? [];
+$orphaned = 0;
+foreach ($feedPosts as $fp) {
+    if (!isset($scheduledIds[$fp['id']])) {
+        $orphaned++;
+        echo "Deleting orphaned feed item: {$fp['id']}...\n";
+        apiDelete($fp['id'], $pageToken);
+        $totalDeleted++;
+        usleep(200000);
     }
-    usleep(250000); // 250ms sleep
 }
 
-echo "============================================================\n";
-echo "PURGE COMPLETE: Deleted {$deletedCount} of " . count($allLegacyPosts) . " posts.\n";
+echo "\n============================================================\n";
+echo "PURGE FINISHED: Successfully deleted {$totalDeleted} legacy posts total!\n";
 echo "============================================================\n";
